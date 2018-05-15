@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="shiba">16px</dimen>
+    <dimen name="shier">12px</dimen>
+    <dimen name="shiSP">10sp</dimen>
+    <dimen name="yipx">1px</dimen>
+    <dimen name="erpx">2px</dimen>
+    <dimen name="wushipx">50px</dimen>
+    <dimen name="more_top_bottom_padding">14dp</dimen>
+    <dimen name="more_top_margin">10dp</dimen>
+    <dimen name="more_left_right_padding">12dp</dimen>
+    <dimen name="more_right_margin">10dp</dimen>
+    
+    <dimen name="text_big_size">16sp</dimen>
+    <dimen name="text_mid_size">14sp</dimen>
+    <dimen name="text_small_size">12sp</dimen>
+    <dimen name="text_toosmall_size">10sp</dimen>
+    <dimen name="image_def_size">76dp</dimen>
+    
+    <dimen name="line_gray_halving_height">6dp</dimen>
+</resources>

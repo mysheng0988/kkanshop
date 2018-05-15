@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout style="@style/wrap_layout"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/person_header"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/default_header"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/login_btn"
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="left|center"
+                android:textSize="20dp"
+                android:layout_height="40dp"
+                android:text="点击登录"/>
+            <LinearLayout
+                android:id="@+id/textContent"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/person_name"
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_height="20dp"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/person_code"
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_height="20dp"
+                    android:text=""/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="20dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:src="@drawable/setting_arrow"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout style="@style/wrap_layout" >
+        <!-- 上圆角-->
+        <LinearLayout android:id="@+id/message" style="@style/top_layout" >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/message"/>
+            <TextView style="@style/usertext" android:text="我的消息" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <!-- 无圆角-->
+        <LinearLayout android:id="@+id/ip_setting" style="@style/mid_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ip_setting"/>
+            <TextView style="@style/usertext" android:text="设置IP地址" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/ip_flow"
+            style="@style/mid_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/flow_ip"/>
+            <TextView style="@style/usertext" android:text="流程图IP地址" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout android:id="@+id/update_password" style="@style/mid_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/setting_edit"/>
+            <TextView style="@style/usertext" android:text="修改密码" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout
+            android:id="@+id/switch_user"
+            style="@style/bottom_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/setting_switch"/>
+            <TextView style="@style/usertext" android:text="切换账户" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout style="@style/wrap_layout"
+        android:orientation="horizontal"
+        android:id="@+id/login_exit"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="40dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/setting_exit"/>
+        <TextView style="@style/usertext"
+
+            android:text="退出登录" />
+        <ImageView android:layout_marginRight="10dp" style="@style/img_arrow"/>
+    </LinearLayout>
+
+</LinearLayout>
