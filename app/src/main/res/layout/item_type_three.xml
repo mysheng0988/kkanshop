@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:layout_marginTop="10dp"
+    android:layout_margin="2dp"
     android:background="@drawable/bg_bottom_radius"
     android:gravity="center_vertical"
     android:orientation="horizontal"
@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/avatar"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="40dp"
         android:layout_height="40dp" />
     <LinearLayout
@@ -23,14 +23,14 @@
         <TextView
             tools:text="mysheng"
             android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/name"
             android:layout_width="80dp"
             android:layout_height="20dp" />
         <TextView
             tools:text="mysheng"
             android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/content"
             android:layout_width="80dp"
             android:layout_height="20dp" />

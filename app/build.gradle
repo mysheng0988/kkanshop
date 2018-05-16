@@ -27,4 +27,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/library-1.0.19.jar')
+    compile 'com.youth.banner:banner:1.4.10'
+    compile 'com.github.bumptech.glide:volley-integration:4.6.0'
+    implementation files('libs/glide-volley-integration-4.7.0.jar')
 }

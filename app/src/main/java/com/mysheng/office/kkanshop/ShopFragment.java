@@ -2,6 +2,7 @@ package com.mysheng.office.kkanshop;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,8 +37,20 @@ public class ShopFragment extends Fragment{
 //        tv_title.setText(str);
         str = getArguments().getString(TAG);
         mRecyclerView=view.findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        //LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                int type=mRecyclerView.getAdapter().getItemViewType(position);
+                if(type==DataModel.TYPR_THREE){
+                    return gridLayoutManager.getSpanCount();
+                }else{
+                    return 1;
+                }
+            }
+        });
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         classifyAdapter=new ClassifyAdapter(getActivity());
         mRecyclerView.setAdapter(classifyAdapter);
         initData();
@@ -46,8 +59,15 @@ public class ShopFragment extends Fragment{
 
     private void initData() {
         List<DataModel> list=new ArrayList<>();
-        for(int i=0;i<30;i++){
-            int type= (int) ((Math.random()*3)+1);
+        for(int i=0;i<31;i++){
+            int type;
+            if(i>0&&i<11){
+                type=1;
+            }else if(i>10&&i<21){
+                type=2;
+            }else{
+                type=3;
+            }
             DataModel model=new DataModel();
             model.avatarColor=color[type-1];
             model.type=type;
