@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mysheng.office.kkanshop.util.ShopAdapter;
+import com.mysheng.office.kkanshop.adapter.ShopAdapter;
 
 public class ClassifyFragment extends Fragment  implements
 		AdapterView.OnItemClickListener {

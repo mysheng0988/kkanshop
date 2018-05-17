@@ -13,6 +13,7 @@ import com.mysheng.office.kkanshop.util.BitmapCache;
 import com.mysheng.office.kkanshop.util.GlideImageLoader;
 import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 
@@ -35,9 +36,14 @@ public class IndexFragment extends Fragment {
 		banner.setImageLoader(new GlideImageLoader());
 		list_path.add("http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
 		list_path.add("http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
+		list_path.add("http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
+		list_path.add("http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
 		banner.setImages(list_path);
 		list_title.add("小笨猪");
 		list_title.add("小懒猪");
+		list_title.add("555");
+		list_title.add("1111");
+		banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
 		banner.setBannerTitles(list_title);
 
 		//banner设置方法全部调用完毕时最后调用

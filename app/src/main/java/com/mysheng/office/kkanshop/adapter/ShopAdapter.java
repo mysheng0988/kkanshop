@@ -1,4 +1,4 @@
-package com.mysheng.office.kkanshop.util;
+package com.mysheng.office.kkanshop.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -48,7 +48,7 @@ public class ShopAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         convertView = LayoutInflater.from(context).inflate(R.layout.item_layout, null);
-        TextView tv = (TextView) convertView.findViewById(R.id.tv);
+        TextView tv = convertView.findViewById(R.id.tv);
         mPosition = position;
         tv.setText(strings[position]);
         if (position == ClassifyFragment.mPosition) {
