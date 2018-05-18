@@ -1,6 +1,14 @@
 <resources>
-    <string name="app_name">kkanshop</string>
+    <string name="app_name">demo</string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="search_hint">请输入搜索内容</string>
+    <string name="indexName1">看看超市</string>
+    <string name="indexName2">看看服饰</string>
+    <string name="indexName3">看看出行</string>
+    <string name="indexName4">餐饮住宿</string>
+    <string name="indexName5">生鲜水果</string>
+    <string name="indexName6">卤味熟食</string>
+    <string name="indexName7">百货副食</string>
+    <string name="indexName8">领劵中心</string>
 </resources>

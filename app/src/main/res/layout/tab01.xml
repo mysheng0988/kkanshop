@@ -1,181 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:scrollbars="vertical"
-android:fadingEdge="vertical">
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    <com.youth.banner.Banner
-        android:id="@+id/id_banner"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
-    </com.youth.banner.Banner>
-    <TableLayout
-        android:id="@+id/user"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="60dp"
         android:background="#ffffff"
-        android:stretchColumns="*">
-        <TableRow android:id="@+id/row1" android:layout_marginBottom="5dp"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:hint="点击快速搜索"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_edit" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_margin="5dp"
+            android:layout_height="35dp"
+            android:src="@drawable/news_msg"/>
+    </LinearLayout>
 
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-
-        </TableRow>
-        <TableRow android:id="@+id/row2" android:layout_marginBottom="5dp"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_margin="2dp"
-                android:layout_height="110dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="110dp"
-                android:layout_margin="2dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="110dp"
-                android:layout_margin="2dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/image_shape_radius"
-                    android:gravity="center_horizontal"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="测试"/>
-
-            </LinearLayout>
-
-        </TableRow>
-    </TableLayout>
-    <ImageView
-        android:id="@+id/image"
-        android:scaleType="centerCrop"
+    <com.mysheng.office.kkanshop.view.ObservableScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/netImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+            <com.youth.banner.Banner
+                android:id="@+id/id_banner"
+                android:layout_width="match_parent"
+                android:layout_height="250dp">
+            </com.youth.banner.Banner>
+            <TableLayout
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:background="#ffffff"
+                android:stretchColumns="*">
+                <TableRow android:id="@+id/row1" android:layout_marginBottom="5dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName1"/>
 
-</ScrollView>
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName2"/>
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName3"/>
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName4"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+                <TableRow android:id="@+id/row2" android:layout_marginBottom="5dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName5"/>
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_margin="2dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName6"/>
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName7"/>
+
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/image_shape_radius"
+                            android:gravity="center_horizontal"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/indexName8"/>
+
+                    </LinearLayout>
+
+                </TableRow>
+            </TableLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/netImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+        </LinearLayout>
+    </com.mysheng.office.kkanshop.view.ObservableScrollView>
+
+</RelativeLayout>
