@@ -17,5 +17,6 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         Glide.with(context).load((String) path).into(imageView);
+
     }
 }

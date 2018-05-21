@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.mysheng.office.kkanshop.util.LoginAsyncTask;
 import com.mysheng.office.kkanshop.util.MikyouCommonDialog;
 import com.mysheng.office.kkanshop.util.ReadLoginData;
 import com.mysheng.office.kkanshop.util.UtilDialog;
+import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.util.VolleyInterface;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
@@ -45,6 +47,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private LinearLayout updatePassword;
 	private LinearLayout switchUser;
 	private LinearLayout loginExit;
+	private ImageView testImage;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -68,6 +71,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		updatePassword=view.findViewById(R.id.update_password);
 		switchUser=view.findViewById(R.id.switch_user);
 		loginExit=view.findViewById(R.id.login_exit);
+		testImage=view.findViewById(R.id.testImage);
 	}
 	private void initEvent(){
 		btnLogin.setOnClickListener(this);
@@ -85,7 +89,8 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 				dialog(getActivity(),"登录账户");
 				break;
 			case R.id.message:
-				VolleyJsonPost();
+				//VolleyJsonPost();
+				VolleyImage.loadImageCacheByURL("http://pic.616pic.com/ys_b_img/00/68/13/hZdfzQyx4f.jpg",testImage);
 				break;
 			case R.id.ip_setting:
 				VolleyPost();

@@ -1,6 +1,5 @@
 package com.mysheng.office.kkanshop;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -29,17 +28,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private Fragment mTab02;
 	private Fragment mTab03;
 	private Fragment mTab04;
-
+	FragmentManager manager;
 	private TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+
+
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		initView();
 		initEvent();
+
 		setSelect(0);
 	}
 
@@ -53,22 +55,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 
 	private void initView()
 	{
-		mIndex = (LinearLayout) findViewById(R.id.id_index);
-		mClassify = (LinearLayout) findViewById(R.id.id_classify);
-		mFlow = (LinearLayout) findViewById(R.id.id_shopping);
-		mPerson = (LinearLayout) findViewById(R.id.id_person);
+		mIndex =  findViewById(R.id.id_index);
+		mClassify =  findViewById(R.id.id_classify);
+		mFlow =  findViewById(R.id.id_shopping);
+		mPerson =  findViewById(R.id.id_person);
 
-		mImgIndex = (ImageButton) findViewById(R.id.id_index_img);
-		mImgClassify = (ImageButton) findViewById(R.id.id_classify_img);
-		mImgShopping = (ImageButton) findViewById(R.id.id_shopping_img);
-		mImgPerson = (ImageButton) findViewById(R.id.id_person_img);
+		mImgIndex =  findViewById(R.id.id_index_img);
+		mImgClassify =  findViewById(R.id.id_classify_img);
+		mImgShopping =  findViewById(R.id.id_shopping_img);
+		mImgPerson =  findViewById(R.id.id_person_img);
 		//textView=findViewById(R.id.tab_title);
 	}
 
 	private void setSelect(int i)
 	{
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction transaction = fm.beginTransaction();
+		 manager = getSupportFragmentManager();
+		FragmentTransaction transaction = manager.beginTransaction();
 		hideFragment(transaction);
 		switch (i)
 		{
@@ -76,7 +78,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 			if (mTab01 == null)
 			{
 				mTab01 = new IndexFragment();
-				transaction.add(R.id.id_content, mTab01);
+				transaction.add(R.id.id_content, mTab01,"mTab01");
 			} else
 			{
 				transaction.show(mTab01);
@@ -87,7 +89,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 
 			if (mTab02 == null)
 			{
-				mTab02 = new ClassifyFragment();transaction.add(R.id.id_content, mTab02);
+				mTab02 = new ClassifyFragment();
+				transaction.add(R.id.id_content, mTab02,"mTab02");
 			} else
 			{
 				transaction.show(mTab02);
@@ -99,7 +102,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 			if (mTab03 == null)
 			{
 				mTab03 = new ShoppingCartFragment();
-				transaction.add(R.id.id_content, mTab03);
+				transaction.add(R.id.id_content, mTab03,"mTab03");
 			} else
 			{
 				transaction.show(mTab03);
@@ -110,7 +113,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 			if (mTab04 == null)
 			{
 				mTab04 = new PersonFragment();
-				transaction.add(R.id.id_content, mTab04);
+				transaction.add(R.id.id_content, mTab04,"mTab04");
 			} else
 			{
 				transaction.show(mTab04);
@@ -177,4 +180,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		mImgPerson.setImageResource(R.drawable.person_normal);
 	}
 
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		FragmentTransaction transaction = manager.beginTransaction();
+		transaction.remove(mTab01);
+		transaction.remove(mTab02);
+		transaction.remove(mTab03);
+		transaction.remove(mTab04);
+		transaction.commitAllowingStateLoss();
+		super.onSaveInstanceState(outState);
+	}
 }
