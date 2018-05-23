@@ -11,4 +11,9 @@
     <string name="indexName6">卤味熟食</string>
     <string name="indexName7">百货副食</string>
     <string name="indexName8">领劵中心</string>
+    <!--zxing-->
+    <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
+    <string name="button_ok">退出</string>
+    <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
+    <string name="viewfinderview_status_text2">即可自动扫描</string>
 </resources>

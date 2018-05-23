@@ -1,5 +1,6 @@
 package com.mysheng.office.kkanshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -180,14 +181,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		mImgPerson.setImageResource(R.drawable.person_normal);
 	}
 
+
+
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		FragmentTransaction transaction = manager.beginTransaction();
-		transaction.remove(mTab01);
-		transaction.remove(mTab02);
-		transaction.remove(mTab03);
-		transaction.remove(mTab04);
-		transaction.commitAllowingStateLoss();
-		super.onSaveInstanceState(outState);
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

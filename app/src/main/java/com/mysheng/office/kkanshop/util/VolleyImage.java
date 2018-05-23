@@ -23,25 +23,9 @@ public class VolleyImage {
      * @param imageUrl
      * @param imageView
      */
-//    public static int maxMemory = (int) Runtime.getRuntime().maxMemory();
-//    public static int maxSize = maxMemory / 8;
-//    private static LruCache<String, Bitmap> lruCache;
-//    public VolleyImage(){
-//        lruCache = new LruCache<String, Bitmap>(maxSize) {
-//
-//            @Override
-//            protected int sizeOf(String key, Bitmap value) {
-//                // 测量Bitmap的大小 默认返回图片数量
-//                return value.getRowBytes() * value.getHeight();
-//            }
-//
-//        };
-//    }
     public static void loadImageByURL(final String imageUrl,final ImageView imageView){
 
-        //imageView.setImageBitmap(null);
-        //Bitmap bitmap=lruCache.get(imageUrl);
-        //if(bitmap==null){
+
             ImageRequest request = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
                 @Override
                 public void onResponse(Bitmap response) {
@@ -57,9 +41,6 @@ public class VolleyImage {
             });
 
             KkanApplication.getHttpQueues().add(request);
-//        }else{
-//            imageView.setImageBitmap(bitmap);
-//        }
 
     }
 

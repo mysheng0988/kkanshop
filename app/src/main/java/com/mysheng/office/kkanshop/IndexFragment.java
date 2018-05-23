@@ -81,7 +81,7 @@ public class IndexFragment extends Fragment {
 		//banner设置方法全部调用完毕时最后调用
 		banner.start();
 		String path="http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
-		VolleyImage.loadImageCacheByURL(path,imageView);
+		VolleyImage.loadImageByURL(path,imageView);
 		String url="http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
 		VolleyImage.NetworkImageViewByURL(url,networkImageView);
 	}

@@ -2,11 +2,16 @@ package com.mysheng.office.kkanshop;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,12 +32,15 @@ import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.util.VolleyInterface;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
+import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
+import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
+import com.mysheng.office.kkanshop.zxing.common.Constant;
 
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
@@ -48,6 +56,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private LinearLayout switchUser;
 	private LinearLayout loginExit;
 	private ImageView testImage;
+	//zxing
+	private LinearLayout scanBtn;
+	private Button encodeBtn;
+	private int REQUEST_CODE_SCAN = 0x110;
+	private int SCAN_CODE = 0x111;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -72,6 +85,8 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		switchUser=view.findViewById(R.id.switch_user);
 		loginExit=view.findViewById(R.id.login_exit);
 		testImage=view.findViewById(R.id.testImage);
+
+		scanBtn=view.findViewById(R.id.id_scan_code);
 	}
 	private void initEvent(){
 		btnLogin.setOnClickListener(this);
@@ -81,6 +96,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		updatePassword.setOnClickListener(this);
 		switchUser.setOnClickListener(this);
 		loginExit.setOnClickListener(this);
+		scanBtn.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -108,7 +124,35 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			case R.id.login_exit:
 				dialogExit(getActivity());
 				break;
+			case R.id.id_scan_code:
+				PackageManager pm = getActivity().getPackageManager();
+				if(! (pm.checkPermission("android.permission.CAMERA", "com.mysheng.office.kkanshop")==PackageManager.PERMISSION_GRANTED ) ) {
+					PersonFragment.this.requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+							SCAN_CODE);
+
+				}else {
+					startScanCode();
+				}
+				break;
+			case R.id.id_my_code:
+
+				break;
 		}
+	}
+	private  void startScanCode(){
+		Intent intent = new Intent(getActivity(), CaptureActivity.class);
+
+		/*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
+		 * 也可以不传这个参数
+		 * 不传的话  默认都为默认不震动  其他都为true
+		 * */
+
+		ZxingConfig config = new ZxingConfig();
+		config.setPlayBeep(true);
+		config.setShake(true);
+		intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+
+		startActivityForResult(intent, REQUEST_CODE_SCAN);
 	}
 	private void VolleyGet(){
 		String url="http://apis.juhe.cn/mobile/get?phone=15701570988&key=335adcc4e891ba4e4be6d7534fd54c5d";
@@ -301,6 +345,19 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			personCode.setText("");
 			textContent.setVisibility(View.GONE);
 			btnLogin.setVisibility(View.VISIBLE);
+		}
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		// 扫描二维码/条码回传
+		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+			if (data != null) {
+
+				String content = data.getStringExtra(Constant.CODED_CONTENT);
+				Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }
