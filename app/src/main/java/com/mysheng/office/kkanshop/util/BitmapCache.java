@@ -30,7 +30,8 @@ public class BitmapCache implements ImageLoader.ImageCache
 
     @Override
     public Bitmap getBitmap(String url) {
-        return cache.get(url);
+        Bitmap bitmap=cache.get(url);
+        return bitmap;
     }
 
     @Override

@@ -115,6 +115,34 @@
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
         <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/id_scan_code"
+            style="@style/mid_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/scan_code"/>
+            <TextView style="@style/usertext" android:text="扫一扫" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/id_my_code"
+            style="@style/mid_layout">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/rq_code"/>
+            <TextView style="@style/usertext" android:text="我的二维码" />
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+        <View style="@style/bg_line"/>
         <!-- 下圆角-->
         <LinearLayout
             android:id="@+id/switch_user"
@@ -149,5 +177,8 @@
             android:text="退出登录" />
         <ImageView android:layout_marginRight="10dp" style="@style/img_arrow"/>
     </LinearLayout>
-
+    <ImageView
+        android:id="@+id/testImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 </LinearLayout>

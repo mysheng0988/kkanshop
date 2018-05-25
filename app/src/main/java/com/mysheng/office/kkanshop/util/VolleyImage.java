@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop.util;
 
 import android.graphics.Bitmap;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.android.volley.Response;
@@ -22,23 +23,29 @@ public class VolleyImage {
      * @param imageUrl
      * @param imageView
      */
-    public static void loadImageByURL(String imageUrl,final ImageView imageView){
-        imageView.setImageBitmap(null);
-        ImageRequest request = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                imageView.setImageBitmap(response);
-            }
-        }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+    public static void loadImageByURL(final String imageUrl,final ImageView imageView){
 
-                //imageView.setImageBitmap(null);
-            }
-        });
 
-        KkanApplication.getHttpQueues().add(request);
+            ImageRequest request = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    //lruCache.put(imageUrl,response);
+                    imageView.setImageBitmap(response);
+                }
+            }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    //imageView.setImageBitmap(null);
+                }
+            });
+
+            KkanApplication.getHttpQueues().add(request);
+
     }
+
+
+
 
     /**
      * 带缓存的图片加载
@@ -47,7 +54,7 @@ public class VolleyImage {
      */
     public static void loadImageCacheByURL(String imageUrl,ImageView imageView){
         ImageLoader loader = new ImageLoader(KkanApplication.getHttpQueues(), new BitmapCache());
-        ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.default_header , R.drawable.default_header );
+        ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView,1,1);
 
         loader.get(imageUrl, listener);
     }
