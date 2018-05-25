@@ -16,13 +16,10 @@ public class TypeOneViewHolder extends TypeAbstractViewHolder{
     private TextView mTextView;
     public TypeOneViewHolder(View itemView) {
         super(itemView);
-        mImageView=itemView.findViewById(R.id.avatar);
         mTextView=itemView.findViewById(R.id.name);
     }
     @Override
     public void bindHolder(DataModel model){
-
-        mImageView.setBackgroundResource(model.avatarColor);
         mTextView.setText(model.name);
     }
 }

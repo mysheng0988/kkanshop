@@ -182,6 +182,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	}
 
 
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+		super.onAttachFragment(fragment);
+		if(mTab01 == null &&fragment instanceof IndexFragment){
+			mTab01=fragment;
+		}
+		if(mTab02 == null &&fragment instanceof ClassifyFragment){
+			mTab02=fragment;
+		}
+		if(mTab03 == null &&fragment instanceof ShoppingCartFragment){
+			mTab03=fragment;
+		}
+		if(mTab04 == null &&fragment instanceof PersonFragment){
+			mTab04=fragment;
+		}
+
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

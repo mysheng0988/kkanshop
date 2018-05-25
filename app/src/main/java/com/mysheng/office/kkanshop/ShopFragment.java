@@ -38,15 +38,17 @@ public class ShopFragment extends Fragment{
         str = getArguments().getString(TAG);
         mRecyclerView=view.findViewById(R.id.recyclerView);
         //LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),3);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 int type=mRecyclerView.getAdapter().getItemViewType(position);
-                if(type==DataModel.TYPR_THREE){
-                    return gridLayoutManager.getSpanCount();
-                }else{
+                //int num=DataModel.TYPR_THREE;
+                if(type==DataModel.TYPE_TWO){
                     return 1;
+                }else{
+
+                    return gridLayoutManager.getSpanCount();
                 }
             }
         });
@@ -59,14 +61,12 @@ public class ShopFragment extends Fragment{
 
     private void initData() {
         List<DataModel> list=new ArrayList<>();
-        for(int i=0;i<31;i++){
+        for(int i=0;i<100;i++){
             int type;
-            if(i>0&&i<11){
+            if(i%10==0){
                 type=1;
-            }else if(i>10&&i<21){
+            }else {
                 type=2;
-            }else{
-                type=3;
             }
             DataModel model=new DataModel();
             model.avatarColor=color[type-1];

@@ -32,12 +32,12 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
-            case DataModel.TYPR_ONE:
+            case DataModel.TYPE_ONE:
 
             return new TypeOneViewHolder(mLayoutInflater.inflate(R.layout.item_type_one,parent,false));
-            case DataModel.TYPR_TWO:
+            case DataModel.TYPE_TWO:
                 return new TypeTwoViewHolder(mLayoutInflater.inflate(R.layout.item_type_two,parent,false));
-            case DataModel.TYPR_THREE:
+            case DataModel.TYPE_THREE:
                 return new TypeThreeViewHolder(mLayoutInflater.inflate(R.layout.item_type_three,parent,false));
         }
         return null;
