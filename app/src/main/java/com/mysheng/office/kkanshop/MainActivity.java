@@ -12,6 +12,10 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mysheng.office.kkanshop.util.CommonUtil;
+import com.mysheng.office.kkanshop.zxing.common.Constant;
 
 public class MainActivity extends FragmentActivity implements OnClickListener
 {
@@ -182,9 +186,32 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	}
 
 
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+		super.onAttachFragment(fragment);
+		if(mTab01 == null &&fragment instanceof IndexFragment){
+			mTab01=fragment;
+		}
+		if(mTab02 == null &&fragment instanceof ClassifyFragment){
+			mTab02=fragment;
+		}
+		if(mTab03 == null &&fragment instanceof ShoppingCartFragment){
+			mTab03=fragment;
+		}
+		if(mTab04 == null &&fragment instanceof PersonFragment){
+			mTab04=fragment;
+		}
+
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == CommonUtil.SCAN_RESULT && resultCode == RESULT_OK) {
+			if (data != null) {
+				String content = data.getStringExtra(Constant.CODED_CONTENT);
+				Toast.makeText(this,content,Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 }

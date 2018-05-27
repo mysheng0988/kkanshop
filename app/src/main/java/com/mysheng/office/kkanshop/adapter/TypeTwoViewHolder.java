@@ -1,5 +1,6 @@
 package com.mysheng.office.kkanshop.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,10 +14,11 @@ import com.mysheng.office.kkanshop.entity.DataModel;
  */
 
 public class TypeTwoViewHolder extends TypeAbstractViewHolder{
-    private ImageView mImageView;
-    private TextView mTextView;
-    private TextView mConnent;
+    public ImageView mImageView;
+    public TextView mTextView;
+    public TextView mConnent;
     public TypeTwoViewHolder(View itemView) {
+
         super(itemView);
         mImageView=itemView.findViewById(R.id.avatar);
         mTextView=itemView.findViewById(R.id.name);
@@ -29,4 +31,5 @@ public class TypeTwoViewHolder extends TypeAbstractViewHolder{
         mTextView.setText(model.name);
         mConnent.setText(model.content);
     }
+
 }

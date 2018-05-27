@@ -1,29 +1,30 @@
 package com.mysheng.office.kkanshop;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.mysheng.office.kkanshop.adapter.RecommendAdapter;
+import com.mysheng.office.kkanshop.entity.RecommendBean;
 import com.mysheng.office.kkanshop.entity.User;
+import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.LoginAsyncTask;
 import com.mysheng.office.kkanshop.util.MikyouCommonDialog;
 import com.mysheng.office.kkanshop.util.ReadLoginData;
@@ -32,128 +33,90 @@ import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.util.VolleyInterface;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
-import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
-import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
+import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
-	private ReadLoginData readLoginData=new ReadLoginData();
-	private TextView btnLogin;
-	private TextView personName;
-	private TextView personCode;
-	private LinearLayout textContent;
-	private LinearLayout message;
-	private LinearLayout ipSetting;
-	private LinearLayout ipFlow;
-	private LinearLayout updatePassword;
-	private LinearLayout switchUser;
-	private LinearLayout loginExit;
-	private ImageView testImage;
-	//zxing
-	private LinearLayout scanBtn;
-	private Button encodeBtn;
-	private int REQUEST_CODE_SCAN = 0x110;
-	private int SCAN_CODE = 0x111;
+	private LinearLayout line;
+	private ImageView setting;
+	private GridView gridView;
+	private ObservableScrollView scrollView;
+	private int imageHeight=150;
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view=inflater.inflate(R.layout.tab04, container, false);
+
 		initView(view);
 		initEvent();
-		//VolleyPost();
-		//VolleyJsonPost();
 		return view;
 	}
 
 	private void initView(View view){
-		btnLogin=view.findViewById(R.id.login_btn);
-		textContent=view.findViewById(R.id.textContent);
-		personName=view.findViewById(R.id.person_name);
-		personCode=view.findViewById(R.id.person_code);
-		message=view.findViewById(R.id.message);
-		ipSetting=view.findViewById(R.id.ip_setting);
-		ipFlow=view.findViewById(R.id.ip_flow);
-		updatePassword=view.findViewById(R.id.update_password);
-		switchUser=view.findViewById(R.id.switch_user);
-		loginExit=view.findViewById(R.id.login_exit);
-		testImage=view.findViewById(R.id.testImage);
+		line=view.findViewById(R.id.line);
+		setting=view.findViewById(R.id.new_setting);
+		line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
+		line.bringToFront();
+		gridView=view.findViewById(R.id.gridView);
+		List<RecommendBean> lists=new ArrayList<>();
 
-		scanBtn=view.findViewById(R.id.id_scan_code);
+		for(int i=0;i<31;i++){
+			RecommendBean bean=new RecommendBean();
+			bean.setName("这是测试数据，这是测试数据"+i);
+			bean.setPrice("￥"+i+".00");
+			lists.add(bean);
+		}
+		RecommendAdapter adapter=new RecommendAdapter(getActivity(),lists);
+		gridView.setAdapter(adapter);
+		setListViewHeightBasedOnChildren(gridView);
+		scrollView= view.findViewById(R.id.scrollView);
+		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+			@Override
+			public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+				if (y <= 0) {
+					line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
+				} else if (y > 0 && y <= imageHeight) {
+					Log.d("mys", "onScrollChanged: "+y);
+					float scale = (float) y / imageHeight;
+					float alpha = (255 * scale);
+					// 只是layout背景透明
+					line.setBackgroundColor(Color.argb((int) alpha, 72, 183, 245));
+				} else {
+					line.setBackgroundColor(Color.argb((int) 255, 72, 183, 245));
+				}
+			}
+		});
 	}
 	private void initEvent(){
-		btnLogin.setOnClickListener(this);
-		message.setOnClickListener(this);
-		ipSetting.setOnClickListener(this);
-		ipFlow.setOnClickListener(this);
-		updatePassword.setOnClickListener(this);
-		switchUser.setOnClickListener(this);
-		loginExit.setOnClickListener(this);
-		scanBtn.setOnClickListener(this);
+		setting.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
-			case R.id.login_btn:
-				dialog(getActivity(),"登录账户");
-				break;
-			case R.id.message:
-				//VolleyJsonPost();
-				VolleyImage.loadImageCacheByURL("http://pic.616pic.com/ys_b_img/00/68/13/hZdfzQyx4f.jpg",testImage);
-				break;
-			case R.id.ip_setting:
-				VolleyPost();
-				//UtilDialog.dialogIPSetting(getActivity(),"设置IP地址");
-				break;
-			case R.id.ip_flow:
-				UtilDialog.dialogIPFlow(getActivity(),"流程图IP地址设置");
-				break;
-			case R.id.update_password:
-				UtilDialog.dialogUpdate(getActivity(),"修改密码");
-				break;
-			case R.id.switch_user:
-				dialog(getActivity(),"切换账户");
-				break;
-			case R.id.login_exit:
-				dialogExit(getActivity());
-				break;
-			case R.id.id_scan_code:
-				PackageManager pm = getActivity().getPackageManager();
-				if(! (pm.checkPermission("android.permission.CAMERA", "com.mysheng.office.kkanshop")==PackageManager.PERMISSION_GRANTED ) ) {
-					PersonFragment.this.requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
-							SCAN_CODE);
-
-				}else {
-					startScanCode();
-				}
-				break;
-			case R.id.id_my_code:
-
-				break;
+			case R.id.new_setting:
+				startSettingActivity();
+			break;
 		}
 	}
-	private  void startScanCode(){
-		Intent intent = new Intent(getActivity(), CaptureActivity.class);
 
-		/*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
-		 * 也可以不传这个参数
-		 * 不传的话  默认都为默认不震动  其他都为true
-		 * */
-
-		ZxingConfig config = new ZxingConfig();
-		config.setPlayBeep(true);
-		config.setShake(true);
-		intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-
-		startActivityForResult(intent, REQUEST_CODE_SCAN);
+	private void startSettingActivity() {
+		Intent intent = new Intent(getActivity(), SettingActivity.class);
+		startActivity(intent);
 	}
+
 	private void VolleyGet(){
 		String url="http://apis.juhe.cn/mobile/get?phone=15701570988&key=335adcc4e891ba4e4be6d7534fd54c5d";
 		VolleyRequest.stringRequestGet(getActivity(),url,"login",new VolleyInterface(getActivity(), VolleyInterface.listener, VolleyInterface.errorListener) {
@@ -208,24 +171,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			}
 		});
 	}
-
-	/**
-	 *  {
-
-	 "goodsType": "1",
-	 "sellerNum": "20180327666",
-	 "goodsName": "绿箭口香糖2",
-	 "goodsNum": null,
-	 "price": 1.5,
-	 "oldPrice": 2,
-	 "goodsDescribe": "11111",
-	 "norms": "个",
-	 "imageUrl": "image/lvjian.png",
-	 "repertory": 0,
-	 "status": 0
-	 }
-
-	 */
 	private void getJsonPost(){
 		Map<String, String> hashMap = new HashMap<>();
 		hashMap.put("goodsType", "1");
@@ -289,10 +234,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 							loginAsyncTask.setCallBackAsyncTask(new LoginAsyncTask.CallBackAsyncTask() {
 								@Override
 								public void onCallBack(User user) {
-									personName.setText(user.getTrueName());
-									personCode.setText(user.getUserName());
-									textContent.setVisibility(View.VISIBLE);
-									btnLogin.setVisibility(View.GONE);
+//									personName.setText(user.getTrueName());
+//									personCode.setText(user.getUserName());
+//									textContent.setVisibility(View.VISIBLE);
+//									btnLogin.setVisibility(View.GONE);
 								}
 							});
 							loginAsyncTask.execute(path);
@@ -311,11 +256,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 					@Override
 					public void dialogPositiveListener(View customView, DialogInterface dialogInterface, int which) {
 						dialogInterface.dismiss();
-                        readLoginData.exitLoginDate(getActivity());
-						personName.setText("");
-						personCode.setText("");
-						textContent.setVisibility(View.GONE);
-						btnLogin.setVisibility(View.VISIBLE);
+//                        readLoginData.exitLoginDate(getActivity());
+//						personName.setText("");
+//						personCode.setText("");
+//						textContent.setVisibility(View.GONE);
+//						btnLogin.setVisibility(View.VISIBLE);
 						Toast.makeText(context, "已退出登录", Toast.LENGTH_SHORT).show();
 					}
 
@@ -330,34 +275,74 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		getLoginMessage();
+		//getLoginMessage();
 	}
 	private void getLoginMessage(){
-		String user_name=readLoginData.getLoginDate(getActivity(),"TrueName");
-		String user_code=readLoginData.getLoginDate(getActivity(),"UserName");
-		if(user_name!=""&&user_code!=""){
-			personName.setText(user_name);
-			personCode.setText(user_code);
-			textContent.setVisibility(View.VISIBLE);
-			btnLogin.setVisibility(View.GONE);
-		}else{
-			personName.setText("");
-			personCode.setText("");
-			textContent.setVisibility(View.GONE);
-			btnLogin.setVisibility(View.VISIBLE);
+//		String user_name=readLoginData.getLoginDate(getActivity(),"TrueName");
+//		String user_code=readLoginData.getLoginDate(getActivity(),"UserName");
+//		if(user_name!=""&&user_code!=""){
+//			personName.setText(user_name);
+//			personCode.setText(user_code);
+//			textContent.setVisibility(View.VISIBLE);
+//			btnLogin.setVisibility(View.GONE);
+//		}else{
+//			personName.setText("");
+//			personCode.setText("");
+//			textContent.setVisibility(View.GONE);
+//			btnLogin.setVisibility(View.VISIBLE);
+//		}
+	}
+	public  void setListViewHeightBasedOnChildren(GridView listView) {
+		// 获取listview的adapter
+		RecommendAdapter listAdapter = (RecommendAdapter) listView.getAdapter();
+		if (listAdapter == null) {
+			return;
 		}
+		// 固定列宽，有多少列
+		int col = 3;//listView.getNumColumns();
+		int totalHeight = 0;
+		// i每次加4，相当于listAdapter.getCount()小于等于4时 循环一次，计算一次item的高度，
+		// listAdapter.getCount()小于等于8时计算两次高度相加
+		for (int i = 0; i < listAdapter.getCount(); i += col) {
+			// 获取listview的每一个item
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(5, 5);
+			// 获取item的高度和
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		// 获取listview的布局参数
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		// 设置高度
+		params.height = totalHeight+200;
+		// 设置margin
+		//((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10);
+		// 设置参数
+		listView.setLayoutParams(params);
 	}
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		// 扫描二维码/条码回传
-		if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+		if (requestCode == CommonUtil.SCAN_RESULT && resultCode == RESULT_OK) {
 			if (data != null) {
-
 				String content = data.getStringExtra(Constant.CODED_CONTENT);
 				Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		if(requestCode==CommonUtil.SCAN_CODE){
+			if (grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1] == PackageManager.PERMISSION_GRANTED)
+			{
+				CommonUtil.StartScanCode(getActivity());
+			} else {
+				// Permission Denied
+				Toast.makeText(getActivity(), "您已拒绝，请打开手机应用权限设置", Toast.LENGTH_SHORT).show();
+			}
+		}
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 }

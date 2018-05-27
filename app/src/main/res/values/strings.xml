@@ -11,6 +11,19 @@
     <string name="indexName6">卤味熟食</string>
     <string name="indexName7">百货副食</string>
     <string name="indexName8">领劵中心</string>
+    <!--个人-->
+    <string name="person1">待付款</string>
+    <string name="person2">待收货</string>
+    <string name="person3">待评价</string>
+    <string name="person4">我的订单</string>
+    <string name="person5">优惠劵</string>
+    <string name="person6">礼品卡</string>
+    <string name="person7">积分值</string>
+    <string name="person8">我的钱包</string>
+    <string name="record1">关注的商品</string>
+    <string name="record2">关注的店铺</string>
+    <string name="record3">我的收藏</string>
+    <string name="record4">浏览记录</string>
     <!--zxing-->
     <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
     <string name="button_ok">退出</string>

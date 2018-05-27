@@ -3,11 +3,12 @@ package com.mysheng.office.kkanshop;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.mysheng.office.kkanshop.adapter.ClassifyAdapter;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by myaheng on 2018/5/8.
  */
 
-public class ShopFragment extends Fragment{
+public class ShopFragment extends Fragment implements  ClassifyAdapter.OnItemClickListener {
     public static final String TAG = "ShopFragment";
     private String str;
     private RecyclerView mRecyclerView;
@@ -38,20 +39,22 @@ public class ShopFragment extends Fragment{
         str = getArguments().getString(TAG);
         mRecyclerView=view.findViewById(R.id.recyclerView);
         //LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
-        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        final GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),3);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 int type=mRecyclerView.getAdapter().getItemViewType(position);
-                if(type==DataModel.TYPR_THREE){
-                    return gridLayoutManager.getSpanCount();
-                }else{
+                //int num=DataModel.TYPE_THREE;
+                if(type==DataModel.TYPE_TWO){
                     return 1;
+                }else{
+                    return gridLayoutManager.getSpanCount();
                 }
             }
         });
         mRecyclerView.setLayoutManager(gridLayoutManager);
         classifyAdapter=new ClassifyAdapter(getActivity());
+        classifyAdapter.setItemClickListener(ShopFragment.this);
         mRecyclerView.setAdapter(classifyAdapter);
         initData();
         return view;
@@ -59,14 +62,12 @@ public class ShopFragment extends Fragment{
 
     private void initData() {
         List<DataModel> list=new ArrayList<>();
-        for(int i=0;i<31;i++){
+        for(int i=0;i<100;i++){
             int type;
-            if(i>0&&i<11){
+            if(i%10==0){
                 type=1;
-            }else if(i>10&&i<21){
+            }else {
                 type=2;
-            }else{
-                type=3;
             }
             DataModel model=new DataModel();
             model.avatarColor=color[type-1];
@@ -78,5 +79,16 @@ public class ShopFragment extends Fragment{
         }
         classifyAdapter.addList(list);
         classifyAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onItemClick(View view,int position) {
+        TextView textView=view.findViewById(R.id.name);
+        if (textView!=null){
+            String str=textView.getText().toString();
+            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

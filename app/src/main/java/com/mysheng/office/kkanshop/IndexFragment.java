@@ -1,8 +1,11 @@
 package com.mysheng.office.kkanshop;
 
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,21 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.mysheng.office.kkanshop.util.BitmapCache;
+import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.GlideImageLoader;
 import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
+import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
+import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
+import com.mysheng.office.kkanshop.zxing.common.Constant;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 
-public class IndexFragment extends Fragment {
+
+public class IndexFragment extends Fragment implements View.OnClickListener{
 	private ImageView imageView;
+	private ImageView scanCode;
+	private ImageView chatMsg;
 	private NetworkImageView networkImageView;
 	private Banner banner;
 	private ArrayList<String> list_path=new ArrayList<>();
@@ -38,10 +50,13 @@ public class IndexFragment extends Fragment {
 	{
 		View view= inflater.inflate(R.layout.tab01, container, false);
 		imageView=view.findViewById(R.id.image);
+		scanCode=view.findViewById(R.id.id_scan_code);
+		chatMsg=view.findViewById(R.id.chat_msg);
 		networkImageView=view.findViewById(R.id.netImage);
 		banner=view.findViewById(R.id.id_banner);
 		line=view.findViewById(R.id.line);
 		line.bringToFront();
+		scanCode.setOnClickListener(this);
 		scrollView= view.findViewById(R.id.scrollView);
 		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
 			@Override
@@ -92,5 +107,61 @@ public class IndexFragment extends Fragment {
 		imageView.setImageResource(R.drawable.default_header);
 		ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.default_header , R.drawable.default_header );
 		loader.get(url, listener);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.id_scan_code:
+				PackageManager pm = getActivity().getPackageManager();
+				if(! (pm.checkPermission("android.permission.CAMERA", "com.mysheng.office.kkanshop")==PackageManager.PERMISSION_GRANTED ) ) {
+					IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+							CommonUtil.SCAN_CODE);
+				}else {
+					startScanCode();
+				}
+				break;
+			case R.id.chat_msg:
+			    break;
+		}
+
+	}
+	private void startScanCode(){
+		Intent intent = new Intent(getActivity(), CaptureActivity.class);
+		/*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
+		 * 也可以不传这个参数
+		 * 不传的话  默认都为默认不震动  其他都为true
+		 * */
+		ZxingConfig config = new ZxingConfig();
+		config.setPlayBeep(true);
+		config.setShake(true);
+		intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+
+		startActivityForResult(intent, CommonUtil.SCAN_RESULT);
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		// 扫描二维码/条码回传
+		if (requestCode == CommonUtil.SCAN_RESULT && resultCode == RESULT_OK) {
+			if (data != null) {
+				String content = data.getStringExtra(Constant.CODED_CONTENT);
+				Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		if(requestCode==CommonUtil.SCAN_CODE){
+			if (grantResults[0] == PackageManager.PERMISSION_GRANTED&&grantResults[1] == PackageManager.PERMISSION_GRANTED)
+			{
+				startScanCode();
+			} else {
+				// Permission Denied
+				Toast.makeText(getActivity(), "您已拒绝，请打开手机应用权限设置", Toast.LENGTH_SHORT).show();
+			}
+		}
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 }

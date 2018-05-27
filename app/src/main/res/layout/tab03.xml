@@ -1,60 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:id="@+id/line"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#ffffff"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"
-            android:hint="点击快速搜索"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_edit" />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_margin="5dp"
-            android:layout_height="35dp"
-            android:src="@drawable/news_msg"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="购物车"
+        android:textSize="18sp"/>
 
-    <com.mysheng.office.kkanshop.view.ObservableScrollView
-        android:layout_width="match_parent"
-        android:layout_height="880dp"
-        android:id="@+id/scrollView"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
-        </LinearLayout>
-    </com.mysheng.office.kkanshop.view.ObservableScrollView>
-
-</RelativeLayout>
+</LinearLayout>

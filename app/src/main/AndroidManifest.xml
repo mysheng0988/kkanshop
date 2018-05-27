@@ -25,10 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:theme="@style/AppTheme"
-            android:name="com.mysheng.office.kkanshop.zxing.android.CaptureActivity">
-
+        <activity android:name="com.mysheng.office.kkanshop.zxing.android.CaptureActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.SettingActivity">
         </activity>
     </application>
 

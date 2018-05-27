@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
@@ -18,26 +19,29 @@ import java.util.List;
  * Created by myaheng on 2018/5/11.
  */
 
-public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private LayoutInflater mLayoutInflater;
-
     private List<DataModel> mList=new ArrayList<>();
 
     public ClassifyAdapter(Context context) {
         mLayoutInflater=LayoutInflater.from(context);
     }
-
+    private OnItemClickListener mItemClickListener;
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view=null;
         switch (viewType){
-            case DataModel.TYPR_ONE:
-
+            case DataModel.TYPE_ONE:
+//                 view=mLayoutInflater.inflate(R.layout.item_type_one,parent,false);
+//                view.setOnClickListener(this);
             return new TypeOneViewHolder(mLayoutInflater.inflate(R.layout.item_type_one,parent,false));
-            case DataModel.TYPR_TWO:
-                return new TypeTwoViewHolder(mLayoutInflater.inflate(R.layout.item_type_two,parent,false));
-            case DataModel.TYPR_THREE:
+            case DataModel.TYPE_TWO:
+                view=mLayoutInflater.inflate(R.layout.item_type_two,parent,false);
+                view.setOnClickListener(this);
+                RecyclerView.ViewHolder viewHolder=new TypeTwoViewHolder(view);
+                return viewHolder;
+            case DataModel.TYPE_THREE:
                 return new TypeThreeViewHolder(mLayoutInflater.inflate(R.layout.item_type_three,parent,false));
         }
         return null;
@@ -50,6 +54,8 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
       //  int viewType=getItemViewType(position);
         ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
+        //TypeTwoViewHolder viewHolder=((TypeTwoViewHolder) holder).bindHolder(mList.get(position));
+        holder.itemView.setTag(position);
 
     }
 
@@ -62,5 +68,19 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         return mList.get(position).type;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(mItemClickListener!=null){
+            mItemClickListener.onItemClick(v,(Integer) v.getTag());
+        }
+
+    }
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
+    }
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
     }
 }

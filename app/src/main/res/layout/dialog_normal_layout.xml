@@ -87,7 +87,7 @@
                     android:layout_width="114.0dip"
                     android:layout_height="40.0dip"
                     android:layout_marginLeft="20.0dip"
-                    android:background="@drawable/bg_bottom_radius"
+                    android:background="@drawable/bg_btn_l_radius"
                     android:gravity="center"
                     android:textStyle ="bold"
                     android:text="@string/cancel" />
