@@ -50,7 +50,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	{
 		View view= inflater.inflate(R.layout.tab01, container, false);
 		imageView=view.findViewById(R.id.image);
-		scanCode=view.findViewById(R.id.id_scan_code);
+		scanCode=view.findViewById(R.id.scan_code);
 		chatMsg=view.findViewById(R.id.chat_msg);
 		networkImageView=view.findViewById(R.id.netImage);
 		banner=view.findViewById(R.id.id_banner);
