@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -51,6 +52,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
 	private LinearLayout line;
+	private TextView personText;
 	private ImageView setting;
 	private GridView gridView;
 	private ObservableScrollView scrollView;
@@ -67,6 +69,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 
 	private void initView(View view){
 		line=view.findViewById(R.id.line);
+		personText=view.findViewById(R.id.person_text);
 		setting=view.findViewById(R.id.new_setting);
 		line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
 		line.bringToFront();
@@ -94,8 +97,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 					float alpha = (255 * scale);
 					// 只是layout背景透明
 					line.setBackgroundColor(Color.argb((int) alpha, 72, 183, 245));
+					personText.setVisibility(View.GONE);
 				} else {
 					line.setBackgroundColor(Color.argb((int) 255, 72, 183, 245));
+					personText.setVisibility(View.VISIBLE);
 				}
 			}
 		});
