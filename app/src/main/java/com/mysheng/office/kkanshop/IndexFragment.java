@@ -112,7 +112,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
-			case R.id.id_scan_code:
+			case R.id.scan_code:
 				PackageManager pm = getActivity().getPackageManager();
 				if(! (pm.checkPermission("android.permission.CAMERA", "com.mysheng.office.kkanshop")==PackageManager.PERMISSION_GRANTED ) ) {
 					IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},

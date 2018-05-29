@@ -38,7 +38,7 @@ public class ShoppingCartFragment extends Fragment implements ShopcartExpandable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view=inflater.inflate(R.layout.tab03, container, false);
+		View view=inflater.inflate(R.layout.tab04, container, false);
 		initView(view);
 		initEvents();
 		return view ;

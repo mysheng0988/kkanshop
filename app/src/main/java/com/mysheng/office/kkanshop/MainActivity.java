@@ -21,10 +21,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 {
 	private LinearLayout mIndex;
 	private LinearLayout mClassify;
+	private LinearLayout mNearby;
 	private LinearLayout mFlow;
 	private LinearLayout mPerson;
 
 	private ImageButton mImgIndex;
+	private ImageButton mImgNearby;
 	private ImageButton mImgClassify;
 	private ImageButton mImgShopping;
 	private ImageButton mImgPerson;
@@ -33,6 +35,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private Fragment mTab02;
 	private Fragment mTab03;
 	private Fragment mTab04;
+	private Fragment mTab05;
 	FragmentManager manager;
 	private TextView textView;
 
@@ -54,19 +57,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	{
 		mIndex.setOnClickListener(this);
 		mClassify.setOnClickListener(this);
+		mNearby.setOnClickListener(this);
 		mFlow.setOnClickListener(this);
 		mPerson.setOnClickListener(this);
+
 	}
 
 	private void initView()
 	{
 		mIndex =  findViewById(R.id.id_index);
 		mClassify =  findViewById(R.id.id_classify);
+		mNearby =  findViewById(R.id.id_nearby);
 		mFlow =  findViewById(R.id.id_shopping);
 		mPerson =  findViewById(R.id.id_person);
 
 		mImgIndex =  findViewById(R.id.id_index_img);
 		mImgClassify =  findViewById(R.id.id_classify_img);
+		mImgNearby =  findViewById(R.id.id_nearby_img);
 		mImgShopping =  findViewById(R.id.id_shopping_img);
 		mImgPerson =  findViewById(R.id.id_person_img);
 		//textView=findViewById(R.id.tab_title);
@@ -106,26 +113,36 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		case 2:
 			if (mTab03 == null)
 			{
-				mTab03 = new ShoppingCartFragment();
+				mTab03 = new NearbyFragment();
 				transaction.add(R.id.id_content, mTab03,"mTab03");
 			} else
 			{
 				transaction.show(mTab03);
 			}
-			mImgShopping.setImageResource(R.drawable.shopping_pressed);
+			mImgNearby.setImageResource(R.drawable.nearby_pressed);
 			break;
 		case 3:
 			if (mTab04 == null)
 			{
-				mTab04 = new PersonFragment();
+				mTab04 = new ShoppingCartFragment();
 				transaction.add(R.id.id_content, mTab04,"mTab04");
 			} else
 			{
 				transaction.show(mTab04);
 			}
-			mImgPerson.setImageResource(R.drawable.person_pressed);
+			mImgShopping.setImageResource(R.drawable.shopping_pressed);
 			break;
-
+		case 4:
+			if (mTab05 == null)
+			{
+				mTab05 = new PersonFragment();
+				transaction.add(R.id.id_content, mTab05,"mTab05");
+			} else
+			{
+				transaction.show(mTab05);
+			}
+			mImgPerson.setImageResource(R.drawable.person_pressed);
+				break;
 		default:
 			break;
 		}
@@ -151,6 +168,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		{
 			transaction.hide(mTab04);
 		}
+		if (mTab05 != null)
+		{
+			transaction.hide(mTab05);
+		}
 	}
 
 	@Override
@@ -165,11 +186,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		case R.id.id_classify:
 			setSelect(1);
 			break;
-		case R.id.id_shopping:
+		case R.id.id_nearby:
 			setSelect(2);
 			break;
-		case R.id.id_person:
+		case R.id.id_shopping:
 			setSelect(3);
+			break;
+		case R.id.id_person:
+			setSelect(4);
 			break;
 
 		default:
@@ -181,6 +205,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	{
 		mImgIndex.setImageResource(R.drawable.index_normal);
 		mImgClassify.setImageResource(R.drawable.classify_normal);
+		mImgNearby.setImageResource(R.drawable.nearby_normal);
 		mImgShopping.setImageResource(R.drawable.shopping_normal);
 		mImgPerson.setImageResource(R.drawable.person_normal);
 	}
@@ -195,11 +220,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		if(mTab02 == null &&fragment instanceof ClassifyFragment){
 			mTab02=fragment;
 		}
-		if(mTab03 == null &&fragment instanceof ShoppingCartFragment){
+		if(mTab03 == null &&fragment instanceof NearbyFragment){
 			mTab03=fragment;
 		}
-		if(mTab04 == null &&fragment instanceof PersonFragment){
+		if(mTab04 == null &&fragment instanceof ShoppingCartFragment){
 			mTab04=fragment;
+		}
+		if(mTab05 == null &&fragment instanceof PersonFragment){
+			mTab05=fragment;
 		}
 
 	}
