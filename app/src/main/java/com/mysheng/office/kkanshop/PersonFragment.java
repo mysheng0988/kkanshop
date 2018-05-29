@@ -14,45 +14,36 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.mysheng.office.kkanshop.adapter.RecommendAdapter;
 import com.mysheng.office.kkanshop.entity.RecommendBean;
 import com.mysheng.office.kkanshop.entity.User;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.LoginAsyncTask;
 import com.mysheng.office.kkanshop.util.MikyouCommonDialog;
-import com.mysheng.office.kkanshop.util.ReadLoginData;
-import com.mysheng.office.kkanshop.util.UtilDialog;
-import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.util.VolleyInterface;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
-	private LinearLayout line;
-	private TextView personText;
+	private RelativeLayout line;
+	private TextView personTitle;
 	private ImageView setting;
 	private GridView gridView;
 	private ObservableScrollView scrollView;
@@ -60,7 +51,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
-		View view=inflater.inflate(R.layout.tab04, container, false);
+		View view=inflater.inflate(R.layout.tab05, container, false);
 
 		initView(view);
 		initEvent();
@@ -69,8 +60,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 
 	private void initView(View view){
 		line=view.findViewById(R.id.line);
-		personText=view.findViewById(R.id.person_text);
 		setting=view.findViewById(R.id.new_setting);
+		personTitle=view.findViewById(R.id.person_text);
+		personTitle.setText("个人中心");
 		line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
 		line.bringToFront();
 		gridView=view.findViewById(R.id.gridView);
@@ -96,11 +88,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 					float scale = (float) y / imageHeight;
 					float alpha = (255 * scale);
 					// 只是layout背景透明
+					personTitle.setVisibility(View.GONE);
 					line.setBackgroundColor(Color.argb((int) alpha, 72, 183, 245));
-					personText.setVisibility(View.GONE);
 				} else {
+					personTitle.setVisibility(View.VISIBLE);
 					line.setBackgroundColor(Color.argb((int) 255, 72, 183, 245));
-					personText.setVisibility(View.VISIBLE);
 				}
 			}
 		});

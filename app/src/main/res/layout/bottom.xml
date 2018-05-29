@@ -50,6 +50,28 @@
             android:text="分类"
             android:textColor="#000000" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/id_nearby"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/id_nearby_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:clickable="false"
+            android:src="@drawable/nearby_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="附近"
+            android:textColor="#000000" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/id_shopping"

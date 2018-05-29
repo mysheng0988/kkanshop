@@ -1,416 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
-<LinearLayout
-    android:id="@+id/line"
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:background="@color/colorPrimaryDark"
-    android:gravity="center|right"
-    android:orientation="horizontal">
-    <TextView
-        android:id="@+id/person_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="65dp"
-        android:visibility="gone"
-        android:text="个人中心"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
-    <ImageView
-        android:id="@+id/new_setting"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
-        android:src="@drawable/setting" />
-    <ImageView
-        android:id="@+id/new_msg"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/new_msg_w" />
-</LinearLayout>
-
-<com.mysheng.office.kkanshop.view.ObservableScrollView
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
-    android:scrollbars="none"
-    tools:layout_editor_absoluteY="8dp"
-    tools:layout_editor_absoluteX="8dp">
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="vertical">
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="120dp"
-           android:background="@drawable/bg_person_border"
-           android:gravity="center_vertical">
-           <ImageView
-               android:id="@+id/person_header"
-               android:layout_width="80dp"
-               android:layout_height="80dp"
-               android:layout_alignParentStart="true"
-               android:layout_centerVertical="true"
-               android:layout_marginStart="25dp"
-               android:gravity="center"
-               android:src="@drawable/default_header" />
-           <LinearLayout
-               android:id="@+id/user_msg"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_toRightOf="@+id/person_header"
-               android:gravity="center"
-               android:orientation="vertical">
-               <LinearLayout
-                   android:id="@+id/login_btn"
-                   android:layout_width="match_parent"
-                   android:gravity="center_vertical"
-                   android:layout_height="match_parent">
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="40dp"
-                       android:layout_margin="15dp"
-                       android:text="点击登录"
-                       android:textColor="@color/white"
-                       android:textSize="20dp" />
-               </LinearLayout>
-               <LinearLayout
-                   android:id="@+id/textContent"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:layout_margin="15dp"
-                   android:orientation="vertical"
-                   android:visibility="gone">
+    android:orientation="vertical">
 
-                   <TextView
-                       android:id="@+id/person_name"
-                       android:layout_width="match_parent"
-                       android:layout_height="20dp"
-                       android:layout_gravity="center"
-                       android:layout_margin="5dp"
-                       android:textColor="@color/white"
-                       android:text="" />
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/topbar_background"
+        android:orientation="vertical" >
 
-                   <TextView
-                       android:id="@+id/person_code"
-                       android:layout_width="match_parent"
-                       android:layout_height="20dp"
-                       android:layout_gravity="center"
-                       android:layout_margin="5dp"
-                       android:textColor="@color/white"
-                       android:text="" />
-               </LinearLayout>
-           </LinearLayout>
-       </RelativeLayout>
-       <TableLayout
-           android:id="@+id/user"
-           android:layout_width="match_parent"
-           android:layout_height="170dp"
-           android:layout_margin="10dp"
-           android:background="@drawable/bg_layout_shape"
-           android:stretchColumns="*">
-           <TableRow android:id="@+id/row1" android:layout_marginBottom="5dp"
-               android:layout_height="0dp"
-               android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:orientation="vertical" >
 
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person1"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/payment"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person1"
-                       android:gravity="center"
-                       android:text="@string/person1" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person2"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/goods_received"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person2"
-                       android:gravity="center"
-                       android:text="@string/person2" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person3"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/evaluate"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person3"
-                       android:gravity="center"
-                       android:text="@string/person3" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person4"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/order"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person4"
-                       android:gravity="center"
-                       android:text="@string/person4" />
-               </RelativeLayout>
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:padding="12dp"
+                android:visibility="gone"
+                android:src="@drawable/topbar_up" />
 
-           </TableRow>
-           <TableRow android:id="@+id/row2" android:layout_marginBottom="5dp"
-               android:layout_height="0dp"
-               android:layout_weight="1">
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person5"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/coupons"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person5"
-                       android:gravity="center"
-                       android:text="@string/person5" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person6"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/gift"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person6"
-                       android:gravity="center"
-                       android:text="@string/person6" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person7"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/integral"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person7"
-                       android:gravity="center"
-                       android:text="@string/person7" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/person8"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/wallet"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/person8"
-                       android:gravity="center"
-                       android:text="@string/person8" />
-               </RelativeLayout>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:text="购物车"
+                android:textColor="#1a1a1a"
+                android:textSize="16sp" />
 
-           </TableRow>
-       </TableLayout>
-       <TableLayout
-           android:id="@+id/used_record"
-           android:layout_width="match_parent"
-           android:layout_height="85dp"
-           android:background="@drawable/bg_layout_shape"
-           android:stretchColumns="*">
-           <TableRow android:id="@+id/row3" android:layout_marginBottom="5dp"
-               android:layout_height="0dp"
-               android:layout_weight="1">
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/record1"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/follow_goods"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/record1"
-                       android:gravity="center"
-                       android:text="@string/record1" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/record2"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/follow_shop"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/record2"
-                       android:gravity="center"
-                       android:text="@string/record2" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/record3"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/collection"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/record3"
-                       android:gravity="center"
-                       android:text="@string/record3" />
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="80dp"
-                   android:layout_margin="2dp"
-                   android:gravity="center"
-                   android:layout_weight="1"
-                   android:orientation="vertical">
-                   <ImageView
-                       android:id="@+id/record4"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
-                       android:src="@drawable/browse_record"
-                       android:gravity="center_vertical" />
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/record4"
-                       android:gravity="center"
-                       android:text="@string/record4" />
-               </RelativeLayout>
-           </TableRow>
-       </TableLayout>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="35dp">
-           <TextView
-               android:gravity="center"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:text="为您推荐"/>
-       </LinearLayout>
-       <GridView
-           android:id="@+id/gridView"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_margin="5dp"
-           android:numColumns="3"
-           android:verticalSpacing="5dp"
-           android:horizontalSpacing="5dp">
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center"
+                android:minHeight="48dp"
+                android:text=""
+                android:textColor="#1a1a1a"
+                android:textSize="14sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </LinearLayout>
 
-       </GridView>
-   </LinearLayout>
-</com.mysheng.office.kkanshop.view.ObservableScrollView>
+    <com.mysheng.office.kkanshop.view.SuperExpandableListView
+        android:id="@+id/exListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:childIndicator="@null"
+        android:groupIndicator="@null" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/all_chekbox"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="4dp"
+                android:button="@drawable/check_box_bg"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:gravity="center"
+                android:minHeight="64dp"
+                android:paddingLeft="10dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="合计:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥0.00"
+                android:textColor="#9370db"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="#FAFAFA" />
+
+        <TextView
+            android:id="@+id/tv_go_to_pay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/crimson"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="结算(0)"
+            android:textColor="#FAFAFA" />
+    </LinearLayout>
+
+</LinearLayout>

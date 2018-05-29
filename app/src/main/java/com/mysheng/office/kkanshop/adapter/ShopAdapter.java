@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.ClassifyFragment;
-import com.mysheng.office.kkanshop.MainActivity;
 import com.mysheng.office.kkanshop.R;
 
 /**
