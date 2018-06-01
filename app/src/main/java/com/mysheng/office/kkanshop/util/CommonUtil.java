@@ -8,6 +8,7 @@ import com.mysheng.office.kkanshop.zxing.common.Constant;
 public class CommonUtil {
     public static int IMAGE=0x001;
     public static int CAMERA=0x002;
+    public static int AUDIO=0x003;
     public static int SCAN_CODE=0x110;
     public static int SCAN_RESULT=0x110;
     public static void StartScanCode(Activity activity){

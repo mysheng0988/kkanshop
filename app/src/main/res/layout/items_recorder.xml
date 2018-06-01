@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/id_recorder_useIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/default_header"/>
+        <FrameLayout
+            android:id="@+id/id_recorder_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/id_recorder_useIcon"
+            android:background="@drawable/chatto_bg_focused">
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/id_recorder_anim"
+                android:layout_gravity="center_vertical|right"
+                android:background="@drawable/adj"
+                >
+
+            </View>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/id_recorder_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/id_recorder_length"
+            android:text=""
+            android:textColor="#FF777777" />
+
+    </RelativeLayout>
+</LinearLayout>
+
