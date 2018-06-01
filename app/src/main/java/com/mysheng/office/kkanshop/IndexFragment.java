@@ -57,6 +57,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		banner=view.findViewById(R.id.id_banner);
 		line=view.findViewById(R.id.line);
 		line.bringToFront();
+		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
 		scrollView= view.findViewById(R.id.scrollView);
 		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
@@ -124,12 +125,12 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 				}
 				break;
 			case R.id.chat_msg:
-                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
-                    IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CommonUtil.AUDIO);
-                }else{
+//                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
+//                    IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CommonUtil.AUDIO);
+//                }else{
 					Intent intent = new Intent(getActivity(), ChatActivity.class);
 					startActivity(intent);
-                }
+               // }
 
 			    break;
 		}
@@ -145,7 +146,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		config.setPlayBeep(true);
 		config.setShake(true);
 		intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-
 		startActivityForResult(intent, CommonUtil.SCAN_RESULT);
 	}
 	@Override
