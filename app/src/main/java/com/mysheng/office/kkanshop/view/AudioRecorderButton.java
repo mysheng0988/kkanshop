@@ -115,12 +115,12 @@ public class AudioRecorderButton extends Button implements AudioStateListener {
         int y= (int) event.getY();
         switch (action){
             case MotionEvent.ACTION_DOWN:
-                //PackageManager pm = context.getPackageManager();
-//                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
-//                    ActivityCompat.requestPermissions((Activity) context,new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, AUDIO);
-//                }else{
-//                    changeState(STATE_RECORDING);
-//                }
+                PackageManager pm = context.getPackageManager();
+                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
+                    ActivityCompat.requestPermissions((Activity) context,new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, AUDIO);
+                }else{
+                    changeState(STATE_RECORDING);
+                }
                 changeState(STATE_RECORDING);
             break;
             case MotionEvent.ACTION_MOVE:

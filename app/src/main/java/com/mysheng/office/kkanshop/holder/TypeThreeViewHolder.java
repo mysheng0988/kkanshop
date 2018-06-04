@@ -25,11 +25,14 @@ public class TypeThreeViewHolder extends TypeAbstractViewHolder{
 
     }
     @Override
-    public void bindHolder(DataModel model){
+    public void bindHolder(Object model){
+        if(model instanceof DataModel){
+            DataModel dataModel= (DataModel) model;
+            mImageView.setBackgroundResource(dataModel.avatarColor);
+            mImgContent.setBackgroundResource(dataModel.contentColor);
+            mTextView.setText(dataModel.name);
+            mConnent.setText(dataModel.content);
+        }
 
-        mImageView.setBackgroundResource(model.avatarColor);
-        mImgContent.setBackgroundResource(model.contentColor);
-        mTextView.setText(model.name);
-        mConnent.setText(model.content);
     }
 }

@@ -3,14 +3,16 @@ package com.mysheng.office.kkanshop.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.DataModel;
+import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeOneViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeThreeViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeTwoViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
+import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.entity.DataModel;
 
 /**
@@ -19,7 +20,10 @@ public class TypeOneViewHolder extends TypeAbstractViewHolder{
         mTextView=itemView.findViewById(R.id.name);
     }
     @Override
-    public void bindHolder(DataModel model){
-        mTextView.setText(model.name);
+    public void bindHolder(Object model){
+        if(model instanceof DataModel){
+            DataModel dataModel= (DataModel) model;
+            mTextView.setText(dataModel.name);
+        }
     }
 }

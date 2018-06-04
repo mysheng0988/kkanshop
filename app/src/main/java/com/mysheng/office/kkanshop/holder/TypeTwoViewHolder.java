@@ -23,11 +23,14 @@ public class TypeTwoViewHolder extends TypeAbstractViewHolder{
         mConnent=itemView.findViewById(R.id.content);
     }
     @Override
-    public void bindHolder(DataModel model){
+    public void bindHolder(Object model){
+        if(model instanceof DataModel){
+            DataModel dataModel= (DataModel) model;
+            mImageView.setBackgroundResource(dataModel.avatarColor);
+            mTextView.setText(dataModel.name);
+            mConnent.setText(dataModel.content);
+        }
 
-        mImageView.setBackgroundResource(model.avatarColor);
-        mTextView.setText(model.name);
-        mConnent.setText(model.content);
     }
 
 }

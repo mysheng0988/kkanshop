@@ -19,7 +19,7 @@ import com.mysheng.office.kkanshop.R;
  * @项目名: ShoppingCart
  * @类名: SlideView
  * @作者: zuojie
- * @创建时间: 16-8-22 下午2:14
+ * @创建时间: 17-8-22 下午2:14
  */
 public class SlideView extends LinearLayout {
     public static final String TAG = "SlideView";

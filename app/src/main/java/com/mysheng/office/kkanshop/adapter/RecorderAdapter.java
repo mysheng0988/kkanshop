@@ -49,7 +49,7 @@ public class RecorderAdapter extends ArrayAdapter<Recorder> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null) {
-            convertView = mInflater.inflate(R.layout.items_recorder,parent,false);
+            convertView = mInflater.inflate(R.layout.items_right_recorder,parent,false);
             holder = new ViewHolder();
             holder.seconds =  convertView.findViewById(R.id.id_recorder_time);
             holder.length = convertView.findViewById(R.id.id_recorder_length);

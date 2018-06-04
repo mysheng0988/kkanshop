@@ -2,13 +2,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_marginTop="5dp"
+    android:layout_height="wrap_content">
     <ImageView
-        android:id="@+id/id_recorder_useIcon"
+        android:id="@+id/id_useIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
         android:src="@drawable/ynn"/>
     <FrameLayout
@@ -16,26 +16,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/id_recorder_useIcon"
+        android:layout_toRightOf="@+id/id_useIcon"
         android:background="@drawable/chat_bg_focused">
 
-        <View
-            android:id="@+id/id_recorder_anim"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+        <TextView
+            android:id="@+id/id_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
-            android:background="@drawable/adj_l">
-
-        </View>
-
+            android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
+            android:lineSpacingMultiplier="1.2"
+            android:maxWidth="250dp"
+            android:textSize="16sp"/>
     </FrameLayout>
-    <TextView
-        android:id="@+id/id_recorder_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/id_recorder_length"
-        android:text="444"
-        android:textColor="#FF777777" />
+
 </RelativeLayout>
 

@@ -3,14 +3,23 @@ package com.mysheng.office.kkanshop.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.DataModel;
+import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeLeftRecorderViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeOneViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeRightRecorderViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeThreeViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTwoViewHolder;
 
@@ -21,11 +30,19 @@ import java.util.List;
  * Created by myaheng on 2018/5/11.
  */
 
-public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private LayoutInflater mLayoutInflater;
-    private List<DataModel> mList=new ArrayList<>();
+    private List<ChatModel> mList=new ArrayList<>();
+    private int mMinItemWidth;
+    private int mMaxItemWidth;
 
-    public ClassifyAdapter(Context context) {
+    public ChatAdapter(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+
+        mMaxItemWidth = (int) (outMetrics.widthPixels * 0.7f);
+        mMinItemWidth = (int) (outMetrics.widthPixels * 0.15f);
         mLayoutInflater=LayoutInflater.from(context);
     }
     private OnItemClickListener mItemClickListener;
@@ -34,33 +51,44 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=null;
         switch (viewType){
-            case DataModel.TYPE_ONE:
-//                 view=mLayoutInflater.inflate(R.layout.item_type_one,parent,false);
-//                view.setOnClickListener(this);
-            return new TypeOneViewHolder(mLayoutInflater.inflate(R.layout.item_type_one,parent,false));
-            case DataModel.TYPE_TWO:
-                view=mLayoutInflater.inflate(R.layout.item_type_two,parent,false);
+            case ChatModel.TYPE_ONE:
+            return new TypeLeftTextViewHolder(mLayoutInflater.inflate(R.layout.items_left_text,parent,false));
+            case ChatModel.TYPE_TWO:
+                view=mLayoutInflater.inflate(R.layout.items_right_text,parent,false);
                 view.setOnClickListener(this);
-                RecyclerView.ViewHolder viewHolder=new TypeTwoViewHolder(view);
+                RecyclerView.ViewHolder viewHolder=new TypeRightTextViewHolder(view);
                 return viewHolder;
-            case DataModel.TYPE_THREE:
-                return new TypeThreeViewHolder(mLayoutInflater.inflate(R.layout.item_type_three,parent,false));
+            case ChatModel.TYPE_THREE:
+                return new TypeLeftImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
+            case ChatModel.TYPE_FOUR:
+                return new TypeRightImageViewHolder(mLayoutInflater.inflate(R.layout.items_right_image,parent,false));
+            case ChatModel.TYPE_FIVE:
+                return new TypeLeftRecorderViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
+            case ChatModel.TYPE_SIX:
+                return new TypeRightRecorderViewHolder(mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false));
         }
         return null;
     }
 
-    public void addList(List<DataModel> list){
+    public void addList(List<ChatModel> list){
         mList.addAll(list);
     }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-      //  int viewType=getItemViewType(position);
-        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
-        //TypeTwoViewHolder viewHolder=((TypeTwoViewHolder) holder).bindHolder(mList.get(position));
+//        if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
+//            ViewGroup.LayoutParams lp= holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
+//            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).time);
+//            Log.d("mys", "onBindViewHolder: "+lp.width);
+//            holder.itemView.setLayoutParams(lp);
+//        }
+
+       ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
+
+         //holder.itemView.findViewById(R.id.id_recorder_length);
         holder.itemView.setTag(position);
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -83,6 +111,6 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mItemClickListener = itemClickListener;
     }
     public interface OnItemClickListener{
-        void onItemClick(View view,int position);
+        void onItemClick(View view, int position);
     }
 }
