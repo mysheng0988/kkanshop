@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		banner=view.findViewById(R.id.id_banner);
 		line=view.findViewById(R.id.line);
 		line.bringToFront();
+		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
 		scrollView= view.findViewById(R.id.scrollView);
 		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
@@ -111,9 +113,10 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		PackageManager pm = getActivity().getPackageManager();
 		switch (v.getId()){
 			case R.id.scan_code:
-				PackageManager pm = getActivity().getPackageManager();
+
 				if(! (pm.checkPermission("android.permission.CAMERA", "com.mysheng.office.kkanshop")==PackageManager.PERMISSION_GRANTED ) ) {
 					IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
 							CommonUtil.SCAN_CODE);
@@ -122,6 +125,13 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 				}
 				break;
 			case R.id.chat_msg:
+//                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
+//                    IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CommonUtil.AUDIO);
+//                }else{
+					Intent intent = new Intent(getActivity(), ChatActivity.class);
+					startActivity(intent);
+               // }
+
 			    break;
 		}
 
@@ -136,7 +146,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		config.setPlayBeep(true);
 		config.setShake(true);
 		intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
-
 		startActivityForResult(intent, CommonUtil.SCAN_RESULT);
 	}
 	@Override
