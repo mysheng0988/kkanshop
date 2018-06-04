@@ -64,6 +64,7 @@ public class ChatActivity extends Activity implements ChatAdapter.OnItemClickLis
         mAudioRecorderButton.setAudioFinishRecorderListener(new AudioRecorderButton.AudioFinishRecorderListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
+                mDatas.clear();
                 ChatModel chatModel=new ChatModel();
                 chatModel.type=6;
                 chatModel.contentPath=filePath;
@@ -81,7 +82,7 @@ public class ChatActivity extends Activity implements ChatAdapter.OnItemClickLis
         String str="测试123";
         String connect="";
         for(int i=0;i<10;i++){
-            int type=1;
+            int type=i%2+1;
             connect+=str+i;
             ChatModel chatModel=new ChatModel();
             chatModel.type=type;
@@ -89,7 +90,7 @@ public class ChatActivity extends Activity implements ChatAdapter.OnItemClickLis
             mDatas.add(chatModel);
         }
         for(int i=0;i<10;i++){
-            int type=4;
+            int type=i%2+3;
             connect+=str+i;
             ChatModel chatModel=new ChatModel();
             chatModel.type=type;

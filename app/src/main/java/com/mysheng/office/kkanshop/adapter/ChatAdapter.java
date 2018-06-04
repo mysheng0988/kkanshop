@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
@@ -16,12 +17,9 @@ import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftRecorderViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeOneViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightRecorderViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeThreeViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeTwoViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,12 +74,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
-//            ViewGroup.LayoutParams lp= holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
-//            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).time);
-//            Log.d("mys", "onBindViewHolder: "+lp.width);
-//            holder.itemView.setLayoutParams(lp);
-//        }
+        if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
+            RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
+            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).time);
+            Log.d("mys", "onBindViewHolder: "+lp.width);
+            holder.itemView.findViewById(R.id.id_recorder_length).setLayoutParams(lp);
+        }
 
        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
 

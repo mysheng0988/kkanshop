@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <ImageView
-        android:id="@+id/id_recorder_useIcon"
+        android:id="@+id/id_useIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
@@ -15,10 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/id_recorder_useIcon"
+        android:layout_toLeftOf="@+id/id_useIcon"
         android:background="@drawable/chatto_bg_focused">
         <TextView
-            android:id="@+id/id_recorder_anim"
+            android:id="@+id/id_content_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"

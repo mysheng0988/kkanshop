@@ -27,7 +27,7 @@ public class TypeRightRecorderViewHolder extends TypeAbstractViewHolder{
             ChatModel chatModel= (ChatModel) model;
             //mContentImage.setImageResource(R.drawable.ynn);
             mTextView.setText( chatModel.time+"\"");
-            mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
+            mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
         }
     }
 }
