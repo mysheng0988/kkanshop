@@ -9,16 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+    <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/keyboard"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/keyboard"/>
+            android:src="@drawable/audio"/>
+        <EditText
+            android:id="@+id/audio_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minLines="1"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="5px"
+            android:layout_gravity="center_vertical"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:background="@drawable/bg_edit"/>
         <com.mysheng.office.kkanshop.view.AudioRecorderButton
             android:id="@+id/id_recorder_button"
             android:layout_width="0dp"
@@ -29,11 +44,13 @@
             android:layout_gravity="center_vertical"
             android:textColor="#727272"
             android:minHeight="0dp"
+            android:visibility="gone"
             android:background="@drawable/recorder_button_normal"
             android:text="@string/str_recorder_normal">
 
         </com.mysheng.office.kkanshop.view.AudioRecorderButton>
         <ImageView
+            android:id="@+id/send_out"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
