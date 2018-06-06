@@ -1,5 +1,6 @@
 package com.mysheng.office.kkanshop.holder;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class TypeRightRecorderViewHolder extends TypeAbstractViewHolder{
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
             //mContentImage.setImageResource(R.drawable.ynn);
+            Log.d("mys", "bindHolder: "+ chatModel.time);
             mTextView.setText( chatModel.time+"\"");
             mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
         }

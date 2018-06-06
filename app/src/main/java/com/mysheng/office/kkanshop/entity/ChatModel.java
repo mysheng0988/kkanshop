@@ -17,7 +17,7 @@ public class ChatModel {
     public static final int TYPE_FIVE=5;
     public static final int TYPE_SIX=6;
     public  int type;
-    public float time;
+    public int time;
     public  String IconPath;//  头像图片地址
     public  String content;
     public String contentPath;

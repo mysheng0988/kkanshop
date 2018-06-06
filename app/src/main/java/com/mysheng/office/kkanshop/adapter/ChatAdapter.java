@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
+import com.mysheng.office.kkanshop.entity.DataModel;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftRecorderViewHolder;
@@ -47,14 +48,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=null;
+
         switch (viewType){
             case ChatModel.TYPE_ONE:
             return new TypeLeftTextViewHolder(mLayoutInflater.inflate(R.layout.items_left_text,parent,false));
             case ChatModel.TYPE_TWO:
-                view=mLayoutInflater.inflate(R.layout.items_right_text,parent,false);
-                view.setOnClickListener(this);
-                RecyclerView.ViewHolder viewHolder=new TypeRightTextViewHolder(view);
+                View view1=mLayoutInflater.inflate(R.layout.items_right_text,parent,false);
+              //  view.setOnClickListener(this);
+                RecyclerView.ViewHolder viewHolder=new TypeRightTextViewHolder(view1);
                 return viewHolder;
             case ChatModel.TYPE_THREE:
                 return new TypeLeftImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
@@ -63,7 +64,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             case ChatModel.TYPE_FIVE:
                 return new TypeLeftRecorderViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
             case ChatModel.TYPE_SIX:
-                return new TypeRightRecorderViewHolder(mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false));
+                View view6=mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false);
+                view6.setOnClickListener(this);
+                RecyclerView.ViewHolder viewHolder6=new TypeRightRecorderViewHolder(view6);
+                return viewHolder6;
         }
         return null;
     }
@@ -71,7 +75,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public void addList(List<ChatModel> list){
         mList.addAll(list);
     }
-
+    public void addModel(ChatModel model){
+        mList.add(model);
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
@@ -101,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onClick(View v) {
         if(mItemClickListener!=null){
-            mItemClickListener.onItemClick(v,(Integer) v.getTag());
+            mItemClickListener.onItemClick(v,mList.get((Integer) v.getTag()));
         }
 
     }
@@ -109,6 +115,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         mItemClickListener = itemClickListener;
     }
     public interface OnItemClickListener{
-        void onItemClick(View view, int position);
+        void onItemClick(View view, ChatModel model);
     }
 }
