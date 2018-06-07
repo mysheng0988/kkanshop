@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 public class MainActivity extends FragmentActivity implements OnClickListener
 {
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		setContentView(R.layout.activity_main);
 		initView();
 		initEvent();
+		String regId=MiPushClient.getRegId(MainActivity.this);
 
 		setSelect(0);
 	}
@@ -242,4 +244,5 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 			}
 		}
 	}
+
 }
