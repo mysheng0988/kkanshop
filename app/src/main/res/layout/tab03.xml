@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    xmlns:hyman="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include layout="@layout/common_bar"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:text="附近商家"
-        android:textSize="18sp"/>
-
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_marginLeft="5px"
+            android:layout_height="match_parent"
+            android:src="@drawable/location"/>
+        <TextView
+            android:layout_width="80dp"
+            android:gravity="center|left"
+            android:layout_height="match_parent"
+            android:maxLines="2"
+            android:text="北京市海淀区农大南路118号流浪家园北里3号楼一单元501"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:layout_height="35dp"
+            android:gravity="center|left"
+            android:layout_weight="1"
+            android:text="点击搜索"
+            android:background="@drawable/bg_edit"
+            android:textSize="16sp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/new_msg_w"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"/>
+    <com.mysheng.office.kkanshop.view.ViewPagerIndicator
+        android:id="@+id/id_indicator"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimaryDark"
+        hyman:visible_tab_count="4"
+        android:layout_height="40dp">
+    </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

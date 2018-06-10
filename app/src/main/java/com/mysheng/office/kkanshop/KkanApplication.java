@@ -4,19 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.os.Process;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
-
 import java.util.List;
 
 /**

@@ -11,8 +11,7 @@ import android.widget.ListView;
 
 import com.mysheng.office.kkanshop.adapter.ShopAdapter;
 
-public class ClassifyFragment extends Fragment  implements
-		AdapterView.OnItemClickListener {
+public class ClassifyFragment extends Fragment  implements AdapterView.OnItemClickListener {
 	private String[] strs = { "常用分类", "服饰内衣", "鞋靴", "手机", "家用电器", "数码", "电脑办公",
 			"个护化妆", "图书","男鞋","女鞋" ,"男装","女装"};
 	private ListView listView;
