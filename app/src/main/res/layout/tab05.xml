@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
-<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
     android:id="@+id/line"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="60dp"
+    android:paddingTop="15dp"
     android:background="@color/colorPrimaryDark"
     android:gravity="center_vertical"
     android:orientation="horizontal">
@@ -39,14 +40,14 @@ android:orientation="vertical">
         android:layout_alignParentRight="true"
         android:src="@drawable/new_msg_w" />
 </RelativeLayout>
-<com.mysheng.office.kkanshop.view.ObservableScrollView
+    <com.mysheng.office.kkanshop.view.ObservableScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scrollView"
     android:scrollbars="none"
     tools:layout_editor_absoluteY="8dp"
     tools:layout_editor_absoluteX="8dp">
-   <LinearLayout
+    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:orientation="vertical">
@@ -419,6 +420,6 @@ android:orientation="vertical">
 
        </GridView>
    </LinearLayout>
-</com.mysheng.office.kkanshop.view.ObservableScrollView>
+   </com.mysheng.office.kkanshop.view.ObservableScrollView>
 
 </RelativeLayout>

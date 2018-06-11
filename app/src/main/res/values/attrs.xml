@@ -7,5 +7,8 @@
         <attr name="border_alpha" format="integer"/>
         <attr name="shadow_color" format="color"/>
     </declare-styleable>
-
+    <attr name="visible_tab_count" format="integer"></attr>
+    <declare-styleable name="ViewPagerIndicator">
+        <attr name="visible_tab_count" ></attr>
+    </declare-styleable>
 </resources>

@@ -1,12 +1,9 @@
 package com.mysheng.office.kkanshop;
-
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.mysheng.office.kkanshop.util.BitmapCache;
@@ -28,11 +24,8 @@ import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
-
 import java.util.ArrayList;
-
 import static android.app.Activity.RESULT_OK;
-
 
 public class IndexFragment extends Fragment implements View.OnClickListener{
 	private ImageView imageView;
@@ -60,11 +53,13 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
 		scrollView= view.findViewById(R.id.scrollView);
+		CommonUtil.fullScreen(getActivity());
+		line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));
 		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
 			@Override
 			public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
 				if (y <= 0) {
-					line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
+					line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
 				} else if (y > 0 && y <= imageHeight) {
 					Log.d("mys", "onScrollChanged: "+y);
 					float scale = (float) y / imageHeight;
@@ -72,7 +67,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 					// 只是layout背景透明
 					line.setBackgroundColor(Color.argb((int) alpha, 72, 183, 245));
 				} else {
-					line.setBackgroundColor(Color.argb((int) 255, 72, 183, 245));
+					line.setBackgroundColor(Color.argb(255, 72, 183, 245));
 				}
 			}
 		});

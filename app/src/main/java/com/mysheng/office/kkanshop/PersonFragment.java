@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -71,7 +72,9 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		for(int i=0;i<31;i++){
 			RecommendBean bean=new RecommendBean();
 			bean.setName("这是测试数据，这是测试数据"+i);
-			bean.setPrice("￥"+i+".00");
+			Random random=new Random();
+			int num=random.nextInt(100);
+			bean.setPrice("￥"+num+".00");
 			lists.add(bean);
 		}
 		RecommendAdapter adapter=new RecommendAdapter(getActivity(),lists);
@@ -311,7 +314,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		// 获取listview的布局参数
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 		// 设置高度
-		params.height = totalHeight+200;
+		params.height = totalHeight+100;
 		// 设置margin
 		//((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10);
 		// 设置参数
