@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/line"
@@ -32,6 +33,16 @@
             android:layout_marginRight="5dp"
             android:src="@drawable/news_msg"/>
     </LinearLayout>
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/colorPrimary"
+            app:srlPrimaryColor="@color/white"
+            android:gravity="bottom"/>
     <com.mysheng.office.kkanshop.view.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -345,5 +356,9 @@
                 android:scaleType="centerCrop"/>
         </LinearLayout>
     </com.mysheng.office.kkanshop.view.ObservableScrollView>
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>

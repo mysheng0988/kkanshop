@@ -1,16 +1,13 @@
 package com.mysheng.office.kkanshop;
 
-import android.annotation.SuppressLint;
+
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.os.Process;
-import android.util.Log;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.xiaomi.channel.commonutils.logger.LoggerInterface;
-import com.xiaomi.mipush.sdk.Logger;
-import com.xiaomi.mipush.sdk.MiPushClient;
 import java.util.List;
 
 /**
@@ -30,28 +27,28 @@ public class KkanApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (shouldInit()) {
-            MiPushClient.registerPush(this, APP_ID, APP_KEY);
-        }
-        LoggerInterface newLogger = new LoggerInterface() {
-
-            @Override
-            public void setTag(String tag) {
-                // ignore
-            }
-            @SuppressLint("LongLogTag")
-            @Override
-            public void log(String content, Throwable t) {
-                Log.d(TAG, content, t);
-            }
-
-            @SuppressLint("LongLogTag")
-            @Override
-            public void log(String content) {
-                Log.d(TAG, content);
-            }
-        };
-        Logger.setLogger(this, newLogger);
+//        if (shouldInit()) {
+//            MiPushClient.registerPush(this, APP_ID, APP_KEY);
+//        }
+//        LoggerInterface newLogger = new LoggerInterface() {
+//
+//            @Override
+//            public void setTag(String tag) {
+//                // ignore
+//            }
+//            @SuppressLint("LongLogTag")
+//            @Override
+//            public void log(String content, Throwable t) {
+//                Log.d(TAG, content, t);
+//            }
+//
+//            @SuppressLint("LongLogTag")
+//            @Override
+//            public void log(String content) {
+//                Log.d(TAG, content);
+//            }
+//        };
+//        Logger.setLogger(this, newLogger);
         queues = Volley.newRequestQueue(getApplicationContext());
     }
     private boolean shouldInit() {
