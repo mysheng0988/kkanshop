@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#48B7F5</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="refresh">#00CC99</color>
     <!-- 描边颜色 -->
     <color name="border_clo">#ccc</color>
     <color name="text_clo">#333</color>

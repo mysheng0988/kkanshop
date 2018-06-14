@@ -22,16 +22,9 @@ import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.youth.banner.Banner;
@@ -40,6 +33,7 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 public class IndexFragment extends Fragment implements View.OnClickListener{
+	private static boolean isFirstDragging = true;
 	private ImageView imageView;
 	private ImageView scanCode;
 	private ImageView chatMsg;
@@ -50,7 +44,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	private LinearLayout line;
 	private ObservableScrollView scrollView;
 	private int imageHeight=300;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -65,19 +58,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		line.bringToFront();
 		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
-		RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
-		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
-        });
 		scrollView= view.findViewById(R.id.scrollView);
 		CommonUtil.fullScreen(getActivity());
 		line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));
@@ -98,6 +78,37 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 			}
 		});
 		initData();
+		RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+		refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
+
+			@Override
+			public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+				super.onHeaderMoving(header, isDragging, percent, offset, headerHeight, maxDragHeight);
+				if(isFirstDragging&&isDragging){
+					isFirstDragging=false;
+					line.setVisibility(View.GONE);
+				}
+			}
+
+
+		});
+		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh(RefreshLayout refreshlayout) {
+				refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+				isFirstDragging=true;
+
+				line.setVisibility(View.VISIBLE);
+
+			}
+		});
+		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+			@Override
+			public void onLoadMore(RefreshLayout refreshlayout) {
+				refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+
+			}
+		});
 
 		return view;
 	}
@@ -146,13 +157,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 				}
 				break;
 			case R.id.chat_msg:
-//                if(!(pm.checkPermission("android.permission.RECORD_AUDIO", "com.mysheng.office.kkanshop")== PackageManager.PERMISSION_GRANTED ) ) {
-//                    IndexFragment.this.requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, CommonUtil.AUDIO);
-//                }else{
-					Intent intent = new Intent(getActivity(), ChatActivity.class);
-					startActivity(intent);
-               // }
-
+				Intent intent = new Intent(getActivity(), ChatActivity.class);
+				startActivity(intent);
 			    break;
 		}
 

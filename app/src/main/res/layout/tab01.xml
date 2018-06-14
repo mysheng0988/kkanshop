@@ -36,14 +36,16 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/refresh"
+        app:srlPrimaryColor="@color/refresh"
+        app:srlAccentColor="@android:color/white">
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colorPrimary"
-            app:srlPrimaryColor="@color/white"
-            android:gravity="bottom"/>
-    <com.mysheng.office.kkanshop.view.ObservableScrollView
+            android:layout_height="wrap_content"
+            app:srlAccentColor="@android:color/white"
+           />
+        <com.mysheng.office.kkanshop.view.ObservableScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
@@ -58,292 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
             </com.youth.banner.Banner>
-            <TableLayout
-                android:id="@+id/user"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:background="#ffffff"
-                android:stretchColumns="*">
-                <TableRow android:id="@+id/row1" android:layout_marginBottom="5dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName1"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName2"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName3"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName4"/>
-
-                    </LinearLayout>
-
-                </TableRow>
-                <TableRow android:id="@+id/row2" android:layout_marginBottom="5dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName5"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName6"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName7"/>
-
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/indexName8"/>
-
-                    </LinearLayout>
-
-                </TableRow>
-            </TableLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:gravity="center_vertical"
-                        android:layout_height="match_parent"
-                        android:text="整点秒杀"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:gravity="center_vertical"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:text="22:00"
-                            android:textColor="@color/red_text_color"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="01:45:59"
-                            android:textColor="@color/red_text_color"/>
-                    </LinearLayout>
-                    <TextView
-                        android:layout_marginRight="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center_vertical"
-                        android:layout_height="match_parent"
-                        android:text="更多》"/>
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥88.00"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥66.00"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥998.00"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥666.00"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥188.00"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥166.00"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="@drawable/image_shape_radius"
-                            android:gravity="center_horizontal"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥1188.00"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="￥966.00"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
+            <include layout="@layout/index_nav_layout"/>
+            <include layout="@layout/second_kill_layout"/>
             <ImageView
                 android:id="@+id/image"
                 android:scaleType="centerCrop"
@@ -358,7 +76,8 @@
     </com.mysheng.office.kkanshop.view.ObservableScrollView>
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:srlAccentColor="@android:color/white"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>
