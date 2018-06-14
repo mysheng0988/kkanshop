@@ -22,6 +22,18 @@ import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnMultiPurposeListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import java.util.ArrayList;
@@ -38,6 +50,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	private LinearLayout line;
 	private ObservableScrollView scrollView;
 	private int imageHeight=300;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -52,6 +65,19 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		line.bringToFront();
 		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
+		RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
 		scrollView= view.findViewById(R.id.scrollView);
 		CommonUtil.fullScreen(getActivity());
 		line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));

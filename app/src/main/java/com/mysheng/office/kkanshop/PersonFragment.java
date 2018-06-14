@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private TextView personTitle;
 	private ImageView setting;
 	private GridView gridView;
+	private LinearLayout loginUser;
 	private ObservableScrollView scrollView;
 	private int imageHeight=150;
 	@Override
@@ -61,6 +63,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 
 	private void initView(View view){
 		line=view.findViewById(R.id.line);
+		loginUser=view.findViewById(R.id.login_btn);
 		setting=view.findViewById(R.id.new_setting);
 		personTitle=view.findViewById(R.id.person_text);
 		personTitle.setText("个人中心");
@@ -102,6 +105,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	}
 	private void initEvent(){
 		setting.setOnClickListener(this);
+		loginUser.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
@@ -109,6 +113,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			case R.id.new_setting:
 				startSettingActivity();
 			break;
+			case R.id.login_btn:
+				Intent intent = new Intent(getActivity(), LoginActivity.class);
+				startActivity(intent);
+				break;
 		}
 	}
 
