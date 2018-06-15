@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#48B7F5</color>
     <color name="colorAccent">#FF4081</color>
     <color name="refresh">#00CC99</color>
+
     <!-- 描边颜色 -->
     <color name="border_clo">#ccc</color>
     <color name="text_clo">#333</color>
@@ -11,7 +12,7 @@
     <color name="blue">#419DE4</color>
     <color name="black">#000000</color>
     <color name="gray">#f7f7f7f7</color>
-
+    <color name="gray_dialog">#bfbfbf</color>
 
     <!--zxing-->
     <color name="contents_text">#000000</color>
