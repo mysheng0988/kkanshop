@@ -16,19 +16,16 @@ import com.mysheng.office.kkanshop.adapter.GridImageViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridImageView<T> extends ViewGroup {
+public class GridImageView<Object> extends ViewGroup {
     public final static int STYLE_GRID= 0;     // 网格风格
     public final static int STYLE_HORIZONTAL = 1;     // 水平风格
     private int mShowStyle=STYLE_GRID;     // 显示风格，默认是网格风格
-
-
-    private GridImageViewAdapter<T> mAdapter;
-    private List<T> mImgDataList=new ArrayList<>();
+    private GridImageViewAdapter<Object> mAdapter;
+    private List<Object> mImgDataList=new ArrayList<>();
     private int mGap=5; //间隙,默认为5px
     private int mColumnCount=4; // 列数
     private int mGridSize; //每个条目的大小
     private ImageView mAddView;//添加图片的按钮
-
     /**
      * 处理滑动的
      */
@@ -38,6 +35,7 @@ public class GridImageView<T> extends ViewGroup {
     private int minFlingSpeed,maxFlingSpeed;
     private int mLeftBorder;
     private int mRightBorder;
+    private List<GridItemView> views=new ArrayList<>();
 
     public GridImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -183,7 +181,7 @@ public class GridImageView<T> extends ViewGroup {
      * @param lists 数据集合
      * @param clearLastData 是否清理上次的数据
      */
-    public void setImageData(List<T> lists,boolean clearLastData) {
+    public void setImageData(List<Object> lists,boolean clearLastData) {
         if (lists == null || lists.isEmpty()) {
             return;
         }
@@ -191,6 +189,7 @@ public class GridImageView<T> extends ViewGroup {
             mImgDataList.clear();
         }
         mImgDataList.addAll(lists);
+
         refreshDataSet();
     }
 
@@ -204,8 +203,9 @@ public class GridImageView<T> extends ViewGroup {
             removeViews(newViewCount-1, oldViewCount - newViewCount);//位置减去1，以免移除mAddView
         } else if (oldViewCount < newViewCount) {
             for (int i = oldViewCount; i < newViewCount; i++) {
-                ImageView iv = getImageView(i-1);//索引减去1，保证单击事件位置的准确性。
+                GridItemView iv = getImageView(i-1);//索引减去1，保证单击事件位置的准确性。
                 addView(iv, i-1,generateDefaultLayoutParams());//索引减去1，保证添加在mAddView之前
+                 views.add(iv);
             }
         }
         requestLayout();
@@ -217,14 +217,14 @@ public class GridImageView<T> extends ViewGroup {
      *
      * @param position 位置
      */
-    private GridItemView getImageView(final int position) {
+    public GridItemView getImageView(final int position) {
             GridItemView imageView= new GridItemView(getContext());
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mAdapter != null) {
-                        mAdapter.onItemImageClick(getContext(), position, mImgDataList);
+                        mAdapter.onItemImageClick(getContext(),  position, mImgDataList);
                     }
                 }
             });
@@ -233,6 +233,7 @@ public class GridImageView<T> extends ViewGroup {
                 @Override
                 public void onDelClickL() {
                     mImgDataList.remove(position);
+                    views.remove(position);
                     refreshDataSet();
 
                 }
@@ -246,7 +247,7 @@ public class GridImageView<T> extends ViewGroup {
      *
      * @param adapter 适配器
      */
-    public void setAdapter(GridImageViewAdapter<T> adapter) {
+    public void setAdapter(GridImageViewAdapter<Object> adapter) {
         mAdapter = adapter;
         mAddView.setImageResource(adapter.generateAddIcon());
         mShowStyle=adapter.getShowStyle();
@@ -262,7 +263,7 @@ public class GridImageView<T> extends ViewGroup {
         mGap = gap;
     }
 
-    public List<T> getImgDataList(){
+    public List<Object> getImgDataList(){
         return  mImgDataList;
     }
 
@@ -281,12 +282,12 @@ public class GridImageView<T> extends ViewGroup {
         refreshDataSet();
     }
 
-    public void add(T t){
+    public void add(Object t){
         mImgDataList.add(t);
         refreshDataSet();
     }
 
-    public void addAll(List<T> l){
+    public void addAll(List<Object> l){
         mImgDataList.addAll(l);
         refreshDataSet();
     }

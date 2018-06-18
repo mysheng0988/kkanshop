@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 public class IndexFragment extends Fragment implements View.OnClickListener{
-	private static boolean isFirstDragging = true;
 	private ImageView imageView;
 	private ImageView scanCode;
 	private ImageView chatMsg;
@@ -79,26 +78,11 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		});
 		initData();
 		RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
-		refreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener(){
 
-			@Override
-			public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
-				super.onHeaderMoving(header, isDragging, percent, offset, headerHeight, maxDragHeight);
-				if(isFirstDragging&&isDragging){
-					isFirstDragging=false;
-					line.setVisibility(View.GONE);
-				}
-			}
-
-
-		});
 		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh(RefreshLayout refreshlayout) {
 				refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-				isFirstDragging=true;
-
-				line.setVisibility(View.VISIBLE);
 
 			}
 		});

@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by mysheng on 2017/12/18.
+ * 录音适配器
  */
 
 public class RecorderAdapter extends ArrayAdapter<Recorder> {

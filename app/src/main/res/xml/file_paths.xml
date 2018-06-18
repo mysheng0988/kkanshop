@@ -2,7 +2,7 @@
 
 <paths>
 
-    <external-path path="Android/data/com.example.hwxnemr.hwxnemr_app/" name="files_root"/>
+    <external-path path="Android/data/com.mysheng.office.kkanshop/" name="files_root"/>
 
     <external-path path="." name="external_storage_root"/>
 

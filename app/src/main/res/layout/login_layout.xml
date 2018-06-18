@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#fff"
     android:orientation="vertical">
     <RelativeLayout
@@ -24,12 +26,6 @@
             android:textSize="20dp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
-        <ImageView
-            android:id="@+id/setting"
-            android:layout_width="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="40dp"
-            android:src="@drawable/setting"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,5 +85,15 @@
             android:textStyle ="bold"
             android:text="注册" />
     </LinearLayout>
-
+    <com.mysheng.office.kkanshop.view.Star
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:starWidth ="40dp"
+        app:starHeight ="40dp"
+        app:starDistance ="10dp"
+        app:starsNum="5"
+        app:starBackground ="@drawable/s2"
+        app:starDrawBackground ="@drawable/s1"
+        app:starClickable ="false"/>
 </LinearLayout>

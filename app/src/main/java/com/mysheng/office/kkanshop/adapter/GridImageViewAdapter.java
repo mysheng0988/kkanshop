@@ -10,14 +10,14 @@ import com.mysheng.office.kkanshop.view.GridImageView;
 import java.util.List;
 
 /**
- * @param <T> 指定类型
+ * @param <Object> 指定类型
  */
-public abstract class GridImageViewAdapter<T> {
-    public abstract void onDisplayImage(Context context, ImageView imageView, T path);
+public abstract class GridImageViewAdapter<Object> {
+    public abstract void onDisplayImage(Context context, ImageView imageView,  Object path);
 
-    public abstract void onAddClick(Context context, List<T> list);
+    public abstract void onAddClick(Context context, List<Object> list);
 
-    public void onItemImageClick(Context context, int index, List<T> list) {
+    public void onItemImageClick(Context context,int index, List<Object> list) {
 
     }
 

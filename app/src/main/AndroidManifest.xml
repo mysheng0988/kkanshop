@@ -23,10 +23,11 @@
         android:name=".KkanApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
         android:theme="@style/AppTheme">
         <provider
 
-            android:name="android.support.v4.content.FileProvider"
+            android:name="com.mysheng.office.kkanshop.util.kkanshopProvider"
 
             android:authorities="com.mysheng.office.kkanshop.fileProvider"
 
@@ -50,6 +51,16 @@
         <activity android:name="com.mysheng.office.kkanshop.SettingActivity">
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.LoginActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.RegisterActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.UploadImageActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.SelectorActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.SimpleActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.ResultActivity">
         </activity>
         <activity android:windowSoftInputMode="adjustResize"
             android:name="com.mysheng.office.kkanshop.ChatActivity">

@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <item name="image_orientation" type="id" tools:ignore="ResourceName" />
+    <item name="state_origin" type="id" tools:ignore="ResourceName" />
+    <item name="state_default" type="id" tools:ignore="ResourceName" />
+    <item name="state_current" type="id" tools:ignore="ResourceName" />
+    <item name="state_thumb" type="id" tools:ignore="ResourceName" />
+    <item name="state_temp" type="id" tools:ignore="ResourceName" />
+    <item name="state_touch_down" type="id" tools:ignore="ResourceName" />
+    <item name="state_touch_drag" type="id" tools:ignore="ResourceName" />
+    <item name="state_touch_scale_rotate" type="id" tools:ignore="ResourceName" />
+    <item name="view_image_watcher" type="id" tools:ignore="ResourceName" />
+</resources>

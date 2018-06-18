@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -90,8 +91,11 @@ public class PhotoGalleyAdapter extends BaseAdapter {
                 }
             }
         });
-
-        Picasso.with(mContext).load("file://"+path).centerCrop().resize(400,400).into(imageView);
+//        RequestOptions mOptions = new RequestOptions()
+//                .placeholder(R.drawable.img_viewer_placeholder)
+//                .error(R.drawable.img_viewer_placeholder)
+//                .centerCrop().override(400, 400);
+        Glide.with(mContext).load("file://"+path).centerCrop().override(400, 400).into(imageView);
 
         return imageView;
     }

@@ -9,6 +9,7 @@
     <color name="border_clo">#ccc</color>
     <color name="text_clo">#333</color>
     <color name="white">#fff</color>
+    <color name="red">#f00</color>
     <color name="blue">#419DE4</color>
     <color name="black">#000000</color>
     <color name="gray">#f7f7f7f7</color>
