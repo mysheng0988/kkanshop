@@ -132,8 +132,7 @@ public class ImageWatcher extends FrameLayout implements GestureDetector.OnGestu
 
     /**
      * 调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
-     *
-     * @param i              被点击的ImageView
+     *  @param i              被点击的ImageView
      * @param imageGroupList 被点击的ImageView的所在列表，加载图片时会提前展示列表中已经下载完成的thumb图片
      * @param urlList        被加载的图片url列表，数量必须大于等于 imageGroupList.size。 且顺序应当和imageGroupList保持一致
      */

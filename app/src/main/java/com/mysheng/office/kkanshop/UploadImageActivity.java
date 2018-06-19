@@ -1,6 +1,9 @@
 package com.mysheng.office.kkanshop;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,21 +24,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
-import com.mysheng.office.kkanshop.ImageViewer.data.ViewData;
-import com.mysheng.office.kkanshop.ImageViewer.factory.ImageLoader;
-import com.mysheng.office.kkanshop.ImageViewer.widget.ImageViewer;
 import com.mysheng.office.kkanshop.adapter.GridImageViewAdapter;
+import com.mysheng.office.kkanshop.imagesWatcher.ImageWatcher;
 import com.mysheng.office.kkanshop.okHttptils.OkHttpUtils;
 import com.mysheng.office.kkanshop.okHttptils.UploadProgressListener;
 import com.mysheng.office.kkanshop.util.LoadingDialog;
 import com.mysheng.office.kkanshop.util.TakePhotoSetting;
+import com.mysheng.office.kkanshop.util.Utils;
 import com.mysheng.office.kkanshop.view.GridImageView;
 import java.io.File;
 
@@ -49,11 +50,7 @@ import okhttp3.Response;
 
 public class UploadImageActivity extends TakePhotoActivity implements UploadProgressListener,View.OnClickListener {
 
-
-    private static final int IMAGE_PHOTO=0x001;
-    private static final int CAMERA_PHOTO=0x002;
-    private GridImageView<Object> mGridImageView;
-    //private ImageWatcher vImageWatcher;
+    private GridImageView<String> mGridImageView;
     private View inflate;
     private Button button;
     private Dialog dialog;
@@ -71,15 +68,15 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
     private LoadingDialog mDialog;
     private TakePhotoSetting takePhotoSetting;
     private TakePhoto mTakePhoto;
-    private ImageViewer imageViewer;
-    private List<ViewData> mViewDatas;
-
+    boolean isTranslucentStatus = false;
+    private ImageWatcher vImageWatcher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_layout);
         mGridImageView= findViewById(R.id.gridImageView);
-        imageViewer = findViewById(R.id.imagePreivew);
         button=findViewById(R.id.button);
         title= findViewById(R.id.common_title);
         remark= findViewById(R.id.remark);
@@ -92,19 +89,31 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
         //initImageWatcher();
         title.setText("商品评价");
         button.setOnClickListener(this);
-        mGridImageView.setAdapter(new GridImageViewAdapter<Object>() {
+        // 初始化方式一，在Activity对应布局文件加入<ImageWatcher>标签
+        vImageWatcher = (ImageWatcher) findViewById(R.id.v_image_watcher); // 一般来讲， ImageWatcher 需要占据全屏的位置
+        vImageWatcher.setTranslucentStatus(!isTranslucentStatus ? Utils.calcStatusBarHeight(this) : 0);  // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确
+        vImageWatcher.setErrorImageRes(R.mipmap.error_picture);  // 配置error图标 如果不介意使用lib自带的图标，并不一定要调用这个API
+        // vImageWatcher.setOnPictureLongPressListener(UploadImageActivity.this); // 长按图片的回调，你可以显示一个框继续提供一些复制，发送等功能
+        vImageWatcher.setLoader(new ImageWatcher.Loader() {//调用show方法前，请先调用setLoader 给ImageWatcher提供加载图片的实现
             @Override
-            public void onDisplayImage(Context context, ImageView imageView, Object path) {
-                //Picasso.with(context).load("file://"+path).centerCrop().resize(400, 400).into(imageView);
-//                RequestOptions mOptions = new RequestOptions()
-//                        .placeholder(R.drawable.img_viewer_placeholder)
-//                        .error(R.drawable.img_viewer_placeholder)
-//                        .centerCrop().override(400, 400);
+            public void load(Context context, String url, final ImageWatcher.LoadCallback lc) {
+                Glide.with(context).load(url).asBitmap().into(new SimpleTarget<Bitmap>() {
+
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        lc.onResourceReady(resource);
+                    }
+                });
+            }
+        });
+        mGridImageView.setAdapter(new GridImageViewAdapter<String>() {
+            @Override
+            public void onDisplayImage(Context context, ImageView imageView, String path) {
                 Glide.with(context).load("file://"+path).centerCrop().override(400, 400).into(imageView);
             }
 
             @Override
-            public void onAddClick(Context context, List<Object> list) {
+            public void onAddClick(Context context, List<String> list) {
                 show();
             }
 
@@ -114,19 +123,20 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
             }
 
             @Override
-            public void onItemImageClick(Context context,int index, List<Object> list) {
-                super.onItemImageClick(context,index, list);
-               // showTheBigImages(index,list);
-                initImageWatcher(index,list);
+            public void onItemImageClick(ImageView imageView,List<ImageView> imageViews,int index, List<String> list) {
+                super.onItemImageClick(imageView,imageViews,index, list);
+                vImageWatcher.show(imageView,imageViews,list);
                 Toast.makeText(getApplicationContext(), "--->" + index, Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
     private void uploadFile(){
         mDialog=new LoadingDialog(this,"文件上传中...");
         mDialog.setCanceledOnTouchOutside(false);
         mDialog.show();
-        List<Object> list1=mGridImageView.getImgDataList();
+        List<String> list1=mGridImageView.getImgDataList();
         int id = radioGroup.getCheckedRadioButtonId();
         // 通过id实例化选中的这个RadioButton
         RadioButton choise =findViewById(id);
@@ -161,7 +171,6 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
     public void takeSuccess(TResult result) {
         List<String>list=new ArrayList<>();
         ArrayList<TImage> images=result.getImages();
-        mViewDatas = new ArrayList<>();
 
         for (int i = 0;i<images.size(); i ++) {
             Log.d("mmm", "takeSuccess: "+images.get(i).getCompressPath());
@@ -180,53 +189,14 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if(msg.obj!=null){
-                List<Object> list= (List<Object>) msg.obj;
+                List<String> list= (List<String>) msg.obj;
                 mGridImageView.setImageData(list,false);
-                for (int i = 0, len = list.size(); i < len; i++) {
-                    ViewData viewData = new ViewData();
-                    mViewDatas.add(viewData);
-                }
+
             }
 
 
         }
     };
-    private void initImageWatcher(int position, final List<Object> list){
-        if (mViewDatas.get(position).getWidth() == 0) {
-            for (int i = 0; i < mGridImageView.getChildCount()-1; i++) {
-                int[] location = new int[2];
-                // 获取在整个屏幕内的绝对坐标
-                mGridImageView.getChildAt(i).getLocationOnScreen(location);
-                ViewData viewData = mViewDatas.get(i);
-                viewData.setX(location[0]);
-                // 此处注意，获取 Y 轴坐标时，需要根据实际情况来处理《状态栏》的高度，判断是否需要计算进去
-                viewData.setY(location[1]);
-                viewData.setWidth(mGridImageView.getChildAt(i).getMeasuredWidth());
-                viewData.setHeight(mGridImageView.getChildAt(i).getMeasuredHeight());
-                mViewDatas.set(i, viewData);
-            }
-        }
-        imageViewer.setStartPosition(position);
-        imageViewer.setImageData(list);
-        imageViewer.setViewData(mViewDatas);
-        imageViewer.setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(final int position,final Object src, final ImageView view) {
-                Glide.with(UploadImageActivity.this)
-                        .load(src)
-                        .into(new SimpleTarget<GlideDrawable>() {
-                            @Override
-                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                                view.setImageDrawable(resource);
-                                mViewDatas.get(position).setHeight(resource.getIntrinsicHeight());
-                                mViewDatas.get(position).setWidth(resource.getIntrinsicWidth());
-                            }
-                        });
-
-            }
-        });
-        imageViewer.watch();
-    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -238,7 +208,6 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
                 dialog.dismiss();
                 break;
             case R.id.takePhoto:
-                //startCameraActivity();
                 takePhotoSetting.pickByTakeImage(mTakePhoto);
                 dialog.dismiss();
                 break;

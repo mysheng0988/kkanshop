@@ -143,11 +143,10 @@
 
 
     </LinearLayout>
-    <com.mysheng.office.kkanshop.ImageViewer.widget.ImageViewer
-        android:id="@+id/imagePreivew"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </com.mysheng.office.kkanshop.ImageViewer.widget.ImageViewer>
+    <com.mysheng.office.kkanshop.imagesWatcher.ImageWatcher
+        android:id="@+id/v_image_watcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>
 
