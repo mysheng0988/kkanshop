@@ -1,7 +1,10 @@
 package com.mysheng.office.kkanshop.util;
 
+import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
@@ -13,7 +16,7 @@ import java.io.File;
 
 public class TakePhotoSetting {
     /*剪切配置*/
-   private boolean isCutting=true;//不裁剪
+   private boolean isCutting=false;//裁剪
    private  int cutWidth=800;
    private int cutHeight=800;
    private boolean cutTool=false;//默默为第三方，
@@ -22,27 +25,22 @@ public class TakePhotoSetting {
     private  boolean compressTool=false;//默默为第三方
     private  boolean isCompress=true;//是否压缩
     private  boolean isShowComProgress=true;//是否显示压缩进度条
-    private  int maxFileSize =102400;//文件最大102400B
-    private int compressWidth=800;
-    private int compressHeight=800;
+    private  int maxFileSize =307200;//文件最大102400B
+    private int compressWidth=1920;
+    private int compressHeight=1080;
     /*选择图片配置*/
     private  boolean photoTool=true;//默默TakePhone自己，limit>1时自动选择TakePhone自己
     private  int limit =10;//选择最多图片个数
     private boolean whereIsPhoto=true;//默认为从相册
     /*其他配置*/
     private boolean correctRotate=true;//纠正旋转角度
-    private boolean isOldPhoto=true;//默认为从相册
-    private File file;
-    private  Uri imageUri;
-    public void initTakePhoto(TakePhoto takePhoto){
-        file = new File(Environment.getExternalStorageDirectory(), "/mysheng/" + System.currentTimeMillis() + ".jpg");
+    private boolean isOldPhoto=true;//是否保留原图
+    public void pickBySelectImage(TakePhoto takePhoto){
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-         imageUri = Uri.fromFile(file);
-
-    }
-    public void pickBySelectImage(TakePhoto takePhoto){
+        Uri imageUri = Uri.fromFile(file);
         configCompress(takePhoto);
         configTakePhotoOption(takePhoto);
         if (limit > 1) {
@@ -68,10 +66,16 @@ public class TakePhotoSetting {
             }
         }
     }
+
     public void pickByTakeImage(TakePhoto takePhoto){
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        Uri imageUri = Uri.fromFile(file);
         configCompress(takePhoto);
         configTakePhotoOption(takePhoto);
-        if (isCompress) {
+        if (isCutting) {
             takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
         } else {
             takePhoto.onPickFromCapture(imageUri);

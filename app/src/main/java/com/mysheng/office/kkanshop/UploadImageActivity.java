@@ -56,6 +56,7 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
     private Dialog dialog;
     private Button choosePhoto;
     private Button takePhoto;
+    private Button cancel;
     private TextView title;
     private EditText remark;
     private RadioGroup radioGroup;
@@ -84,7 +85,6 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
         uploadFile=findViewById(R.id.uploadFile);
         takePhotoSetting=new TakePhotoSetting();
         mTakePhoto=getTakePhoto();
-        takePhotoSetting.initTakePhoto(mTakePhoto);
         uploadFile.setOnClickListener(this);
         //initImageWatcher();
         title.setText("商品评价");
@@ -239,8 +239,10 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
         //初始化控件
         choosePhoto =  inflate.findViewById(R.id.choosePhoto);
         takePhoto = inflate.findViewById(R.id.takePhoto);
+        cancel=inflate.findViewById(R.id.btn_cancel);
         choosePhoto.setOnClickListener(this);
         takePhoto.setOnClickListener(this);
+        cancel.setOnClickListener(this);
         //将布局设置给Dialog
         dialog.setContentView(inflate);
         //获取当前Activity所在的窗体

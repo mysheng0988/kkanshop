@@ -41,4 +41,20 @@
         <!--进入与退出动画的执行时间-->
         <attr name="ivr_anim_duration" format="integer" />
     </declare-styleable>
+    <!--仿微信开关-->
+    <declare-styleable name="SlideSwitch">
+        <attr name="isopen" format="boolean"/>
+
+        <attr name="open_paint_color" format="color"/>
+
+        <attr name="close_paint_color" format="color"/>
+
+        <attr name="circle_paint_color" format="color"/>
+
+        <attr name="small_padding" format="integer"/>
+
+        <attr name="speed" format="integer"/>
+
+        <attr name="speedtime" format="integer"/>
+    </declare-styleable>
 </resources>
