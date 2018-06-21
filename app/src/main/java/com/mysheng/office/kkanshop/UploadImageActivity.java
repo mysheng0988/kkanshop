@@ -38,6 +38,8 @@ import com.mysheng.office.kkanshop.util.LoadingDialog;
 import com.mysheng.office.kkanshop.util.TakePhotoSetting;
 import com.mysheng.office.kkanshop.util.Utils;
 import com.mysheng.office.kkanshop.view.GridImageView;
+import com.mysheng.office.kkanshop.view.SlideSwitch;
+
 import java.io.File;
 
 import java.util.ArrayList;
@@ -71,6 +73,7 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
     private TakePhoto mTakePhoto;
     boolean isTranslucentStatus = false;
     private ImageWatcher vImageWatcher;
+    private SlideSwitch switchButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,6 +92,19 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
         //initImageWatcher();
         title.setText("商品评价");
         button.setOnClickListener(this);
+        switchButton=findViewById(R.id.switch_btn);
+        switchButton.setOnMbClickListener(new SlideSwitch.OnMClickListener() {
+            @Override
+            public void onClick(boolean isRight) {
+                if (isRight){
+                    takePhotoSetting.setCutting(true);
+                    //Toast.makeText(UploadImageActivity.this,"右",Toast.LENGTH_SHORT).show();
+                }else {
+                    takePhotoSetting.setCutting(false);
+                    //Toast.makeText(UploadImageActivity.this,"左",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         // 初始化方式一，在Activity对应布局文件加入<ImageWatcher>标签
         vImageWatcher = (ImageWatcher) findViewById(R.id.v_image_watcher); // 一般来讲， ImageWatcher 需要占据全屏的位置
         vImageWatcher.setTranslucentStatus(!isTranslucentStatus ? Utils.calcStatusBarHeight(this) : 0);  // 如果是透明状态栏，你需要给ImageWatcher标记 一个偏移值，以修正点击ImageView查看的启动动画的Y轴起点的不正确

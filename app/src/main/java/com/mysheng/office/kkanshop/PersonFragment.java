@@ -285,21 +285,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		super.onResume();
 		//getLoginMessage();
 	}
-	private void getLoginMessage(){
-//		String user_name=readLoginData.getLoginDate(getActivity(),"TrueName");
-//		String user_code=readLoginData.getLoginDate(getActivity(),"UserName");
-//		if(user_name!=""&&user_code!=""){
-//			personName.setText(user_name);
-//			personCode.setText(user_code);
-//			textContent.setVisibility(View.VISIBLE);
-//			btnLogin.setVisibility(View.GONE);
-//		}else{
-//			personName.setText("");
-//			personCode.setText("");
-//			textContent.setVisibility(View.GONE);
-//			btnLogin.setVisibility(View.VISIBLE);
-//		}
-	}
+
 	public  void setListViewHeightBasedOnChildren(GridView listView) {
 		// 获取listview的adapter
 		RecommendAdapter listAdapter = (RecommendAdapter) listView.getAdapter();
@@ -316,13 +302,13 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			View listItem = listAdapter.getView(i, null, listView);
 			listItem.measure(5, 5);
 			// 获取item的高度和
-			totalHeight += listItem.getMeasuredHeight();
+			totalHeight += listItem.getMeasuredHeight()+15;
 		}
 
 		// 获取listview的布局参数
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 		// 设置高度
-		params.height = totalHeight+100;
+		params.height = totalHeight;
 		// 设置margin
 		//((ViewGroup.MarginLayoutParams) params).setMargins(10, 10, 10, 10);
 		// 设置参数

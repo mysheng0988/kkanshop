@@ -25,7 +25,8 @@
             android:layout_weight="1"
             android:hint="点击快速搜索"
             android:layout_margin="5dp"
-            android:background="@drawable/bg_edit" />
+            android:background="@drawable/search_normal"
+            android:textColor="@color/white"/>
         <ImageView
             android:id="@+id/chat_msg"
             android:layout_width="30dp"
@@ -42,7 +43,8 @@
         app:srlAccentColor="@android:color/white">
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
+            android:gravity="bottom"
             app:srlAccentColor="@android:color/white"
            />
         <com.mysheng.office.kkanshop.view.ObservableScrollView

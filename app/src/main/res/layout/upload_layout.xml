@@ -22,6 +22,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/gray">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="15dp"
+                        android:text="选择上传类型"
+                        android:textSize="18sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/switch_btn"
+                        android:textSize="18sp"
+                        android:text="是否裁剪"/>
+                    <com.mysheng.office.kkanshop.view.SlideSwitch
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/switch_btn"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="50dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="30dp">
+
+                    </com.mysheng.office.kkanshop.view.SlideSwitch>
+                </RelativeLayout>
                 <RadioGroup
                     android:id="@+id/radioGroupID"
                     android:layout_width="match_parent"
@@ -118,11 +148,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-
                         android:background="@drawable/bg_edit"
                         android:gravity="left|center"
                         android:hint="请输入备注信息"
-                        android:minLines="1"
+                        android:minLines="2"
                         android:textCursorDrawable="@drawable/color_cursor" />
 
                 </LinearLayout>

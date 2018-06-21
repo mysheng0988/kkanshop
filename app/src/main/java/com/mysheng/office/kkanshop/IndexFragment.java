@@ -29,6 +29,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
+
 import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
@@ -99,16 +101,29 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 
 	private void initData() {
 		banner.setImageLoader(new GlideImageLoader());
-		list_path.add("http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
-		list_path.add("http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
-		list_path.add("http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
-		list_path.add("http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5");
+		list_path.add("http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg");
+		list_path.add("http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg");
+		list_path.add("http://i1.mifile.cn/a4/xmad_1529377715473_xVjDr.jpg");
+		list_path.add("http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg");
+		list_path.add("http://i1.mifile.cn/a4/xmad_15248221330196_tvCXl.jpg");
+		list_path.add("http://i1.mifile.cn/a4/xmad_15281678020877_ZAHgw.jpg");
+		list_path.add("https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png");
 		banner.setImages(list_path);
-		list_title.add("小笨猪");
-		list_title.add("小懒猪");
-		list_title.add("555");
-		list_title.add("1111");
+		list_title.add("小米mix2s 3299起");
+		list_title.add("小米8-小米八周年纪念版");
+		list_title.add("小米6x");
+		list_title.add("小米游戏本");
+		list_title.add("小米九号平衡车");
+		list_title.add("红米5最高立减200元");
+		list_title.add("华为P20pro");
 		banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+		banner.setOnBannerListener(new OnBannerListener() {
+			@Override
+			public void OnBannerClick(int position) {
+				Toast.makeText(getActivity(),position+"",Toast.LENGTH_SHORT).show();
+
+			}
+		});
 		banner.setBannerTitles(list_title);
 
 		//banner设置方法全部调用完毕时最后调用
@@ -184,4 +199,18 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		}
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		banner.startAutoPlay();
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		banner.stopAutoPlay();
+	}
+
+
 }
