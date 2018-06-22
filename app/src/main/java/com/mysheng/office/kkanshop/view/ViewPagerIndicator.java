@@ -121,9 +121,13 @@ public class ViewPagerIndicator extends LinearLayout{
         if(titles!=null&&titles.size()>0){
             this.removeAllViews();
             mTitle=titles;
-            for(String title:mTitle){
-                addView(getTabItemTitle(title));
+//            for(String title:mTitle){
+//                addView(getTabItemTitle(title));
+//            }
+            for (int i=0;i<mTitle.size()-1;i++){
+                addView(getTabItemTitle(mTitle.get(i)));
             }
+            addView(getTabItemTextView(mTitle.get(mTitle.size()-1)));
             setTabItemOnclickEvent();
         }
 
@@ -145,6 +149,18 @@ public class ViewPagerIndicator extends LinearLayout{
         BorderTextView tv=new BorderTextView(getContext());
         LinearLayout.LayoutParams lp=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
        lp.width=getScreenWidth()/tabVisibleCount;
+        tv.setTextColor(COLOR_TEXT_NORMAL);
+        tv.setText(title);
+        TextPaint tp = tv.getPaint();
+        tp.setFakeBoldText(true);
+        tv.setGravity(Gravity.CENTER);
+        tv.setLayoutParams(lp);
+        return tv;
+    }
+    private View getTabItemTextView(String title) {
+        TextView tv=new TextView(getContext());
+        LinearLayout.LayoutParams lp=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+        lp.width=getScreenWidth()/tabVisibleCount;
         tv.setTextColor(COLOR_TEXT_NORMAL);
         tv.setText(title);
         TextPaint tp = tv.getPaint();
