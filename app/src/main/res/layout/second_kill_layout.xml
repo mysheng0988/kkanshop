@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="170dp"
+    android:layout_margin="5dp"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@drawable/bg_layout_shape">
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="5dp"
         android:layout_height="40dp"
+        android:background="@drawable/bg_title_radius"
         android:orientation="horizontal">
         <TextView
             android:layout_marginLeft="5dp"
@@ -35,101 +38,21 @@
         <TextView
             android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/more"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
-            android:text="更多》"/>
+            android:text="更多"/>
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="20dp"
+            android:layout_centerInParent="true"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/setting_arrow"/>
     </RelativeLayout>
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/image_shape_radius"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥88.00"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥66.00"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/image_shape_radius"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥998.00"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥666.00"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/image_shape_radius"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥188.00"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥166.00"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/image_shape_radius"
-                android:gravity="center_horizontal"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥1188.00"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="￥966.00"/>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_weight="1"/>
 </LinearLayout>

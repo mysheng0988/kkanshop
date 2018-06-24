@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.mysheng.office.kkanshop.adapter.KillAdapter;
+import com.mysheng.office.kkanshop.entity.KillModel;
 import com.mysheng.office.kkanshop.util.BitmapCache;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.GlideImageLoader;
@@ -32,6 +36,9 @@ import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import static android.app.Activity.RESULT_OK;
 
 public class IndexFragment extends Fragment implements View.OnClickListener{
@@ -45,12 +52,19 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	private LinearLayout line;
 	private ObservableScrollView scrollView;
 	private int imageHeight=300;
+	private RecyclerView recyclerView;
+	private KillAdapter mKillAdapter;
+	private LinearLayoutManager mLinearManager;
+	private List<KillModel> mList=new ArrayList<>();
+	private List<String> listPath=new ArrayList<>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
 	{
 		View view= inflater.inflate(R.layout.tab01, container, false);
 		imageView=view.findViewById(R.id.image);
+		recyclerView=view.findViewById(R.id.recyclerView);
+
 		scanCode=view.findViewById(R.id.scan_code);
 		chatMsg=view.findViewById(R.id.chat_msg);
 		networkImageView=view.findViewById(R.id.netImage);
@@ -128,6 +142,30 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 
 		//banner设置方法全部调用完毕时最后调用
 		banner.start();
+		mLinearManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+		// 从底部开始显示
+		//mLinearManager.setStackFromEnd(true);
+		recyclerView.setLayoutManager(mLinearManager);
+		mKillAdapter=new KillAdapter(getActivity());
+		listPath.add("https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg");
+		listPath.add("https://i1.mifile.cn/a1/pms_1527144859.25489991!220x220.jpg");
+		listPath.add("https://i1.mifile.cn/a4/xmad_14972549116226_tZpod.png");
+		listPath.add("https://i1.mifile.cn/a1/pms_1492999959.43955760!220x220.jpg");
+		listPath.add("https://i1.mifile.cn/a1/pms_1519609640.9267740!140x140.jpg");
+		listPath.add("https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg");
+		for (int i=0;i<listPath.size();i++){
+			KillModel model=new KillModel();
+			model.setImagePath(listPath.get(i));
+			Random random=new Random();
+			int num=random.nextInt(1000);
+			int num2=random.nextInt(1000);
+
+			model.setOldPrice("￥"+Math.max(num,num2)+".00");
+			model.setPrice("￥"+Math.min(num,num2)+".00");
+			mList.add(model);
+		}
+		mKillAdapter.setData(mList);
+		recyclerView.setAdapter(mKillAdapter);
 		String path="http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
 		VolleyImage.loadImageByURL(path,imageView);
 		String url="http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
