@@ -61,6 +61,7 @@
             </com.youth.banner.Banner>
             <include layout="@layout/index_nav_layout"/>
             <include layout="@layout/second_kill_layout"/>
+            <include layout="@layout/good_shop_layout"/>
             <ImageView
                 android:id="@+id/image"
                 android:layout_marginTop="5dp"
