@@ -17,7 +17,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:text="发现好店"
             android:textStyle="bold"/>
         <TextView

@@ -17,7 +17,9 @@
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
-            android:text="整点秒杀"/>
+            android:textSize="14dp"
+            android:text="整点秒杀"
+            android:textStyle="bold"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
