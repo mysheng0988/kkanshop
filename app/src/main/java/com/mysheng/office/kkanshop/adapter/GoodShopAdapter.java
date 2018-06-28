@@ -29,7 +29,7 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view= mLayoutInflater.inflate(R.layout.item_good_shop_layout, parent,false);
-        return new KillViewHolder(view);
+        return new GoodShopViewHolder(view);
     }
 
     @Override

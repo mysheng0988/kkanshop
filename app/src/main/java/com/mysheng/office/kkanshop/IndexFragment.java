@@ -16,10 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.mysheng.office.kkanshop.adapter.GoodShopAdapter;
 import com.mysheng.office.kkanshop.adapter.KillAdapter;
+import com.mysheng.office.kkanshop.adapter.ShopAdapter;
 import com.mysheng.office.kkanshop.entity.KillModel;
+import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.util.BitmapCache;
 import com.mysheng.office.kkanshop.util.CommonUtil;
+import com.mysheng.office.kkanshop.util.CustomToast;
 import com.mysheng.office.kkanshop.util.GlideImageLoader;
 import com.mysheng.office.kkanshop.util.VolleyImage;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
@@ -53,10 +57,14 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	private ObservableScrollView scrollView;
 	private int imageHeight=300;
 	private RecyclerView recyclerView;
+	private RecyclerView recyclerViewShop;
 	private KillAdapter mKillAdapter;
+	private GoodShopAdapter mGoodShopAdapter;
 	private LinearLayoutManager mLinearManager;
+	private LinearLayoutManager mLinearManager2;
 	private List<KillModel> mList=new ArrayList<>();
-	private List<String> listPath=new ArrayList<>();
+	private List<String> listPath=new ArrayList<>();//储存秒杀地址
+	private List<ShopModel> shopList=new ArrayList<>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -64,6 +72,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		View view= inflater.inflate(R.layout.tab01, container, false);
 		imageView=view.findViewById(R.id.image);
 		recyclerView=view.findViewById(R.id.recyclerView);
+		recyclerViewShop=view.findViewById(R.id.recyclerViewShop);
 
 		scanCode=view.findViewById(R.id.scan_code);
 		chatMsg=view.findViewById(R.id.chat_msg);
@@ -143,9 +152,11 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		//banner设置方法全部调用完毕时最后调用
 		banner.start();
 		mLinearManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+		mLinearManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 		// 从底部开始显示
 		//mLinearManager.setStackFromEnd(true);
 		recyclerView.setLayoutManager(mLinearManager);
+		recyclerViewShop.setLayoutManager(mLinearManager2);
 		mKillAdapter=new KillAdapter(getActivity());
 		listPath.add("https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg");
 		listPath.add("https://i1.mifile.cn/a1/pms_1527144859.25489991!220x220.jpg");
@@ -165,7 +176,41 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 			mList.add(model);
 		}
 		mKillAdapter.setData(mList);
+		mKillAdapter.setOnItemClickCallback(new KillAdapter.OnItemClickCallback() {
+			@Override
+			public void onItemClick(int position, LinearLayout view) {
+				Toast.makeText(getActivity(),mList.get(position).getPrice(),Toast.LENGTH_SHORT).show();
+				//CustomToast.show(getContext(),mList.get(position).getPrice());
+			}
+		});
 		recyclerView.setAdapter(mKillAdapter);
+		mGoodShopAdapter=new GoodShopAdapter(getActivity());
+		ShopModel shopModel=new ShopModel();
+		shopModel.setImagePath1("https://i1.mifile.cn/a1/pms_1509723483.31416776!220x220.jpg");
+		shopModel.setImagePath2("https://i1.mifile.cn/a1/pms_1527684990.93616987!220x220.jpg");
+		shopModel.setImagePath3("https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/86566f01e26104c8c36e1201223385b7.jpg");
+		shopModel.setShopName("小米官方旗舰店");
+		shopModel.setShopNum("1111");
+		shopList.add(shopModel);
+		ShopModel shopModel2=new ShopModel();
+		shopModel2.setImagePath1("https://openfile.meizu.com/group1/M00/02/F9/Cgbj0VpcI-6AHsPAAACF-hNGTkg171_180x180.jpg");
+		shopModel2.setImagePath2("https://openfile.meizu.com/group1/M00/04/0E/Cgbj0FrcbsCANuv_AAzufmGf2yU449.png@240x240.jpg");
+		shopModel2.setImagePath3("https://openfile.meizu.com/group1/M00/02/31/Cgbj0VnCIPSAZlXMAA4noi5FGFE697.png@240x240.png");
+		shopModel2.setShopName("魅族官方旗舰店");
+		shopModel2.setShopNum("22222");
+		shopList.add(shopModel2);
+		ShopModel shopModel3=new ShopModel();
+		shopModel3.setImagePath1("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/pdp/phones/p20-pro-update1/img/kv-mobile-v2-original.jpg");
+		shopModel3.setImagePath2("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/p20pro-listimage-pink-original.png");
+		shopModel3.setImagePath3("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/maters-list-image-original.png");
+		shopModel3.setShopName("华为官方旗舰店");
+		shopModel3.setShopNum("33333");
+		shopList.add(shopModel3);
+		mGoodShopAdapter.setData(shopList);
+		recyclerViewShop.setAdapter(mGoodShopAdapter);
+
+
+
 		String path="http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
 		VolleyImage.loadImageByURL(path,imageView);
 		String url="http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";

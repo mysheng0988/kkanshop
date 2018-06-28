@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private LayoutInflater mLayoutInflater;
     private List<KillModel> mList=new ArrayList<>();
     private OnItemClickCallback mCallback;
@@ -32,10 +32,16 @@ public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
        KillViewHolder viewHolder= (KillViewHolder) holder;
        KillModel model=mList.get(position);
        viewHolder.bindHolder(mList.get(position));
+       viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               mCallback.onItemClick(position, (LinearLayout) v);
+           }
+       });
     }
 
     @Override
@@ -43,10 +49,7 @@ public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         return mList.size();
     }
 
-    @Override
-    public void onClick(View v) {
 
-    }
     public void setData(List<KillModel> list) {
         mList.addAll(list);
     }

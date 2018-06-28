@@ -20,7 +20,7 @@ public class GoodShopViewHolder extends RecyclerView.ViewHolder {
         imagePath1=itemView.findViewById(R.id.goodsPath1);
         imagePath2=itemView.findViewById(R.id.goodsPath2);
         imagePath3=itemView.findViewById(R.id.goodsPath3);
-        shopName=itemView.findViewById(R.id.old_price);
+        shopName=itemView.findViewById(R.id.shopName);
 
     }
     public void bindHolder(ShopModel model){
