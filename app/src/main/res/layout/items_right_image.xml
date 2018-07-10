@@ -12,15 +12,19 @@
         android:src="@drawable/ynn"/>
     <FrameLayout
         android:id="@+id/id_recorder_length"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/id_useIcon"
         android:background="@drawable/chat_right_bg_focused">
         <ImageView
             android:id="@+id/id_content_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:layout_gravity="center_vertical|left">
         </ImageView>
     </FrameLayout>
