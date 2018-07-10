@@ -16,7 +16,7 @@
         android:layout_height="150dp"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/id_useIcon"
-        android:background="@drawable/chatto_bg_focused">
+        android:background="@drawable/chat_right_bg_focused">
         <ImageView
             android:id="@+id/id_content_img"
             android:layout_width="match_parent"

@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/id_useIcon"
-        android:background="@drawable/chat_bg_focused">
+        android:background="@drawable/chat_left_bg_focused">
         <View
             android:id="@+id/id_anim"
             android:layout_width="25dp"

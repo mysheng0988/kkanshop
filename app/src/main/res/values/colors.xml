@@ -13,6 +13,7 @@
     <color name="blue">#419DE4</color>
     <color name="black">#000000</color>
     <color name="gray">#f7f7f7f7</color>
+    <color name="chatBg">#F5F5F5</color>
     <color name="gray_dialog">#bfbfbf</color>
 
     <!--zxing-->
