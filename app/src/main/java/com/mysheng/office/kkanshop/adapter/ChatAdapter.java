@@ -21,6 +21,7 @@ import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightRecorderViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeTimeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 view6.setOnClickListener(this);
                 RecyclerView.ViewHolder viewHolder6=new TypeRightRecorderViewHolder(view6);
                 return viewHolder6;
+            case ChatModel.TYPE_TIME:
+                View view7=mLayoutInflater.inflate(R.layout.item_time_layout,parent,false);
+                RecyclerView.ViewHolder viewHolder7=new TypeTimeViewHolder(view7);
+                return viewHolder7;
+
         }
         return null;
     }
@@ -82,7 +88,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
             RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
-            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).time);
+            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).mesTime);
             Log.d("mys", "onBindViewHolder: "+lp.width);
             holder.itemView.findViewById(R.id.id_recorder_length).setLayoutParams(lp);
         }
@@ -101,7 +107,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public int getItemViewType(int position) {
-        return mList.get(position).type;
+        return mList.get(position).mesType;
     }
 
     @Override

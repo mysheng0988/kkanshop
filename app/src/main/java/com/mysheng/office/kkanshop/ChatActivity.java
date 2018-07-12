@@ -20,6 +20,8 @@ import com.mysheng.office.kkanshop.view.AudioRecorderButton;
 import com.mysheng.office.kkanshop.view.MediaManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,6 +40,7 @@ public class ChatActivity extends Activity implements View.OnClickListener{
     private List<ChatModel> mDatas = new ArrayList<>();
     private AudioRecorderButton mAudioRecorderButton;
     private View animView;
+    private Date frontMseDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,7 @@ public class ChatActivity extends Activity implements View.OnClickListener{
         chatAdapter.setItemClickListener(new ChatAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, ChatModel model) {
-                if(model.type==6){
+                if(model.mesType==6){
                     //播放动画
                     if(animView != null) {
                         animView.setBackgroundResource(R.drawable.adj);
@@ -100,10 +103,10 @@ public class ChatActivity extends Activity implements View.OnClickListener{
             @Override
             public void onFinish(float seconds, String filePath) {
                 ChatModel chatModel=new ChatModel();
-                chatModel.type=6;
+                chatModel.mesType=6;
                 chatModel.contentPath=filePath;
-                chatModel.time= (int) Math.ceil(seconds);
-                Log.d("mys", "onFinish: "+ chatModel.time);
+                chatModel.mesTime= (int) Math.ceil(seconds);
+                Log.d("mys", "onFinish: "+ chatModel.mesType);
                 chatAdapter.addModel(chatModel);
                 chatAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
@@ -139,26 +142,66 @@ public class ChatActivity extends Activity implements View.OnClickListener{
         backButton.setOnClickListener(this);
     }
     private void initData(){
+        int num=0;
         String str="测试123";
         String connect="";
+        long timeDate= new Date().getTime()-12*60*60*1000;
         for(int i=0;i<10;i++){
             int type=i%2+1;
             connect+=str+i;
             ChatModel chatModel=new ChatModel();
-            chatModel.type=type;
+            chatModel.mesType=type;
             chatModel.content=connect;
+            timeDate+=Math.random()*1000000f;
+            chatModel.setMesDate(new Date(timeDate));
+            if(isShowDate(chatModel.getMesDate())){
+                ChatModel chatModel2=new ChatModel();
+                chatModel2.mesType=7;
+                chatModel2.setMesDate(new Date(timeDate));
+                Log.d("mysheng", "initData: "+num);
+                num++;
+                mDatas.add(chatModel2);
+            }
+            frontMseDate=new Date(timeDate);
             mDatas.add(chatModel);
         }
+//        Calendar mesDate = Calendar.getInstance();
+//        mesDate.add(Calendar.M,-5);
+
         for(int i=0;i<10;i++){
             int type=i%2+3;
             connect+=str+i;
             ChatModel chatModel=new ChatModel();
-            chatModel.type=type;
+            chatModel.mesType=type;
+            timeDate+=Math.random()*1000000f;
+            chatModel.setMesDate(new Date(timeDate));
+
+            if(isShowDate(chatModel.getMesDate())){
+                ChatModel chatModel2=new ChatModel();
+                chatModel2.mesType=7;
+                chatModel2.setMesDate(new Date(timeDate));
+                Log.d("mysheng", "initData: "+num);
+                num++;
+                mDatas.add(chatModel2);
+            }
+            frontMseDate=new Date(timeDate);
             mDatas.add(chatModel);
         }
+
         chatAdapter.addList(mDatas);
         chatAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+    }
+    private boolean isShowDate(Date strDate){
+        long nowDate=strDate.getTime();//System.currentTimeMillis();
+        if(frontMseDate==null){
+            return true;
+        }
+        long frontDate=frontMseDate.getTime();
+        if(nowDate-frontDate>10*60*1000){
+            return true;
+        }
+        return false;
     }
     @Override
     public void onClick(View v) {
@@ -182,7 +225,7 @@ public class ChatActivity extends Activity implements View.OnClickListener{
             return;
         }
         ChatModel chatModel=new ChatModel();
-        chatModel.type=2;
+        chatModel.mesType=2;
         chatModel.content=audioText.getText().toString().trim();
         chatAdapter.addModel(chatModel);
         chatAdapter.notifyDataSetChanged();

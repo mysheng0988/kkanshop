@@ -27,8 +27,8 @@ public class TypeRightRecorderViewHolder extends TypeAbstractViewHolder{
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
             //mContentImage.setImageResource(R.drawable.ynn);
-            Log.d("mys", "bindHolder: "+ chatModel.time);
-            mTextView.setText( chatModel.time+"\"");
+            Log.d("mys", "bindHolder: "+ chatModel.mesTime);
+            mTextView.setText( chatModel.mesTime+"\"");
             mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
         }
     }

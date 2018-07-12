@@ -30,7 +30,7 @@ public class TypeLeftRecorderViewHolder extends TypeAbstractViewHolder{
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
            // mImage.setBackgroundResource(R.drawable.adj_l);
-            mTextView.setText(chatModel.time+"\"");
+            mTextView.setText(chatModel.mesTime+"\"");
             mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
         }
     }
