@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--小米推送权限-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -66,7 +65,13 @@
             android:name="com.mysheng.office.kkanshop.ChatActivity">
         </activity>
 
-
+        <service
+            android:name="com.mysheng.office.kkanshop.service.AppPushService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":pushservice">
+        </service>
+        <service android:name="com.mysheng.office.kkanshop.service.ReceiveIntentService"/>
     </application>
 
 </manifest>
