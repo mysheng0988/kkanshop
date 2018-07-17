@@ -61,6 +61,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.ResultActivity">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.ChatListViewActivity">
+        </activity>
         <activity android:windowSoftInputMode="adjustResize"
             android:name="com.mysheng.office.kkanshop.ChatActivity">
         </activity>

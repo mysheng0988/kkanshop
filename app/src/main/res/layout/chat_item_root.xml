@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mysheng.office.kkanshop.view.SlideLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:slide="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    slide:contentBgColor="#0099CC"
+    slide:contentResId="@layout/chat_list_item_content"
+    slide:optionsResId="@layout/delete_item_options" />

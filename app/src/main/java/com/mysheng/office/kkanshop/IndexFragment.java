@@ -239,7 +239,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 				}
 				break;
 			case R.id.chat_msg:
-				Intent intent = new Intent(getActivity(), ChatActivity.class);
+				Intent intent = new Intent(getActivity(), ChatListViewActivity.class);
 				startActivity(intent);
 			    break;
 		}
