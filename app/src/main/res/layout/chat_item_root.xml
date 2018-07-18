@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    slide:contentBgColor="#0099CC"
+    slide:contentBgColor="#eeeeee"
     slide:contentResId="@layout/chat_list_item_content"
     slide:optionsResId="@layout/delete_item_options" />
