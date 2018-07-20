@@ -3,11 +3,18 @@
     android:id="@+id/chatListItem"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:gravity="center_vertical"
     android:orientation="vertical">
+    <TextView
+        android:id="@+id/userId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
     <FrameLayout
         android:id="@+id/userImage"
         android:layout_width="60dp"
         android:layout_alignParentLeft="true"
+        android:clickable="false"
         android:layout_height="60dp">
         <ImageView
             android:id="@+id/userIcon"
@@ -17,7 +24,7 @@
             android:src="@drawable/icon"
             />
         <TextView
-            android:id="@+id/msg_num"
+            android:id="@+id/unReadNum"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="right"
@@ -27,14 +34,45 @@
             android:textSize="10sp"
             android:textColor="@color/white"/>
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/userName"
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_toRightOf="@+id/userImage"
         android:layout_width="wrap_content"
+        android:gravity="center_vertical"
         android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:clickable="false"
+            android:text="张三"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_vertical|top" />
+        <TextView
+            android:id="@+id/lastMsg"
+            android:layout_toRightOf="@+id/userImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userName"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:clickable="false"
+            android:text="你在干嘛"
+            android:layout_gravity="center_vertical|top" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lastMsgData"
+        android:clickable="false"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:gravity="center_vertical"
-        android:text="张三"
+        android:text="09:59:56"
         android:layout_gravity="center_vertical|top" />
 </RelativeLayout>

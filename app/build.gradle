@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.mysheng.office.kkanshop"
         minSdkVersion 19
@@ -13,7 +14,6 @@ android {
                 GETUI_APP_KEY : "UzQVwPvZGc76DAcSX6aFd9",
                 GETUI_APP_SECRET : "DYjfaWjzjC65BsTTuoCnC9"
         ]
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }

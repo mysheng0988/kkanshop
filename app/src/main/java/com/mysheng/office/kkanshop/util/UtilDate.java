@@ -29,30 +29,24 @@ public class UtilDate {
         long hours=(l/(60*60*1000)-days*24);//这个时间相差的减去天数的小时数
         long min=((l/(60*1000))-days*24*60-hours*60);//
         long s=(l/1000-days*24*60*60-hours*60*60-min*60);
+        String second=s>10?s+"":"0"+s;
         if(days > 0){
             if(days>0 && days<2){
-                result ="前天 "+hour+":"+minute+":"+s;
+                result ="前天 "+hour+":"+minute+":"+second;
             } else {
-                result = yearNum%100+"年"+month+"月 "+day+"日"+hour+":"+minute+":"+s;
+                result = year+"年"+month+"月 "+day+"日"+hour+":"+minute+":"+second;
             }
         }else if(hours > 0 ) {
             if(day!=nowDay){
-                result = "昨天 "+hour+":"+minute+":"+s;
+                result = "昨天 "+hour+":"+minute+":"+second;
             }else{
-                result="今天 "+hour+":"+minute+":"+s;
+                result="今天 "+hour+":"+minute+":"+second;
             }
+        }else if(min>0){
+            result=min+"分钟前";
+        }else{
+            result="刚刚";
         }
-//        } else if(min > 0){
-//
-//        }
-//            if(min>0 && min<15){
-//                result="刚刚";
-//            } else {
-//                result=min+"分 前";
-//            }
-//        }else {
-//            result=s+"秒 前";
-//        }
         return result;
     }
 

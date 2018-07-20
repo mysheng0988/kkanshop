@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.igexin.sdk.PushManager;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
 
@@ -75,6 +76,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private void signIn(){
         String id=userId.getText().toString().trim();
         String pwd=userPwd.getText().toString().trim();
+        String clientId= PushManager.getInstance().getClientid(LoginActivity.this);
         if("".equals(id)&&"".equals(pwd)){
             Toast.makeText(this,"用户名和密码不能为空",Toast.LENGTH_SHORT).show();
         }else {
@@ -82,6 +84,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Map<String, String> hashMap = new HashMap<>();
             hashMap.put("userId", "15701570988");
             hashMap.put("userPwd", "123456");
+            hashMap.put("clientId", clientId);
             JSONObject jsonParams = new JSONObject(hashMap);
             String url = "http://192.168.1.22:9090/office/goods/addGoods";
             VolleyRequest.JsonRequestPost(url,"json",jsonParams,new VolleyJsonInterface(LoginActivity.this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {

@@ -20,7 +20,6 @@ import com.mysheng.office.kkanshop.view.AudioRecorderButton;
 import com.mysheng.office.kkanshop.view.MediaManager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class ChatActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.audio_chat);
+        setContentView(R.layout.chat_layout);
         initView();
         initEvent();
 

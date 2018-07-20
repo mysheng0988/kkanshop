@@ -72,7 +72,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		gridView=view.findViewById(R.id.gridView);
 		List<RecommendBean> lists=new ArrayList<>();
 
-		for(int i=0;i<31;i++){
+		for(int i=0;i<100;i++){
 			RecommendBean bean=new RecommendBean();
 			bean.setName("这是测试数据，这是测试数据"+i);
 			Random random=new Random();
@@ -80,14 +80,12 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 			bean.setPrice("￥"+num+".00");
 			lists.add(bean);
 		}
-		RecommendAdapter adapter=new RecommendAdapter(getActivity(),lists);
-		gridView.setAdapter(adapter);
-		setListViewHeightBasedOnChildren(gridView);
 		scrollView= view.findViewById(R.id.scrollView);
 		scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
 			@Override
 			public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
 				if (y <= 0) {
+					personTitle.setVisibility(View.GONE);
 					line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
 				} else if (y > 0 && y <= imageHeight) {
 					Log.d("mys", "onScrollChanged: "+y);
@@ -102,6 +100,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 				}
 			}
 		});
+		RecommendAdapter adapter=new RecommendAdapter(getActivity(),lists);
+		gridView.setAdapter(adapter);
+		setListViewHeightBasedOnChildren(gridView);
+
 	}
 	private void initEvent(){
 		setting.setOnClickListener(this);
