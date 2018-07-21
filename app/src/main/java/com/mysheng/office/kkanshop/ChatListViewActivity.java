@@ -58,10 +58,11 @@ public class ChatListViewActivity extends Activity {
                 switch (view.getId()){
                     case R.id.chatListItem:
                     case R.id.content:
+                    case R.id.userImage:
+                    case R.id.userIcon:
+                    case R.id.userName:
+                    case R.id.lastMsg:
                     case R.id.lastMsgData:
-                        TextView textView=view.findViewById(R.id.userName);
-                        string = textView.getText().toString();
-//                    Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();
                         Intent intent = new Intent(ChatListViewActivity.this, ChatActivity.class);
                         startActivity(intent);
