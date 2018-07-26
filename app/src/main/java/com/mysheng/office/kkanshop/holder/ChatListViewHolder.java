@@ -43,6 +43,6 @@ public class ChatListViewHolder extends  RecyclerView.ViewHolder{
             unReadNum.setVisibility(View.VISIBLE);
         }
         lastMsg.setText(model.getLastMsg());
-        lastMsgData.setText(UtilDate.showDate(model.getLastMsgData(),"yyyy-MM-dd HH:mm:ss"));
+        lastMsgData.setText(UtilDate.showDateTime(model.getLastMsgData(),"yyyy-MM-dd HH:mm:ss"));
     }
 }

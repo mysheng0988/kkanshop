@@ -1,41 +1,33 @@
 package com.mysheng.office.kkanshop;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-import com.igexin.sdk.PushManager;
-import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
-import com.mysheng.office.kkanshop.util.VolleyRequest;
+import com.mysheng.office.kkanshop.util.CodeUtils;
 
-import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+/**
+ * Created by myaheng on 2018/6/7.
+ */
 
 public class LoginActivity extends Activity implements View.OnClickListener{
-    private View inflate;
     private EditText userId;
-    private EditText userPwd;
-    private Button  login;
-    private Button  reg;
-    private ImageView back;
-    private Dialog dialog;
-    private TextView choosePhoto;
-    private TextView takePhoto;
+    private EditText password;
+    private Button login;
+    private Button regUser;
+    private Button restPwd;
+    private EditText codeNum;
+    private CodeUtils codeUtils;
+    private ImageView codeImage;
+    private ImageView comeBack;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,61 +35,68 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         initView();
         initEvent();
     }
-
     private void initView() {
+        codeImage=findViewById(R.id.codeImage);
         userId=findViewById(R.id.user_id);
-        userPwd=findViewById(R.id.user_password);
+        codeNum=findViewById(R.id.code_num);
+        codeUtils = CodeUtils.getInstance();
+        codeImage.setImageBitmap(codeUtils.createBitmap());
+        password=findViewById(R.id.user_password);
         login=findViewById(R.id.loginButton);
-        reg=findViewById(R.id.regButton);
-        back=findViewById(R.id.back);
-
+        restPwd=findViewById(R.id.restPwd);
+        regUser=findViewById(R.id.regButton);
+        comeBack=findViewById(R.id.comeBack);
     }
     private void initEvent() {
         login.setOnClickListener(this);
-        reg.setOnClickListener(this);
-        back.setOnClickListener(this);
+        regUser.setOnClickListener(this);
+        restPwd.setOnClickListener(this);
+        codeImage.setOnClickListener(this);
+        comeBack.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.loginButton:
-                signIn();
+                loginUser();
                 break;
             case R.id.regButton:
+                startRegActivity();
+                break;
+            case R.id.restPwd:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "3");
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.back:
+            case R.id.codeImage:
+                codeImage.setImageBitmap(codeUtils.createBitmap());
+                break;
+            case R.id.comeBack:
                 finish();
                 break;
+
         }
     }
-    private void signIn(){
+    private void startRegActivity(){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("type", "1");
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+    private void loginUser(){
         String id=userId.getText().toString().trim();
-        String pwd=userPwd.getText().toString().trim();
-        String clientId= PushManager.getInstance().getClientid(LoginActivity.this);
-        if("".equals(id)&&"".equals(pwd)){
+        String pwd=password.getText().toString().trim();
+        if("".equals(id)||"".equals(pwd)){
             Toast.makeText(this,"用户名和密码不能为空",Toast.LENGTH_SHORT).show();
-        }else {
-            //TODO
-            Map<String, String> hashMap = new HashMap<>();
-            hashMap.put("userId", "15701570988");
-            hashMap.put("userPwd", "123456");
-            hashMap.put("clientId", clientId);
-            JSONObject jsonParams = new JSONObject(hashMap);
-            String url = "http://192.168.1.22:9090/office/goods/addGoods";
-            VolleyRequest.JsonRequestPost(url,"json",jsonParams,new VolleyJsonInterface(LoginActivity.this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
-                @Override
-                public void onSuccess(JSONObject result) {
-                    Toast.makeText(LoginActivity.this,result.toString(),Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onError(VolleyError error) {
-                    Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                }
-            });
+            return;
         }
+        if(!codeNum.getText().toString().toUpperCase().equals(codeUtils.getCode())){
+            Toast.makeText(this,"验证码不正确",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 }

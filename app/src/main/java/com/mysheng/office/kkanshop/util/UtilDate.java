@@ -9,7 +9,9 @@ import java.util.Date;
  */
 
 public class UtilDate {
-    public static String showDate(Date date,String pattern){
+
+
+    public static String showDate(Date date, String pattern){
         String  dateStr=format(date,pattern);
         String year = dateStr.substring(0,4);
         Long yearNum =Long.parseLong(year);
@@ -29,18 +31,17 @@ public class UtilDate {
         long hours=(l/(60*60*1000)-days*24);//这个时间相差的减去天数的小时数
         long min=((l/(60*1000))-days*24*60-hours*60);//
         long s=(l/1000-days*24*60*60-hours*60*60-min*60);
-        String second=s>10?s+"":"0"+s;
         if(days > 0){
             if(days>0 && days<2){
-                result ="前天 "+hour+":"+minute+":"+second;
+                result ="前天 "+hour+":"+minute;
             } else {
-                result = year+"年"+month+"月 "+day+"日"+hour+":"+minute+":"+second;
+                result = year+"年"+month+"月 "+day+"日"+hour+":"+minute;
             }
         }else if(hours > 0 ) {
             if(day!=nowDay){
-                result = "昨天 "+hour+":"+minute+":"+second;
+                result = "昨天 "+hour+":"+minute;
             }else{
-                result="今天 "+hour+":"+minute+":"+second;
+                result="今天 "+hour+":"+minute;
             }
         }else if(min>0){
             result=min+"分钟前";
@@ -49,7 +50,41 @@ public class UtilDate {
         }
         return result;
     }
+    public static String showDateTime(Date date,String pattern){
+        String  dateStr=format(date,pattern);
+        String year = dateStr.substring(0,4);
+        Long yearNum =Long.parseLong(year);
+        int month = Integer.parseInt(dateStr.substring(5,7));
+        int day = Integer.parseInt(dateStr.substring(8,10));
+        String hour = dateStr.substring(11,13);
+        String minute = dateStr.substring(14,16);
 
+        long addtime =date.getTime();
+        long today = System.currentTimeMillis();//当前时间的毫秒数
+        Date now = new Date(today);
+        String  nowStr=format(now,pattern);
+        int  nowDay = Integer.parseInt(nowStr.substring(8,10));
+        String result="";
+        long l=today-addtime;//当前时间与给定时间差的毫秒数
+        long days=l/(24*60*60*1000);//这个时间相差的天数整数，大于1天为前天的时间了，小于24小时则为昨天和今天的时间
+        long hours=(l/(60*60*1000)-days*24);//这个时间相差的减去天数的小时数
+        long min=((l/(60*1000))-days*24*60-hours*60);//
+        long s=(l/1000-days*24*60*60-hours*60*60-min*60);
+        if(days > 0){
+            if(days>0 && days<2){
+                result ="前天 "+hour+":"+minute;
+            } else {
+                result = year+"年"+month+"月 "+day+"日"+hour+":"+minute;
+            }
+        }else  {
+            if(day!=nowDay){
+                result = "昨天 "+hour+":"+minute;
+            }else{
+                result="今天 "+hour+":"+minute;
+            }
+        }
+        return result;
+    }
     /**
      * 日期格式化
      * @param date      需要格式化的日期
