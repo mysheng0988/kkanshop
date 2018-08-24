@@ -26,6 +26,7 @@ import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.CustomToast;
 import com.mysheng.office.kkanshop.util.GlideImageLoader;
 import com.mysheng.office.kkanshop.util.VolleyImage;
+import com.mysheng.office.kkanshop.view.NoticeView;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
@@ -118,7 +119,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 
 			}
 		});
-
+		initNotice(view);
 		return view;
 	}
 
@@ -216,7 +217,15 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		String url="http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
 		VolleyImage.NetworkImageViewByURL(url,networkImageView);
 	}
-
+	private void initNotice(View view) {
+		NoticeView noticeView = view.findViewById(R.id.notice_view);
+		List<String> notices = new ArrayList<>();
+		notices.add("大促销下单拆福袋，亿万新年红包随便拿");
+		notices.add("家电五折团，抢十亿无门槛现金红包");
+		notices.add("星球大战剃须刀首发送200元代金券");
+		noticeView.addNotice(notices);
+		noticeView.startFlipping();
+	}
 	private void getImageByURL(){
 		String url = "http://g.hiphotos.baidu.com/image/pic/item/0ff41bd5ad6eddc487907ddd3cdbb6fd526633a5.jpg";
 		ImageLoader loader = new ImageLoader(KkanApplication.getHttpQueues(), new BitmapCache());

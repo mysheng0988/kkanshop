@@ -69,4 +69,14 @@
     <color name="page_backgroup">#f2f2f2</color>
     <color name="holder_normal">#E84A40</color>
     <color name="holder_pressed">#E22F2F</color>
+    <color name="pers30_black">#4c000000</color>
+    <color name="button_default">#e0e0e6</color>
+
+    <color name="gary">#898989</color>
+    <color name="gray_bg">#f5f5f5</color>
+    <color name="darkgrey"> #999999</color>
+    <color name="img_preesed_color">#4d5255</color>
+    <color name="title1">#4a4a4a</color>
+    <color name="title2">#a2a2a2</color>
+    <color name="line">#d1d1d1</color>
 </resources>

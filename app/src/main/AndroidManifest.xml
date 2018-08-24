@@ -63,6 +63,12 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.ChatListViewActivity">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.CameraActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.ShareLocationActivity">
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.SearchAddressActivity">
+        </activity>
         <activity android:windowSoftInputMode="adjustResize"
             android:name="com.mysheng.office.kkanshop.ChatActivity">
         </activity>

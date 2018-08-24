@@ -38,10 +38,9 @@
                 android:textColor="@color/red_text_color"/>
         </LinearLayout>
         <TextView
-            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
-            android:layout_toLeftOf="@+id/more"
             android:gravity="center_vertical"
+            android:layout_toLeftOf="@+id/more"
             android:layout_height="match_parent"
             android:text="更多"/>
         <ImageView
@@ -49,8 +48,9 @@
             android:layout_width="20dp"
             android:layout_centerInParent="true"
             android:layout_height="20dp"
+            android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/setting_arrow"/>
+            android:src="@drawable/more"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

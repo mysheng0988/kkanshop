@@ -3,7 +3,9 @@
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bg_layout_shape"
         android:orientation="vertical">
       <LinearLayout

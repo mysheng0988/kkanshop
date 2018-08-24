@@ -1,7 +1,8 @@
 package com.mysheng.office.kkanshop.entity;
 
-import com.mysheng.office.kkanshop.R;
 
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,24 +12,89 @@ import java.util.Date;
  * 5 左边语音 6 右边语音
  */
 
-public class ChatModel {
-    public static final  int TYPE_ONE=1;
-    public static final int TYPE_TWO=2;
-    public static final int TYPE_THREE=3;
-    public static final int TYPE_FOUR=4;
-    public static final int TYPE_FIVE=5;
-    public static final int TYPE_SIX=6;
-    public static final int TYPE_TIME=7;
+public class ChatModel implements Serializable {
+    public static final  int TYPE_ONE=1;//右边文字
+    public static final int TYPE_TWO=2;//左边文字
+    public static final int TYPE_THREE=3;//左边图片
+    public static final int TYPE_FOUR=4;//右边图片
+    public static final int TYPE_FIVE=5;//左边语音
+    public static final int TYPE_SIX=6;//右边语音
+    public static final int TYPE_TIME=7;//发送时间
+    public static final int TYPE_LOCATION=8;//右边位置
+    public static final int TYPE_LOCATION2=9;//左边位置
+    public static final int Rec_VIDEO=10;//左边视频
+    public static final int SEND_VIDEO=11;//右边视频
+
     public int mesId;//消息Id
     public  int mesType;//消息类型
     public int mesTime;//消息时长
     public  String IconPath;//  头像地址
     public  String content;//消息内容
     public String contentPath;//消息内容地址
+    public String videoPath;
+    public String sendUserId;//发送人id
     public String sendUser;//发送人
+    public String receiveUserId;//接收人id
     public String receiveUser;//接收人
     public String mesStatus;//消息状态
     public Date mesDate; //消息时间
+    public String address;
+    public String tabTitle;
+    public double longitude;//经度
+    public double latitude;//纬度
+
+    public String locationPath;
+
+    public int width;
+    public int height;
+
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
+
+    public String getLocationPath() {
+        return locationPath;
+    }
+
+    public void setLocationPath(String locationPath) {
+        this.locationPath = locationPath;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTabTitle() {
+        return tabTitle;
+    }
+
+    public void setTabTitle(String tabTitle) {
+        this.tabTitle = tabTitle;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
     public int getMesId() {
         return mesId;
@@ -40,6 +106,22 @@ public class ChatModel {
 
     public int getMesType() {
         return mesType;
+    }
+
+    public String getSendUserId() {
+        return sendUserId;
+    }
+
+    public void setSendUserId(String sendUserId) {
+        this.sendUserId = sendUserId;
+    }
+
+    public String getReceiveUserId() {
+        return receiveUserId;
+    }
+
+    public void setReceiveUserId(String receiveUserId) {
+        this.receiveUserId = receiveUserId;
     }
 
     public void setMesType(int mesType) {
@@ -109,4 +191,6 @@ public class ChatModel {
     public void setMesDate(Date mesDate) {
         this.mesDate = mesDate;
     }
+
+
 }

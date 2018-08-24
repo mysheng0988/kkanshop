@@ -21,7 +21,6 @@
             android:text="发现好店"
             android:textStyle="bold"/>
         <TextView
-            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_toLeftOf="@+id/more"
             android:gravity="center_vertical"
