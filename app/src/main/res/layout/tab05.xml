@@ -30,7 +30,7 @@
             android:layout_toLeftOf="@id/new_msg"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/setting" />
+            android:src="@drawable/icon_setting" />
         <ImageView
             android:id="@+id/new_msg"
             android:layout_width="30dp"
@@ -38,7 +38,7 @@
             android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/new_msg_w" />
+            android:src="@drawable/icon_message" />
     </RelativeLayout>
     <com.mysheng.office.kkanshop.view.ObservableScrollView
     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/payment"
+                       android:src="@drawable/icon_payments"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -163,7 +163,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/goods_received"
+                       android:src="@drawable/icon_received"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -184,7 +184,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/evaluate"
+                       android:src="@drawable/icon_evaluate"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -205,7 +205,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/order"
+                       android:src="@drawable/icon_orders"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -231,7 +231,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/coupons"
+                       android:src="@drawable/icon_coupons"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -252,7 +252,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/gift"
+                       android:src="@drawable/icon_gift"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -273,7 +273,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/integral"
+                       android:src="@drawable/icon_integral"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"
@@ -294,7 +294,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:src="@drawable/wallet"
+                       android:src="@drawable/icon_wallet"
                        android:gravity="center_vertical" />
                    <TextView
                        android:layout_width="match_parent"

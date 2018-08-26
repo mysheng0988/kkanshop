@@ -24,7 +24,7 @@ import java.util.List;
 public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private LayoutInflater mLayoutInflater;
     private List<DataModel> mList=new ArrayList<>();
-
+    protected boolean isScrolling = true;
     public ClassifyAdapter(Context context) {
         mLayoutInflater=LayoutInflater.from(context);
     }
@@ -52,10 +52,13 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void addList(List<DataModel> list){
         mList.addAll(list);
     }
+    public void setScrolling(boolean scrolling) {
+        isScrolling = scrolling;
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
       //  int viewType=getItemViewType(position);
-        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
+        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position),isScrolling);
         //TypeTwoViewHolder viewHolder=((TypeTwoViewHolder) holder).bindHolder(mList.get(position));
         holder.itemView.setTag(position);
 

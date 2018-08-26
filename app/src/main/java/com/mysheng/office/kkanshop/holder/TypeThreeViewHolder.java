@@ -25,7 +25,7 @@ public class TypeThreeViewHolder extends TypeAbstractViewHolder{
 
     }
     @Override
-    public void bindHolder(Object model){
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof DataModel){
             DataModel dataModel= (DataModel) model;
             mImageView.setBackgroundResource(dataModel.avatarColor);

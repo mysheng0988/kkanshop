@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.amap.api.services.core.LatLonPoint;
 
+
 /**
  * Created by Fussen on 2016/11/1.
  *

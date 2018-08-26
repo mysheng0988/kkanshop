@@ -3,7 +3,6 @@ package com.mysheng.office.kkanshop.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 public class ChatListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<ChatListModel> lists = new ArrayList<>();
     public SlideLayout slideLayout;
-    private OnDeleteViewClickListener listener;
+    private OnChatListViewClickListener listener;
     public ChatListViewAdapter(ArrayList<ChatListModel> lists) {
         this.lists.clear();
         this.lists.addAll(lists);
@@ -36,7 +35,11 @@ public class ChatListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return new ChatListViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item_root, parent, false));
     }
 
-
+    public void removeData(int position) {
+        lists.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(0, getItemCount());
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ChatListViewHolder viewHolder= (ChatListViewHolder) holder;
@@ -52,22 +55,17 @@ public class ChatListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         });
     }
 
-    public void removeData(int position) {
-        lists.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(0, getItemCount());
 
-    }
 
     @Override
     public int getItemCount() {
         return lists.size();
     }
 
-    public void setOnDeleteViewClickListener(OnDeleteViewClickListener listener) {
+    public void setOnDeleteViewClickListener(OnChatListViewClickListener listener) {
         this.listener = listener;
     }
-    public interface OnDeleteViewClickListener {
-        void onChildClick(View view,int position);
+    public interface OnChatListViewClickListener {
+        void onChildClick(View view, int position);
     }
 }

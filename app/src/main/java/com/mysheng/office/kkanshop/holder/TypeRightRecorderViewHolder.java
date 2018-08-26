@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 
+
 /**
  * Created by myaheng on 2018/5/11.
  */
@@ -23,7 +24,7 @@ public class TypeRightRecorderViewHolder extends TypeAbstractViewHolder{
         mTextView=itemView.findViewById(R.id.id_recorder_time);
     }
     @Override
-    public void bindHolder(Object model){
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
             //mContentImage.setImageResource(R.drawable.ynn);

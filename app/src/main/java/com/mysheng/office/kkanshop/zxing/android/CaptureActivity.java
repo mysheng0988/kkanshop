@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -31,7 +30,6 @@ import com.mysheng.office.kkanshop.zxing.decode.DecodeImgCallback;
 import com.mysheng.office.kkanshop.zxing.decode.DecodeImgThread;
 import com.mysheng.office.kkanshop.zxing.decode.ImageUtil;
 import com.mysheng.office.kkanshop.zxing.view.ViewfinderView;
-
 
 import java.io.IOException;
 
@@ -185,7 +183,7 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback,
             flashLightIv.setImageResource(R.drawable.ic_open);
             flashLightTv.setText("关闭闪光灯");
         } else {
-            flashLightIv.setImageResource(R.drawable.ic_close);
+            flashLightIv.setImageResource(R.drawable.icon_light_close);
             flashLightTv.setText("打开闪光灯");
         }
 

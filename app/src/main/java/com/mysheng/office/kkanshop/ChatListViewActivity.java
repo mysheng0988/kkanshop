@@ -51,7 +51,7 @@ public class ChatListViewActivity extends Activity {
         /**
          * 传递出slidelayout中content和options两个布局所有view的点击事件，根据需要做判断
          */
-        adapter.setOnDeleteViewClickListener(new ChatListViewAdapter.OnDeleteViewClickListener() {
+        adapter.setOnDeleteViewClickListener(new ChatListViewAdapter.OnChatListViewClickListener() {
             @Override
             public void onChildClick(View view,int position) {
                 String string="";
@@ -63,8 +63,13 @@ public class ChatListViewActivity extends Activity {
                     case R.id.userName:
                     case R.id.lastMsg:
                     case R.id.lastMsgData:
+                        //Toast.makeText(getActivity(), list.get(position).getUserName(), Toast.LENGTH_SHORT).show();
                         adapter.notifyDataSetChanged();
                         Intent intent = new Intent(ChatListViewActivity.this, ChatActivity.class);
+                        Bundle bundle=new Bundle();
+                        //传递name参数为tinyphp
+                        bundle.putString("sendUserName", list.get(position).getUserName());
+                        intent.putExtras(bundle);
                         startActivity(intent);
                         break;
                     case R.id.options_root:
@@ -78,14 +83,13 @@ public class ChatListViewActivity extends Activity {
                         break;
                     case R.id.tv_delete:
                         adapter.removeData(position);
-
 //                        TextView textView2 = (TextView) view;
 //                        string = textView2.getText().toString();
 //                        Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
                         break;
 
                 }
-                Toast.makeText(ChatListViewActivity.this, string, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ChatListViewActivity.this, string, Toast.LENGTH_SHORT).show();
             }
         });
     }

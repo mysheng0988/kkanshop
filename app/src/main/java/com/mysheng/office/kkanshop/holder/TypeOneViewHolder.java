@@ -20,7 +20,7 @@ public class TypeOneViewHolder extends TypeAbstractViewHolder{
         mTextView=itemView.findViewById(R.id.name);
     }
     @Override
-    public void bindHolder(Object model){
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof DataModel){
             DataModel dataModel= (DataModel) model;
             mTextView.setText(dataModel.name);

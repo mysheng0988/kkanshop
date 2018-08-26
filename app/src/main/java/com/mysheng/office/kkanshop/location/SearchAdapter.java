@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.mysheng.office.kkanshop.R;
 
 import java.util.ArrayList;
 

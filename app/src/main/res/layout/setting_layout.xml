@@ -13,7 +13,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/message"/>
+                android:src="@drawable/icon_message"/>
             <TextView style="@style/usertext" android:text="我的消息" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

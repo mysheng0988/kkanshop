@@ -26,7 +26,7 @@
             android:src="@drawable/ic_more" />
     </RelativeLayout>
 
-    <com.mysheng.office.kkanseller.ImageViewer.view.RoundPageIndicator
+    <com.mysheng.office.kkanshop.ImageViewer.view.RoundPageIndicator
         android:id="@+id/page_indicator"
         android:layout_width="match_parent"
         android:layout_height="80dp"

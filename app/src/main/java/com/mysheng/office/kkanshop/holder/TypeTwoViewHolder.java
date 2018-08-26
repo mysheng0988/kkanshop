@@ -23,7 +23,7 @@ public class TypeTwoViewHolder extends TypeAbstractViewHolder{
         mConnent=itemView.findViewById(R.id.content);
     }
     @Override
-    public void bindHolder(Object model){
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof DataModel){
             DataModel dataModel= (DataModel) model;
             mImageView.setBackgroundResource(dataModel.avatarColor);

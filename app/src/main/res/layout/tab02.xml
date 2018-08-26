@@ -9,7 +9,7 @@
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#ffffff"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
@@ -17,7 +17,7 @@
             android:layout_width="30dp"
             android:layout_marginLeft="5dp"
             android:layout_height="35dp"
-            android:src="@drawable/scan"/>
+            android:src="@drawable/icon_scan"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -29,7 +29,7 @@
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/news_msg"/>
+            android:src="@drawable/icon_message"/>
     </LinearLayout>
 
     <View

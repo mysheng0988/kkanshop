@@ -3,14 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/chatBg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
     <include layout="@layout/common_top" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <View style="@style/bg_line"/>
+        android:layout_weight="1"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.CoordinatorLayout>
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_clo"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,16 +56,39 @@
             android:minHeight="0dp"
             android:visibility="gone"
             android:background="@drawable/recorder_button_normal"
+            style="?android:attr/borderlessButtonStyle"
             android:text="@string/str_recorder_normal">
 
         </com.mysheng.office.kkanshop.view.AudioRecorderButton>
         <ImageView
-            android:id="@+id/send_out"
+            android:id="@+id/add_item"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
+            android:visibility="visible"
             android:layout_gravity="center_vertical"
             android:src="@drawable/add_item"/>
+        <Button
+            android:id="@+id/send_out"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:visibility="gone"
+            android:background="@drawable/bg_btn_radius"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="发送"
+            />
     </LinearLayout>
-
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/border_clo"/>
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/gray"
+        android:id="@+id/chatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
 </LinearLayout>

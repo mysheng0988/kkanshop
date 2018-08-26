@@ -1,14 +1,12 @@
 package com.mysheng.office.kkanshop.holder;
 
-import android.content.Context;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
+
 
 /**
  * Created by myaheng on 2018/5/11.
@@ -26,7 +24,7 @@ public class TypeLeftRecorderViewHolder extends TypeAbstractViewHolder{
         mTextView=itemView.findViewById(R.id.id_recorder_time);
     }
     @Override
-    public void bindHolder(Object model){
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
            // mImage.setBackgroundResource(R.drawable.adj_l);

@@ -15,13 +15,14 @@
             android:layout_width="30dp"
             android:layout_marginLeft="5px"
             android:layout_height="match_parent"
-            android:src="@drawable/location"/>
+            android:src="@drawable/icon_location_white"/>
         <TextView
+            android:id="@+id/address"
             android:layout_width="80dp"
             android:gravity="center|left"
             android:layout_height="match_parent"
             android:maxLines="2"
-            android:text="北京市海淀区农大南路118号流浪家园北里3号楼一单元501"
+            android:text=""
             android:ellipsize="end"
             android:textColor="@color/white"
             android:textSize="16sp"/>
@@ -38,7 +39,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/new_msg_w"/>
+            android:src="@drawable/icon_message"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

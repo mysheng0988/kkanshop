@@ -18,7 +18,7 @@
             android:layout_width="30dp"
             android:layout_marginLeft="5dp"
             android:layout_height="35dp"
-            android:src="@drawable/scan"/>
+            android:src="@drawable/icon_scan"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="35dp"
@@ -32,7 +32,7 @@
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/news_msg"/>
+            android:src="@drawable/icon_message"/>
     </LinearLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
-import com.mysheng.office.kkanshop.entity.DataModel;
+
 
 /**
  * Created by myaheng on 2018/5/11.
@@ -22,7 +22,7 @@ public class TypeRightTextViewHolder extends TypeAbstractViewHolder{
     }
 
     @Override
-    public void bindHolder(Object model) {
+    public void bindHolder(Object model,boolean isScrolling){
         if(model instanceof ChatModel){
             ChatModel chatModel= (ChatModel) model;
             mTextView.setText(chatModel.content);
