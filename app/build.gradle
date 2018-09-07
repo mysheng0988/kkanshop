@@ -43,7 +43,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
     implementation files('libs/library-1.0.19.jar')
-    implementation 'com.youth.banner:banner:1.4.10'
      implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'

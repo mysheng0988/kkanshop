@@ -168,7 +168,7 @@ public class ViewLineDivider extends RecyclerView.ItemDecoration {
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
         //循环绘制每条分割线
-        for (int i = 0; i < childSize - 1; i++) {
+        for (int i = 0; i < childSize ; i++) {
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             //上边：具体的某条分割线的左边以child的(bottom+bottomMargin)位置值

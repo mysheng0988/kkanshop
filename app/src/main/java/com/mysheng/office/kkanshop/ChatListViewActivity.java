@@ -39,7 +39,7 @@ public class ChatListViewActivity extends Activity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new ViewLineDivider(LinearLayoutManager.VERTICAL, 4, Color.WHITE));
+        recyclerView.addItemDecoration(new ViewLineDivider(LinearLayoutManager.VERTICAL, 2, 0xFFCCCCCC));
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         btnBack=findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {

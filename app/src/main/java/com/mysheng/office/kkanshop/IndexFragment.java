@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,31 +16,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+
 import com.mysheng.office.kkanshop.adapter.GoodShopAdapter;
 import com.mysheng.office.kkanshop.adapter.KillAdapter;
-import com.mysheng.office.kkanshop.adapter.ShopAdapter;
+import com.mysheng.office.kkanshop.adapter.NavAdapter;
+
+import com.mysheng.office.kkanshop.banner.Banner;
+import com.mysheng.office.kkanshop.banner.BannerConfig;
+import com.mysheng.office.kkanshop.banner.GlideImageLoader;
+import com.mysheng.office.kkanshop.banner.listener.OnBannerListener;
+import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
 import com.mysheng.office.kkanshop.entity.KillModel;
+import com.mysheng.office.kkanshop.entity.NavModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
-import com.mysheng.office.kkanshop.util.BitmapCache;
+
+import com.mysheng.office.kkanshop.manager.FullyGridLayoutManager;
+import com.mysheng.office.kkanshop.manager.FullyLinearLayoutManager;
 import com.mysheng.office.kkanshop.util.CommonUtil;
-import com.mysheng.office.kkanshop.util.CustomToast;
-import com.mysheng.office.kkanshop.util.GlideImageLoader;
-import com.mysheng.office.kkanshop.util.VolleyImage;
+
 import com.mysheng.office.kkanshop.view.NoticeView;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
+
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,42 +51,69 @@ import java.util.Random;
 import static android.app.Activity.RESULT_OK;
 
 public class IndexFragment extends Fragment implements View.OnClickListener{
-	private ImageView imageView;
 	private ImageView scanCode;
 	private ImageView chatMsg;
-	private NetworkImageView networkImageView;
 	private Banner banner;
+	private RefreshLayout refreshLayout;
 	private ArrayList<String> list_path=new ArrayList<>();
 	private ArrayList<String> list_title=new ArrayList<>();
 	private LinearLayout line;
 	private ObservableScrollView scrollView;
 	private int imageHeight=300;
+	private RecyclerView navRecycler;
 	private RecyclerView recyclerView;
 	private RecyclerView recyclerViewShop;
+	private NavAdapter mNavAdapter;
 	private KillAdapter mKillAdapter;
 	private GoodShopAdapter mGoodShopAdapter;
 	private LinearLayoutManager mLinearManager;
 	private LinearLayoutManager mLinearManager2;
 	private List<KillModel> mList=new ArrayList<>();
 	private List<String> listPath=new ArrayList<>();//储存秒杀地址
-	private List<ShopModel> shopList=new ArrayList<>();
+	private List<ShopModel> shopList=new ArrayList<>();//好店
+	private List<NavModel> navModells=new ArrayList<>();//导航
+	private int[] navIcon={R.drawable.supermarket,R.drawable.trappings,R.drawable.travel,R.drawable.catering,R.drawable.fresh,R.drawable.delicatessen,R.drawable.grain_and_oil,R.drawable.voucher};
+	private String[] itemTitle={"看看超市","看看服饰","看看出行","看看餐饮","生鲜水果","卤味熟食","粮油副食","领券中心"};
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
 	{
 		View view= inflater.inflate(R.layout.tab01, container, false);
-		imageView=view.findViewById(R.id.image);
-		recyclerView=view.findViewById(R.id.recyclerView);
-		recyclerViewShop=view.findViewById(R.id.recyclerViewShop);
-
+		initAttrInit(view);
+		initNotice(view);
+		initBannerView();
+		initNavView(view);
+		initNotice(view);
+		initShopView();
+		initKillView();
+		initEvent();
+		return view;
+	}
+	private void initAttrInit(View view){
 		scanCode=view.findViewById(R.id.scan_code);
 		chatMsg=view.findViewById(R.id.chat_msg);
-		networkImageView=view.findViewById(R.id.netImage);
 		banner=view.findViewById(R.id.id_banner);
 		line=view.findViewById(R.id.line);
+		navRecycler=view.findViewById(R.id.nav_recycler);
+		recyclerView=view.findViewById(R.id.recyclerView);
+		recyclerView=view.findViewById(R.id.recyclerView);
+		recyclerViewShop=view.findViewById(R.id.recyclerViewShop);
+		refreshLayout = view.findViewById(R.id.refreshLayout);
 		line.bringToFront();
-		chatMsg.setOnClickListener(this);
-		scanCode.setOnClickListener(this);
+		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+			@Override
+			public void onRefresh(RefreshLayout refreshlayout) {
+				refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+
+			}
+		});
+		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+			@Override
+			public void onLoadMore( RefreshLayout refreshlayout) {
+				refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+
+			}
+		});
 		scrollView= view.findViewById(R.id.scrollView);
 		CommonUtil.fullScreen(getActivity());
 		line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));
@@ -102,28 +133,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 				}
 			}
 		});
-		initData();
-		RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
-
-		refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-			@Override
-			public void onRefresh(RefreshLayout refreshlayout) {
-				refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-
-			}
-		});
-		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-			@Override
-			public void onLoadMore(RefreshLayout refreshlayout) {
-				refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-
-			}
-		});
-		initNotice(view);
-		return view;
 	}
-
-	private void initData() {
+	private void initBannerView() {
 		banner.setImageLoader(new GlideImageLoader());
 		list_path.add("http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg");
 		list_path.add("http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg");
@@ -149,15 +160,36 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 			}
 		});
 		banner.setBannerTitles(list_title);
-
 		//banner设置方法全部调用完毕时最后调用
 		banner.start();
+	}
+	private void initNavView(View view) {
+
+//		FullyGridLayoutManager fullyManager = new FullyGridLayoutManager(getActivity(),4);
+//		fullyManager.setRecyclerViewLayout((LinearLayout) view.findViewById(R.id.nav_linear));
+//		navRecycler.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+		GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),4);
+		navRecycler.addItemDecoration(new DividerGridItemDecoration());
+		navRecycler.setLayoutManager(gridLayoutManager);
+		if(mNavAdapter==null){
+			mNavAdapter=new NavAdapter(getActivity());
+		}else {
+			mNavAdapter.notifyDataSetChanged();
+		}
+		for(int i=0;i<navIcon.length;i++){
+			NavModel model=new NavModel();
+			model.setItemIcon(navIcon[i]);
+			model.setItemTitle(itemTitle[i]);
+			navModells.add(model);
+		}
+		mNavAdapter.setData(navModells);
+		navRecycler.setAdapter(mNavAdapter);
+	}
+	private void initKillView() {
 		mLinearManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-		mLinearManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 		// 从底部开始显示
 		//mLinearManager.setStackFromEnd(true);
 		recyclerView.setLayoutManager(mLinearManager);
-		recyclerViewShop.setLayoutManager(mLinearManager2);
 		mKillAdapter=new KillAdapter(getActivity());
 		listPath.add("https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg");
 		listPath.add("https://i1.mifile.cn/a1/pms_1527144859.25489991!220x220.jpg");
@@ -177,14 +209,11 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 			mList.add(model);
 		}
 		mKillAdapter.setData(mList);
-		mKillAdapter.setOnItemClickCallback(new KillAdapter.OnItemClickCallback() {
-			@Override
-			public void onItemClick(int position, LinearLayout view) {
-				Toast.makeText(getActivity(),mList.get(position).getPrice(),Toast.LENGTH_SHORT).show();
-				//CustomToast.show(getContext(),mList.get(position).getPrice());
-			}
-		});
 		recyclerView.setAdapter(mKillAdapter);
+	}
+	private void initShopView() {
+		mLinearManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+		recyclerViewShop.setLayoutManager(mLinearManager2);
 		mGoodShopAdapter=new GoodShopAdapter(getActivity());
 		ShopModel shopModel=new ShopModel();
 		shopModel.setImagePath1("https://i1.mifile.cn/a1/pms_1509723483.31416776!220x220.jpg");
@@ -209,14 +238,12 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		shopList.add(shopModel3);
 		mGoodShopAdapter.setData(shopList);
 		recyclerViewShop.setAdapter(mGoodShopAdapter);
-
-
-
-		String path="http://b399.photo.store.qq.com/psb?/V1435sy10opqoy/zwBEegnRC.5C0UjiyMpKXjYsFsO5YJDkwd5YSTVoYW4!/b/dD452u2qJwAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
-		VolleyImage.loadImageByURL(path,imageView);
-		String url="http://b395.photo.store.qq.com/psb?/V1435sy10opqoy/qjZQCDLy.Mm0fZii7pxrOPqMod6kok2FDurfkCTVyQ4!/b/dPyhf.ugBQAA&bo=gAJVAwAAAAABB*Q!&rf=viewer_4&t=5";
-		VolleyImage.NetworkImageViewByURL(url,networkImageView);
 	}
+	private void initEvent(){
+		chatMsg.setOnClickListener(this);
+		scanCode.setOnClickListener(this);
+	}
+
 	private void initNotice(View view) {
 		NoticeView noticeView = view.findViewById(R.id.notice_view);
 		List<String> notices = new ArrayList<>();
@@ -226,13 +253,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		noticeView.addNotice(notices);
 		noticeView.startFlipping();
 	}
-	private void getImageByURL(){
-		String url = "http://g.hiphotos.baidu.com/image/pic/item/0ff41bd5ad6eddc487907ddd3cdbb6fd526633a5.jpg";
-		ImageLoader loader = new ImageLoader(KkanApplication.getHttpQueues(), new BitmapCache());
-		imageView.setImageResource(R.drawable.default_header);
-		ImageLoader.ImageListener listener = ImageLoader.getImageListener(imageView, R.drawable.default_header , R.drawable.default_header );
-		loader.get(url, listener);
-	}
+
 
 	@Override
 	public void onClick(View v) {

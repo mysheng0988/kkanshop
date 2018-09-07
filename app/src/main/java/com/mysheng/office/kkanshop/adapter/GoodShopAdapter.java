@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private LayoutInflater mLayoutInflater;
     private List<ShopModel> mList=new ArrayList<>();
     private OnItemClickCallback mCallback;
@@ -33,9 +33,18 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         GoodShopViewHolder viewHolder= (GoodShopViewHolder) holder;
        viewHolder.bindHolder(mList.get(position));
+       viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               if(mCallback!=null){
+                   mCallback.onItemClick(position,v);
+               }
+           }
+       });
+
     }
 
     @Override
@@ -43,10 +52,6 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mList.size();
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
     public void setData(List<ShopModel> list) {
         mList.addAll(list);
     }
@@ -55,6 +60,6 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface OnItemClickCallback {
-        void onItemClick(int position, LinearLayout view);
+        void onItemClick(int position, View view);
     }
 }

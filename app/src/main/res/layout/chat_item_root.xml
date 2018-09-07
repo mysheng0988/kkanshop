@@ -4,6 +4,6 @@
     xmlns:slide="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    slide:contentBgColor="#fff7f7f7"
+    slide:contentBgColor="#ffffff"
     slide:contentResId="@layout/chat_list_item_content"
     slide:optionsResId="@layout/delete_item_options" />

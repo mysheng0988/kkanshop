@@ -9,37 +9,40 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.KillModel;
+import com.mysheng.office.kkanshop.entity.NavModel;
+import com.mysheng.office.kkanshop.entity.NavModel;
 import com.mysheng.office.kkanshop.holder.KillViewHolder;
+import com.mysheng.office.kkanshop.holder.NavViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class NavAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private LayoutInflater mLayoutInflater;
-    private List<KillModel> mList=new ArrayList<>();
+    private List<NavModel> mList=new ArrayList<>();
     private OnItemClickCallback mCallback;
 
-    public KillAdapter(Context context) {
+    public NavAdapter(Context context) {
+
         this.mLayoutInflater=LayoutInflater.from(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view= mLayoutInflater.inflate(R.layout.kill_item_layout, parent,false);
-        return new KillViewHolder(view);
+    public NavViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view= mLayoutInflater.inflate(R.layout.item_nav_layout, parent,false);
+        return new NavViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-       KillViewHolder viewHolder= (KillViewHolder) holder;
+        NavViewHolder viewHolder= (NavViewHolder) holder;
        viewHolder.bindHolder(mList.get(position));
        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                if(mCallback!=null)
-               mCallback.onItemClick(position,  v);
+               mCallback.onItemClick(v,position);
            }
        });
     }
@@ -50,7 +53,7 @@ public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
     }
 
 
-    public void setData(List<KillModel> list) {
+    public void setData(List<NavModel> list) {
         mList.addAll(list);
     }
     public void setOnItemClickCallback(OnItemClickCallback clickCallback) {
@@ -58,6 +61,6 @@ public class KillAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
     }
 
     public interface OnItemClickCallback {
-        void onItemClick(int position, View view);
+        void onItemClick(View view, int position);
     }
 }
