@@ -16,7 +16,7 @@ public class ClassifyFragment extends Fragment  implements AdapterView.OnItemCli
 			"个护化妆", "图书","男鞋","女鞋" ,"男装","女装"};
 	private ListView listView;
 	private ShopAdapter adapter;
-	private ShopFragment myFragment;
+	private ItemClassifyFragment myFragment;
 	public static int mPosition;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,13 +39,13 @@ public class ClassifyFragment extends Fragment  implements AdapterView.OnItemCli
 		listView.setOnItemClickListener(this);
 
 		//创建MyFragment对象
-		myFragment = new ShopFragment();
+		myFragment = new ItemClassifyFragment();
 		FragmentTransaction fragmentTransaction =getActivity().getSupportFragmentManager()
 				.beginTransaction();
 		fragmentTransaction.replace(R.id.fragment_container, myFragment);
 		//通过bundle传值给MyFragment
 		Bundle bundle = new Bundle();
-		bundle.putString(ShopFragment.TAG, strs[mPosition]);
+		bundle.putString(ItemClassifyFragment.TAG, strs[mPosition]);
 		myFragment.setArguments(bundle);
 		fragmentTransaction.commit();
 	}
@@ -59,12 +59,12 @@ public class ClassifyFragment extends Fragment  implements AdapterView.OnItemCli
 		//即使刷新adapter
 		adapter.notifyDataSetChanged();
 		for (int i = 0; i < strs.length; i++) {
-			myFragment = new ShopFragment();
+			myFragment = new ItemClassifyFragment();
 			FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager()
 					.beginTransaction();
 			fragmentTransaction.replace(R.id.fragment_container, myFragment);
 			Bundle bundle = new Bundle();
-			bundle.putString(ShopFragment.TAG, strs[position]);
+			bundle.putString(ItemClassifyFragment.TAG, strs[position]);
 			myFragment.setArguments(bundle);
 			fragmentTransaction.commit();
 		}

@@ -21,8 +21,8 @@ import java.util.List;
  * Created by myaheng on 2018/5/8.
  */
 
-public class ShopFragment extends Fragment implements  ClassifyAdapter.OnItemClickListener {
-    public static final String TAG = "ShopFragment";
+public class ItemClassifyFragment extends Fragment implements  ClassifyAdapter.OnItemClickListener {
+    public static final String TAG = "ItemClassifyFragment";
     private String str;
     private RecyclerView mRecyclerView;
     private ClassifyAdapter classifyAdapter;
@@ -54,7 +54,7 @@ public class ShopFragment extends Fragment implements  ClassifyAdapter.OnItemCli
         });
         mRecyclerView.setLayoutManager(gridLayoutManager);
         classifyAdapter=new ClassifyAdapter(getActivity());
-        classifyAdapter.setItemClickListener(ShopFragment.this);
+        classifyAdapter.setItemClickListener(ItemClassifyFragment.this);
         mRecyclerView.setAdapter(classifyAdapter);
         initData();
         return view;

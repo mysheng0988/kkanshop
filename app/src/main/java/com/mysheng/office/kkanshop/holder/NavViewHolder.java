@@ -3,21 +3,35 @@ package com.mysheng.office.kkanshop.holder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.NavModel;
 
 public class NavViewHolder extends RecyclerView.ViewHolder {
-    private ImageView itemIcon;
-    private TextView itemTitle;
+    public RelativeLayout index1;
+    public RelativeLayout index2;
+    public RelativeLayout index3;
+    public RelativeLayout index4;
+    public RelativeLayout index5;
+    public RelativeLayout index6;
+    public RelativeLayout index7;
+    public RelativeLayout index8;
     public NavViewHolder(View itemView) {
         super(itemView);
-        itemIcon=itemView.findViewById(R.id.itemIcon);
-        itemTitle=itemView.findViewById(R.id.itemTitle);
+        index1=itemView.findViewById(R.id.supermarket);
+        index2=itemView.findViewById(R.id.trappings);
+        index3=itemView.findViewById(R.id.travel);
+        index4=itemView.findViewById(R.id.catering);
+        index5=itemView.findViewById(R.id.fresh);
+        index6=itemView.findViewById(R.id.delicatessen);
+        index7=itemView.findViewById(R.id.grain_and_oil);
+        index8=itemView.findViewById(R.id.voucher);
     }
     public void bindHolder(NavModel model){
        // Glide.with(itemIcon.getContext()).load(model.getImagePath()).into(itemIcon);
-        itemIcon.setImageResource(model.getItemIcon());
-        itemTitle.setText(model.getItemTitle());
+//        itemIcon.setImageResource(model.getItemIcon());
+//        itemTitle.setText(model.getItemTitle());
     }
 }
