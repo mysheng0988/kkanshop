@@ -7,6 +7,15 @@ package com.mysheng.office.kkanshop.entity;
 public class NavModel {
     private int itemIcon;
     private String itemTitle;
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
     public int getItemIcon() {
         return itemIcon;

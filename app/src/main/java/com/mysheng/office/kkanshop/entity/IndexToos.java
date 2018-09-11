@@ -7,11 +7,12 @@ package com.mysheng.office.kkanshop.entity;
 public class IndexToos {
     public static final  int BANNER=0X001;
     public static final  int NAV=0X002;
-    public static final  int NEWS=0X003;
+    public static final  int NOTICE=0X003;
     public static final  int KILL=0X004;
     public static final  int GOODSSHOP=0X005;
-    public static final  int COMMONSTR=0X006;
-    public static final  int ED=0X007;
-    public static final  int Recommend=0X008;
-    public static final  int OTHER=0X009;
+    public static final  int KILLTITLE=0X006;
+    public static final  int SHOPTITLE=0X007;
+    public static final  int ED=0X008;
+    public static final  int Recommend=0X009;
+    public static final  int OTHER=0X0010;
 }

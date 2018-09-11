@@ -4,36 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="35dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
-    android:background="@drawable/bg_notice_radius"
+    android:background="@drawable/bg_title_radius"
     android:padding="5dp"
     android:gravity="center_vertical">
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/leftTitle"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:text="看看"/>
+        android:text="左标题"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:padding="1dp"
-        android:layout_height="wrap_content"
-        android:text="快报"
-        android:background="@drawable/bg_kuaibao"
-        android:textColor="#ffffffff"
-        android:textSize="14sp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#989898"
-        android:text=" : "/>
-
-    <com.mysheng.office.kkanshop.view.NoticeView
-        android:id="@+id/notice_view"
+        android:id="@+id/centerTitle"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="中间标题"
+        android:textSize="14sp"/>
     <View
         android:layout_width="1dp"
         android:layout_height="18dp"
@@ -47,7 +34,7 @@
         android:gravity="center"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="35dp"
             android:gravity="center"
             android:text="更多"
@@ -62,4 +49,3 @@
 
 
 </LinearLayout>
-

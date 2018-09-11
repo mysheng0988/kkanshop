@@ -1,6 +1,4 @@
 package com.mysheng.office.kkanshop.holder;
-
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 
-public class GoodShopViewHolder extends RecyclerView.ViewHolder {
+public class GoodShopViewHolder extends IndexAbstractViewHolder<ShopModel>{
     private ImageView imagePath1;
     private ImageView imagePath2;
     private ImageView imagePath3;

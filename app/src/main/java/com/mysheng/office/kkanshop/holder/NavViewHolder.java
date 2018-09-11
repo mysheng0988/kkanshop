@@ -1,15 +1,12 @@
 package com.mysheng.office.kkanshop.holder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.NavModel;
 
-public class NavViewHolder extends RecyclerView.ViewHolder {
+public class NavViewHolder extends IndexAbstractViewHolder<NavModel> {
     public RelativeLayout index1;
     public RelativeLayout index2;
     public RelativeLayout index3;
@@ -30,8 +27,5 @@ public class NavViewHolder extends RecyclerView.ViewHolder {
         index8=itemView.findViewById(R.id.voucher);
     }
     public void bindHolder(NavModel model){
-       // Glide.with(itemIcon.getContext()).load(model.getImagePath()).into(itemIcon);
-//        itemIcon.setImageResource(model.getItemIcon());
-//        itemTitle.setText(model.getItemTitle());
     }
 }

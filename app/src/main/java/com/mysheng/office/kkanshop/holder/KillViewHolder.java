@@ -1,7 +1,6 @@
 package com.mysheng.office.kkanshop.holder;
 
 import android.graphics.Paint;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +9,7 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.KillModel;
 
-public class KillViewHolder extends RecyclerView.ViewHolder {
+public class KillViewHolder extends IndexAbstractViewHolder<KillModel> {
     private ImageView killImage;
     private TextView oldPrice;
     private  TextView price;

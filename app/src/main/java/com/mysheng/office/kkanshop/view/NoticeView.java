@@ -75,7 +75,7 @@ public class NoticeView extends ViewFlipper implements View.OnClickListener {
         int position = (int) v.getTag();
         String notice = mNotices.get(position);
         if (mOnNoticeClickListener != null) {
-            mOnNoticeClickListener.onNotieClick(position, notice);
+            mOnNoticeClickListener.onNoticeClick(position, notice);
         }
     }
 
@@ -83,7 +83,7 @@ public class NoticeView extends ViewFlipper implements View.OnClickListener {
      * 通知点击监听接口
      */
     public interface OnNoticeClickListener {
-        void onNotieClick(int position, String notice);
+        void onNoticeClick(int position, String notice);
     }
 
     private OnNoticeClickListener mOnNoticeClickListener;

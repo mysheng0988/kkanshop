@@ -6,7 +6,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/10.
  */
 
-public class NewsModel {
+public class NoticeModel {
 
     private List<String> textList;
 

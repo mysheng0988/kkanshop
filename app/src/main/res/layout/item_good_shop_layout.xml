@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
+    android:layout_width="match_parent"
     android:layout_height="140dp"
     android:orientation="vertical">
     <LinearLayout
@@ -33,7 +33,7 @@
     <TextView
         android:gravity="center"
         android:id="@+id/shopName"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="20dp"
         android:maxLines="1"
         android:text="能够在布局计算过程中检测数据集的批量变化而从"

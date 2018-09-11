@@ -12,30 +12,29 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 /**
  * @author wangjitao
  *         GridView 的分割线
  */
-public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
+public class IndexDividerGridItemDecoration extends RecyclerView.ItemDecoration {
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
     private int lineWidth = 1;
 
-    public DividerGridItemDecoration(Context context) {
+    public IndexDividerGridItemDecoration(Context context) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
     }
 
-    public DividerGridItemDecoration(int color) {
+    public IndexDividerGridItemDecoration(int color) {
         mDivider = new ColorDrawable(color);
     }
 
-    public DividerGridItemDecoration() {
+    public IndexDividerGridItemDecoration() {
         this(Color.parseColor("#cccccc"));
     }
 
@@ -115,41 +114,25 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
         return false;
     }
 
-    private boolean isLastRaw(RecyclerView parent, int pos, int spanCount, int childCount) {
-        LayoutManager layoutManager = parent.getLayoutManager();
-        if (layoutManager instanceof GridLayoutManager) {
-            childCount = childCount - childCount % spanCount;
-            if (pos >= childCount)// 如果是最后一行，则不需要绘制底部
-                return true;
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            int orientation = ((StaggeredGridLayoutManager) layoutManager)
-                    .getOrientation();
-            // StaggeredGridLayoutManager 且纵向滚动
-            if (orientation == StaggeredGridLayoutManager.VERTICAL) {
-                childCount = childCount - childCount % spanCount;
-                // 如果是最后一行，则不需要绘制底部
-                if (pos >= childCount)
-                    return true;
-            } else
-            // StaggeredGridLayoutManager 且横向滚动
-            {
-                // 如果是最后一行，则不需要绘制底部
-                if ((pos + 1) % spanCount == 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, State state) {
 //        Log.e("liao", state.toString());
-        boolean b = state.willRunPredictiveAnimations();
         int itemPosition = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         int spanCount = getSpanCount(parent);
         int childCount = parent.getAdapter().getItemCount();
-            outRect.set(0, 0, lineWidth, lineWidth);
-
+        if(spanCount==6){
+            outRect.set(0, 0, 0, 0);
+        }else if (childCount%spanCount==0)// 如果是第一列，则不需要绘制右边
+        {
+            outRect.set(2, 0, lineWidth, lineWidth);
+        }else if ((childCount+1)%spanCount==0)// 如果是第一列，则不需要绘制右边
+        {
+            outRect.set(2, 0, 2, lineWidth);
+        }
+        else {
+         outRect.set(0, 0, lineWidth, lineWidth);
+        }
     }
 }
