@@ -172,8 +172,8 @@ public class IndexFragmentCopy extends Fragment implements View.OnClickListener{
 		}
 		for(int i=0;i<navIcon.length;i++){
 			NavModel model=new NavModel();
-			model.setItemIcon(navIcon[i]);
-			model.setItemTitle(itemTitle[i]);
+			model.setNavIcon(navIcon[i]);
+			model.setNavTitle(itemTitle[i]);
 			navModells.add(model);
 		}
 		mNavAdapter.setData(navModells);

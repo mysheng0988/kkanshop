@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/loveTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="玩3C"
+        android:textSize="@dimen/txt_18"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/discountTitle"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="抢iPhone8" />
+    <com.mysheng.office.kkanshop.view.SquareLinearView
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/loveIcon"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+    </com.mysheng.office.kkanshop.view.SquareLinearView>
+
+
+</LinearLayout>

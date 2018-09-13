@@ -9,7 +9,10 @@ import java.util.List;
 public class NoticeModel {
 
     private List<String> textList;
-
+    private int modelType= IndexTools.NOTICE;
+    public int getModelType() {
+        return modelType;
+    }
     public List<String> getTextList() {
         return textList;
     }

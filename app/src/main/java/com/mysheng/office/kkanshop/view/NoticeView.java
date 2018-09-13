@@ -69,7 +69,9 @@ public class NoticeView extends ViewFlipper implements View.OnClickListener {
             NoticeView.this.addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         }
     }
-
+    public List<String> getList(){
+        return mNotices;
+    }
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag();

@@ -6,12 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.NavModel;
-import com.mysheng.office.kkanshop.entity.NavModel;
-import com.mysheng.office.kkanshop.holder.KillViewHolder;
 import com.mysheng.office.kkanshop.holder.NavViewHolder;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class NavAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     @Override
     public NavViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view= mLayoutInflater.inflate(R.layout.item_nav_layout, parent,false);
+       View view= mLayoutInflater.inflate(R.layout.item_nav_copy, parent,false);
         return new NavViewHolder(view);
     }
 

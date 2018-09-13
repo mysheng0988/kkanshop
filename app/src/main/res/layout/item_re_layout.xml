@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.mysheng.office.kkanshop.view.SquareLinearView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/goodsPath"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon"/>
+    </com.mysheng.office.kkanshop.view.SquareLinearView>
+    <TextView
+        android:id="@+id/goodsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:lines="2"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/goodsPrice"
+            android:layout_marginLeft="@dimen/txt_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            android:text="￥:188元"
+            android:textSize="@dimen/txt_16"
+            android:textColor="@color/red_text_color"/>
+        <TextView
+            android:layout_gravity="right"
+            android:id="@+id/resemble"
+            android:layout_marginRight="@dimen/txt_10"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_margin="4dp"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:background="@drawable/bg_resemble_radius"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="看相似"
+            android:textSize="@dimen/txt_14"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

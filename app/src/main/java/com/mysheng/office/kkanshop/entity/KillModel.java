@@ -5,6 +5,10 @@ public class KillModel {
     private String oldPrice;
     private  String price;
 
+    private int modelType= IndexTools.KILL;
+    public int getModelType() {
+        return modelType;
+    }
     public String getImagePath() {
         return imagePath;
     }

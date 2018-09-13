@@ -39,4 +39,6 @@
     <string name="label_camera_video_only">按住摄像</string>
     <string name="msg_progressing">处理中</string>
 
+    <string name="pageBehavior" translatable="false" >com.mysheng.office.kkanshop.page.PageBehavior</string>
+
 </resources>

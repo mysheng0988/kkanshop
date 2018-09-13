@@ -7,7 +7,10 @@ package com.mysheng.office.kkanshop.entity;
 public class TitleModel {
     private String leftTitle;
     private String centerTitle;
-
+    private int modelType= IndexTools.KILLTITLE;
+    public int getModelType() {
+        return modelType;
+    }
     public String getLeftTitle() {
         return leftTitle;
     }

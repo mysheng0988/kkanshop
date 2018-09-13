@@ -7,28 +7,28 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mysheng.office.kkanshop.adapter.IndexAdapter;
-
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
-import com.mysheng.office.kkanshop.decoration.IndexDividerGridItemDecoration;
-import com.mysheng.office.kkanshop.decoration.SpaceItemDecoration;
 import com.mysheng.office.kkanshop.entity.BannerModel;
-import com.mysheng.office.kkanshop.entity.IndexToos;
+import com.mysheng.office.kkanshop.entity.GoTitleModel;
+import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.KillModel;
+import com.mysheng.office.kkanshop.entity.LoveModel;
 import com.mysheng.office.kkanshop.entity.NavModel;
 import com.mysheng.office.kkanshop.entity.NoticeModel;
-
+import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.entity.TitleShopModel;
+import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
+import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 
 import com.mysheng.office.kkanshop.view.NoticeView;
@@ -47,7 +47,7 @@ import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
 
-public class IndexFragment extends Fragment implements View.OnClickListener{
+public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener{
 	private ImageView scanCode;
 	private ImageView chatMsg;
 	private RefreshLayout refreshLayout;
@@ -65,9 +65,40 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 			"https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg",
 			"https://i1.mifile.cn/a1/pms_1527144859.25489991!220x220.jpg",
 			"https://i1.mifile.cn/a4/xmad_14972549116226_tZpod.png",
-			"https://i1.mifile.cn/a1/pms_1492999959.43955760!220x220.jpg",
-			"https://i1.mifile.cn/a1/pms_1519609640.9267740!140x140.jpg",
-			"https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
+			"https://i1.mifile.cn/a1/pms_1492999959.43955760!220x220.jpg"
+//			"https://i1.mifile.cn/a1/pms_1519609640.9267740!140x140.jpg",
+//			"https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
+	};
+
+	private String[] loveTitle={"玩3c", "购家电", "逛超市", "爱家", "爱宝宝","爱美丽","爱吃","爱逛"};
+	private String[] discountTitle={"抢iPhone7红", "800元现金券", "乳品二免一", "居家物199-100", "满199减50","YSL黑管唇釉","领券99减50","满399减100"};
+	private String[] labelTitle={"抢iPhone7红", "", "", "家居小商品节", "","","",""};
+	private String[] lovePath={
+			"https://m.360buyimg.com/mobilecms/jfs/t4390/306/810593954/43649/db7da1a3/58d4f31dN7f95f121.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t3277/14/9826379985/16115/3bb30dc7/58d8ce10Nc69a898e.jpg!q70.jpg",
+			 "https://m.360buyimg.com/mobilecms/jfs/t4663/320/926911638/15321/7cdb9777/58d66630N3aa7e836.jpg!q70.jpg",
+		     "https://m.360buyimg.com/mobilecms/jfs/t4516/339/787269831/33006/b2d29efe/58d5008dN359de233.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4675/199/1080554759/28689/4d53c00e/58d88d51N32dfc9e7.png!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4273/172/3010816439/22923/3096939d/58d8b505N70640765.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4426/51/1099039770/16697/134acadd/58d8d2e1N3b849fd9.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4543/232/1163237356/8249/e2e2069c/58d9c2ecN771ca3f0.jpg!q70.jpg",
+	};
+	private String[] shopTitle={"大家电馆", "母婴馆", "时尚馆", "手机数码", "美食城","电脑办公","鞋靴箱包","小家电馆", "生鲜馆","家装城","图书音像","中外名酒"};
+	private String[] shopDiscountTitle={"白条6期免息", "满199减100", "京东丝袜节", "联想爆品五折秒", "5折起","399减120","每满399减20","每满199减20", "满2件8折","跨万店4免1","每满150减50","啤酒99减20"};
+	private String[] shopLabelTitle={"", "", "", "", "","","",""};
+	private String[] shopPath={
+			"https://m.360buyimg.com/n1/jfs/t3622/276/660901756/68531/e5d7241b/5813f6fbN03214d2d.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4666/290/1329628173/34033/a8e29b76/58dcdf92N5e3dff44.png!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4246/177/3319375981/3828920/76ed6c38/58df9758Ndb750df0.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4378/235/3560807378/24770/8f222ffe/58e442e5Ndddccdae.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4285/117/3109257512/19944/1be3b538/58db634bNcdb3ec1b.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t5068/345/197333997/10951/544031c8/58dca172N265a12e6.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4228/306/3195162999/8876/88ab9216/58db69e3N0a944318.jpg!q70.jpg",
+			"https://m.360buyimg.com/n1/jfs/t3088/300/7513997890/259901/98178f5/58b7c78cNbd0b5e05.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4333/136/3260917771/19068/b517fd1/58df8c62Na031087d.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4570/19/1318587865/17550/8a7e8ca/58dcb5ddN186af61e.png!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4774/324/569821243/4473/eed964ec/58e44fb4Nd8e78b24.jpg!q70.jpg",
+			"https://m.360buyimg.com/mobilecms/jfs/t4600/15/1356162856/36024/b9a45109/58dcdb49N5d95b788.png!q70.jpg",
 	};
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,6 +127,20 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
 			@Override
 			public void onLoadMore( RefreshLayout refreshlayout) {
+				List<RecommendModel> recommendModels=new ArrayList<>();
+				for(int i=0;i<IndexTools.list.length;i++){
+					RecommendModel reModel=new RecommendModel();
+					reModel.setGoodsPath(IndexTools.list[i]);
+					reModel.setGoodsTitle(IndexTools.title);
+					Random random=new Random();
+					int num=random.nextInt(1000);
+					reModel.setPrice("￥:"+num+".00");
+					recommendModels.add(reModel);
+				}
+				int start=mIndexAdapter.getItemCount();
+				mIndexAdapter.addRecommendModels(recommendModels);
+				int end=mIndexAdapter.getItemCount();
+				mIndexAdapter.notifyItemRangeChanged(start,end);
 				refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
 
 			}
@@ -146,24 +191,32 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		BannerModel bannerModel=new BannerModel();
 		bannerModel.setImgPaths(list_path);
 		bannerModel.setTitles(list_title);
-		GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),6);
+		GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),8);
 		mRecyclerView.addItemDecoration(new DividerGridItemDecoration());
 		gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 			@Override
 			public int getSpanSize(int position) {
 				int viewType=mRecyclerView.getAdapter().getItemViewType(position);
 				switch (viewType){
-					case IndexToos.BANNER:
-					case IndexToos.NAV:
-					case IndexToos.KILLTITLE:
-					case IndexToos.SHOPTITLE:
-					case IndexToos.NOTICE:
-						return 6;
-					case IndexToos.KILL:
-
-						return 1;
+					case IndexTools.BANNER:
+					case IndexTools.KILLTITLE:
+					case IndexTools.SHOPTITLE:
+					case IndexTools.NOTICE:
+					case IndexTools.GOTitle:
+					case IndexTools.GOShopTitle:
+					case IndexTools.GOReTitle:
+						return 8;
+					case IndexTools.LOVE_TWO:
+					case IndexTools.Recommend:
+					case IndexTools.GOSHOPTWO:
+						return 4;
+					case IndexTools.KILL:
+					case IndexTools.NAV:
+					case IndexTools.LOVE_FOUR:
+					case IndexTools.GOSHOPFOUR:
+						return 2;
 					default:
-						return 3;
+						return 4;
 				}
 			}
 		});
@@ -176,8 +229,13 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		List<BannerModel> list=new ArrayList<>();
 		list.add(bannerModel);
 		List<NavModel> navModels=new ArrayList<>();
-		NavModel navModel=new NavModel();
-		navModels.add(navModel);
+		for (int i=0;i<IndexTools.navTitle.length;i++){
+			NavModel navModel=new NavModel();
+			navModel.setNavIcon(IndexTools.navIcon[i]);
+			navModel.setNavTitle(IndexTools.navTitle[i]);
+			navModels.add(navModel);
+		}
+
 		List<NoticeModel>newsModels=new ArrayList<>();
 		listNews.add("大促销下单拆福袋，亿万新年红包随便拿");
 		listNews.add("家电五折团，抢十亿无门槛现金红包");
@@ -220,60 +278,95 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 		shopModel2.setShopName("魅族官方旗舰店");
 		shopModel2.setShopNum("22222");
 		shopModels.add(shopModel2);
-		ShopModel shopModel3=new ShopModel();
-		shopModel3.setImagePath1("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/pdp/phones/p20-pro-update1/img/kv-mobile-v2-original.jpg");
-		shopModel3.setImagePath2("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/p20pro-listimage-pink-original.png");
-		shopModel3.setImagePath3("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/maters-list-image-original.png");
-		shopModel3.setShopName("华为官方旗舰店");
-		shopModel3.setShopNum("33333");
-		shopModels.add(shopModel3);
-		ShopModel shopModel4=new ShopModel();
-		shopModel4.setImagePath1("https://i1.mifile.cn/a1/pms_1509723483.31416776!220x220.jpg");
-		shopModel4.setImagePath2("https://i1.mifile.cn/a1/pms_1527684990.93616987!220x220.jpg");
-		shopModel4.setImagePath3("https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/86566f01e26104c8c36e1201223385b7.jpg");
-		shopModel4.setShopName("小米官方旗舰店");
-		shopModel4.setShopNum("1111");
-		shopModels.add(shopModel4);
-		ShopModel shopModel5=new ShopModel();
-		shopModel5.setImagePath1("https://openfile.meizu.com/group1/M00/02/F9/Cgbj0VpcI-6AHsPAAACF-hNGTkg171_180x180.jpg");
-		shopModel5.setImagePath2("https://openfile.meizu.com/group1/M00/04/0E/Cgbj0FrcbsCANuv_AAzufmGf2yU449.png@240x240.jpg");
-		shopModel5.setImagePath3("https://openfile.meizu.com/group1/M00/02/31/Cgbj0VnCIPSAZlXMAA4noi5FGFE697.png@240x240.png");
-		shopModel5.setShopName("魅族官方旗舰店");
-		shopModel5.setShopNum("22222");
-		shopModels.add(shopModel5);
-		ShopModel shopModel6=new ShopModel();
-		shopModel6.setImagePath1("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/pdp/phones/p20-pro-update1/img/kv-mobile-v2-original.jpg");
-		shopModel6.setImagePath2("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/p20pro-listimage-pink-original.png");
-		shopModel6.setImagePath3("https://consumer-img.huawei.com/content/dam/huawei-cbg-site/greate-china/cn/mkt/list-image/phones/maters-list-image-original.png");
-		shopModel6.setShopName("华为官方旗舰店");
-		shopModel6.setShopNum("33333");
-		shopModels.add(shopModel6);
+		List<GoTitleModel> goTitleModels=new ArrayList<>();
+		GoTitleModel goTitleModel=new GoTitleModel();
+		goTitleModel.setGoTitle("--爱生活--");
+		goTitleModels.add(goTitleModel);
+		List<LoveModel> loveModelsTwo=new ArrayList<>();
+		List<LoveModel> loveModelsFour=new ArrayList<>();
+		for(int i=0;i<loveTitle.length;i++){
+			if(i<4){
+				LoveModel loveModel1=new LoveModel();
+				loveModel1.setLoveTitle(loveTitle[i]);
+				loveModel1.setDiscountTitle(discountTitle[i]);
+				loveModel1.setLabelTitle(labelTitle[i]);
+				loveModel1.setLovePath(lovePath[i]);
+				loveModelsTwo.add(loveModel1);
+			}else {
+				LoveModel loveModel1=new LoveModel();
+				loveModel1.setLoveTitle(loveTitle[i]);
+				loveModel1.setDiscountTitle(discountTitle[i]);
+				loveModel1.setModelType(IndexTools.LOVE_FOUR);
+				loveModel1.setLovePath(lovePath[i]);
+				loveModelsFour.add(loveModel1);
+			}
+		}
+		List<GoTitleModel> goTitleModels2=new ArrayList<>();
+		GoTitleModel goTitleModel2=new GoTitleModel();
+		goTitleModel2.setGoTitle("--逛商场--");
+		goTitleModel2.setModelType(IndexTools.GOShopTitle);
+		goTitleModels2.add(goTitleModel2);
 
-		mIndexAdapter.addBanner(list);
-		mIndexAdapter.addNav(navModels);
-		mIndexAdapter.addNotice(newsModels);
-		mIndexAdapter.addTitleModels(titleModels);
-		mIndexAdapter.addKillModels(killModels);
-		mIndexAdapter.addTitleShopModels(titleShopModels);
-		mIndexAdapter.addShopModels(shopModels);
-
+		List<LoveModel> loveModelsTwo1=new ArrayList<>();
+		List<LoveModel> loveModelsFour2=new ArrayList<>();
+		for(int i=0;i<shopTitle.length;i++){
+			if(i<4){
+				LoveModel loveModel1=new LoveModel();
+				loveModel1.setLoveTitle(shopTitle[i]);
+				loveModel1.setDiscountTitle(shopDiscountTitle[i]);
+				loveModel1.setModelType(IndexTools.GOSHOPTWO);
+				loveModel1.setLabelTitle(shopLabelTitle[i]);
+				loveModel1.setLovePath(shopPath[i]);
+				loveModelsTwo1.add(loveModel1);
+			}else {
+				LoveModel loveModel1=new LoveModel();
+				loveModel1.setLoveTitle(shopTitle[i]);
+				loveModel1.setDiscountTitle(shopDiscountTitle[i]);
+				loveModel1.setModelType(IndexTools.GOSHOPFOUR);
+				loveModel1.setLovePath(shopPath[i]);
+				loveModelsFour2.add(loveModel1);
+			}
+		}
+		List<GoTitleModel> goTitleModels3=new ArrayList<>();
+		GoTitleModel goTitleModel3=new GoTitleModel();
+		goTitleModel3.setGoTitle("--为*你*推*荐--");
+		goTitleModel3.setModelType(IndexTools.GOReTitle);
+		goTitleModels3.add(goTitleModel3);
+		List<RecommendModel> recommendModels=new ArrayList<>();
+		for(int i=0;i<IndexTools.list.length;i++){
+			RecommendModel reModel=new RecommendModel();
+			reModel.setGoodsPath(IndexTools.list[i]);
+			reModel.setGoodsTitle(IndexTools.title);
+			Random random=new Random();
+			int num=random.nextInt(1000);
+			reModel.setPrice("￥:"+num+".00");
+			recommendModels.add(reModel);
+		}
+		mIndexAdapter.setBanner(list);
+		mIndexAdapter.setNav(navModels);
+		mIndexAdapter.setNotice(newsModels);
+		mIndexAdapter.setTitleModels(titleModels);
+		mIndexAdapter.setKillModels(killModels);
+		mIndexAdapter.setTitleShopModels(titleShopModels);
+		mIndexAdapter.setShopModels(shopModels);
+		mIndexAdapter.setGoTitleModels(goTitleModels);
+		mIndexAdapter.setLoveTwoModels(loveModelsTwo);
+		mIndexAdapter.setLoveFourModels(loveModelsFour);
+		mIndexAdapter.setGoShopTitleModels(goTitleModels2);
+		mIndexAdapter.setShopTwoModels(loveModelsTwo1);
+		mIndexAdapter.setShopFourModels(loveModelsFour2);
+		mIndexAdapter.setGoReTitleModels(goTitleModels3);
+		mIndexAdapter.setRecommendModels(recommendModels);
 		mRecyclerView.setAdapter(mIndexAdapter);
 
 	}
 	private void initEvent(){
+		mIndexAdapter.setOnBannerClickListener(this);
+		mIndexAdapter.setOnItemClickListener(this);
 		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
 	}
 
-	private void initNotice(View view) {
-		NoticeView noticeView = view.findViewById(R.id.notice_view);
-		List<String> notices = new ArrayList<>();
-		notices.add("大促销下单拆福袋，亿万新年红包随便拿");
-		notices.add("家电五折团，抢十亿无门槛现金红包");
-		notices.add("星球大战剃须刀首发送200元代金券");
-		noticeView.addNotice(notices);
-		noticeView.startFlipping();
-	}
 
 
 	@Override
@@ -347,4 +440,68 @@ public class IndexFragment extends Fragment implements View.OnClickListener{
 	}
 
 
+	@Override
+	public void onBannerListener(int index) {
+		Toast.makeText(getActivity(),"你点击了"+index,Toast.LENGTH_SHORT).show();
+	}
+
+
+	@Override
+	public void onItemClick(View view, int modeType, List modelList, int position) {
+		String str="";
+		switch (modeType){
+
+			case IndexTools.NAV:
+				NavModel navModel= (NavModel) modelList.get(position);
+				str=navModel.getNavTitle();
+
+				break;
+			case IndexTools.KILLTITLE:
+				str="更多秒杀";
+				break;
+			case IndexTools.KILL:
+				KillModel killModel= (KillModel) modelList.get(position);
+				str=killModel.getPrice();
+				break;
+			case IndexTools.SHOPTITLE:
+				str="更多好店";
+				break;
+			case IndexTools.GOODSSHOP:
+				ShopModel model= (ShopModel) modelList.get(position);
+				str=model.getShopName();
+				break;
+			case IndexTools.NOTICE:
+				if(view instanceof LinearLayout){
+					str="更多通知";
+				}else {
+					NoticeView noticeView= (NoticeView) view;
+					List<String> list=noticeView.getList();
+					str=list.get(position);
+				}
+				break;
+			case IndexTools.LOVE_TWO:
+			case IndexTools.LOVE_FOUR:
+			case IndexTools.GOSHOPTWO:
+			case IndexTools.GOSHOPFOUR:
+				LoveModel loveModel= (LoveModel) modelList.get(position);
+				str=loveModel.getLoveTitle();
+				break;
+			case IndexTools.Recommend:
+//				RecommendModel remodel= (RecommendModel) modelList.get(position);
+//
+//				if(view instanceof TextView){
+//					str=remodel.getPrice()+"找相似";
+//				}else {
+//					str=remodel.getPrice();
+//				}
+				Intent intent=new Intent(getActivity(),GoodsDetailActivity.class);
+				startActivity(intent);
+
+				break;
+			default:
+				break ;
+
+		}
+		Toast.makeText(getActivity(),"你点击了"+str,Toast.LENGTH_SHORT).show();
+	}
 }

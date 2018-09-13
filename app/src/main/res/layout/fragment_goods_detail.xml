@@ -1,0 +1,50 @@
+<com.mysheng.office.kkanshop.page.PageContainer
+    android:id="@+id/container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.mysheng.office.kkanshop.page.Page
+        android:id="@+id/pageOne"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ripple_material_dark"
+        android:scrollbars="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.mysheng.office.kkanshop.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/a" />
+
+        </LinearLayout >
+    </com.mysheng.office.kkanshop.page.Page >
+
+    <com.mysheng.office.kkanshop.page.Page
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/pageBehavior" >
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </WebView >
+    </com.mysheng.office.kkanshop.page.Page >
+
+</com.mysheng.office.kkanshop.page.PageContainer >

@@ -5,31 +5,32 @@ package com.mysheng.office.kkanshop.entity;
  */
 
 public class NavModel {
-    private int itemIcon;
-    private String itemTitle;
-    private int index;
+    private int navIcon;
+    private String navTitle;
 
-    public int getIndex() {
-        return index;
+    private int modelType= IndexTools.NAV;
+
+    public int getNavIcon() {
+        return navIcon;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setNavIcon(int navIcon) {
+        this.navIcon = navIcon;
     }
 
-    public int getItemIcon() {
-        return itemIcon;
+    public String getNavTitle() {
+        return navTitle;
     }
 
-    public void setItemIcon(int itemIcon) {
-        this.itemIcon = itemIcon;
+    public void setNavTitle(String navTitle) {
+        this.navTitle = navTitle;
     }
 
-    public String getItemTitle() {
-        return itemTitle;
+    public int getModelType() {
+        return modelType;
     }
 
-    public void setItemTitle(String itemTitle) {
-        this.itemTitle = itemTitle;
+    public void setModelType(int modelType) {
+        this.modelType = modelType;
     }
 }
