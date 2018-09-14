@@ -9,20 +9,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.adapter.MinePagerAdapter;
+import com.mysheng.office.kkanshop.listenter.ChangePage;
+import com.mysheng.office.kkanshop.page.Page;
+import com.mysheng.office.kkanshop.page.PageBehavior;
+import com.mysheng.office.kkanshop.page.ViewPagerSlide;
 
 /**
  * Created by myaheng on 2018/9/13.
  */
 
-public class GoodsDetailActivity extends AppCompatActivity {
+public class GoodsDetailActivity extends AppCompatActivity implements ChangePage {
 
 
     private TabLayout tabs;
-    private ViewPager viewpager;
+    private ViewPagerSlide viewpager;
     private Toolbar toolbar;
     private MinePagerAdapter minePagerAdapter;
+    private TextView detailImgText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
         tabs =findViewById(R.id.tabs);
         toolbar =  findViewById(R.id.toolbar);
         viewpager = findViewById(R.id.viewpager);
+        detailImgText = findViewById(R.id.detailImgText);
 
         setSupportActionBar(toolbar);
 
@@ -44,6 +51,7 @@ public class GoodsDetailActivity extends AppCompatActivity {
         viewpager.setOffscreenPageLimit(3);
         viewpager.setAdapter(minePagerAdapter);
         tabs.setupWithViewPager(viewpager);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,5 +66,25 @@ public class GoodsDetailActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void showTabPage(int page) {
+        switch (page){
+            case 1:
+                viewpager.setScanScroll(true);
+                tabs.setVisibility(View.VISIBLE);
+                detailImgText.setVisibility(View.GONE);
+                break;
+            case 2:
+                viewpager.setScanScroll(false);
+                tabs.setVisibility(View.GONE);
+                detailImgText.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                tabs.getTabAt(1).select();
+                break;
+        }
     }
 }

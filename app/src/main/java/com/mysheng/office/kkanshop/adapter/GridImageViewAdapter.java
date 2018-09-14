@@ -25,9 +25,7 @@ public abstract class GridImageViewAdapter<T> {
         return GridImageView.STYLE_GRID;
     }
 
-    public
-    @DrawableRes
-    int generateAddIcon() {
+    public @DrawableRes int generateAddIcon() {
         return R.drawable.add_image;
     }
 }

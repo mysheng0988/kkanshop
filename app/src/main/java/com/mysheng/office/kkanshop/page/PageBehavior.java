@@ -30,8 +30,7 @@ public class PageBehavior extends CoordinatorLayout.Behavior {
 
     public OnPageChanged mOnPageChanged;
 
-    public void setOnPageChanged(
-            OnPageChanged onPageChanged) {
+    public void setOnPageChanged(OnPageChanged onPageChanged) {
         mOnPageChanged = onPageChanged;
     }
 
