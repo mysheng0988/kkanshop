@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <com.mysheng.office.kkanshop.view.RoundImageView
+            android:id="@+id/userIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            app:border_color="#FFF"
+            app:radius="25dp"
+            app:border_width="5dp"
+            app:border_alpha="255"
+            app:shadow_color="#de1010"
+            android:src="@drawable/ynn"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/userIcon"
+            android:layout_height="match_parent"
+            android:text="15701570988"/>
+        <com.mysheng.office.kkanshop.view.Star
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:starWidth ="20dp"
+            app:starHeight ="20dp"
+            app:starDistance ="10dp"
+            app:starsNum="5"
+            app:starBackground ="@drawable/s1"
+            app:starDrawBackground ="@drawable/s2"
+            app:starClickable ="false"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/evaluate"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="2"
+        android:lineSpacingMultiplier="1.5"/>
+    <com.mysheng.office.kkanshop.view.GridImageView
+        android:id="@+id/gridImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
