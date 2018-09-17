@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Scroller;
 
 
+import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.adapter.GridImageViewAdapter;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class GridImageView<T> extends ViewGroup {
     private ImageView mAddView;//添加图片的按钮
     private final List<ImageView> iPictureList = new ArrayList<>();
     private final List<ImageView> mVisiblePictureList = new ArrayList<>();
+    private boolean isShowAddItem=true;//是否显示添加按钮
     /**
      * 处理滑动的
      */
@@ -37,27 +40,33 @@ public class GridImageView<T> extends ViewGroup {
     private int minFlingSpeed,maxFlingSpeed;
     private int mLeftBorder;
     private int mRightBorder;
-//    private List<GridItemView> views=new ArrayList<>();
-
     public GridImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.GridImageView);
         //初始化Scroller实例
         mScroller = new Scroller(context);
         //初始化参数
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
         minFlingSpeed=ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
         maxFlingSpeed=ViewConfiguration.get(getContext()).getScaledMaximumFlingVelocity();
+        isShowAddItem= typedArray.getBoolean(R.styleable.GridImageView_showAddItem,true);
 
-        mAddView=new ImageView(context);
-        mAddView.setOnClickListener(new OnClickListener() {//添加mAddView
-            @Override
-            public void onClick(View v) {
-                if (mAdapter != null) {
-                    mAdapter.onAddClick(getContext(),mImgDataList);
+
+        if(isShowAddItem) {
+            mAddView = new ImageView(context);
+            mAddView.setOnClickListener(new OnClickListener() {//添加mAddView
+                @Override
+                public void onClick(View v) {
+                    if (mAdapter != null) {
+                        mAdapter.onAddClick(getContext(), mImgDataList);
+                    }
                 }
-            }
-        });
-        addView(mAddView,generateDefaultLayoutParams());
+            });
+            addView(mAddView,generateDefaultLayoutParams());
+
+        }
+      //  refreshDataSet();
+
     }
     public GridImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -76,6 +85,8 @@ public class GridImageView<T> extends ViewGroup {
         }
 
     }
+
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if(mShowStyle==STYLE_HORIZONTAL){
@@ -99,7 +110,13 @@ public class GridImageView<T> extends ViewGroup {
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height;
         int totalWidth = width - getPaddingLeft() - getPaddingRight();
-        int totalCount=mImgDataList.size()+1;//把mAddView也给算进去
+        int totalCount=0;//把mAddView也给算进去
+        if (isShowAddItem){
+            totalCount=mImgDataList.size()+1;
+        }else{
+            totalCount=mImgDataList.size();
+        }
+
         mGridSize = (totalWidth - mGap * (mColumnCount - 1)) / mColumnCount; //算出每个条目的大小，以宽度为标准。
         int mRowCount= (int) Math.ceil((totalCount*1.0)/mColumnCount);//算出行数
         height = mGridSize * mRowCount + mGap * (mRowCount - 1) + getPaddingTop() + getPaddingBottom();//计算出高度
@@ -164,7 +181,10 @@ public class GridImageView<T> extends ViewGroup {
         int top = (mGridSize + mGap) * rowNum + getPaddingTop();
         int right = left + mGridSize;
         int bottom = top + mGridSize;
-        mAddView.layout(left, top, right, bottom);//调整mAddView的位置
+        if (isShowAddItem){
+            mAddView.layout(left, top, right, bottom);//调整mAddView的位置
+        }
+
     }
 
 
@@ -221,6 +241,7 @@ public class GridImageView<T> extends ViewGroup {
      */
     public GridItemView getImageView(final int position) {
             GridItemView imageView= new GridItemView(getContext());
+            imageView.setShowDel(isShowAddItem);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
@@ -230,16 +251,18 @@ public class GridImageView<T> extends ViewGroup {
                     }
                 }
             });
+            if(isShowAddItem){
+                imageView.setOnDelClickL(new GridItemView.OnDelButtonClickL() {
+                    @Override
+                    public void onDelClickL() {
+                        mImgDataList.remove(position);
+                        mVisiblePictureList.remove(position);
+                        refreshDataSet();
 
-            imageView.setOnDelClickL(new GridItemView.OnDelButtonClickL() {
-                @Override
-                public void onDelClickL() {
-                    mImgDataList.remove(position);
-                    mVisiblePictureList.remove(position);
-                    refreshDataSet();
+                    }
+                });
+            }
 
-                }
-            });
             return imageView;
     }
 
@@ -251,7 +274,10 @@ public class GridImageView<T> extends ViewGroup {
      */
     public void setAdapter(GridImageViewAdapter<T> adapter) {
         mAdapter = adapter;
-        mAddView.setImageResource(adapter.generateAddIcon());
+        if (isShowAddItem){
+            mAddView.setImageResource(adapter.generateAddIcon());
+        }
+
         mShowStyle=adapter.getShowStyle();
     }
 

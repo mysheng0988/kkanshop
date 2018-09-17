@@ -29,9 +29,11 @@ public class KkanApplication extends Application {
     private static String IMAGE_CACHE_PATH;
 
     public static RequestQueue queues;
+    public static Context mContext;
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext=getApplicationContext();
         PushManager.getInstance().initialize(this.getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
         //CrashHandler.getInstance().init(this);//异常信息记录

@@ -141,10 +141,11 @@ public class UploadImageActivity extends TakePhotoActivity implements UploadProg
             @Override
             public void onItemImageClick(ImageView imageView,List<ImageView> imageViews,int index, List<String> list) {
                 super.onItemImageClick(imageView,imageViews,index, list);
-                vImageWatcher.show(imageView,imageViews,list);
-                Toast.makeText(getApplicationContext(), "--->" + index, Toast.LENGTH_SHORT).show();
+//                vImageWatcher.show(imageView,imageViews,list);
+//                Toast.makeText(getApplicationContext(), "--->" + index, Toast.LENGTH_SHORT).show();
             }
         });
+
 
 
     }

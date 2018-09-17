@@ -33,7 +33,7 @@ public class Star extends View{
     //星星变化监听
     private OnStarChangeListener changeListener;
     //是否可以点击
-    private boolean isClick = true;
+    private boolean isClick = false;
     //画笔
     private Paint mPaint;
     public Star(Context context) {
@@ -96,6 +96,9 @@ public class Star extends View{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(!isClick){
+            return true;
+        }
         int x = (int) event.getX();
         if (x<0)
             x=0;
@@ -123,6 +126,15 @@ public class Star extends View{
             changeListener.onStarChange(starMark);
         }
         invalidate();
+    }
+
+
+    /**
+     * 设置是否可以点击
+     * @param click
+     */
+    public void setClick(boolean click) {
+        isClick = click;
     }
 
     /**

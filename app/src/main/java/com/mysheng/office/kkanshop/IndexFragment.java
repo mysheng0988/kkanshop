@@ -485,6 +485,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			case IndexTools.GOSHOPFOUR:
 				LoveModel loveModel= (LoveModel) modelList.get(position);
 				str=loveModel.getLoveTitle();
+				Intent intent=new Intent(getActivity(),DescribeActivity.class);
+				startActivity(intent);
 				break;
 			case IndexTools.Recommend:
 //				RecommendModel remodel= (RecommendModel) modelList.get(position);
@@ -494,8 +496,9 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 //				}else {
 //					str=remodel.getPrice();
 //				}
-				Intent intent=new Intent(getActivity(),GoodsDetailActivity.class);
-				startActivity(intent);
+				Intent intent1=new Intent(getActivity(),GoodsDetailActivity.class);
+				startActivity(intent1);
+
 
 				break;
 			default:

@@ -53,4 +53,25 @@ public class IndexTools {
             "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
             "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
     };
+    public static String[] Describe={
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t4519/358/1436762985/248234/7dd51673/58df3545N999b9fb9.jpg!q70.jpg",
+            "https://i1.mifile.cn/a4/xmad_14972549116226_tZpod.png",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2755/170/3941478123/227837/23139b91/57a4413bNaeae69fa.jpg!q70.jpg",
+            "http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg",
+            "https://i1.mifile.cn/a1/pms_1519609640.9267740!140x140.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t4708/216/1115907562/188634/47c49299/58d87d50N766af4d9.jpg!q70.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2344/288/413741291/135184/c502311f/5608b901N7f95121d.jpg!q70.jpg",
+            "http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3136/252/5996020304/837203/e83544bf/58981df7Nf0877849.jpg!q70.jpg",
+            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3340/213/1817228991/343685/1708b1bd/5832c627Na8aa2835.jpg!q70.jpg",
+            "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
+            "http://img10.360buyimg.com/n1/s450x450_jfs/t13459/165/1849162356/71608/94425578/5a2a2ea3Nc30d9428.jpg",
+            "http://img10.360buyimg.com/n1/s450x450_jfs/t11845/73/694278454/68120/a4eb4468/59f69650Ndb06c709.jpg",
+            "http://img11.360buyimg.com/n1/s450x450_jfs/t11680/317/723006781/63418/f644d838/59f69653N15893d32.jpg",
+            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3340/213/1817228991/343685/1708b1bd/5832c627Na8aa2835.jpg!q70.jpg",
+            "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
+    };
 }

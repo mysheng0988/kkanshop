@@ -11,6 +11,9 @@
     <declare-styleable name="ViewPagerIndicator">
         <attr name="visible_tab_count" ></attr>
     </declare-styleable>
+    <declare-styleable name="GridImageView">
+        <attr format="boolean" name="showAddItem"></attr>
+    </declare-styleable>
     <!-- 自定义星星属性 -->
     <declare-styleable name="star">
         <!--星星数量-->
@@ -292,4 +295,5 @@
             <enum name="R2L" value="1" />
         </attr>
     </declare-styleable>
+
 </resources>

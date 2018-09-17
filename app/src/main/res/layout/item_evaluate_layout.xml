@@ -37,8 +37,8 @@
             app:starHeight ="20dp"
             app:starDistance ="10dp"
             app:starsNum="5"
-            app:starBackground ="@drawable/s1"
-            app:starDrawBackground ="@drawable/s2"
+            app:starBackground ="@drawable/s2"
+            app:starDrawBackground ="@drawable/s1"
             app:starClickable ="false"/>
     </RelativeLayout>
     <TextView
@@ -46,12 +46,14 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minLines="2"
-        android:lineSpacingMultiplier="1.5"/>
+        android:minLines="1"
+        android:text="这个商品太贵了，大家别为了装逼买它不划算"
+        android:lineSpacingMultiplier="1.2"/>
     <com.mysheng.office.kkanshop.view.GridImageView
         android:id="@+id/gridImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:showAddItem="false"/>
 
 
 

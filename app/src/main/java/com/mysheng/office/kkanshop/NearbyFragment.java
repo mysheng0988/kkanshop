@@ -26,7 +26,7 @@ public class NearbyFragment extends Fragment implements View.OnClickListener{
 	private ViewPagerIndicator mIndicator;
 	private ViewPager mViewPager;
 	private List<String> mTitle= Arrays.asList("副食","餐饮","超市","全部1","全部2","全部3","全部4");
-	private List<VpNearbyFragment> listFragment=new ArrayList<>();
+	private List<ContentDetailFragment> listFragment=new ArrayList<>();
 	private FragmentPagerAdapter adapter;
 	private TextView mAddress;
 	private double latitude;
@@ -76,7 +76,8 @@ public class NearbyFragment extends Fragment implements View.OnClickListener{
 	}
 	private void initData() {
 		for (String title:mTitle){
-			VpNearbyFragment fragment=VpNearbyFragment.getInstance(title);
+			//VpNearbyFragment fragment=VpNearbyFragment.getInstance(title);
+			ContentDetailFragment fragment=new ContentDetailFragment();
 			listFragment.add(fragment);
 		}
 		//mIndicator.setTabVisibleCount(3);
