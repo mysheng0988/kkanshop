@@ -77,8 +77,9 @@ public class ContentDetailFragment extends Fragment {
 //                }
 //            }
 //        });
-        describeView.setAdapter(mAdapter);
         mAdapter.addList(modelslist);
-        mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+        describeView.setAdapter(mAdapter);
+
+
     }
 }

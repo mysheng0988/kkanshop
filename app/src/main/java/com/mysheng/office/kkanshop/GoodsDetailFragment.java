@@ -2,6 +2,7 @@ package com.mysheng.office.kkanshop;
 
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -29,6 +31,7 @@ import com.mysheng.office.kkanshop.page.PageBehavior;
 import com.mysheng.office.kkanshop.page.PageContainer;
 import com.mysheng.office.kkanshop.util.Tools;
 import com.mysheng.office.kkanshop.view.GridImageView;
+import com.mysheng.office.kkanshop.view.ShoppingCartAnimationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +54,8 @@ public class GoodsDetailFragment extends Fragment{
     private RecyclerView describeView;
     private DescribeViewAdapter mAdapter;
     private List<DescribeModel> modelslist=new ArrayList<>();
-
+    private TextView infoCart;
+    private TextView goodsNum;
 
     public GoodsDetailFragment() {
         // Required empty public constructor
@@ -88,9 +92,19 @@ public class GoodsDetailFragment extends Fragment{
         pageOne = (Page) view.findViewById(R.id.pageOne);
         goodsFollow =  view.findViewById(R.id.goodsFollow);
         container = (PageContainer) view.findViewById(R.id.container);
-        banner.setImages(list).setImageLoader(new GlideImageLoader()).start();
+        banner.setImages(list).setImageLoader(new GlideImageLoader()).isAutoPlay(false).start();
         gridImageView=view.findViewById(R.id.gridImageView);
         describeView=view.findViewById(R.id.describe_view);
+        infoCart=view.findViewById(R.id.infoCart);
+        goodsNum=view.findViewById(R.id.goods_num);
+        infoCart.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                addAction(v);
+            }
+        });
 
         gridImageView.setAdapter(new GridImageViewAdapter<String>() {
             @Override
@@ -125,20 +139,7 @@ public class GoodsDetailFragment extends Fragment{
             mAdapter.notifyDataSetChanged();
         }
 
-        modelslist.clear();
-        for(int i = 0; i< IndexTools.Describe.length; i++){
-            DescribeModel describeModel=new DescribeModel();
-            describeModel.setImagePath(IndexTools.Describe[i]);
-            modelslist.add(describeModel);
-        }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayoutManager.setSmoothScrollbarEnabled(true);
-        describeView.setHasFixedSize(true);
-        describeView.setLayoutManager(linearLayoutManager);
-        describeView.setNestedScrollingEnabled(false);
-        mAdapter.addList(modelslist);
-        describeView.setAdapter(mAdapter);
+
 
         PageContainer pageContainer = (PageContainer) view.findViewById(R.id.container);
 
@@ -157,8 +158,8 @@ public class GoodsDetailFragment extends Fragment{
                 mChangePage.showTabPage(2);
                 Log.e("mys", "toBottom: "+ modelslist.size());
                 Log.e("mys", "toBottom: "+ mAdapter.getItemCount());
-                mAdapter.notifyDataSetChanged();
 
+                initDetailsData();
             }
         });
         goodsFollow.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +168,46 @@ public class GoodsDetailFragment extends Fragment{
                 mChangePage.showTabPage(3);
             }
         });
+    }
+
+    /**
+     * 添加商品动画
+     * @param view
+     */
+    public void addAction(View view) {
+        ShoppingCartAnimationView shoppingCartAnimationView = new ShoppingCartAnimationView(getActivity());
+        int position[] = new int[2];
+        view.getLocationInWindow(position);
+        int width=view.getWidth()/2;
+        shoppingCartAnimationView.setStartPosition(new Point(position[0]+width, position[1]));
+        ViewGroup rootView = (ViewGroup) getActivity().getWindow().getDecorView();
+        rootView.addView(shoppingCartAnimationView);
+        int endPosition[] = new int[2];
+        goodsNum.getLocationInWindow(endPosition);
+        shoppingCartAnimationView.setEndPosition(new Point(endPosition[0], endPosition[1]));
+        shoppingCartAnimationView.startBeizerAnimation(goodsNum);
+//
+
+
+    }
+    /**
+     * 初始化详情页面数据
+     */
+    private void initDetailsData(){
+        modelslist.clear();
+        for(int i = 0; i< IndexTools.Describe.length; i++){
+            DescribeModel describeModel=new DescribeModel();
+            describeModel.setImagePath(IndexTools.Describe[i]);
+            modelslist.add(describeModel);
+        }
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setSmoothScrollbarEnabled(true);
+        describeView.setHasFixedSize(true);
+        describeView.setLayoutManager(linearLayoutManager);
+        describeView.setNestedScrollingEnabled(false);
+        mAdapter.addList(modelslist);
+        describeView.setAdapter(mAdapter);
     }
 
     @Override

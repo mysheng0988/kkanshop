@@ -1,8 +1,6 @@
 package com.mysheng.office.kkanshop;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,11 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mysheng.office.kkanshop.adapter.ChatListViewAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -136,6 +132,5 @@ public class ChatListViewActivity extends Activity {
         int num4=random.nextInt(10);
         model4.setUnReadNum(Math.round(num4));
         list.add(model4);
-
     }
 }
