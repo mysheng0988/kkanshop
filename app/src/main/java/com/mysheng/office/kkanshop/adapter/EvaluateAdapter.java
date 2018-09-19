@@ -7,39 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.banner.listener.OnBannerListener;
-import com.mysheng.office.kkanshop.entity.BannerModel;
 import com.mysheng.office.kkanshop.entity.EvaluateModel;
-import com.mysheng.office.kkanshop.entity.GoTitleModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
-import com.mysheng.office.kkanshop.entity.KillModel;
-import com.mysheng.office.kkanshop.entity.LoveModel;
-import com.mysheng.office.kkanshop.entity.NavModel;
-import com.mysheng.office.kkanshop.entity.NoticeModel;
-import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.SelectModel;
-import com.mysheng.office.kkanshop.entity.ShopModel;
-import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TitleShopModel;
-import com.mysheng.office.kkanshop.holder.BannerViewHolder;
+
 import com.mysheng.office.kkanshop.holder.EvaluateViewHolder;
-import com.mysheng.office.kkanshop.holder.GoShopTitleViewHolder;
-import com.mysheng.office.kkanshop.holder.GoTitleViewHolder;
-import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
-import com.mysheng.office.kkanshop.holder.KillViewHolder;
-import com.mysheng.office.kkanshop.holder.LoveFourViewHolder;
-import com.mysheng.office.kkanshop.holder.LoveTwoViewHolder;
-import com.mysheng.office.kkanshop.holder.NavViewHolder;
-import com.mysheng.office.kkanshop.holder.NoticeViewHolder;
-import com.mysheng.office.kkanshop.holder.RecommendViewHolder;
+
 import com.mysheng.office.kkanshop.holder.SelectViewHolder;
-import com.mysheng.office.kkanshop.holder.TitleShopViewHolder;
-import com.mysheng.office.kkanshop.holder.TitleViewHolder;
+
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
-import com.mysheng.office.kkanshop.view.NoticeView;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

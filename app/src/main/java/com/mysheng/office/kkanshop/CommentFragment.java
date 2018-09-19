@@ -101,7 +101,7 @@ public class CommentFragment extends Fragment {
             EvaluateModel model=new EvaluateModel();
             model.setComment("十分仲意性价比超高好喜欢哦 听说客服小姐姐才华横溢 请小姐姐作一首诗《吾爱莉莉》十分感谢哦爱你哦");
             model.setGoodsType("红色,128G");
-            model.setGoodsImgPath(images);
+            //model.setGoodsImgPath(images);
             model.setUserName("15****555");
             model.setStrData("2018-10-10");
             Random random=new Random();

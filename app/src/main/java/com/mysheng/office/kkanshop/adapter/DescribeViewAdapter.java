@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class DescribeViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final DescribeViewHolder viewHolder= (DescribeViewHolder) holder;
+        Log.e("DescribeViewHolder", "onBindViewHolder: "+position );
         ResizableImageView describeImg=holder.itemView.findViewById(R.id.describe_img);
         viewHolder.bindHolder(lists.get(position));
         describeImg.setOnClickListener(new View.OnClickListener() {

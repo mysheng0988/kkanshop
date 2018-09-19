@@ -14,7 +14,8 @@ import com.mysheng.office.kkanshop.ResembleFragment;
  */
 
 public class MinePagerAdapter extends FragmentPagerAdapter {
-    Fragment[] fragments = new Fragment[]{GoodsDetailFragment.newInstance(), ContentDetailFragment.newInstance(), CommentFragment.newInstance(), ResembleFragment.newInstance()};
+    //Fragment[] fragments = new Fragment[]{GoodsDetailFragment.newInstance(), ContentDetailFragment.newInstance(), CommentFragment.newInstance(), ResembleFragment.newInstance()};
+    Fragment[] fragments = new Fragment[]{new GoodsDetailFragment(), new ContentDetailFragment(),new  CommentFragment(), new ResembleFragment()};
     String[] titles = new String[]{"商品", "详情", "评价","推荐"};
 
     public MinePagerAdapter(FragmentManager fm) {
