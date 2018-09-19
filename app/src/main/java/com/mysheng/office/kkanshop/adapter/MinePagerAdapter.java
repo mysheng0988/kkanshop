@@ -7,14 +7,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.mysheng.office.kkanshop.CommentFragment;
 import com.mysheng.office.kkanshop.ContentDetailFragment;
 import com.mysheng.office.kkanshop.GoodsDetailFragment;
+import com.mysheng.office.kkanshop.ResembleFragment;
 
 /**
  * Created by myaheng on 2018/9/13.
  */
 
 public class MinePagerAdapter extends FragmentPagerAdapter {
-    Fragment[] fragments = new Fragment[]{GoodsDetailFragment.newInstance(), ContentDetailFragment.newInstance(), CommentFragment.newInstance()};
-    String[] titles = new String[]{"商品", "详情", "评价"};
+    Fragment[] fragments = new Fragment[]{GoodsDetailFragment.newInstance(), ContentDetailFragment.newInstance(), CommentFragment.newInstance(), ResembleFragment.newInstance()};
+    String[] titles = new String[]{"商品", "详情", "评价","推荐"};
 
     public MinePagerAdapter(FragmentManager fm) {
         super(fm);

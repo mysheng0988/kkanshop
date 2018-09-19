@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -56,7 +57,7 @@ public class GoodsDetailFragment extends Fragment{
     private List<DescribeModel> modelslist=new ArrayList<>();
     private TextView infoCart;
     private TextView goodsNum;
-
+    private Activity mActivity;
     public GoodsDetailFragment() {
         // Required empty public constructor
         //
@@ -98,8 +99,6 @@ public class GoodsDetailFragment extends Fragment{
         infoCart=view.findViewById(R.id.infoCart);
         goodsNum=view.findViewById(R.id.goods_num);
         infoCart.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 addAction(v);
@@ -158,7 +157,6 @@ public class GoodsDetailFragment extends Fragment{
                 mChangePage.showTabPage(2);
                 Log.e("mys", "toBottom: "+ modelslist.size());
                 Log.e("mys", "toBottom: "+ mAdapter.getItemCount());
-
                 initDetailsData();
             }
         });

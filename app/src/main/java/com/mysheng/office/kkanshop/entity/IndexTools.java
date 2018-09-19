@@ -2,6 +2,9 @@ package com.mysheng.office.kkanshop.entity;
 
 import com.mysheng.office.kkanshop.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by myaheng on 2018/9/10.
  */
@@ -23,6 +26,9 @@ public class IndexTools {
     public static final  int GOReTitle=0X014;
     public static final  int Recommend=0X015;
     public static final  int OTHER=0X016;
+    public static final  int SELECT=0X100;
+    public static final  int EVALUATE=0X101;
+
     public static int[] navIcon={R.drawable.supermarket,R.drawable.trappings,R.drawable.travel,R.drawable.catering,R.drawable.fresh,R.drawable.delicatessen,R.drawable.grain_and_oil,R.drawable.voucher};
     public static String[] navTitle={"看看超市","看看服饰","看看出行","看看餐饮","生鲜水果","卤味熟食","粮油副食","领券中心"};
     public static String title="月莲2017新品大码女装风衣外套5876 3xl 新春上新品，优惠孔雀";
@@ -73,5 +79,12 @@ public class IndexTools {
             "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3340/213/1817228991/343685/1708b1bd/5832c627Na8aa2835.jpg!q70.jpg",
             "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
             "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
+    };
+    public static String[] IMAGELIST={
+            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3340/213/1817228991/343685/1708b1bd/5832c627Na8aa2835.jpg!q70.jpg",
+            "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
+
     };
 }

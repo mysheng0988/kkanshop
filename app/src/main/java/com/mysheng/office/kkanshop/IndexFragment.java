@@ -50,9 +50,9 @@ import static android.app.Activity.RESULT_OK;
 public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener{
 	private ImageView scanCode;
 	private ImageView chatMsg;
+	private ImageView backTop;
 	private RefreshLayout refreshLayout;
 	private LinearLayout line;
-	private ObservableScrollView scrollView;
 	private int imageHeight=100;
 
 	private IndexAdapter mIndexAdapter;
@@ -113,6 +113,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 	private void initAttrInit(View view){
 		scanCode=view.findViewById(R.id.scan_code);
 		chatMsg=view.findViewById(R.id.chat_msg);
+		backTop=view.findViewById(R.id.backTop);
 		mRecyclerView=view.findViewById(R.id.index_recyclerView);
 		line=view.findViewById(R.id.line);
 		line.bringToFront();
@@ -159,6 +160,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				super.onScrolled(recyclerView, dx, dy);
 				if (dy <= 0) {
 					line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
+					backTop.setVisibility(View.VISIBLE);
 				}
 //				else if (dy > 0 && y <= imageHeight) {
 //					Log.d("mys", "onScrollChanged: "+y);
@@ -169,6 +171,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 //				}
 				else {
 					line.setBackgroundColor(Color.argb(255, 72, 183, 245));
+					backTop.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -339,6 +342,10 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			reModel.setGoodsTitle(IndexTools.title);
 			Random random=new Random();
 			int num=random.nextInt(1000);
+			int num2=random.nextInt(2)+1;
+			int num3=random.nextInt(2)+1;
+			reModel.setReduce(num2==1);
+			reModel.setVoucher(num3==2);
 			reModel.setPrice("￥:"+num+".00");
 			recommendModels.add(reModel);
 		}
@@ -365,6 +372,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		mIndexAdapter.setOnItemClickListener(this);
 		chatMsg.setOnClickListener(this);
 		scanCode.setOnClickListener(this);
+		backTop.setOnClickListener(this);
+
 	}
 
 
@@ -386,6 +395,10 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				Intent intent = new Intent(getActivity(), ChatListViewActivity.class);
 				startActivity(intent);
 			    break;
+			case R.id.backTop:
+				mRecyclerView.scrollToPosition(0);
+				backTop.setVisibility(View.GONE);
+				break;
 		}
 
 	}
@@ -489,15 +502,15 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				startActivity(intent);
 				break;
 			case IndexTools.Recommend:
-//				RecommendModel remodel= (RecommendModel) modelList.get(position);
-//
-//				if(view instanceof TextView){
-//					str=remodel.getPrice()+"找相似";
-//				}else {
-//					str=remodel.getPrice();
-//				}
-				Intent intent1=new Intent(getActivity(),GoodsDetailActivity.class);
-				startActivity(intent1);
+				RecommendModel remodel= (RecommendModel) modelList.get(position);
+
+				if(view instanceof TextView){
+					str=remodel.getPrice()+"找相似";
+				}else {
+					Intent intent1=new Intent(getActivity(),GoodsDetailActivity.class);
+					startActivity(intent1);
+				}
+
 
 
 				break;

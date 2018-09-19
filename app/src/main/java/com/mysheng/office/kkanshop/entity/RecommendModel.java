@@ -9,6 +9,25 @@ public class RecommendModel {
     private String goodsPath;
     private int modelType=IndexTools.Recommend;
     private String price;
+    private boolean isReduce;//是否满减
+    private boolean isVoucher;//是否含优惠卷
+
+
+    public boolean isReduce() {
+        return isReduce;
+    }
+
+    public void setReduce(boolean reduce) {
+        isReduce = reduce;
+    }
+
+    public boolean isVoucher() {
+        return isVoucher;
+    }
+
+    public void setVoucher(boolean voucher) {
+        isVoucher = voucher;
+    }
 
     public String getGoodsTitle() {
         return goodsTitle;

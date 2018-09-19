@@ -8,21 +8,21 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 
-public class RecommendViewHolder extends IndexAbstractViewHolder<RecommendModel> {
+public class ResembleViewHolder extends IndexAbstractViewHolder<RecommendModel> {
     public TextView goodsTitle;
     public TextView goodsPrice;
-    public TextView resemble;
     public TextView goodsReduce;
     public TextView goodsVoucher;
     public ImageView goodsPath;
-    public RecommendViewHolder(View itemView) {
+    public ImageView infoCart;
+    public ResembleViewHolder(View itemView) {
         super(itemView);
         goodsTitle=itemView.findViewById(R.id.goodsTitle);
         goodsPrice=itemView.findViewById(R.id.goodsPrice);
-        resemble=itemView.findViewById(R.id.resemble);
         goodsReduce=itemView.findViewById(R.id.goodsReduce);
         goodsVoucher=itemView.findViewById(R.id.goodsVoucher);
         goodsPath=itemView.findViewById(R.id.goodsPath);
+        infoCart=itemView.findViewById(R.id.infoCart);
     }
     public void bindHolder(RecommendModel model){
         if (model.isReduce()){

@@ -32,6 +32,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements ChangePage
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -48,7 +49,7 @@ public class GoodsDetailActivity extends AppCompatActivity implements ChangePage
 
 
         minePagerAdapter = new MinePagerAdapter(getSupportFragmentManager());
-        viewpager.setOffscreenPageLimit(3);
+        viewpager.setOffscreenPageLimit(4);
         viewpager.setAdapter(minePagerAdapter);
         tabs.setupWithViewPager(viewpager);
 

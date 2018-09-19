@@ -53,5 +53,14 @@
             android:layout_height="wrap_content" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-
+    <ImageView
+        android:id="@+id/backTop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/icon_top"
+        android:visibility="gone"
+        />
 </RelativeLayout>

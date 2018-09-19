@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <com.mysheng.office.kkanshop.view.SquareLinearView
         android:layout_width="match_parent"
@@ -57,22 +58,19 @@
             android:background="@drawable/bg_red_radius"
             android:textSize="@dimen/txt_12"
             android:textColor="@color/red_text_color"/>
-        <TextView
-            android:layout_gravity="right"
-            android:id="@+id/resemble"
+        <com.mysheng.office.kkanshop.view.RoundImageView
+            android:id="@+id/infoCart"
             android:layout_marginRight="@dimen/txt_10"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:layout_margin="4dp"
-            android:layout_width="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:background="@drawable/bg_resemble_radius"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="看相似"
-            android:textSize="@dimen/txt_14"/>
-
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            app:border_color="#FFF"
+            app:radius="15dp"
+            app:border_width="5dp"
+            app:border_alpha="255"
+            app:shadow_color="@color/border_clo"
+            android:src="@drawable/shopping_cart"/>
     </RelativeLayout>
 
 </LinearLayout>
