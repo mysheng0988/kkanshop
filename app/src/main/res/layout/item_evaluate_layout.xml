@@ -50,27 +50,28 @@
         android:minLines="1"
         android:text="这个商品太贵了，大家别为了装逼买它不划算"
         android:lineSpacingMultiplier="1.2"/>
-    <com.mysheng.office.kkanshop.view.GridImageView
-        android:id="@+id/gridImageView"
+    <com.mysheng.office.kkanshop.view.MessagePicturesLayout
+        android:id="@+id/msgImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:showAddItem="false"/>
+        android:layout_marginTop="10dip"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
         android:layout_height="35dp">
         <TextView
             android:id="@+id/goodsType"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/txt_10"
-            android:layout_gravity="left"
+            android:gravity="center_vertical|left"
             android:layout_weight="1"
             android:text="红色 S码"/>
         <TextView
             android:id="@+id/evaluateDate"
             android:layout_width="0dp"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:layout_marginRight="@dimen/txt_10"
             android:layout_weight="1"
             android:layout_height="match_parent"

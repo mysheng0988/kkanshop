@@ -3,6 +3,7 @@ package com.mysheng.office.kkanshop.entity;
 import com.mysheng.office.kkanshop.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -80,11 +81,23 @@ public class IndexTools {
             "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
             "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
     };
-    public static String[] IMAGELIST={
-            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
-            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t3340/213/1817228991/343685/1708b1bd/5832c627Na8aa2835.jpg!q70.jpg",
-            "https://i1.mifile.cn/a1/pms_1528092587.49664451!220x220.jpg",
-            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg"
-
-    };
+    public static List<String> pictureList = Arrays.asList(
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t4519/358/1436762985/248234/7dd51673/58df3545N999b9fb9.jpg!q70.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2026/200/1690254391/9973/21194468/56694e7cNc7a03102.jpg!q70.jpg",
+            "https://m.360buyimg.com//mobilecms/s276x276_jfs/t2755/170/3941478123/227837/23139b91/57a4413bNaeae69fa.jpg!q70.jpg",
+            "http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg",
+            "https://i1.mifile.cn/a1/pms_1519609640.9267740!140x140.jpg",
+            "http://img.my.csdn.net/uploads/201701/06/1483664940_9893.jpg",
+            "http://img.my.csdn.net/uploads/201701/06/1483664940_3308.jpg",
+            "http://img.my.csdn.net/uploads/201701/06/1483664927_3920.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483664926_8360.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483664926_6184.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483664925_8382.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483664925_2087.jpg",
+            "http://img.my.csdn.net/uploads/201701/06/1483664777_5730.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483664741_1378.jpg",
+            "http://img.my.csdn.net/uploads/201701/06/1483671689_9534.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483671689_2126.png",
+            "http://img.my.csdn.net/uploads/201701/06/1483671703_7890.png"
+            );
 }

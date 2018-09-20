@@ -32,6 +32,7 @@ import com.mysheng.office.kkanshop.page.PageBehavior;
 import com.mysheng.office.kkanshop.page.PageContainer;
 import com.mysheng.office.kkanshop.util.Tools;
 import com.mysheng.office.kkanshop.view.GridImageView;
+import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import com.mysheng.office.kkanshop.view.ShoppingCartAnimationView;
 
 import java.util.ArrayList;
@@ -51,13 +52,12 @@ public class GoodsDetailFragment extends Fragment{
     private PageContainer container;
     private Page.OnScrollListener onScrollListener;
     private ImageView goodsFollow;
-    private GridImageView gridImageView;
+    private MessagePicturesLayout msgImg;
     private RecyclerView describeView;
     private DescribeViewAdapter mAdapter;
     private List<DescribeModel> modelslist=new ArrayList<>();
     private TextView infoCart;
     private TextView goodsNum;
-    private Activity mActivity;
     public GoodsDetailFragment() {
         // Required empty public constructor
         //
@@ -94,10 +94,11 @@ public class GoodsDetailFragment extends Fragment{
         goodsFollow =  view.findViewById(R.id.goodsFollow);
         container = (PageContainer) view.findViewById(R.id.container);
         banner.setImages(list).setImageLoader(new GlideImageLoader()).isAutoPlay(false).start();
-        gridImageView=view.findViewById(R.id.gridImageView);
         describeView=view.findViewById(R.id.describe_view);
         infoCart=view.findViewById(R.id.infoCart);
         goodsNum=view.findViewById(R.id.goods_num);
+        msgImg=view.findViewById(R.id.msgImg);
+        msgImg.set(list,list);
         infoCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,33 +106,7 @@ public class GoodsDetailFragment extends Fragment{
             }
         });
 
-        gridImageView.setAdapter(new GridImageViewAdapter<String>() {
-            @Override
-            public void onDisplayImage(Context context, ImageView imageView, String path) {
-                if(!Tools.isNetUri(path)){
-                    path="file://"+path;
-                }
-                Glide.with(context).load(path).centerCrop().override(400, 400).into(imageView);
-            }
 
-            @Override
-            public void onAddClick(Context context, List<String> list) {
-               // show();
-            }
-
-            @Override
-            public int getShowStyle() {
-                return GridImageView.STYLE_GRID;
-            }
-
-            @Override
-            public void onItemImageClick(ImageView imageView,List<ImageView> imageViews,int index, List<String> list) {
-                super.onItemImageClick(imageView,imageViews,index, list);
-//                vImageWatcher.show(imageView,imageViews,list);
-//                Toast.makeText(getApplicationContext(), "--->" + index, Toast.LENGTH_SHORT).show();
-            }
-        });
-        gridImageView.setImageData(list,false);
         if(mAdapter==null){
             mAdapter=new DescribeViewAdapter(getActivity());
         }else{

@@ -17,6 +17,7 @@ import com.mysheng.office.kkanshop.holder.EvaluateViewHolder;
 import com.mysheng.office.kkanshop.holder.SelectViewHolder;
 
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
+import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class EvaluateAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHold
 
     private LayoutInflater mLayoutInflater;
     private OnItemClickListener mOnItemClickListener;
+    private MessagePicturesLayout.Callback mCallback;
 
     private List<Integer> types=new ArrayList<>();
     private Map<Integer,Integer> mPosition=new HashMap<>();//存储list的初始位置
@@ -94,6 +96,7 @@ public class EvaluateAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case IndexTools.EVALUATE:
                 ((EvaluateViewHolder)holder).bindHolder(evaluateModels.get(realPosition));
+                ((EvaluateViewHolder)holder).msgImg.setCallback(mCallback);
                 break;
         }
     }
@@ -110,5 +113,8 @@ public class EvaluateAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHold
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mOnItemClickListener = itemClickListener;
     }
-
+    public EvaluateAdapter setPictureClickCallback(MessagePicturesLayout.Callback callback) {
+        mCallback = callback;
+        return this;
+    }
 }

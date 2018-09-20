@@ -1,32 +1,28 @@
 package com.mysheng.office.kkanshop.holder;
 
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.SelectModel;
+import com.mysheng.office.kkanshop.view.LabelsView;
 
 public class SelectViewHolder extends IndexAbstractViewHolder<SelectModel> {
-    public LinearLayout select;
-    public TextView selectText;
-    public ImageView selectImg;
+    public TextView praise;
+    public RadioButton radioButton;
+    public LabelsView labelsView;
 
     public SelectViewHolder(View itemView) {
         super(itemView);
-        select=itemView.findViewById(R.id.select);
-        selectText=itemView.findViewById(R.id.selectText);
-        selectImg=itemView.findViewById(R.id.selectImg);
+        radioButton=itemView.findViewById(R.id.radioButton);
+        praise=itemView.findViewById(R.id.praise);
+        labelsView=itemView.findViewById(R.id.labelsView);
+
+
     }
     public void bindHolder(SelectModel model){
-        if (model.isSelect()){
-            selectImg.setVisibility(View.VISIBLE);
-            select.setBackground(select.getContext().getResources().getDrawable(R.drawable.bg_red_radius));
-        }else {
-            selectImg.setVisibility(View.GONE);
-            select.setBackground(select.getContext().getResources().getDrawable(R.drawable.bg_layout_shape));
-        }
-        selectText.setText(model.getSelectName());
+        praise.setText("好评率:"+model.getPraise()+"%");
+        labelsView.setLabels(model.getSelectitem());
 
     }
 }
