@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.mysheng.office.kkanshop.R;
 
+
 /**
  * ViewState包含记录了一个View的瞬时UI状态<br/>
  * 并且提供了给View新增状态，抓取View的当前状态，复制View的状态，将View还原至该状态等便捷方法

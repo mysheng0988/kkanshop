@@ -31,6 +31,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.mysheng.office.kkanshop.R;
 
 import java.lang.ref.WeakReference;
