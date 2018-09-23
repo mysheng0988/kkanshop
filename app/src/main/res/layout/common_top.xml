@@ -3,7 +3,7 @@
     android:id="@+id/common_bar"
     android:layout_width="match_parent"
     android:layout_height="35dp"
-    android:background="#48B7F5"
+    android:background="@color/colorPrimaryDark"
     android:orientation="horizontal" >
     <ImageButton
         android:background="#00000000"

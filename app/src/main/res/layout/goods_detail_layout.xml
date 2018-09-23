@@ -30,7 +30,7 @@
                 app:tabGravity="center"
                 app:tabMode="fixed"
                 app:tabTextColor="@color/white"
-                app:tabSelectedTextColor="@color/red_text_color">
+                app:tabSelectedTextColor="@color/red">
 
 
             </android.support.design.widget.TabLayout >

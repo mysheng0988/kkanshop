@@ -77,7 +77,5 @@ public class ResembleFragment extends Fragment {
         resembleView.setLayoutManager(gridLayoutManager);
         mAdapter.setData(modelslist);
         resembleView.setAdapter(mAdapter);
-
-
     }
 }

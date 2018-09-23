@@ -3,7 +3,7 @@
     <!-- 连框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#FFF" />
+            <solid android:color="@color/white" />
         </shape>
     </item>
     <!-- 主体背景颜色值 -->

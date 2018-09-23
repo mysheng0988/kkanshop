@@ -148,7 +148,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		});
 		//scrollView= view.findViewById(R.id.scrollView);
 		CommonUtil.fullScreen(getActivity());
-		line.setBackgroundColor(Color.argb((int) 0, 72, 183, 245));
+		line.setBackgroundColor(Color.argb((int) 0, 255, 153, 0));
 		mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
 			public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -159,7 +159,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 				super.onScrolled(recyclerView, dx, dy);
 				if (dy <= 0) {
-					line.setBackgroundColor(Color.argb( 0, 72, 183, 245));//AGB由相关工具获得，或者美工提供
+					line.setBackgroundColor(Color.argb( 0, 255, 153, 0));//AGB由相关工具获得，或者美工提供
 					backTop.setVisibility(View.VISIBLE);
 				}
 //				else if (dy > 0 && y <= imageHeight) {
@@ -170,7 +170,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 //					line.setBackgroundColor(Color.argb((int) alpha, 72, 183, 245));
 //				}
 				else {
-					line.setBackgroundColor(Color.argb(255, 72, 183, 245));
+					line.setBackgroundColor(Color.argb(255, 255, 153, 0));
 					backTop.setVisibility(View.GONE);
 				}
 			}
