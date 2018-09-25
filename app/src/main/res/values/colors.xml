@@ -11,6 +11,7 @@
     <color name="white">#fff</color>
     <color name="red">#f00</color>
     <color name="blue">#419DE4</color>
+    <color name="blue_text">#0033FF</color>
     <color name="black">#000000</color>
     <color name="gray">#f7f7f7f7</color>
     <color name="chatBg">#F5F5F5</color>

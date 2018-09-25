@@ -73,7 +73,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	}
 	private void initData() {
 		for (String title:mTitle){
-			//VpNearbyFragment fragment=VpNearbyFragment.getInstance(title);
 			ResembleFragment fragment=new ResembleFragment();
 			listFragment.add(fragment);
 		}

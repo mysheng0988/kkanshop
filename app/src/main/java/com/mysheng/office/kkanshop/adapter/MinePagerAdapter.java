@@ -3,6 +3,7 @@ package com.mysheng.office.kkanshop.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import com.mysheng.office.kkanshop.CommentFragment;
 import com.mysheng.office.kkanshop.ContentDetailFragment;
@@ -36,4 +37,6 @@ public class MinePagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return fragments.length;
     }
+
+
 }

@@ -100,4 +100,18 @@ public class IndexTools {
             "http://img.my.csdn.net/uploads/201701/06/1483671689_2126.png",
             "http://img.my.csdn.net/uploads/201701/06/1483671703_7890.png"
             );
+    public static List<String> nearby = Arrays.asList(
+            "http://img14.360buyimg.com//babel/jfs/t1/4563/13/7112/141762/5ba4a238E390891d1/ff8d4ca0ed77d989.jpg",
+            "http://img10.360buyimg.com//babel/jfs/t1/870/32/7739/183547/5ba5e321Efef3cd13/d4f256d781f51ce0.jpg",
+            "http://img12.360buyimg.com//babel/jfs/t1/4284/20/7090/60769/5ba488b5E12048993/a10c77195a065b5c.jpg",
+            "http://img11.360buyimg.com//babel/jfs/t1/3967/39/6943/135619/5ba48805Ef64b1c65/04188935c93b6f21.jpg",
+            "http://img10.360buyimg.com/babel/jfs/t1/4057/39/6747/147974/5ba376b8Ec50a33c4/a0bd21904118e0b8.jpg",
+            "http://img12.360buyimg.com/babel/jfs/t1/1845/7/7080/126905/5ba4b1ceEd82092ae/729b54b3c72afdfe.jpg",
+            "http://img14.360buyimg.com/babel/jfs/t1/4515/20/8630/100459/5ba9fa60Ec4349b06/dcab7e1fc7f1258a.jpg",
+            "http://img12.360buyimg.com/cms/jfs/t1/5351/38/8346/119263/5ba99ab2E160258b2/df50ae6b6f246880.jpg",
+            "http://img11.360buyimg.com/cms/jfs/t1/2681/28/5450/105342/5b9f9ce8Ed5f3dddb/5d54dbda756e2f0c.jpg",
+            "http://img10.360buyimg.com//babel/jfs/t1/3271/36/5893/50303/5ba1085aE9792c90c/9f3d5567742ed7c8.jpg",
+            "http://m.360buyimg.com/babel/jfs/t1/1336/28/5481/123627/5b9fb331E7e3bf419/7449a731dfbe071a.jpg",
+            "http://m.360buyimg.com/babel/jfs/t1/2079/2/5751/215295/5ba0abb2E3357b6bb/69a4671af9db669a.jpg"
+    );
 }

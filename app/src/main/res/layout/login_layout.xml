@@ -138,7 +138,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="5dp"
-            android:textColor="#0000FF"
+            android:textColor="#0000CC"
             android:text="联系电话：15701570988"/>
     </LinearLayout>
 </RelativeLayout>
