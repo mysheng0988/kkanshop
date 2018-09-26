@@ -1,92 +1,385 @@
 package com.mysheng.office.kkanshop.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+
+import com.mysheng.office.kkanshop.R;
+import com.mysheng.office.kkanshop.util.DisplayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by myaheng on 2018/9/26.
  */
 
-public class CircleIndicator extends View {
-    //默认圆半径
-    private int radius=15;
-    //当前指示圆半径
-    private float selectedRadius;
-    private int width;
-    private int count;
-    private Paint paint;
-    private Paint selectedPaint;
-    private int height;
-    private float current;
+public class CircleIndicator extends View implements ViewPager.OnPageChangeListener{
+    private static final String LETTER[] = new String[]{"A","B","C","D","E","F","G","H","I","G","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+    // private int mSelectColor = Color.parseColor("#E38A7C");
+    private int mSelectColor = Color.parseColor("#FFFFFF");
+    private Paint mCirclePaint;
+    private Paint mTextPaint;
+    private int mCount; // indicator 的数量
+    private int mRadius;//半径
+    private int mStrokeWidth;//border
+    private int mTextColor;// 小圆点中文字的颜色
+    private int mDotNormalColor;// 小圆点默认颜色
+    private int mSpace = 0;// 圆点之间的间距
+    private List<Indicator> mIndicators;
+    private int mSelectPosition = 0; // 选中的位置
+    private FillMode mFillMode = FillMode.NONE;// 默认只有小圆点
+    private ViewPager mViewPager;
+    private OnIndicatorClickListener mOnIndicatorClickListener;
+    /**
+     * 是否允许点击Indicator切换ViewPager
+     */
+    private boolean mIsEnableClickSwitch = false;
     public CircleIndicator(Context context) {
-        this(context,null);
+        super(context);
+        init();
     }
-    public CircleIndicator(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+
+    public CircleIndicator(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        getAttr(context,attrs);
+        init();
     }
-    public CircleIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
+
+    public CircleIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        //默认圆画笔
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(Color.GRAY);
-        //当前指示圆画笔
-        selectedPaint = new Paint();
-        selectedPaint.setAntiAlias(true);
-        selectedPaint.setColor(Color.RED);
+        getAttr(context,attrs);
+        init();
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public CircleIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        getAttr(context,attrs);
+        init();
+    }
+
+    private void init(){
+
+        mCirclePaint = new Paint();
+        mCirclePaint.setDither(true);
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        mTextPaint = new Paint();
+        mTextPaint.setDither(true);
+        mTextPaint.setAntiAlias(true);
+        // 默认值
+        mIndicators = new ArrayList<>();
+
+        initValue();
+
+    }
+
+    private void initValue(){
+        mCirclePaint.setColor(mDotNormalColor);
+        mCirclePaint.setStrokeWidth(mStrokeWidth);
+
+        mTextPaint.setColor(mTextColor);
+        mTextPaint.setTextSize(mRadius);
+    }
+
+    /**
+     * 获取自定义属性
+     * @param context
+     * @param attrs
+     */
+    private void getAttr(Context context,AttributeSet attrs){
+        TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.CircleIndicatorView);
+        mRadius = (int) typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorRadius, DisplayUtils.dpToPx(6));
+        mStrokeWidth = (int) typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorBorderWidth,DisplayUtils.dpToPx(2));
+        mSpace = typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorSpace,DisplayUtils.dpToPx(5));
+        // color
+        mTextColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorTextColor,Color.BLACK);
+        mSelectColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorSelectColor,Color.WHITE);
+        mDotNormalColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorColor,Color.GRAY);
+
+        mIsEnableClickSwitch = typedArray.getBoolean(R.styleable.CircleIndicatorView_enableIndicatorSwitch,false);
+        int fillMode = typedArray.getInt(R.styleable.CircleIndicatorView_fill_mode,2);
+        if(fillMode == 0){
+            mFillMode = FillMode.LETTER;
+        }else if(fillMode == 1){
+            mFillMode = FillMode.NUMBER;
+        }else{
+            mFillMode = FillMode.NONE;
+        }
+        typedArray.recycle();
+    }
+
+    /**
+     * 测量每个圆点的位置
+     */
+    private void measureIndicator(){
+        mIndicators.clear();
+        float cx = 0;
+        for(int i=0;i<mCount;i++){
+            Indicator indicator = new Indicator();
+            if( i== 0){
+                cx = mRadius + mStrokeWidth;
+            }else{
+                cx += (mRadius + mStrokeWidth) * 2 +mSpace;
+            }
+
+            indicator.cx = cx;
+            indicator.cy = getMeasuredHeight() / 2;
+
+            mIndicators.add(indicator);
+        }
+    }
+
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        height = getMeasuredHeight();
-        width = getMeasuredWidth();
+
+        int width = (mRadius+mStrokeWidth)* 2 * mCount + (mSpace+5) *(mCount - 1);
+        int height = mRadius * 2 + mSpace * 2;
+
+        setMeasuredDimension(width,height);
+
+        measureIndicator();
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        //这个距离如下图所示
-        int distance=width/(count+1);
-        //灰色圆
-        for(int i=0;i<count;i++){
-            canvas.drawCircle(distance*(i+1),height/2,radius,paint);
+
+        for(int i=0;i<mIndicators.size();i++){
+
+            Indicator indicator = mIndicators.get(i);
+            float x = indicator.cx;
+
+            float y = indicator.cy;
+
+            if(mSelectPosition == i){
+                mCirclePaint.setStyle(Paint.Style.FILL);
+                mCirclePaint.setColor(mSelectColor);
+                canvas.drawCircle(x,y, mRadius+5, mCirclePaint);
+            }else{
+                mCirclePaint.setColor(mDotNormalColor);
+                if(mFillMode != FillMode.NONE){
+                    mCirclePaint.setStyle(Paint.Style.STROKE);
+                }else{
+                    mCirclePaint.setStyle(Paint.Style.FILL);
+
+                }
+                canvas.drawCircle(x,y, mRadius, mCirclePaint);
+            }
+
+
+            // 绘制小圆点中的内容
+            if(mFillMode != FillMode.NONE){
+                String text = "";
+                if(mFillMode == FillMode.LETTER){
+                    if(i >= 0 && i<LETTER.length){
+                        text = LETTER[i];
+                    }
+                }else{
+                    text = String.valueOf(i+1);
+                }
+                Rect bound = new Rect();
+                mTextPaint.getTextBounds(text,0,text.length(),bound);
+                int textWidth = bound.width();
+                int textHeight = bound.height();
+
+                float textStartX = x - textWidth / 2;
+                float textStartY = y + textHeight / 2;
+                canvas.drawText(text,textStartX,textStartY, mTextPaint);
+            }
+
         }
-        //红色圆
-        canvas.drawCircle(current,height/2,selectedRadius,selectedPaint);
+
     }
-    //和viewpager联动
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float xPoint = 0;
+        float yPoint = 0;
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                xPoint = event.getX();
+                yPoint = event.getY();
+                handleActionDown(xPoint,yPoint);
+                break;
+
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    private void handleActionDown(float xDis,float yDis){
+        for(int i=0;i<mIndicators.size();i++){
+            Indicator indicator = mIndicators.get(i);
+            if(xDis < (indicator.cx + mRadius+mStrokeWidth)
+                    && xDis >=(indicator.cx - (mRadius + mStrokeWidth))
+                    && yDis >= (yDis - (indicator.cy+mStrokeWidth))
+                    && yDis <(indicator.cy+mRadius+mStrokeWidth)){
+                // 找到了点击的Indicator
+                // 是否允许切换ViewPager
+                if(mIsEnableClickSwitch){
+                    mViewPager.setCurrentItem(i,false);
+                }
+
+                // 回调
+                if(mOnIndicatorClickListener!=null){
+                    mOnIndicatorClickListener.onSelected(i);
+                }
+                break;
+            }
+        }
+    }
+
+    public void setOnIndicatorClickListener(OnIndicatorClickListener onIndicatorClickListener) {
+        mOnIndicatorClickListener = onIndicatorClickListener;
+    }
+
+    private void setCount(int count) {
+        mCount = count;
+        invalidate();
+    }
+
+    /**
+     * 设置 border
+     * @param borderWidth
+     */
+    public void setBorderWidth(int borderWidth){
+        mStrokeWidth = borderWidth;
+        initValue();
+    }
+
+    /**
+     * 设置文字的颜色
+     * @param textColor
+     */
+    public void setTextColor(int textColor) {
+        mTextColor = textColor;
+        initValue();
+    }
+
+    /**
+     * 设置选中指示器的颜色
+     * @param selectColor
+     */
+    public void setSelectColor(int selectColor) {
+        mSelectColor = selectColor;
+    }
+
+    /**
+     *  设置指示器默认颜色
+     * @param dotNormalColor
+     */
+    public void setDotNormalColor(int dotNormalColor) {
+        mDotNormalColor = dotNormalColor;
+        initValue();
+    }
+
+    /**
+     * 设置选中的位置
+     * @param selectPosition
+     */
+    public void setSelectPosition(int selectPosition) {
+        mSelectPosition = selectPosition;
+    }
+
+    /**
+     * 设置Indicator 模式
+     * @param fillMode
+     */
+    public void setFillMode(FillMode fillMode) {
+        mFillMode = fillMode;
+    }
+
+    /**
+     * 设置Indicator 半径
+     * @param radius
+     */
+    public void setRadius(int radius) {
+        mRadius = radius;
+        initValue();
+    }
+
+    public void setSpace(int space) {
+        mSpace = space;
+    }
+
+    public void setEnableClickSwitch(boolean enableClickSwitch){
+        mIsEnableClickSwitch = enableClickSwitch;
+    }
+    /**
+     *  与ViewPager 关联
+     * @param viewPager
+     */
     public void setUpWithViewPager(ViewPager viewPager){
-        if(viewPager==null){
+        releaseViewPager();
+        if(viewPager == null){
             return;
         }
-        //确定要画几个圆
-        count=viewPager.getAdapter().getCount();
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-              @Override
-              public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                  setCircleSize(position,positionOffset,positionOffsetPixels);
-              }
-              @Override
-              public void onPageSelected(int position) {}
-              @Override
-              public void onPageScrollStateChanged(int state) {
-
-              }
-        });
+        mViewPager = viewPager;
+        mViewPager.addOnPageChangeListener(this);
+        int count = mViewPager.getAdapter().getCount();
+        setCount(count);
     }
-    //设置红色圆移动的距离
-    private void setCircleSize(int position, float positionOffset, int positionOffsetPixels) {
-        Log.d("xxxxx",position+"/"+positionOffset+"/"+positionOffsetPixels);
-        int distance=width/(count+1);
-        current = (position+1)*distance+distance*positionOffset;
-        //设置红色圆的大小，
-        selectedRadius=radius+3*(1+0);
+
+    /**
+     * 重置ViewPager
+     */
+    private void releaseViewPager(){
+        if(mViewPager!=null){
+            mViewPager.removeOnPageChangeListener(this);
+            mViewPager = null;
+        }
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        mSelectPosition = position;
         invalidate();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    /**
+     * Indicator 点击回调
+     */
+    public interface OnIndicatorClickListener{
+        public void onSelected(int position);
+    }
+
+
+    public static class Indicator{
+        public float cx; // 圆心x坐标
+        public float cy; // 圆心y 坐标
+    }
+
+    public enum FillMode{
+        LETTER,
+        NUMBER,
+        NONE
     }
 
 }

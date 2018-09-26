@@ -29,28 +29,31 @@
                 <com.mysheng.office.kkanshop.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="250dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="200dp">
                     <android.support.v4.view.ViewPager
                         android:id="@+id/nva_viewpager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                        android:layout_height="match_parent">
 
                     </android.support.v4.view.ViewPager>
                    <com.mysheng.office.kkanshop.view.CircleIndicator
-                       android:id="@+id/circleIndicator"
+                       android:id="@+id/navIndicator"
                        android:layout_width="wrap_content"
-                       android:layout_height="20dp"
+                       android:layout_height="wrap_content"
                        android:layout_alignParentBottom="true"
-                       android:layout_marginBottom="10dp"/>
+                       android:layout_marginBottom="10dp"
+                       android:layout_centerHorizontal="true"
+                       app:indicatorSelectColor="@color/colorPrimaryDark"
+                       app:fill_mode="letter"
+                       app:indicatorBorderWidth="1dp"
+                       app:indicatorRadius="8dp"
+                       app:indicatorColor="@color/red"
+                       app:indicatorTextColor="@color/white" />
                 </RelativeLayout>
             </LinearLayout>
-
-
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"

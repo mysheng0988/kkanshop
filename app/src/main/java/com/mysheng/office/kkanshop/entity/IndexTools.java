@@ -114,4 +114,13 @@ public class IndexTools {
             "http://m.360buyimg.com/babel/jfs/t1/1336/28/5481/123627/5b9fb331E7e3bf419/7449a731dfbe071a.jpg",
             "http://m.360buyimg.com/babel/jfs/t1/2079/2/5751/215295/5ba0abb2E3357b6bb/69a4671af9db669a.jpg"
     );
+    public static List<String> market=Arrays.asList(
+            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
+		"http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg",
+		"http://i1.mifile.cn/a4/xmad_1529377715473_xVjDr.jpg",
+		"http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg",
+		"http://i1.mifile.cn/a4/xmad_15248221330196_tvCXl.jpg",
+		"http://i1.mifile.cn/a4/xmad_15281678020877_ZAHgw.jpg",
+		"https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
+    );
 }
