@@ -4,6 +4,9 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/6/27.
  */
 
+/**
+ * 店铺实体类
+ */
 public class ShopModel {
     private String shopId;
     private String shopName;
@@ -17,6 +20,12 @@ public class ShopModel {
     private  String telPhone;
     private  String distance;//距离
     private  String address;
+    private  String followNum;
+    private  String goodsNum;
+    private  String shopScore;
+    private String CreateDate;
+    private String shopState;//商家状态 1营业 0休息 -1欠费
+
 
     public String getAddress() {
         return address;

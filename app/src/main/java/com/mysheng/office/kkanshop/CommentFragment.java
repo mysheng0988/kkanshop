@@ -103,7 +103,7 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.addItemDecoration(new ViewLineDivider(LinearLayoutManager.VERTICAL, 2, 0xFFCCCCCC));
+       // mRecyclerView.addItemDecoration(new ViewLineDivider(LinearLayoutManager.VERTICAL, 2, 0xFFCCCCCC));
       //  mRecyclerView.addItemDecoration(new DividerGridItemDecoration());
         Random random=new Random();
         int len=random.nextInt(50);

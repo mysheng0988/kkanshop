@@ -462,12 +462,14 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 	@Override
 	public void onItemClick(View view, int modeType, List modelList, int position) {
 		String str="";
+		Intent intent=null;
 		switch (modeType){
 
 			case IndexTools.NAV:
 				NavModel navModel= (NavModel) modelList.get(position);
 				str=navModel.getNavTitle();
-
+				intent=new Intent(getActivity(),SupermarketActivity.class);
+				startActivity(intent);
 				break;
 			case IndexTools.KILLTITLE:
 				str="更多秒杀";
@@ -498,7 +500,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			case IndexTools.GOSHOPFOUR:
 				LoveModel loveModel= (LoveModel) modelList.get(position);
 				str=loveModel.getLoveTitle();
-				Intent intent=new Intent(getActivity(),DescribeActivity.class);
+				 intent=new Intent(getActivity(),DescribeActivity.class);
 				startActivity(intent);
 				break;
 			case IndexTools.Recommend:
@@ -507,8 +509,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				if(view instanceof TextView){
 					str=remodel.getPrice()+"找相似";
 				}else {
-					Intent intent1=new Intent(getActivity(),GoodsDetailActivity.class);
-					startActivity(intent1);
+					intent=new Intent(getActivity(),GoodsDetailActivity.class);
+					startActivity(intent);
 				}
 
 

@@ -62,7 +62,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:background="@drawable/bg_bottom_radius"
+        android:background="@drawable/bottom_radius"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="20dp"

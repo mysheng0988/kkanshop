@@ -35,6 +35,8 @@ public class ViewPagerIndicator extends LinearLayout{
     private  int mMoveTranslationX;
     private ViewPager mViewPager;
     private List<String> mTitle;
+    private boolean lineStyle=false;
+    private int indicatorColor=Color.WHITE;
     public ViewPagerIndicator(Context context) {
         this(context ,null);
     }
@@ -43,13 +45,15 @@ public class ViewPagerIndicator extends LinearLayout{
         //获取可见tab的数量
        TypedArray ta= context.obtainStyledAttributes(attrs, R.styleable.ViewPagerIndicator);
         tabVisibleCount=ta.getInt(R.styleable.ViewPagerIndicator_visible_tab_count,DEFAULT_TAB_COUNT);
+        lineStyle=ta.getBoolean(R.styleable.ViewPagerIndicator_line_style,lineStyle);
+        indicatorColor=ta.getInt(R.styleable.ViewPagerIndicator_color,indicatorColor);
         if(tabVisibleCount<0){
             tabVisibleCount=DEFAULT_TAB_COUNT;
         }
        ta.recycle();
         mPaint=new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.parseColor("#ffffff"));
+        mPaint.setColor(indicatorColor);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setPathEffect(new CornerPathEffect(3));
     }
@@ -90,8 +94,15 @@ public class ViewPagerIndicator extends LinearLayout{
         super.onSizeChanged(w, h, oldw, oldh);
         triangleWidth= (int) (w/tabVisibleCount*RADIO_TRIANGLE_WIDTH);
         triangleWidth=Math.min(TRIANGLE_MAX_WIDTH,triangleWidth);
-        mInitTranslationX=w/tabVisibleCount/2-triangleWidth/2;
-        initTriangle();
+        if(lineStyle){
+            mInitTranslationX=0;
+            initLine();
+        }else{
+            initTriangle();
+            mInitTranslationX=w/tabVisibleCount/2-triangleWidth/2;
+        }
+
+
     }
 
     private void initTriangle() {
@@ -100,6 +111,16 @@ public class ViewPagerIndicator extends LinearLayout{
         mPath.moveTo(0,0);
         mPath.lineTo(triangleWidth,0);
         mPath.lineTo(triangleWidth/2,-triangleHeight);
+        mPath.close();
+
+    }
+    private void initLine() {
+        triangleHeight=triangleWidth/3;
+        mPath=new Path();
+        mPath.moveTo(0,0);
+        mPath.lineTo(getScreenWidth()/tabVisibleCount,0);
+        mPath.lineTo(getScreenWidth()/tabVisibleCount,-6);
+        mPath.lineTo(0,-5);
         mPath.close();
 
     }

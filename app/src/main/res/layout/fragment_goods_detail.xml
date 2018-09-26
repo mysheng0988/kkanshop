@@ -33,7 +33,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </com.mysheng.office.kkanshop.view.SquareLinearView>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -68,7 +68,7 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/icon_follow"/>
                 </RelativeLayout>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <TextView
                     android:id="@+id/goodsName"
                     android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp"/>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -114,7 +114,7 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/more"/>
                 </RelativeLayout>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -147,7 +147,7 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/more"/>
                 </RelativeLayout>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -171,7 +171,7 @@
                         android:textSize="@dimen/txt_14"
                         />
                 </RelativeLayout>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <!-- 商品保障图 -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -229,67 +229,135 @@
                         android:textSize="@dimen/txt_10"/>
 
                 </LinearLayout>
-                <View style="@style/bg_line"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp">
-                    <TextView
-                        android:id="@+id/userEvaluate"
+                <View style="@style/bg_line" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="@dimen/txt_10"
-                        android:gravity="center_vertical"
-                        android:text="用户评价"/>
+                        android:layout_height="40dp">
+                        <TextView
+                            android:id="@+id/userEvaluate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="@dimen/txt_10"
+                            android:gravity="center_vertical"
+                            android:text="用户评价"/>
+                        <TextView
+                            android:id="@+id/evaluateNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/userEvaluate"
+                            android:gravity="center_vertical"
+                            android:text="(0)"/>
+                        <TextView
+                            android:id="@+id/praise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/praiseNum"
+                            android:gravity="center_vertical"
+                            android:text="好评"/>
+                        <TextView
+                            android:id="@+id/praiseNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/praiseMore"
+                            android:gravity="center_vertical"
+                            android:text="100%"
+                            android:textColor="@color/red_text_color"/>
+                        <ImageView
+                            android:id="@+id/praiseMore"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="@dimen/txt_10"
+                            android:scaleType="centerCrop"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/more"/>
+                    </RelativeLayout>
+                    <View style="@style/bg_line" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <com.mysheng.office.kkanshop.view.RoundImageView
+                            android:id="@+id/userIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:gravity="center"
+                            app:border_color="#FFF"
+                            app:radius="25dp"
+                            app:border_width="5dp"
+                            app:border_alpha="255"
+                            app:shadow_color="#de1010"
+                            android:src="@drawable/ynn"/>
+                        <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_toRightOf="@+id/userIcon"
+                            android:layout_height="match_parent"
+                            android:text="15701570988"/>
+                        <com.mysheng.office.kkanshop.view.Star
+                            android:id="@+id/star"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:starWidth ="20dp"
+                            app:starHeight ="20dp"
+                            app:starDistance ="10dp"
+                            app:starsNum="5"
+                            app:starBackground ="@drawable/s2"
+                            app:starDrawBackground ="@drawable/s1"
+                            app:starClickable ="false"/>
+                    </RelativeLayout>
                     <TextView
-                        android:id="@+id/evaluateNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/userEvaluate"
+                        android:id="@+id/evaluate"
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minLines="1"
+                        android:text="这个商品太贵了，大家别为了装逼买它不划算"
+                        android:lineSpacingMultiplier="1.2"/>
+                    <com.mysheng.office.kkanshop.view.MessagePicturesLayout
+                        android:id="@+id/msgImg"
+                        android:layout_margin="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:gravity="center_vertical"
-                        android:text="(0)"/>
-                    <TextView
-                        android:id="@+id/praise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/praiseNum"
-                        android:gravity="center_vertical"
-                        android:text="好评"/>
-                    <TextView
-                        android:id="@+id/praiseNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toLeftOf="@+id/praiseMore"
-                        android:gravity="center_vertical"
-                        android:text="100%"
-                        android:textColor="@color/red_text_color"/>
-                    <ImageView
-                        android:id="@+id/praiseMore"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginRight="@dimen/txt_10"
-                        android:scaleType="centerCrop"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/more"/>
-                </RelativeLayout>
-                <View style="@style/bg_line"/>
-                <include layout="@layout/item_evaluate_layout"/>
-                <TextView
-                    android:id="@+id/moreEvaluate"
-                    android:layout_width="120dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_resemble_radius"
-                    android:textSize="@dimen/txt_14"
-                    android:text="查看更多评论"/>
-                <View style="@style/bg_line"/>
+                        android:layout_height="35dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/txt_10"
+                            android:gravity="center_vertical|left"
+                            android:layout_weight="1"
+                            android:text="红色 S码"/>
+                        <TextView
+                            android:id="@+id/evaluateDate"
+                            android:layout_width="0dp"
+                            android:gravity="center_vertical|right"
+                            android:layout_marginRight="@dimen/txt_10"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:text="2018-01-17"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <View style="@style/bg_line" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@drawable/bg_title_radius">
                     <TextView
                         android:id="@+id/shopName"
                         android:layout_width="wrap_content"
@@ -394,7 +462,7 @@
                     android:background="@drawable/bg_resemble_radius"
                     android:textSize="@dimen/txt_14"
                     android:text="进入店铺"/>
-                <View style="@style/bg_line"/>
+                <View style="@style/bg_line" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:gravity="center"
@@ -517,7 +585,8 @@
                     android:src="@drawable/shopping_normal" />
                 <TextView
                     android:id="@+id/goods_num"
-                    android:layout_width="15dp"
+                    android:layout_width="wrap_content"
+                    android:minWidth="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="right"
                     android:gravity="center"

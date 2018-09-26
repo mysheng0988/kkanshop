@@ -6,6 +6,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@drawable/bg_title_radius"
         android:layout_height="40dp">
         <com.mysheng.office.kkanshop.view.RoundImageView
             android:id="@+id/userIcon"
@@ -42,23 +43,30 @@
             app:starDrawBackground ="@drawable/s1"
             app:starClickable ="false"/>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/evaluate"
-        android:layout_margin="5dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minLines="1"
-        android:text="这个商品太贵了，大家别为了装逼买它不划算"
-        android:lineSpacingMultiplier="1.2"/>
-    <com.mysheng.office.kkanshop.view.MessagePicturesLayout
-        android:id="@+id/msgImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"/>
-
+        android:background="@drawable/lr_border"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/evaluate"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="1"
+            android:text="这个商品太贵了，大家别为了装逼买它不划算"
+            android:lineSpacingMultiplier="1.2"/>
+        <com.mysheng.office.kkanshop.view.MessagePicturesLayout
+            android:id="@+id/msgImg"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="center_vertical"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bottom_radius"
         android:layout_height="35dp">
         <TextView
             android:id="@+id/goodsType"
@@ -77,5 +85,6 @@
             android:layout_height="match_parent"
             android:text="2018-01-17"/>
     </LinearLayout>
+
 
 </LinearLayout>

@@ -7,9 +7,11 @@
         <attr name="border_alpha" format="integer"/>
         <attr name="shadow_color" format="color"/>
     </declare-styleable>
-    <attr name="visible_tab_count" format="integer"></attr>
+
     <declare-styleable name="ViewPagerIndicator">
-        <attr name="visible_tab_count" ></attr>
+        <attr name="visible_tab_count" format="integer"></attr>
+        <attr name="color" format="color"/>
+        <attr name="line_style" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="GridImageView">
         <attr format="boolean" name="showAddItem"></attr>

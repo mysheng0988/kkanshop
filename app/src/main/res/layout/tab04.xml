@@ -4,53 +4,19 @@
     android:orientation="vertical">
     <include layout="@layout/common_bar"/>
     <LinearLayout
-        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/topbar_background"
+        android:layout_height="35dp"
+        android:background="@color/colorPrimaryDark"
         android:orientation="vertical" >
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:color/transparent"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_vertical"
-                android:padding="12dp"
-                android:visibility="gone"
-                android:src="@drawable/topbar_up" />
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:minHeight="48dp"
-                android:text="购物车"
-                android:textColor="#1a1a1a"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
-                android:gravity="center"
-                android:minHeight="48dp"
-                android:text=""
-                android:textColor="#1a1a1a"
-                android:textSize="14sp"
-                android:visibility="visible" />
-        </RelativeLayout>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="购物车"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
-
     <com.mysheng.office.kkanshop.view.SuperExpandableListView
         android:id="@+id/exListView"
         android:layout_width="match_parent"
