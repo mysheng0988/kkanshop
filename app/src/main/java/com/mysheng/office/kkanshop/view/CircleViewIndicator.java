@@ -10,8 +10,6 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
-import android.text.Layout;
-import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -27,16 +25,19 @@ import java.util.List;
  * Created by myaheng on 2018/9/26.
  */
 
-public class CircleIndicator extends View implements ViewPager.OnPageChangeListener{
+public class CircleViewIndicator extends View implements ViewPager.OnPageChangeListener{
     private static final String LETTER[] = new String[]{"A","B","C","D","E","F","G","H","I","G","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
     // private int mSelectColor = Color.parseColor("#E38A7C");
-    private int mSelectColor = Color.parseColor("#FFFFFF");
+    private int mSelectColor = Color.parseColor("#000000");
     private Paint mCirclePaint;
     private Paint mTextPaint;
+    private Paint mSelectedTextPaint;
     private int mCount; // indicator 的数量
     private int mRadius;//半径
+    private int mSelectedRadius;//选中半径
     private int mStrokeWidth;//border
     private int mTextColor;// 小圆点中文字的颜色
+    private int mSelectedTextColor;// 选中字体的颜色
     private int mDotNormalColor;// 小圆点默认颜色
     private int mSpace = 0;// 圆点之间的间距
     private List<Indicator> mIndicators;
@@ -48,25 +49,25 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
      * 是否允许点击Indicator切换ViewPager
      */
     private boolean mIsEnableClickSwitch = false;
-    public CircleIndicator(Context context) {
+    public CircleViewIndicator(Context context) {
         super(context);
         init();
     }
 
-    public CircleIndicator(Context context, @Nullable AttributeSet attrs) {
+    public CircleViewIndicator(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         getAttr(context,attrs);
         init();
     }
 
-    public CircleIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleViewIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         getAttr(context,attrs);
         init();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public CircleIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CircleViewIndicator(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         getAttr(context,attrs);
         init();
@@ -82,6 +83,9 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
         mTextPaint = new Paint();
         mTextPaint.setDither(true);
         mTextPaint.setAntiAlias(true);
+        mSelectedTextPaint = new Paint();
+        mSelectedTextPaint.setDither(true);
+        mSelectedTextPaint.setAntiAlias(true);
         // 默认值
         mIndicators = new ArrayList<>();
 
@@ -95,6 +99,11 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
 
         mTextPaint.setColor(mTextColor);
         mTextPaint.setTextSize(mRadius);
+
+        mSelectedTextPaint.setColor(mSelectedTextColor);
+        mSelectedTextPaint.setTextSize(mRadius);
+
+
     }
 
     /**
@@ -105,11 +114,13 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
     private void getAttr(Context context,AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.CircleIndicatorView);
         mRadius = (int) typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorRadius, DisplayUtils.dpToPx(6));
+        mSelectedRadius=mRadius+2;
         mStrokeWidth = (int) typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorBorderWidth,DisplayUtils.dpToPx(2));
         mSpace = typedArray.getDimensionPixelSize(R.styleable.CircleIndicatorView_indicatorSpace,DisplayUtils.dpToPx(5));
         // color
         mTextColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorTextColor,Color.BLACK);
-        mSelectColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorSelectColor,Color.WHITE);
+        mSelectedTextColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorSelectedTextColor,Color.WHITE);
+        mSelectColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorSelectColor,Color.BLACK);
         mDotNormalColor = typedArray.getColor(R.styleable.CircleIndicatorView_indicatorColor,Color.GRAY);
 
         mIsEnableClickSwitch = typedArray.getBoolean(R.styleable.CircleIndicatorView_enableIndicatorSwitch,false);
@@ -133,7 +144,7 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
         for(int i=0;i<mCount;i++){
             Indicator indicator = new Indicator();
             if( i== 0){
-                cx = mRadius + mStrokeWidth;
+                cx = mSelectedRadius + mStrokeWidth;
             }else{
                 cx += (mRadius + mStrokeWidth) * 2 +mSpace;
             }
@@ -149,7 +160,7 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        int width = (mRadius+mStrokeWidth)* 2 * mCount + (mSpace+5) *(mCount - 1);
+        int width = ((mRadius+mStrokeWidth)* 2  + (mSpace)) *(mCount - 1)+(mSelectedRadius+mStrokeWidth)* 2;
         int height = mRadius * 2 + mSpace * 2;
 
         setMeasuredDimension(width,height);
@@ -170,7 +181,7 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
             if(mSelectPosition == i){
                 mCirclePaint.setStyle(Paint.Style.FILL);
                 mCirclePaint.setColor(mSelectColor);
-                canvas.drawCircle(x,y, mRadius+5, mCirclePaint);
+                canvas.drawCircle(x,y, mSelectedRadius, mCirclePaint);
             }else{
                 mCirclePaint.setColor(mDotNormalColor);
                 if(mFillMode != FillMode.NONE){
@@ -194,13 +205,21 @@ public class CircleIndicator extends View implements ViewPager.OnPageChangeListe
                     text = String.valueOf(i+1);
                 }
                 Rect bound = new Rect();
+
                 mTextPaint.getTextBounds(text,0,text.length(),bound);
+                mSelectedTextPaint.getTextBounds(text,0,text.length(),bound);
+                Log.e("mTextPaint", "onDraw: "+mTextPaint.getColor() );
                 int textWidth = bound.width();
                 int textHeight = bound.height();
 
                 float textStartX = x - textWidth / 2;
                 float textStartY = y + textHeight / 2;
-                canvas.drawText(text,textStartX,textStartY, mTextPaint);
+                if(mSelectPosition==i){
+                    canvas.drawText(text,textStartX,textStartY, mSelectedTextPaint);
+                }else {
+                    canvas.drawText(text,textStartX,textStartY, mTextPaint);
+                }
+
             }
 
         }

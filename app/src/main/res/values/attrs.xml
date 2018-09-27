@@ -18,6 +18,7 @@
         <attr name="indicatorBorderWidth" format="dimension"/>
         <attr name="indicatorSpace" format="dimension"/>
         <attr name="indicatorTextColor" format="color"/>
+        <attr name="indicatorSelectedTextColor" format="color"/>
         <attr name="indicatorColor" format="color"/>
         <attr name="indicatorSelectColor" format="color"/>
         <attr name="enableIndicatorSwitch" format="boolean"/>

@@ -12,13 +12,12 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/white">
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/colorPrimaryDark"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -28,30 +27,34 @@
                 android:orientation="vertical">
                 <com.mysheng.office.kkanshop.banner.Banner
                     android:id="@+id/banner"
+                    android:layout_marginTop="35dp"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"/>
+                    android:layout_height="200dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="160dp"
+                    android:layout_margin="5dp">
                     <android.support.v4.view.ViewPager
                         android:id="@+id/nva_viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                     </android.support.v4.view.ViewPager>
-                   <com.mysheng.office.kkanshop.view.CircleIndicator
+                   <com.mysheng.office.kkanshop.view.CircleViewIndicator
                        android:id="@+id/navIndicator"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_alignParentBottom="true"
-                       android:layout_marginBottom="10dp"
+                       android:layout_marginBottom="5dp"
                        android:layout_centerHorizontal="true"
                        app:indicatorSelectColor="@color/colorPrimaryDark"
                        app:fill_mode="letter"
                        app:indicatorBorderWidth="1dp"
-                       app:indicatorRadius="8dp"
+                       app:indicatorRadius="6dp"
+                       app:indicatorSpace="6dp"
                        app:indicatorColor="@color/red"
-                       app:indicatorTextColor="@color/white" />
+                       app:indicatorSelectedTextColor="@color/white"
+                       app:indicatorTextColor="@color/black" />
                 </RelativeLayout>
             </LinearLayout>
             <android.support.v7.widget.Toolbar
@@ -117,6 +120,8 @@
             android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark"
             hyman:visible_tab_count="4"
+            app:color="@color/red"
+            app:line_style="true"
             android:layout_height="40dp">
         </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
     </android.support.design.widget.AppBarLayout>

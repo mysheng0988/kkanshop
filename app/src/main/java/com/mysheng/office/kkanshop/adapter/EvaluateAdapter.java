@@ -29,6 +29,9 @@ import java.util.Map;
  * Created by myaheng on 2018/9/10.
  */
 
+/**
+ * 评价适配器
+ */
 public class EvaluateAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private LayoutInflater mLayoutInflater;

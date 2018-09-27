@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:maxLevel="10"  android:drawable="@drawable/icon_sort_normal" />
+    <item android:maxLevel="50"  android:drawable="@drawable/icon_sort" />
+    <item android:maxLevel="100"  android:drawable="@drawable/icon_sort_desc" />
+</level-list>

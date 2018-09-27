@@ -20,11 +20,13 @@ public class BannerViewHolder extends IndexAbstractViewHolder<BannerModel>{
     public BannerViewHolder(View itemView) {
         super(itemView);
         banner=itemView.findViewById(R.id.id_banner);
-        banner.setImageLoader(new GlideImageLoader());
+
     }
 
     @Override
     public void bindHolder(BannerModel bannerModel) {
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setDelayTime(4000);
         banner.setImages(bannerModel.getImgPaths());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         banner.setBannerTitles(bannerModel.getTitles());

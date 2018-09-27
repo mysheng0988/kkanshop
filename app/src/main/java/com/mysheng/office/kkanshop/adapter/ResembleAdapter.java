@@ -53,6 +53,7 @@ public class ResembleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     public void setData(List<RecommendModel> list) {
+        mList.clear();
         mList.addAll(list);
     }
     public void setOnItemClickCallback(OnItemClickCallback clickCallback) {
