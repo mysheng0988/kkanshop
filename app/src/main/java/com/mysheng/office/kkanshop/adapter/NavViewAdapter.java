@@ -10,6 +10,9 @@ import java.util.List;
  * Created by myaheng on 2018/9/26.
  */
 
+/**
+ * 导航页面view
+ */
 public class NavViewAdapter extends PagerAdapter {
     private List<View> viewList;//数据源
     public NavViewAdapter(List<View> viewList){

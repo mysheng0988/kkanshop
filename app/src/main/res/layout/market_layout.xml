@@ -27,12 +27,12 @@
                 android:orientation="vertical">
                 <com.mysheng.office.kkanshop.banner.Banner
                     android:id="@+id/banner"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="40dp"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"/>
+                    android:layout_height="150dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="150dp"
                     android:layout_margin="5dp">
                     <android.support.v4.view.ViewPager
                         android:id="@+id/nva_viewpager"
@@ -71,6 +71,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center">
                     <ImageView
+                        android:id="@+id/comeBack"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="-10dp"
@@ -88,6 +89,7 @@
                         android:textSize="@dimen/txt_16"
                         android:textStyle="bold"/>
                     <ImageView
+                        android:id="@+id/shopCart"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -97,11 +99,13 @@
                     <TextView
                         android:id="@+id/goods_num"
                         android:layout_width="wrap_content"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
                         android:minWidth="15dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginRight="@dimen/txt_10"
                         android:layout_alignParentRight="true"
-                        android:layout_height="15dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:gravity="center"
                         android:background="@drawable/bg_msg_radius"
