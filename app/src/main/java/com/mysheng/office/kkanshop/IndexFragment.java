@@ -472,7 +472,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				startActivity(intent);
 				break;
 			case IndexTools.KILLTITLE:
-				str="更多秒杀";
+				intent=new Intent(getActivity(),SecKillActivity.class);
+				startActivity(intent);
 				break;
 			case IndexTools.KILL:
 				KillModel killModel= (KillModel) modelList.get(position);

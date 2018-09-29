@@ -6,7 +6,10 @@ public class KillModel {
     private  String price;
     private  String goodsTitle;
     private int allNum;
-    private int num;
+    private int confirmNum;
+    /**
+     * 1正在进行 0已卖完 -1未开始
+     */
     private int status;
 
 
@@ -57,12 +60,13 @@ public class KillModel {
         this.allNum = allNum;
     }
 
-    public int getNum() {
-        return num;
+
+    public int getConfirmNum() {
+        return confirmNum;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public void setConfirmNum(int confirmNum) {
+        this.confirmNum = confirmNum;
     }
 
     public int getStatus() {

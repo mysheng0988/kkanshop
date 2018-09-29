@@ -45,9 +45,9 @@ public class SecKillActivity extends FragmentActivity implements View.OnClickLis
         Calendar calendar = Calendar.getInstance();
         int hour=calendar.get(Calendar.HOUR_OF_DAY);
         String title="";
-        for(int i=0;i<5;i++){
+        for(int i=0;i<4;i++){
           title=hour>9?hour+":00场":"0"+hour+":00场";
-            NavItemFragment fragment=NavItemFragment.getInstance(i);
+            SecKillItemFragment fragment=SecKillItemFragment.getInstance(i);
             listFragment.add(fragment);
           hour=hour+2;
           mTitle.add(title);
