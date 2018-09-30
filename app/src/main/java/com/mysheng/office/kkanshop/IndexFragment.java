@@ -480,7 +480,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				str=killModel.getPrice();
 				break;
 			case IndexTools.SHOPTITLE:
-				str="更多好店";
+				intent=new Intent(getActivity(),GoodsShopActivity.class);
+				startActivity(intent);
 				break;
 			case IndexTools.GOODSSHOP:
 				ShopModel model= (ShopModel) modelList.get(position);

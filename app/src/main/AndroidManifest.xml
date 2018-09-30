@@ -87,6 +87,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.SecKillActivity">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.GoodsShopActivity">
+        </activity>
         <activity android:name="com.mysheng.office.kkanshop.CameraActivity">
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.ShareLocationActivity">

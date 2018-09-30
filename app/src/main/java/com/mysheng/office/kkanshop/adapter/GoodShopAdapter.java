@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ShopModel;
+import com.mysheng.office.kkanshop.holder.GoodShopListViewHolder;
 import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
 import com.mysheng.office.kkanshop.holder.KillViewHolder;
 
@@ -28,22 +29,22 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view= mLayoutInflater.inflate(R.layout.item_good_shop_layout, parent,false);
-        return new GoodShopViewHolder(view);
+       View view= mLayoutInflater.inflate(R.layout.item_good_shop, parent,false);
+        return new GoodShopListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        GoodShopViewHolder viewHolder= (GoodShopViewHolder) holder;
-       viewHolder.bindHolder(mList.get(position));
-       viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               if(mCallback!=null){
-                   mCallback.onItemClick(position,v);
+        GoodShopListViewHolder viewHolder= (GoodShopListViewHolder) holder;
+           viewHolder.bindHolder(mList.get(position));
+           viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   if(mCallback!=null){
+                       mCallback.onItemClick(v,mList.get(position));
+                   }
                }
-           }
-       });
+           });
 
     }
 
@@ -53,6 +54,7 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void setData(List<ShopModel> list) {
+        mList.clear();
         mList.addAll(list);
     }
     public void setOnItemClickCallback(OnItemClickCallback clickCallback) {
@@ -60,6 +62,6 @@ public class GoodShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public interface OnItemClickCallback {
-        void onItemClick(int position, View view);
+        void onItemClick(View view,ShopModel model);
     }
 }

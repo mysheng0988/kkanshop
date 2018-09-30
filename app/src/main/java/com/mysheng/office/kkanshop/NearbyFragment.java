@@ -25,7 +25,7 @@ import java.util.List;
 public class NearbyFragment extends Fragment implements View.OnClickListener{
 	private ViewPagerIndicator mIndicator;
 	private ViewPager mViewPager;
-	private List<String> mTitle= Arrays.asList("副食","餐饮","超市","全部1","全部2","全部3","全部4");
+	private List<String> mTitle= Arrays.asList("热门活动","超市","烟酒副食","餐饮住宿","美容美发","洗浴","夜市小吃","房屋租聘");
 	private List<VpNearbyFragment> listFragment=new ArrayList<>();
 	private FragmentPagerAdapter adapter;
 	private TextView mAddress;
