@@ -7,6 +7,4 @@
         android:icon="@drawable/icon_share"
         android:title="Action"
         app:showAsAction="always"/>
-
-
 </menu>

@@ -80,6 +80,7 @@
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/btn_back"/>
                     <TextView
+                        android:id="@+id/navTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"

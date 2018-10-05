@@ -469,6 +469,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				NavModel navModel= (NavModel) modelList.get(position);
 				str=navModel.getNavTitle();
 				intent=new Intent(getActivity(),SupermarketActivity.class);
+				intent.putExtra("mTitle",str);
 				startActivity(intent);
 				break;
 			case IndexTools.KILLTITLE:

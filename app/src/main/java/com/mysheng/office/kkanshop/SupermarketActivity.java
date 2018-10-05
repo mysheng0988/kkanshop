@@ -47,11 +47,15 @@ public class SupermarketActivity extends FragmentActivity  implements View.OnCli
     private ImageView comeBack;
     private ImageView shopCart;
     private TextView goodsNum;
+    private TextView navTitle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.market_layout);
+        String mTitle=getIntent().getStringExtra("mTitle");
         comeBack=findViewById(R.id.comeBack);
+        navTitle=findViewById(R.id.navTitle);
+        navTitle.setText(mTitle);
         shopCart=findViewById(R.id.shopCart);
         goodsNum=findViewById(R.id.goods_num);
         banner=findViewById(R.id.banner);

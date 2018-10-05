@@ -7,6 +7,7 @@ package com.mysheng.office.kkanshop.entity;
 public class NavModel {
     private int navIcon;
     private String navTitle;
+    private int modelParam;
 
     private int modelType= IndexTools.NAV;
 
@@ -32,5 +33,13 @@ public class NavModel {
 
     public void setModelType(int modelType) {
         this.modelType = modelType;
+    }
+
+    public int getModelParam() {
+        return modelParam;
+    }
+
+    public void setModelParam(int modelParam) {
+        this.modelParam = modelParam;
     }
 }
