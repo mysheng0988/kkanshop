@@ -74,7 +74,7 @@ public class NavAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList.size()+navHeadModels.size();
     }
 
     @Override

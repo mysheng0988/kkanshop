@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -101,22 +102,24 @@ public class ShoppingCartFragment extends Fragment implements ShopcartExpandable
 					Toast.makeText(context, "请选择要支付的商品", Toast.LENGTH_LONG).show();
 					return;
 				}
-				alert = new AlertDialog.Builder(context).create();
-				alert.setTitle("操作提示");
-				alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
-				alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						return;
-					}
-				});
-				alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						return;
-					}
-				});
-				alert.show();
+//				alert = new AlertDialog.Builder(context).create();
+//				alert.setTitle("操作提示");
+//				alert.setMessage("总计:\n" + totalCount + "种商品\n" + totalPrice + "元");
+//				alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						return;
+//					}
+//				});
+//				alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener(){
+//					@Override
+//					public void onClick(DialogInterface dialog, int which) {
+//						return;
+//					}
+//				});
+//				alert.show();
+				Intent intent=new Intent(getActivity(),InfoOrderActivity.class);
+				startActivity(intent);
 				break;
 			case R.id.tv_delete:
 				if (totalCount == 0) {
