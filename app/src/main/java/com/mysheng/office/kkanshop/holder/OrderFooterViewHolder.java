@@ -2,14 +2,12 @@ package com.mysheng.office.kkanshop.holder;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.OrderModel;
+import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
 
-public class OrderFooterViewHolder extends IndexAbstractViewHolder<OrderModel> {
+public class OrderFooterViewHolder extends IndexAbstractViewHolder<InfoOrderFooterModel> {
     private TextView payType;
     private ImageView payMore;
     private TextView invoiceType;
@@ -18,7 +16,7 @@ public class OrderFooterViewHolder extends IndexAbstractViewHolder<OrderModel> {
     private ImageView discountMore;
     private TextView totalAmount;
     private TextView orderFare;
-    private ImageView explain;
+    private ImageView explain;//价格解释
     public OrderFooterViewHolder(View itemView) {
         super(itemView);
         payType=itemView.findViewById(R.id.payType);
@@ -32,7 +30,12 @@ public class OrderFooterViewHolder extends IndexAbstractViewHolder<OrderModel> {
         explain=itemView.findViewById(R.id.explain);
 
     }
-    public void bindHolder(OrderModel model){
+    public void bindHolder(InfoOrderFooterModel model){
+        payType.setText(model.getPayType());
+        invoiceType.setText(model.getInvoiceMessage());
+        orderDiscount.setText(model.getOrderDiscount());
+        totalAmount.setText("￥:"+model.getTotalPrice());
+        orderFare.setText("￥:"+model.getOrderFare());
 
     }
 }

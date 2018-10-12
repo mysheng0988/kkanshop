@@ -30,8 +30,8 @@ public class IndexTools {
     public static final  int SELECT=0X100;
     public static final  int EVALUATE=0X101;
 
-    public static int[] navIcon={R.drawable.supermarket,R.drawable.trappings,R.drawable.travel,R.drawable.catering,R.drawable.fresh,R.drawable.delicatessen,R.drawable.grain_and_oil,R.drawable.voucher};
-    public static String[] navTitle={"看看超市","看看服饰","看看出行","看看餐饮","生鲜水果","卤味熟食","粮油副食","领券中心"};
+    public static int[] navIcon={R.drawable.supermarket,R.drawable.trappings,R.drawable.travel,R.drawable.catering,R.drawable.fresh,R.drawable.delicatessen,R.drawable.grain_and_oil,R.drawable.icon_msg_service};
+    public static String[] navTitle={"看看超市","看看服饰","看看出行","看看餐饮","生鲜水果","卤味熟食","粮油副食","信息服务"};
     public static String title="月莲2017新品大码女装风衣外套5876 3xl 新春上新品，优惠孔雀";
 
     public static  String[] list={
@@ -123,5 +123,14 @@ public class IndexTools {
 		"http://i1.mifile.cn/a4/xmad_15248221330196_tvCXl.jpg",
 		"http://i1.mifile.cn/a4/xmad_15281678020877_ZAHgw.jpg",
 		"https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
+    );
+    public static List<String> ONLYONE=Arrays.asList(
+            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg"
+    );
+    public static List<String> TWO=Arrays.asList(
+            "http://img.my.csdn.net/uploads/201701/06/1483664940_3308.jpg"
+    );
+    public static List<String> HUAWEI=Arrays.asList(
+            "https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
     );
 }

@@ -16,11 +16,12 @@ public class GoodsModel implements Serializable {
     private String shopName;
     private List<String> goodsPath;
     private int modelType=IndexTools.Recommend;
-    private String goodsPrice;
-    private String goodsOldPrice;
+    private float goodsPrice;
+    private float goodsOldPrice;
     private boolean isReduce;//是否满减
     private boolean isVoucher;//是否含优惠卷
     private String CreateDate;
+    private int goodsAmount=1;
     private String updateDate;
 
     public String getGoodsId() {
@@ -79,19 +80,19 @@ public class GoodsModel implements Serializable {
         this.modelType = modelType;
     }
 
-    public String getGoodsPrice() {
+    public float getGoodsPrice() {
         return goodsPrice;
     }
 
-    public void setGoodsPrice(String goodsPrice) {
+    public void setGoodsPrice(float goodsPrice) {
         this.goodsPrice = goodsPrice;
     }
 
-    public String getGoodsOldPrice() {
+    public float getGoodsOldPrice() {
         return goodsOldPrice;
     }
 
-    public void setGoodsOldPrice(String goodsOldPrice) {
+    public void setGoodsOldPrice(float goodsOldPrice) {
         this.goodsOldPrice = goodsOldPrice;
     }
 
@@ -119,6 +120,13 @@ public class GoodsModel implements Serializable {
         CreateDate = createDate;
     }
 
+    public int getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public void setGoodsAmount(int goodsAmount) {
+        this.goodsAmount = goodsAmount;
+    }
     public String getUpdateDate() {
         return updateDate;
     }

@@ -7,7 +7,7 @@
     android:background="@drawable/bg_shape_radius">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
@@ -25,14 +25,13 @@
             android:id="@+id/payMore"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="@dimen/txt_10"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/more"/>
+            android:src="@drawable/icon_more"/>
     </LinearLayout>
     <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
@@ -52,12 +51,12 @@
             android:layout_height="30dp"
             android:layout_marginRight="@dimen/txt_10"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/more"/>
+            android:src="@drawable/icon_more"/>
     </LinearLayout>
     <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
@@ -75,14 +74,13 @@
             android:id="@+id/discountMore"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="@dimen/txt_10"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/more"/>
+            android:src="@drawable/icon_more"/>
     </LinearLayout>
     <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="80dp"
@@ -103,7 +101,7 @@
     <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"

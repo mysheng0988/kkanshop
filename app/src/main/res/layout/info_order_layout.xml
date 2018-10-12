@@ -31,11 +31,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="@dimen/txt_10"
             android:gravity="center_vertical"
             android:text="张先生"
@@ -46,6 +48,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/userName"
             android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="157****0988"
@@ -58,16 +61,16 @@
             android:lineSpacingMultiplier="1.5"
             android:textSize="@dimen/txt_12"
             android:layout_marginLeft="@dimen/txt_10"
-            android:layout_alignParentBottom="true"
+           android:layout_below="@+id/userName"
             android:text="北京市海淀区中关村街道北京大学医院A337"
             android:layout_margin="5dp" />
         <ImageView
+            android:id="@+id/addressMore"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="@dimen/txt_10"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/more"/>
+            android:src="@drawable/icon_more"/>
     </RelativeLayout>
     <com.mysheng.office.kkanshop.view.MailLineView
         android:layout_width="match_parent"
@@ -83,18 +86,18 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/allPrice"
+            android:id="@+id/totalPrice"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
-            android:text="￥:1100元"
+            android:text="@string/goodsPrice"
             android:textColor="@color/red"
             android:textSize="@dimen/txt_16"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/submitOrder"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="提交订单"

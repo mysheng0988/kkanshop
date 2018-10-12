@@ -1,25 +1,31 @@
 package com.mysheng.office.kkanshop.holder;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.OrderModel;
+import com.mysheng.office.kkanshop.adapter.GoodsImageAdapter;
+import com.mysheng.office.kkanshop.entity.GoodsModel;
+import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
+import java.util.List;
 
-public class OrderContentViewHolder extends IndexAbstractViewHolder<OrderModel> {
+public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderShopModel> {
     private LinearLayout onlyOne;
-    private LinearLayout moreList;
+    private RelativeLayout moreList;
+    private GoodsImageAdapter imageAdapter;
     private TextView shopName;
     private TextView goodsName;
     private TextView goodsPrice;
     private ImageView goodsImage;
     private TextView goodsNum;
-    private ImageView allGoods;
-    private ImageView goodsImage1;
-    private ImageView goodsImage2;
+    private TextView goodsAmount;
+    private TextView totalPrice;
+    private RecyclerView moreListView;
     private TextView sendType;
     private ImageView sendMore;
     private TextView remark;
@@ -32,29 +38,46 @@ public class OrderContentViewHolder extends IndexAbstractViewHolder<OrderModel> 
         goodsPrice=itemView.findViewById(R.id.goodsPrice);
         goodsImage=itemView.findViewById(R.id.goodsImage);
         goodsNum=itemView.findViewById(R.id.goodsNum);
-        allGoods=itemView.findViewById(R.id.allGoods);
-        goodsImage1=itemView.findViewById(R.id.goodsImage1);
-        goodsImage2=itemView.findViewById(R.id.goodsImage2);
+        goodsAmount=itemView.findViewById(R.id.goodsAmount);
+        totalPrice=itemView.findViewById(R.id.totalPrice);
+        moreListView=itemView.findViewById(R.id.moreListView);
         sendType=itemView.findViewById(R.id.sendType);
         sendMore=itemView.findViewById(R.id.sendMore);
         remark=itemView.findViewById(R.id.remark);
     }
-    public void bindHolder(OrderModel model){
-//        shopName.setText(model.getOrderShopModels().;
-//        if(model.getGoodsModels().size()>1){
-//            onlyOne.setVisibility(View.GONE);
-//            moreList.setVisibility(View.VISIBLE);
-//            goodsNum.setText("共"+model.getGoodsModels().size()+"件");
-//            Glide.with(goodsImage1.getContext()).load(model.getGoodsModels().get(0).getGoodsPath().get(0)).into(goodsImage);
-//            Glide.with(goodsImage2.getContext()).load(model.getGoodsModels().get(1).getGoodsPath().get(0)).into(goodsImage);
-//        }else{
-//            goodsName.setText(model.getGoodsModels().get(0).getGoodsName());
-//            goodsPrice.setText(model.getGoodsModels().get(0).getGoodsPrice());
-//            Glide.with(goodsImage.getContext()).load(model.getGoodsModels().get(0).getGoodsPath().get(0)).into(goodsImage);
-//            onlyOne.setVisibility(View.VISIBLE);
-//            moreList.setVisibility(View.GONE);
-//        }
-//        sendType.setText(model.getSendType());
-//        remark.setText(model.getRemark());
+    public void bindHolder(InfoOrderShopModel model){
+        shopName.setText(model.getShopName());
+        List<GoodsModel> goodsModels=model.getGoodsModels();
+        int num=0;
+        int price=0;
+        for(int i=0;i<goodsModels.size();i++){
+            num+=goodsModels.get(i).getGoodsAmount();
+            price+=goodsModels.get(i).getGoodsPrice()*goodsModels.get(i).getGoodsAmount();
+        }
+        if(goodsModels.size()>1){
+            onlyOne.setVisibility(View.GONE);
+            moreList.setVisibility(View.VISIBLE);
+            goodsNum.setText(String.format("共%d件", num));
+            totalPrice.setText(String.format("￥:%s", price));
+            if(imageAdapter==null){
+                imageAdapter=new GoodsImageAdapter(moreListView.getContext());
+            }else{
+                imageAdapter.notifyDataSetChanged();
+            }
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(moreListView.getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            moreListView.setLayoutManager(linearLayoutManager);
+            imageAdapter.setData(goodsModels);
+            moreListView.setAdapter(imageAdapter);
+
+        }else{
+            goodsName.setText(goodsModels.get(0).getGoodsName());
+            goodsPrice.setText(String.format("￥:%s", goodsModels.get(0).getGoodsPrice()));
+            goodsAmount.setText(num+"");
+            Glide.with(goodsImage.getContext()).load(goodsModels.get(0).getGoodsPath().get(0)).into(goodsImage);
+            onlyOne.setVisibility(View.VISIBLE);
+            moreList.setVisibility(View.GONE);
+        }
+
     }
 }

@@ -40,6 +40,8 @@
     <string name="msg_progressing">处理中</string>
 
     <string name="pageBehavior" translatable="false" >com.mysheng.office.kkanshop.page.PageBehavior</string>
+    <string name="goodsAmount">共%d件</string>
+    <string name="goodsPrice">￥:%s</string>
 
     <item name="tag_key_data" type="id"/>
     <item name="tag_key_position" type="id"/>
