@@ -75,8 +75,8 @@ public class NavItemFragment extends Fragment{
         NavHeadModel navHeadModel=new NavHeadModel();
         for (int i=0;i<labels.size();i++){
             LabelModel labelModel=new LabelModel();
-            labelModel.setLableID(i);
-            labelModel.setLableTitle(labels.get(i));
+            labelModel.setLabelId(i);
+            labelModel.setLabelTitle(labels.get(i));
             labelModels.add(labelModel);
         }
         if(position!=0){

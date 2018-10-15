@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +27,13 @@ import com.mysheng.office.kkanshop.banner.Banner;
 import com.mysheng.office.kkanshop.banner.GlideImageLoader;
 import com.mysheng.office.kkanshop.entity.DescribeModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
+import com.mysheng.office.kkanshop.entity.LabelModel;
 import com.mysheng.office.kkanshop.listenter.ChangePage;
 import com.mysheng.office.kkanshop.page.Page;
 import com.mysheng.office.kkanshop.page.PageBehavior;
 import com.mysheng.office.kkanshop.page.PageContainer;
 import com.mysheng.office.kkanshop.util.Tools;
+import com.mysheng.office.kkanshop.view.GoodsParamDialog;
 import com.mysheng.office.kkanshop.view.GridImageView;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import com.mysheng.office.kkanshop.view.ShoppingCartAnimationView;
@@ -42,7 +45,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GoodsDetailFragment extends Fragment{
+public class GoodsDetailFragment extends Fragment implements View.OnClickListener{
 
 
     private Banner banner;
@@ -58,6 +61,9 @@ public class GoodsDetailFragment extends Fragment{
     private List<DescribeModel> modelslist=new ArrayList<>();
     private TextView infoCart;
     private TextView goodsNum;
+    private RelativeLayout typeSelect;
+    private String[] goodsColor={"红色","黄色","绿色","蓝色","白色","橘黄色","淡绿色"};
+    private String[] goodsContent={"32G","64G","128G","256G"};
     public GoodsDetailFragment() {
         // Required empty public constructor
         //
@@ -91,6 +97,8 @@ public class GoodsDetailFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         banner = (Banner) view.findViewById(R.id.banner);
         pageOne = (Page) view.findViewById(R.id.pageOne);
+        typeSelect=view.findViewById(R.id.typeSelect);
+        typeSelect.setOnClickListener(this);
         goodsFollow =  view.findViewById(R.id.goodsFollow);
         container = (PageContainer) view.findViewById(R.id.container);
         banner.setImages(list).setImageLoader(new GlideImageLoader()).isAutoPlay(false).start();
@@ -189,4 +197,14 @@ public class GoodsDetailFragment extends Fragment{
         mChangePage = (ChangePage) getActivity();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.typeSelect:
+                GoodsParamDialog paramDialog=new GoodsParamDialog(getActivity());
+                paramDialog.show();
+                break;
+        }
+
+    }
 }

@@ -5,22 +5,22 @@ package com.mysheng.office.kkanshop.entity;
  */
 
 public class LabelModel {
-    private int lableID;
-    private String lableTitle;
+    private int labelId;
+    private String labelTitle;
 
-    public int getLableID() {
-        return lableID;
+    public int getLabelId() {
+        return labelId;
     }
 
-    public void setLableID(int lableID) {
-        this.lableID = lableID;
+    public void setLabelId(int labelId) {
+        this.labelId = labelId;
     }
 
-    public String getLableTitle() {
-        return lableTitle;
+    public String getLabelTitle() {
+        return labelTitle;
     }
 
-    public void setLableTitle(String lableTitle) {
-        this.lableTitle = lableTitle;
+    public void setLabelTitle(String labelTitle) {
+        this.labelTitle = labelTitle;
     }
 }

@@ -71,7 +71,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
                     android:background="@color/white"
                     android:orientation="vertical">
                     <TextView
@@ -91,10 +90,11 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/typeSelect"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_layout_border"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:layout_gravity="center_vertical">
                     <TextView
                         android:id="@+id/goodsType"
@@ -115,7 +115,7 @@
                         android:textSize="@dimen/txt_14"
                         />
                     <ImageView
-                        android:id="@+id/typeSelect"
+
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginRight="@dimen/txt_10"
@@ -128,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_layout_border"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:layout_gravity="center_vertical">
                     <TextView
                         android:id="@+id/address"
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_layout_border"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:layout_gravity="center_vertical">
                     <TextView
                         android:id="@+id/charges"
@@ -188,7 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_layout_border"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <ImageView
@@ -246,7 +246,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_layout_border"
-                    android:layout_marginVertical="5dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:orientation="vertical">
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -367,6 +367,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
+                    android:layout_marginTop="@dimen/txt_10"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:background="@drawable/bg_title_radius">

@@ -20,7 +20,7 @@
         app:lineMargin="8dp"
         app:maxSelect="0"
         app:selectType="SINGLE_IRREVOCABLY"
-        app:wordMargin="8dp" />
+        app:wordMargin="8dp"  />
     <View style="@style/bg_line"/>
     <LinearLayout
         android:layout_width="match_parent"

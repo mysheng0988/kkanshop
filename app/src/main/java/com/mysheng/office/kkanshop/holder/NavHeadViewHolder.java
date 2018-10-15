@@ -24,7 +24,7 @@ public class NavHeadViewHolder extends IndexAbstractViewHolder<NavHeadModel> {
             labelsView.setLabels(model.getLabelModels(), new LabelsView.LabelTextProvider<LabelModel>() {
                 @Override
                 public CharSequence getLabelText(TextView label, int position, LabelModel data) {
-                    return data.getLableTitle();
+                    return data.getLabelTitle();
                 }
             });
             labelsView.setVisibility(View.VISIBLE);

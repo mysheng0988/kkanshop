@@ -2,19 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:overScrollMode="never">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
         <FrameLayout
+            android:id="@+id/fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:background="@color/white"
                 android:orientation="vertical">
@@ -67,7 +64,7 @@
                             android:gravity="bottom"
                             android:includeFontPadding="false"
                             android:textColor="@color/red_text_color"
-                            android:text="@string/goodsPrice"
+                            android:text="￥:4999.00"
                             android:textSize="23dp" />
 
                         <TextView
@@ -77,7 +74,7 @@
                             android:layout_marginLeft="5dp"
                             android:textColor="@color/text_clo"
                             android:textSize="12dp"
-                            android:text="@string/goodsPrice"/>
+                            android:text="￥5888.00"/>
                     </LinearLayout>
                 </RelativeLayout>
                 <View style="@style/view_line"/>
@@ -96,10 +93,23 @@
                         android:text="颜色"
                         android:textSize="15dp" />
 
-                    <com.mysheng.office.kkanshop.view.SquareLinearView
+                    <com.mysheng.office.kkanshop.view.LabelsView
                         android:id="@+id/goodsTypeParam1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:minHeight="25dp"
+                        android:padding="5dp"
+                        app:labelBackground="@drawable/label_bg"
+                        app:labelTextColor="@drawable/label_text_color"
+                        app:labelTextPaddingBottom="3dp"
+                        app:labelTextPaddingLeft="8dp"
+                        app:labelTextPaddingRight="8dp"
+                        app:labelTextPaddingTop="3dp"
+                        app:labelTextSize="12sp"
+                        app:lineMargin="8dp"
+                        app:maxSelect="0"
+                        app:selectType="SINGLE_IRREVOCABLY"
+                        app:wordMargin="8dp"  />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,29 +126,42 @@
                         android:text="容量"
                         android:textSize="15dp" />
 
-                    <com.mysheng.office.kkanshop.view.SquareLinearView
+                    <com.mysheng.office.kkanshop.view.LabelsView
                         android:id="@+id/goodsTypeParam2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:minHeight="25dp"
+                        android:padding="5dp"
+                        app:labelBackground="@drawable/label_bg"
+                        app:labelTextColor="@drawable/label_text_color"
+                        app:labelTextPaddingBottom="3dp"
+                        app:labelTextPaddingLeft="8dp"
+                        app:labelTextPaddingRight="8dp"
+                        app:labelTextPaddingTop="3dp"
+                        app:labelTextSize="12sp"
+                        app:lineMargin="8dp"
+                        app:maxSelect="0"
+                        app:selectType="SINGLE_IRREVOCABLY"
+                        app:wordMargin="8dp"  />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@drawable/comm_btn_red_selector"
-                    android:text="确认"
-                    android:textColor="@color/white"
-                    android:textSize="17dp" />
+
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_sku_logo"
+                android:id="@+id/goodsIcon"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:src="@drawable/icon"
                 android:layout_marginLeft="15dp" />
         </FrameLayout>
-    </ScrollView>
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/comm_btn_red_selector"
+            android:text="确认"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
 </LinearLayout>
