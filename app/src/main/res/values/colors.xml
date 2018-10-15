@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="refresh">#00CC99</color>
     <color name="green">#339900</color>
+    <color name="background">#f5f5f5</color>
 
     <!-- 描边颜色 -->
     <color name="border_clo">#ccc</color>
