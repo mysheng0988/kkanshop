@@ -1,4 +1,4 @@
-package com.mysheng.office.kkanshop.view;
+package com.mysheng.office.kkanshop.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -21,6 +21,8 @@ import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.address.utils.Dev;
 import com.mysheng.office.kkanshop.address.widget.AddressSelector;
 import com.mysheng.office.kkanshop.entity.LabelModel;
+import com.mysheng.office.kkanshop.view.AmountView;
+import com.mysheng.office.kkanshop.view.LabelsView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class GoodsParamDialog extends Dialog implements View.OnClickListener{
     private LabelsView goodsTypeParam1;
     private LabelsView goodsTypeParam2;
     private ImageView closed;
+    private AmountView amountView;
 
     private List<String> goodsColor= Arrays.asList("红色","黄色","绿色","蓝色","白色","橘黄色","淡绿色");
     private List<String>goodsContent=Arrays.asList("32G","64G","128G","256G");
@@ -78,6 +81,8 @@ public class GoodsParamDialog extends Dialog implements View.OnClickListener{
         closed.setOnClickListener(this);
         goodsTypeParam1=findViewById(R.id.goodsTypeParam1);
         goodsTypeParam2=findViewById(R.id.goodsTypeParam2);
+        amountView=findViewById(R.id.amountView);
+        amountView.setAmountNum(1,10,1);
         List<LabelModel> labelModels=new ArrayList<>();
             for (int i=0;i<goodsColor.size();i++){
                 LabelModel labelModel=new LabelModel();

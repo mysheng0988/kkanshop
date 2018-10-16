@@ -1,4 +1,4 @@
-package com.mysheng.office.kkanshop.view;
+package com.mysheng.office.kkanshop.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

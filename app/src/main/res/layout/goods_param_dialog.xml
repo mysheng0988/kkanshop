@@ -86,17 +86,20 @@
 
                     <TextView
                         android:id="@+id/goodsType1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
                         android:text="颜色"
-                        android:textSize="15dp" />
+                        android:textColor="@color/black_text_color"
+                        android:textSize="16dp" />
 
                     <com.mysheng.office.kkanshop.view.LabelsView
                         android:id="@+id/goodsTypeParam1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/txt_10"
+                        android:layout_marginRight="@dimen/txt_10"
                         android:minHeight="25dp"
                         android:padding="5dp"
                         app:labelBackground="@drawable/label_bg"
@@ -119,17 +122,20 @@
 
                     <TextView
                         android:id="@+id/goodsType2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="15dp"
                         android:text="容量"
-                        android:textSize="15dp" />
+                        android:textColor="@color/black_text_color"
+                        android:textSize="16dp" />
 
                     <com.mysheng.office.kkanshop.view.LabelsView
                         android:id="@+id/goodsTypeParam2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/txt_10"
+                        android:layout_marginRight="@dimen/txt_10"
                         android:minHeight="25dp"
                         android:padding="5dp"
                         app:labelBackground="@drawable/label_bg"
@@ -144,7 +150,28 @@
                         app:selectType="SINGLE_IRREVOCABLY"
                         app:wordMargin="8dp"  />
                 </LinearLayout>
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="80dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black_text_color"
+                        android:textSize="16dp"
+                        android:text="数量 "/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                    <com.mysheng.office.kkanshop.view.AmountView
+                        android:id="@+id/amountView"
+                        android:layout_marginRight="@dimen/txt_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -161,7 +188,7 @@
             android:layout_height="45dp"
             android:layout_gravity="bottom"
             android:background="@drawable/comm_btn_red_selector"
-            android:text="确认"
+            android:text="加入购物车"
             android:textColor="@color/white"
             android:textSize="17dp" />
 </LinearLayout>

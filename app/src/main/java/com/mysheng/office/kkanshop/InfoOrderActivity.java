@@ -1,7 +1,6 @@
 package com.mysheng.office.kkanshop;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +13,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mysheng.office.kkanshop.adapter.InfoOrderAdapter;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
 import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
-import com.mysheng.office.kkanshop.view.ConfirmDialog;
 
 import java.util.ArrayList;
 import java.util.List;

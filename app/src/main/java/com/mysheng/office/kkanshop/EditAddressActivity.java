@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.address.bean.City;
@@ -20,6 +21,7 @@ import com.mysheng.office.kkanshop.address.utils.LogUtil;
 import com.mysheng.office.kkanshop.address.widget.AddressSelector;
 import com.mysheng.office.kkanshop.address.widget.BottomDialog;
 import com.mysheng.office.kkanshop.address.widget.OnAddressSelectedListener;
+import com.mysheng.office.kkanshop.dialog.DatePickDialog;
 import com.mysheng.office.kkanshop.view.SlideSwitch;
 
 /**
@@ -35,7 +37,8 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
     private ImageView areaMore;
     private EditText addressName;
     private SlideSwitch slideSwitch;
-
+    private ImageView dateTimeMore;
+    private TextView dateTime;
 
     private AddressDictManager addressDictManager;
     private String provinceCode;
@@ -77,6 +80,8 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
         telephone=findViewById(R.id.telephone);
         area=findViewById(R.id.area);
         areaMore=findViewById(R.id.areaMore);
+        dateTimeMore=findViewById(R.id.dateTimeMore);
+        dateTime=findViewById(R.id.dateTime);
         addressName=findViewById(R.id.addressName);
         slideSwitch=findViewById(R.id.slideSwitch);
     }
@@ -84,6 +89,8 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
         comeBack.setOnClickListener(this);
         area.setOnClickListener(this);
         areaMore.setOnClickListener(this);
+        dateTime.setOnClickListener(this);
+        dateTimeMore.setOnClickListener(this);
         slideSwitch.setOnMbClickListener(new SlideSwitch.OnMClickListener() {
             @Override
             public void onClick(boolean isRight) {
@@ -115,6 +122,17 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
                     dialog.setSelectorAreaPositionListener(this);
                     dialog.show();
                 }
+                break;
+            case R.id.dateTime:
+            case R.id.dateTimeMore:
+                DatePickDialog pickDialog=new DatePickDialog(this);
+                pickDialog.setListener(new DatePickDialog.OnConfirmListener() {
+                    @Override
+                    public void onClick(String dateStr) {
+                        dateTime.setText(dateStr);
+                    }
+                });
+                pickDialog.show();
                 break;
         }
     }

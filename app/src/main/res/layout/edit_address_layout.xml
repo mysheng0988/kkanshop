@@ -101,7 +101,31 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/icon_more"/>
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_layout_border"
+        android:layout_marginTop="@dimen/txt_10"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:gravity="center_vertical|right"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:text="送货时间 "/>
+        <TextView
+            android:id="@+id/dateTime"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="right|center" />
+        <ImageView
+            android:id="@+id/dateTimeMore"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_more"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -152,5 +176,6 @@
 
         </com.mysheng.office.kkanshop.view.SlideSwitch>
     </LinearLayout>
+
 
 </LinearLayout>

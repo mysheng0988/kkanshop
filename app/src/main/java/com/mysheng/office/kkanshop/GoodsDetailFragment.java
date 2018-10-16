@@ -1,7 +1,6 @@
 package com.mysheng.office.kkanshop;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -13,28 +12,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.adapter.DescribeViewAdapter;
-import com.mysheng.office.kkanshop.adapter.GridImageViewAdapter;
 import com.mysheng.office.kkanshop.banner.Banner;
 import com.mysheng.office.kkanshop.banner.GlideImageLoader;
 import com.mysheng.office.kkanshop.entity.DescribeModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
-import com.mysheng.office.kkanshop.entity.LabelModel;
 import com.mysheng.office.kkanshop.listenter.ChangePage;
 import com.mysheng.office.kkanshop.page.Page;
 import com.mysheng.office.kkanshop.page.PageBehavior;
 import com.mysheng.office.kkanshop.page.PageContainer;
-import com.mysheng.office.kkanshop.util.Tools;
-import com.mysheng.office.kkanshop.view.GoodsParamDialog;
-import com.mysheng.office.kkanshop.view.GridImageView;
+import com.mysheng.office.kkanshop.dialog.GoodsParamDialog;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import com.mysheng.office.kkanshop.view.ShoppingCartAnimationView;
 
