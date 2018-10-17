@@ -103,7 +103,7 @@ public class AudioRecorderButton extends Button implements AudioStateListener {
                     mDialogManager.updateVoiceLevel(mAudioManager.getVoiceLevel(7));
                     break;
                 case MSG_DIALOG_DIMISS:
-                    mDialogManager.dimissDialog();
+                    mDialogManager.dismissDialog();
                     break;
             }
         }
@@ -143,7 +143,7 @@ public class AudioRecorderButton extends Button implements AudioStateListener {
                     mAudioManager.cancel();
                     mHandler.sendEmptyMessageDelayed(MSG_DIALOG_DIMISS,1300);
                 }else if(mCurState==STATE_RECORDING){
-                    mDialogManager.dimissDialog();
+                    mDialogManager.dismissDialog();
                     if(audioListener!=null){
                         audioListener.onFinish(mTime,mAudioManager.getCurrentFilePath());
                     }
@@ -151,7 +151,7 @@ public class AudioRecorderButton extends Button implements AudioStateListener {
 
 
                 }else if(mCurState==STATE_WANT_TO_CANCEL){
-                    mDialogManager.dimissDialog();
+                    mDialogManager.dismissDialog();
                     mAudioManager.cancel();
                 }
                 reset();
