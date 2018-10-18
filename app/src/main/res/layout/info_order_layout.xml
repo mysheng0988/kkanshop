@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="@dimen/txt_10"
+            android:layout_marginLeft="@dimen/txt_20"
             android:gravity="center_vertical"
             android:text="张先生"
             android:textStyle="bold"
@@ -49,6 +49,7 @@
             android:layout_toRightOf="@+id/userName"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="@dimen/txt_20"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:text="157****0988"
@@ -60,10 +61,11 @@
             android:layout_height="wrap_content"
             android:lineSpacingMultiplier="1.5"
             android:textSize="@dimen/txt_12"
-            android:layout_marginLeft="@dimen/txt_10"
-           android:layout_below="@+id/userName"
-            android:text="北京市海淀区中关村街道北京大学医院A337"
-            android:layout_margin="5dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="@dimen/txt_20"
+            android:layout_marginRight="@dimen/txt_20"
+            android:layout_below="@+id/userName"
+            android:text="北京市海淀区中关村街道北京大学医院A337" />
         <ImageView
             android:id="@+id/addressMore"
             android:layout_width="30dp"

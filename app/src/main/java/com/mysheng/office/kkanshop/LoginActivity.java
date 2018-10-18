@@ -17,7 +17,7 @@ import com.mysheng.office.kkanshop.util.CodeUtils;
  * Created by myaheng on 2018/6/7.
  */
 
-public class LoginActivity extends Activity implements View.OnClickListener{
+public class LoginActivity extends BaseActivity {
     private EditText userId;
     private EditText password;
     private Button login;
@@ -35,7 +35,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         initView();
         initEvent();
     }
-    private void initView() {
+    @Override
+    protected void initView() {
         codeImage=findViewById(R.id.codeImage);
         userId=findViewById(R.id.user_id);
         codeNum=findViewById(R.id.code_num);
@@ -47,7 +48,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         regUser=findViewById(R.id.regButton);
         comeBack=findViewById(R.id.comeBack);
     }
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         login.setOnClickListener(this);
         regUser.setOnClickListener(this);
         restPwd.setOnClickListener(this);

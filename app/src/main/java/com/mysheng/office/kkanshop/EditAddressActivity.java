@@ -28,7 +28,7 @@ import com.mysheng.office.kkanshop.view.SlideSwitch;
  * Created by myaheng on 2018/10/12.
  */
 
-public class EditAddressActivity extends Activity implements View.OnClickListener, OnAddressSelectedListener, AddressSelector.OnDialogCloseListener, AddressSelector.onSelectorAreaPositionListener {
+public class EditAddressActivity extends BaseActivity implements OnAddressSelectedListener, AddressSelector.OnDialogCloseListener, AddressSelector.onSelectorAreaPositionListener {
     private ImageView comeBack;
     private TextView commonTitle;
     private EditText userName;
@@ -72,8 +72,8 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
         initEvent();
 
     }
-
-    private void initView() {
+    @Override
+    protected void initView() {
         comeBack=findViewById(R.id.comeBack);
         commonTitle=findViewById(R.id.commonTitle);
         userName=findViewById(R.id.userName);
@@ -85,7 +85,8 @@ public class EditAddressActivity extends Activity implements View.OnClickListene
         addressName=findViewById(R.id.addressName);
         slideSwitch=findViewById(R.id.slideSwitch);
     }
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         comeBack.setOnClickListener(this);
         area.setOnClickListener(this);
         areaMore.setOnClickListener(this);

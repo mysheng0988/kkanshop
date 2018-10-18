@@ -19,6 +19,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/txt_10"
+        android:paddingBottom="@dimen/txt_10"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:lineSpacingExtra="3dp"

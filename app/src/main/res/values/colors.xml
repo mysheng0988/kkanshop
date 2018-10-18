@@ -38,7 +38,7 @@
     <color name="red_text_color">#ff5d5e</color>
     <color name="pink_bg_color">#ff7676</color>
     <color name="pink_light_bg_color">#fefcf2</color>
-    <color name="black_text_color">#656565</color>
+    <color name="black_text_color">#B3000000</color>
     <color name="black_black_text_color">#323232</color>
     <color name="gray_text_color">#9e9e9e</color>
     <color name="gray_line_color">#cccccc</color>

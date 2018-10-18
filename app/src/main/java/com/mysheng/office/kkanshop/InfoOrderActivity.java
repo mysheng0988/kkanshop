@@ -15,10 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.adapter.InfoOrderAdapter;
+import com.mysheng.office.kkanshop.dialog.ConfirmDialog;
+import com.mysheng.office.kkanshop.dialog.ListDialog;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
 import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
+import com.mysheng.office.kkanshop.entity.ShopModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ import java.util.List;
  * Created by myaheng on 2018/10/9.
  */
 
-public class InfoOrderActivity extends Activity implements View.OnClickListener{
+public class InfoOrderActivity extends BaseActivity{
     private RecyclerView orderView;
     private InfoOrderAdapter mAdapter;
     private ImageView comeBack;
@@ -45,7 +48,8 @@ public class InfoOrderActivity extends Activity implements View.OnClickListener{
 
 
 
-    private void initView() {
+    @Override
+    protected void initView() {
 
         orderView=findViewById(R.id.orderView);
         comeBack=findViewById(R.id.comeBack);
@@ -66,6 +70,7 @@ public class InfoOrderActivity extends Activity implements View.OnClickListener{
             GoodsModel goodsModel=new GoodsModel();
             goodsModel.setGoodsName(IndexTools.title);
             goodsModel.setGoodsPath(IndexTools.ONLYONE);
+            goodsModel.setGoodsType("红色 64G");
             goodsModel.setGoodsPrice(3299);
             goodsModel.setGoodsAmount(i+1);
             goodsModels.add(goodsModel);
@@ -118,10 +123,29 @@ public class InfoOrderActivity extends Activity implements View.OnClickListener{
         float total=footerModel.getTotalPrice()+footerModel.getOrderFare();
         totalPrice.setText(String.format("￥:%s", total));
     }
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
 
         comeBack.setOnClickListener(this);
         addressMore.setOnClickListener(this);
+        mAdapter.setOnItemClickCallback(new InfoOrderAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClick(View view, int type,Object mode) {
+                if(mode instanceof InfoOrderShopModel){
+                    switch (type){
+                        case 0:
+                            ListDialog listDialog=new ListDialog(InfoOrderActivity.this,((InfoOrderShopModel) mode).getGoodsModels());
+                            listDialog.show();
+                            break;
+                        case 1:
+                            ConfirmDialog confirmDialog=new ConfirmDialog(InfoOrderActivity.this,true,"所有商品价格已结算价格为准,如有疑问请联系商家！");
+                            confirmDialog.setTitle("温馨提示").show();
+                            break;
+                    }
+
+                }
+            }
+        });
     }
     @Override
     public void onClick(View v) {

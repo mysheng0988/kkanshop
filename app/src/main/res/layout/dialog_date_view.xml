@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/background"
+        android:background="@drawable/title_layout_border"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/cancel"
@@ -31,7 +31,6 @@
             android:text="确定"
             android:textColor="@color/blue_text"/>
     </LinearLayout>
-    <View style="@style/view_line"/>
     <com.mysheng.office.kkanshop.view.DatePickView
         android:id="@+id/datePickView"
         android:layout_width="match_parent"

@@ -20,7 +20,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
     private TextView contentTxt;
     private TextView titleTxt;
     private TextView submitTxt;
-    private TextView submitOnleTxt;
+    private TextView submitOnlyTxt;
     private TextView cancelTxt;
     private Context mContext;
     private String content;
@@ -35,9 +35,15 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
         super(context);
         this.mContext = context;
     }
-
     public ConfirmDialog(Context context, String content) {
         super(context, R.style.dialogCustom);
+        this.only=only;
+        this.mContext = context;
+        this.content = content;
+    }
+    public ConfirmDialog(Context context,boolean only, String content) {
+        super(context, R.style.dialogCustom);
+        this.only=only;
         this.mContext = context;
         this.content = content;
     }
@@ -90,9 +96,9 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
         twoBtn = findViewById(R.id.twoBtn);
         titleTxt = findViewById(R.id.title);
         submitTxt = findViewById(R.id.submit);
-        submitOnleTxt = findViewById(R.id.submitOnly);
+        submitOnlyTxt = findViewById(R.id.submitOnly);
         submitTxt.setOnClickListener(this);
-        submitOnleTxt.setOnClickListener(this);
+        submitOnlyTxt.setOnClickListener(this);
         cancelTxt = findViewById(R.id.cancel);
         cancelTxt.setOnClickListener(this);
         if(only){
@@ -105,7 +111,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
         contentTxt.setText(content);
         if(!TextUtils.isEmpty(positiveName)){
             submitTxt.setText(positiveName);
-            submitOnleTxt.setText(positiveName);
+            submitOnlyTxt.setText(positiveName);
         }
 
         if(!TextUtils.isEmpty(negativeName)){
@@ -132,6 +138,7 @@ public class ConfirmDialog extends Dialog implements View.OnClickListener{
                 if(listener != null){
                     listener.onClick(this, true);
                 }
+                this.dismiss();
                 break;
         }
     }

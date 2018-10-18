@@ -1,18 +1,23 @@
 package com.mysheng.office.kkanshop;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 /**
  * Created by myaheng on 2018/10/17.
  */
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity  implements View.OnClickListener{
+    
+
     /**
      * 初始化View
      */
-    public abstract void initView();
+    protected abstract void initView();
     /**
      * 初始化event
      */
-    public abstract void initEvent();
+    protected abstract void initEvent();
 }

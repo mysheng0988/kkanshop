@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class ChatListViewActivity extends Activity {
+public class ChatListViewActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView strTitle;
     private ChatListViewAdapter adapter;
@@ -27,6 +27,16 @@ public class ChatListViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_list_view);
         initData();
+        initView();
+        initEvent();
+
+
+    }
+    /**
+     * 初始化View
+     */
+    @Override
+    protected void initView() {
         recyclerView =  findViewById(R.id.recycler_view);
         strTitle=findViewById(R.id.common_title);
         strTitle.setText("聊天聊表");
@@ -38,12 +48,14 @@ public class ChatListViewActivity extends Activity {
         recyclerView.addItemDecoration(new ViewLineDivider(LinearLayoutManager.VERTICAL, 2, 0xFFCCCCCC));
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         btnBack=findViewById(R.id.btn_back);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    }
+
+    /**
+     * 初始化event
+     */
+    @Override
+    protected void initEvent() {
+        btnBack.setOnClickListener(this);
         /**
          * 传递出slidelayout中content和options两个布局所有view的点击事件，根据需要做判断
          */
@@ -89,7 +101,14 @@ public class ChatListViewActivity extends Activity {
             }
         });
     }
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_back:
+                finish();
+                break;
+        }
+    }
     private void initData() {
         Random random=new Random();
         ChatListModel model=new ChatListModel();
@@ -133,4 +152,6 @@ public class ChatListViewActivity extends Activity {
         model4.setUnReadNum(Math.round(num4));
         list.add(model4);
     }
+
+
 }

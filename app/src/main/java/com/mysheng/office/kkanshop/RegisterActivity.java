@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class RegisterActivity extends Activity implements View.OnClickListener{
+public class RegisterActivity extends BaseActivity{
     private EditText userName;
     private EditText userPassword;
     private EditText againPassword;
@@ -25,7 +25,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         initEvent();
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         userName=findViewById(R.id.user_name);
         userPassword=findViewById(R.id.user_password);
         againPassword=findViewById(R.id.user_pwd);
@@ -34,7 +35,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
         regBtn=findViewById(R.id.reg_Button);
         back=findViewById(R.id.back);
     }
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         btnCode.setOnClickListener(this);
         regBtn.setOnClickListener(this);
         btnCode.setOnClickListener(this);

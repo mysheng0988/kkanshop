@@ -16,6 +16,7 @@ public class GoodsModel implements Serializable {
     private String shopName;
     private List<String> goodsPath;
     private int modelType=IndexTools.Recommend;
+    private String goodsType;
     private float goodsPrice;
     private float goodsOldPrice;
     private boolean isReduce;//是否满减
@@ -78,6 +79,14 @@ public class GoodsModel implements Serializable {
 
     public void setModelType(int modelType) {
         this.modelType = modelType;
+    }
+
+    public String getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(String goodsType) {
+        this.goodsType = goodsType;
     }
 
     public float getGoodsPrice() {

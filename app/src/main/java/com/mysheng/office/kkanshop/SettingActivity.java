@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SettingActivity extends Activity implements View.OnClickListener{
+public class SettingActivity extends BaseActivity {
     private ImageButton backBtn;
     private TextView  title;
     private LinearLayout message;
@@ -22,14 +22,16 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         initView();
         initEvent();
     }
-    private void initView() {
+    @Override
+    protected void initView() {
         backBtn=findViewById(R.id.btn_back);
         title=findViewById(R.id.common_title);
         message=findViewById(R.id.message);
         updatePwd=findViewById(R.id.update_password);
         title.setText("账户设置");
     }
-    private void initEvent() {
+    @Override
+    protected void initEvent() {
         backBtn.setOnClickListener(this);
         message.setOnClickListener(this);
         updatePwd.setOnClickListener(this);

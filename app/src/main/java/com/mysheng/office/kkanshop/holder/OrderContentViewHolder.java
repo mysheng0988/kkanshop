@@ -16,7 +16,7 @@ import java.util.List;
 
 public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderShopModel> {
     private LinearLayout onlyOne;
-    private RelativeLayout moreList;
+    private LinearLayout moreList;
     private GoodsImageAdapter imageAdapter;
     private TextView shopName;
     private TextView goodsName;
@@ -26,9 +26,12 @@ public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderSho
     private TextView goodsAmount;
     private TextView totalPrice;
     private RecyclerView moreListView;
+    public ImageView listMore;
     private TextView sendType;
     private ImageView sendMore;
     private TextView remark;
+    public ImageView explain;
+    public ImageView explain2;
     public OrderContentViewHolder(View itemView) {
         super(itemView);
         onlyOne=itemView.findViewById(R.id.onlyOne);
@@ -44,6 +47,9 @@ public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderSho
         sendType=itemView.findViewById(R.id.sendType);
         sendMore=itemView.findViewById(R.id.sendMore);
         remark=itemView.findViewById(R.id.remark);
+        listMore=itemView.findViewById(R.id.listMore);
+        explain=itemView.findViewById(R.id.explain);
+        explain2=itemView.findViewById(R.id.explain2);
     }
     public void bindHolder(InfoOrderShopModel model){
         shopName.setText(model.getShopName());

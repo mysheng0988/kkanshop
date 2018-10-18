@@ -19,6 +19,7 @@ import java.util.List;
 public class InfoOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     public static final int ORDER_CONTENT = 0;
     public static final int ORDER_FOOTER = 1;
+
     private LayoutInflater mLayoutInflater;
     private List<InfoOrderShopModel> mList=new ArrayList<>();
     private List<InfoOrderFooterModel> mFooterModels=new ArrayList<>();
@@ -49,7 +50,32 @@ public class InfoOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Log.d("viewType", "onBindViewHolder: "+viewType);
         switch (viewType){
             case ORDER_CONTENT:
-                ((OrderContentViewHolder)holder).bindHolder(mList.get(position));
+                OrderContentViewHolder itemView=(OrderContentViewHolder)holder;
+                itemView.bindHolder(mList.get(position));
+                itemView.listMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mCallback!=null){
+                            mCallback.onItemClick(v,0,mList.get(position));
+                        }
+                    }
+                });
+                itemView.explain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mCallback!=null){
+                            mCallback.onItemClick(v,1,mList.get(position));
+                        }
+                    }
+                });
+                itemView.explain2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(mCallback!=null){
+                            mCallback.onItemClick(v,1,mList.get(position));
+                        }
+                    }
+                });
                 break;
             case ORDER_FOOTER:
                 ((OrderFooterViewHolder)holder).bindHolder(mFooterModels.get(0));
@@ -86,6 +112,6 @@ public class InfoOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public interface OnItemClickCallback<T> {
-        void onItemClick(View view, T mode);
+        void onItemClick(View view, int type,T mode);
     }
 }

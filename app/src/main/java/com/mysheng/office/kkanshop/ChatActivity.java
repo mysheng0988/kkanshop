@@ -54,7 +54,7 @@ import io.reactivex.functions.Consumer;
  * Created by myaheng on 2017/12/15.
  */
 
-public class ChatActivity extends Activity implements View.OnClickListener{
+public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private RecyclerView recyclerView;
     private RecyclerView genreView;
     private static boolean isKeyboard=false;//默认显示切换语音
@@ -261,8 +261,8 @@ public class ChatActivity extends Activity implements View.OnClickListener{
                 });
 
     }
-
-    private void initView(){
+    @Override
+    protected void initView(){
         titleText=findViewById(R.id.common_title);
         keyboard=findViewById(R.id.keyboard);
         Bundle bundle = this.getIntent().getExtras();
@@ -278,7 +278,8 @@ public class ChatActivity extends Activity implements View.OnClickListener{
         addItem=findViewById(R.id.add_item);
         mAudioRecorderButton =  findViewById(R.id.id_recorder_button);
     }
-    private void initEvent(){
+    @Override
+    protected void initEvent(){
         keyboard.setOnClickListener(this);
         sendOut.setOnClickListener(this);
         addItem.setOnClickListener(this);
