@@ -3,44 +3,51 @@
     android:id="@+id/SwipeMenuExpandableListView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white" >
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/title_layout_border" >
         <CheckBox
             android:id="@+id/determine_chekbox"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             android:layout_centerVertical="true"
             android:button="@drawable/check_box_bg"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center"
-            android:minHeight="38dp"
-            android:minWidth="32dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:visibility="visible" />
+        <ImageView
+            android:id="@+id/shopIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/determine_chekbox"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_shop"/>
 
         <TextView
             android:id="@+id/tv_source_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/determine_chekbox"
-            android:background="@color/white"
-            android:drawableLeft="@drawable/shop_ico"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/shopIcon"
             android:drawablePadding="10dp"
-            android:drawableRight="@drawable/s_jr_ico"
             android:text="第八号当铺"
             android:textColor="@color/grey_color2"
-            android:textSize="@dimen/txt_14" />
+            android:textSize="@dimen/txt_16" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_more"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -19,8 +19,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/txt_10"
-        android:paddingBottom="@dimen/txt_10"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:lineSpacingExtra="3dp"
@@ -30,9 +30,9 @@
         android:textColor="#80000000"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:alpha="0.2"
-        android:background="#666666"/>
+        android:layout_height="0.5dp"
+
+        android:background="@color/border_clo"/>
 
     <LinearLayout
         android:id="@+id/twoBtn"

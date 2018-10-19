@@ -10,29 +10,43 @@
       android:layout_height="35dp"
       android:gravity="center_vertical"
       android:orientation="horizontal">
-      <RadioButton
-          android:id="@+id/radioButton"
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:layout_height="wrap_content"
-          android:layout_gravity="left"
-          android:text="只看当前商品"
-          android:textColor="#3D3D3D"/>
+      <CheckBox
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:layout_marginLeft="@dimen/txt_10"
+          android:layout_gravity="center_vertical"
+          android:button="@drawable/single_check__bg"
+          android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+          android:gravity="center"
+          android:textSize="@dimen/txt_14"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:visibility="visible"
+          android:textColor="@color/text"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/txt_10"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:text="只看当前"
+            android:textColor="@color/text"/>
+
       <TextView
           android:id="@+id/praise"
           android:layout_width="0dp"
           android:layout_weight="1"
+          android:layout_marginRight="@dimen/txt_10"
           android:layout_gravity="center_vertical"
           android:gravity="right|center_vertical"
           android:layout_height="match_parent"
           android:text="好评率:99%"
-          android:textColor="#3D3D3D"/>
+          android:textColor="@color/text"/>
     </LinearLayout>
     <com.mysheng.office.kkanshop.view.LabelsView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/labelsView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:minHeight="25dp"
         android:padding="5dp"
         app:labelBackground="@drawable/label_bg"

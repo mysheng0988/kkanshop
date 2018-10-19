@@ -11,6 +11,7 @@
     <!-- 描边颜色 -->
     <color name="border_clo">#ccc</color>
     <color name="text_clo">#333</color>
+    <color name="text">#3D3D3D</color>
     <color name="white">#fff</color>
     <color name="red">#f00</color>
     <color name="blue">#419DE4</color>

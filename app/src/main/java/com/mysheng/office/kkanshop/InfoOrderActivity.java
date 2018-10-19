@@ -138,7 +138,7 @@ public class InfoOrderActivity extends BaseActivity{
                             listDialog.show();
                             break;
                         case 1:
-                            ConfirmDialog confirmDialog=new ConfirmDialog(InfoOrderActivity.this,true,"所有商品价格已结算价格为准,如有疑问请联系商家！");
+                            ConfirmDialog confirmDialog=new ConfirmDialog(InfoOrderActivity.this,true,"所有商品价格以结算价格为准,如有疑问请联系商家！");
                             confirmDialog.setTitle("温馨提示").show();
                             break;
                     }

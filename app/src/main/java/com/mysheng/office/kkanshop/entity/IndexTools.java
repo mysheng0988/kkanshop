@@ -125,7 +125,7 @@ public class IndexTools {
 		"https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
     );
     public static List<String> ONLYONE=Arrays.asList(
-            "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg"
+            "http://openfile.meizu.com/group1/M00/06/BC/Cgbj0FvINLWAZXL4AAz1Mo4DEhM073.png680x680.jpg"
     );
     public static List<String> TWO=Arrays.asList(
             "http://img.my.csdn.net/uploads/201701/06/1483664940_3308.jpg"

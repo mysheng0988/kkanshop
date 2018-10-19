@@ -9,12 +9,10 @@ import com.mysheng.office.kkanshop.view.LabelsView;
 
 public class SelectViewHolder extends IndexAbstractViewHolder<SelectModel> {
     public TextView praise;
-    public RadioButton radioButton;
     public LabelsView labelsView;
 
     public SelectViewHolder(View itemView) {
         super(itemView);
-        radioButton=itemView.findViewById(R.id.radioButton);
         praise=itemView.findViewById(R.id.praise);
         labelsView=itemView.findViewById(R.id.labelsView);
 
