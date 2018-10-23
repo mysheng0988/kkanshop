@@ -11,19 +11,22 @@ import android.widget.TextView;
 
 @SuppressLint("AppCompatCustomView")
 public class BorderTextView extends TextView{
-    private int borderWidth = 10;
+    private int borderWidth = 8;
+    private  int normalColor=0xFFFFFFFF;
     private Paint mPaint;
-    public BorderTextView(Context context) {
-        this(context,null);
+    public BorderTextView(Context context, int color) {
+        this(context,null,color);
+        setTextSize(12);
     }
 
-    public BorderTextView(Context context, @Nullable AttributeSet attrs) {
+    public BorderTextView(Context context, @Nullable AttributeSet attrs,int color) {
         super(context, attrs);
+        this.normalColor=color;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setFakeBoldText(true);
         mPaint.setStrokeWidth(borderWidth);
-        mPaint.setColor(Color.parseColor("#ffffff"));
+        mPaint.setColor(normalColor);
     }
 
     @Override

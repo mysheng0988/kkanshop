@@ -36,6 +36,8 @@ public class InfoOrderActivity extends BaseActivity{
     private ImageView comeBack;
     private ImageView addressMore;
     private TextView totalPrice;
+    private TextView submitOrder;
+
     private List<InfoOrderShopModel> shopModels=new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class InfoOrderActivity extends BaseActivity{
         comeBack=findViewById(R.id.comeBack);
         addressMore=findViewById(R.id.addressMore);
         totalPrice=findViewById(R.id.totalPrice);
+        submitOrder=findViewById(R.id.submitOrder);
         if(mAdapter==null){
             mAdapter=new InfoOrderAdapter(this);
         }else{
@@ -128,6 +131,7 @@ public class InfoOrderActivity extends BaseActivity{
 
         comeBack.setOnClickListener(this);
         addressMore.setOnClickListener(this);
+        submitOrder.setOnClickListener(this);
         mAdapter.setOnItemClickCallback(new InfoOrderAdapter.OnItemClickCallback() {
             @Override
             public void onItemClick(View view, int type,Object mode) {
@@ -149,9 +153,14 @@ public class InfoOrderActivity extends BaseActivity{
     }
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.comeBack:
                 finish();
+                break;
+            case R.id.submitOrder:
+                 intent=new Intent(InfoOrderActivity.this,OrderActivity.class);
+                startActivity(intent);
                 break;
             case R.id.addressMore:
 //                new ConfirmDialog(InfoOrderActivity.this, "您确定删除此信息？", new ConfirmDialog.OnCloseListener() {
@@ -164,7 +173,7 @@ public class InfoOrderActivity extends BaseActivity{
 //
 //                    }
 //                }).setTitle("提示").show();
-                Intent intent=new Intent(InfoOrderActivity.this,EditAddressActivity.class);
+                 intent=new Intent(InfoOrderActivity.this,EditAddressActivity.class);
                 startActivity(intent);
                 break;
         }

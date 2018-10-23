@@ -28,8 +28,8 @@ public class ViewPagerIndicator extends LinearLayout{
     public  PageOnChangeListener mListener;
     private static final int DEFAULT_TAB_COUNT=4;
     private static final float RADIO_TRIANGLE_WIDTH=1/5F;
-    private static final int COLOR_TEXT_NORMAL=0x77FFFFFF;
-    private static final int COLOR_TEXT_HIGHLIGHT=0xFFFFFFFF;
+    private  int COLOR_TEXT_NORMAL=0x77FFFFFF;
+    private  int COLOR_TEXT_HIGHLIGHT=0xFFFFFFFF;
     private  final int TRIANGLE_MAX_WIDTH= (int) (getScreenWidth()/3*RADIO_TRIANGLE_WIDTH);
     private  int mInitTranslationX;
     private  int mMoveTranslationX;
@@ -37,6 +37,7 @@ public class ViewPagerIndicator extends LinearLayout{
     private List<String> mTitle;
     private boolean lineStyle=false;
     private int indicatorColor=Color.WHITE;
+    private int dividerColor=Color.WHITE;
     public ViewPagerIndicator(Context context) {
         this(context ,null);
     }
@@ -47,6 +48,9 @@ public class ViewPagerIndicator extends LinearLayout{
         tabVisibleCount=ta.getInt(R.styleable.ViewPagerIndicator_visible_tab_count,DEFAULT_TAB_COUNT);
         lineStyle=ta.getBoolean(R.styleable.ViewPagerIndicator_line_style,lineStyle);
         indicatorColor=ta.getInt(R.styleable.ViewPagerIndicator_color,indicatorColor);
+        COLOR_TEXT_NORMAL=ta.getInt(R.styleable.ViewPagerIndicator_textColor,COLOR_TEXT_NORMAL);
+        COLOR_TEXT_HIGHLIGHT=ta.getInt(R.styleable.ViewPagerIndicator_textCheckedColor,COLOR_TEXT_HIGHLIGHT);
+        dividerColor=ta.getInt(R.styleable.ViewPagerIndicator_dividerColor,dividerColor);
         if(tabVisibleCount<0){
             tabVisibleCount=DEFAULT_TAB_COUNT;
         }
@@ -167,7 +171,7 @@ public class ViewPagerIndicator extends LinearLayout{
      * @return
      */
     private View getTabItemTitle(String title) {
-        BorderTextView tv=new BorderTextView(getContext());
+        BorderTextView tv=new BorderTextView(getContext(),dividerColor);
         LinearLayout.LayoutParams lp=new  LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
        lp.width=getScreenWidth()/tabVisibleCount;
         tv.setTextColor(COLOR_TEXT_NORMAL);

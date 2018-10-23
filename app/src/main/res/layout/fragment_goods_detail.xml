@@ -475,7 +475,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/txt_10"
                         android:gravity="center"
-                        android:background="@drawable/bg_resemble_radius"
+                        android:background="@drawable/button_radius_border"
                         android:textSize="@dimen/txt_14"
                         android:text="进入店铺"/>
                 </LinearLayout>

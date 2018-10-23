@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:background="@drawable/bg_title_radius">
         <ImageView
             android:layout_width="30dp"
@@ -26,6 +26,13 @@
             android:layout_height="35dp"
             android:text="星月神电动车定边旗舰店"
             android:textSize="16dp" />
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="@color/red_text_color"
+            android:text="等待付款"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/onlyOne"
@@ -65,28 +72,17 @@
                 android:textSize="@dimen/txt_12"
                 android:text="黑色 64G"
                 android:layout_marginLeft="5dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/goodsPrice"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/goodsPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/goodsPrice"
-                    android:textSize="16dp"
-                    android:textColor="@color/red_text_color"/>
-                <ImageView
-                    android:id="@+id/explain"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/icon_nonsupport"/>
-            </LinearLayout>
+                android:layout_gravity="center_vertical"
+                android:text="@string/goodsPrice"
+                android:textSize="16dp"
+                android:textColor="@color/text"/>
         </LinearLayout>
         <TextView
             android:layout_width="10dp"
@@ -126,6 +122,12 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/icon_more"/>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_radius"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:gravity="right"
@@ -142,73 +144,42 @@
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center_vertical"
-                android:textColor="@color/red_text_color"
+                android:textColor="@color/text"
                 android:textSize="16dp"
                 android:text="@string/goodsPrice"/>
-            <ImageView
-                android:id="@+id/explain2"
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/txt_10"
-                android:gravity="center"
-                android:src="@drawable/icon_nonsupport"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_radius"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="配送方式:"/>
-            <TextView
-                android:id="@+id/sendType"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:layout_height="match_parent"
-                android:text="店家配送"/>
-            <ImageView
-                android:id="@+id/sendMore"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/icon_more"/>
         </LinearLayout>
         <View style="@style/bg_line"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="留言:"/>
-            <EditText
-                android:id="@+id/remark"
-                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/txt_10"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_edit"
-                android:hint="请输入留言信息"
-                android:minLines="1"
-                android:textSize="@dimen/txt_14"
-                android:textCursorDrawable="@drawable/color_cursor" />
+                android:gravity="center"
+                android:background="@drawable/button_radius_border"
+                android:text="再次购买"
+                android:textSize="@dimen/txt_14"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/txt_10"
+                android:gravity="center"
+                android:background="@drawable/button_radius_border"
+                android:text="我要催单"
+                android:textSize="@dimen/txt_14"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/txt_10"
+                android:gravity="center"
+                android:background="@drawable/button_radius_border"
+                android:text="查看物流"
+                android:textSize="@dimen/txt_14"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
-

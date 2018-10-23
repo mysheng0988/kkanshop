@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:background="@drawable/bg_resemble_radius"
+            android:background="@drawable/button_radius_border"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="看相似"
