@@ -24,7 +24,7 @@ public class OrderActivity  extends FragmentActivity implements View.OnClickList
     private ViewPagerIndicator mIndicator;
     private ViewPager mViewPager;
     private List<String> mTitle= Arrays.asList("全部","待支付","待收货","已完成","已取消");
-    private List<VpNearbyFragment> listFragment=new ArrayList<>();
+    private List<OrderFragment> listFragment=new ArrayList<>();
     private FragmentPagerAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class OrderActivity  extends FragmentActivity implements View.OnClickList
         comeBack=findViewById(R.id.comeBack);
         mIndicator=findViewById(R.id.id_indicator);
         mViewPager=findViewById(R.id.viewPager);
-        for (String title:mTitle){
+        for (int i=0;i<mTitle.size();i++){
 
-            VpNearbyFragment fragment=new VpNearbyFragment();
+            OrderFragment fragment=OrderFragment.newInstance(i);
             listFragment.add(fragment);
         }
         mIndicator.setTabItemTitle(mTitle);

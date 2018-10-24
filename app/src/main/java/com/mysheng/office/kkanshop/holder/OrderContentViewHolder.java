@@ -5,16 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.adapter.GoodsImageAdapter;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
-import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
+import com.mysheng.office.kkanshop.entity.OrderShopModel;
 import java.util.List;
 
-public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderShopModel> {
+public class OrderContentViewHolder extends IndexAbstractViewHolder<OrderShopModel> {
     private LinearLayout onlyOne;
     private LinearLayout moreList;
     private GoodsImageAdapter imageAdapter;
@@ -51,7 +50,7 @@ public class OrderContentViewHolder extends IndexAbstractViewHolder<InfoOrderSho
         explain=itemView.findViewById(R.id.explain);
         explain2=itemView.findViewById(R.id.explain2);
     }
-    public void bindHolder(InfoOrderShopModel model){
+    public void bindHolder(OrderShopModel model){
         shopName.setText(model.getShopName());
         List<GoodsModel> goodsModels=model.getGoodsModels();
         int num=0;

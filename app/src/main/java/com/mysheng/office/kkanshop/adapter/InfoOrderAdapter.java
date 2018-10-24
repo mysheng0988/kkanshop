@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
-import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
+import com.mysheng.office.kkanshop.entity.OrderShopModel;
 import com.mysheng.office.kkanshop.holder.OrderContentViewHolder;
 import com.mysheng.office.kkanshop.holder.OrderFooterViewHolder;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class InfoOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int ORDER_FOOTER = 1;
 
     private LayoutInflater mLayoutInflater;
-    private List<InfoOrderShopModel> mList=new ArrayList<>();
+    private List<OrderShopModel> mList=new ArrayList<>();
     private List<InfoOrderFooterModel> mFooterModels=new ArrayList<>();
     private OnItemClickCallback mCallback;
 
@@ -98,7 +98,7 @@ public class InfoOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
 
-    public void setOrderContentData(List<InfoOrderShopModel> list) {
+    public void setOrderContentData(List<OrderShopModel> list) {
         mList.clear();
         mList.addAll(list);
     }

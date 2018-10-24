@@ -27,6 +27,7 @@
             android:text="星月神电动车定边旗舰店"
             android:textSize="16dp" />
         <TextView
+            android:id="@+id/orderStatus"
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:gravity="center"
@@ -92,9 +93,9 @@
             android:text="x"/>
         <TextView
             android:id="@+id/goodsAmount"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:gravity="left|center_vertical"
+            android:gravity="center_vertical"
             android:textSize="@dimen/txt_16"
             android:text="1"/>
     </LinearLayout>
@@ -105,23 +106,12 @@
         android:background="@drawable/lr_border"
         android:orientation="vertical"
         android:visibility="gone">
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/moreListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/moreListView"
-                android:layout_width="0dp"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:layout_height="80dp" />
-            <ImageView
-                android:id="@+id/listMore"
-                android:layout_width="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_height="match_parent"
-                android:src="@drawable/icon_more"/>
-        </LinearLayout>
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:layout_height="80dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -157,29 +147,63 @@
             android:gravity="right|center_vertical"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:id="@+id/orderEvaluate"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="@dimen/txt_10"
+                android:gravity="center"
+                android:background="@drawable/button_radius_border"
+                android:text="晒单评价"
+                android:textSize="@dimen/txt_14"/>
+            <TextView
+                android:id="@+id/againBuy"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
                 android:text="再次购买"
                 android:textSize="@dimen/txt_14"/>
             <TextView
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:id="@+id/reminder"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
                 android:text="我要催单"
                 android:textSize="@dimen/txt_14"/>
             <TextView
-                android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:id="@+id/logisticsMsg"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
                 android:text="查看物流"
                 android:textSize="@dimen/txt_14"/>
+
+            <TextView
+                android:id="@+id/confirmOrder"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="@dimen/txt_10"
+                android:gravity="center"
+                android:background="@drawable/bg_red_radius"
+                android:text="确认收货"
+                android:textColor="@color/red_text_color"
+                android:textSize="@dimen/txt_14"/>
+            <TextView
+                android:id="@+id/toPay"
+                android:layout_width="70dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="@dimen/txt_10"
+                android:gravity="center"
+                android:background="@drawable/bg_red_radius"
+                android:text="去支付"
+                android:textColor="@color/red_text_color"
+                android:textSize="@dimen/txt_14"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

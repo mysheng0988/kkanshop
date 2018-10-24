@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OrderModel implements Serializable {
     private String orderId;
-    private List<InfoOrderShopModel> OrderShopModels;
+    private List<OrderShopModel> OrderShopModels;
     private String createDate;
     private String userAddress;
     private String telPhone;
@@ -24,11 +24,11 @@ public class OrderModel implements Serializable {
     }
 
 
-    public List<InfoOrderShopModel> getOrderShopModels() {
+    public List<OrderShopModel> getOrderShopModels() {
         return OrderShopModels;
     }
 
-    public void setOrderShopModels(List<InfoOrderShopModel> orderShopModels) {
+    public void setOrderShopModels(List<OrderShopModel> orderShopModels) {
         OrderShopModels = orderShopModels;
     }
 

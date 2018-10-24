@@ -1,6 +1,5 @@
 package com.mysheng.office.kkanshop;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +19,7 @@ import com.mysheng.office.kkanshop.dialog.ListDialog;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
-import com.mysheng.office.kkanshop.entity.InfoOrderShopModel;
-import com.mysheng.office.kkanshop.entity.ShopModel;
+import com.mysheng.office.kkanshop.entity.OrderShopModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +36,7 @@ public class InfoOrderActivity extends BaseActivity{
     private TextView totalPrice;
     private TextView submitOrder;
 
-    private List<InfoOrderShopModel> shopModels=new ArrayList<>();
+    private List<OrderShopModel> shopModels=new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +64,7 @@ public class InfoOrderActivity extends BaseActivity{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         orderView.setLayoutManager(linearLayoutManager);
-        InfoOrderShopModel shopModel=new InfoOrderShopModel();
+        OrderShopModel shopModel=new OrderShopModel();
         List<GoodsModel> goodsModels=new ArrayList<>();
         float totalPriceNum=0;
         for (int i=0;i<10;i++){
@@ -79,19 +77,11 @@ public class InfoOrderActivity extends BaseActivity{
             goodsModels.add(goodsModel);
             totalPriceNum+=goodsModel.getGoodsPrice()*goodsModel.getGoodsAmount();
         }
-        Log.d("mys", "initView: "+totalPriceNum);
-//
-//        GoodsModel goodsModel11=new GoodsModel();
-//        goodsModel11.setGoodsName(IndexTools.title);
-//        goodsModel11.setGoodsPath(IndexTools.TWO);
-//        goodsModel11.setGoodsPrice(3299);
-//        goodsModel11.setGoodsAmount(2);
-//        goodsModels.add(goodsModel11);
         shopModel.setSendType("店家配送");
         shopModel.setShopName("小米旗舰店");
         shopModel.setGoodsModels(goodsModels);
         shopModels.add(shopModel);
-        InfoOrderShopModel shopModel2=new InfoOrderShopModel();
+        OrderShopModel shopModel2=new OrderShopModel();
         List<GoodsModel> goodsModels2=new ArrayList<>();
         GoodsModel goodsModel2=new GoodsModel();
         goodsModel2.setGoodsName(IndexTools.title);
@@ -103,7 +93,7 @@ public class InfoOrderActivity extends BaseActivity{
         shopModel2.setGoodsModels(goodsModels2);
         shopModels.add(shopModel2);
 
-        InfoOrderShopModel shopModel3=new InfoOrderShopModel();
+        OrderShopModel shopModel3=new OrderShopModel();
         List<GoodsModel> goodsModels3=new ArrayList<>();
         GoodsModel goodsModel3=new GoodsModel();
         goodsModel3.setGoodsName(IndexTools.title);
@@ -135,10 +125,10 @@ public class InfoOrderActivity extends BaseActivity{
         mAdapter.setOnItemClickCallback(new InfoOrderAdapter.OnItemClickCallback() {
             @Override
             public void onItemClick(View view, int type,Object mode) {
-                if(mode instanceof InfoOrderShopModel){
+                if(mode instanceof OrderShopModel){
                     switch (type){
                         case 0:
-                            ListDialog listDialog=new ListDialog(InfoOrderActivity.this,((InfoOrderShopModel) mode).getGoodsModels());
+                            ListDialog listDialog=new ListDialog(InfoOrderActivity.this,((OrderShopModel) mode).getGoodsModels());
                             listDialog.show();
                             break;
                         case 1:
