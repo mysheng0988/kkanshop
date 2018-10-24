@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_shape_radius"
-    android:layout_margin="5dp"
+    android:layout_marginTop="5dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,16 +140,17 @@
                 android:textSize="16dp"
                 android:text="@string/goodsPrice"/>
         </LinearLayout>
-        <View style="@style/bg_line"/>
+        <View style="@style/bg_line"
+            android:alpha="0.5"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:gravity="right|center_vertical"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/orderEvaluate"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
@@ -158,7 +159,7 @@
             <TextView
                 android:id="@+id/againBuy"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
@@ -167,7 +168,7 @@
             <TextView
                 android:id="@+id/reminder"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
@@ -176,7 +177,7 @@
             <TextView
                 android:id="@+id/logisticsMsg"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/button_radius_border"
@@ -186,7 +187,7 @@
             <TextView
                 android:id="@+id/confirmOrder"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/bg_red_radius"
@@ -196,7 +197,7 @@
             <TextView
                 android:id="@+id/toPay"
                 android:layout_width="70dp"
-                android:layout_height="25dp"
+                android:layout_height="28dp"
                 android:layout_marginRight="@dimen/txt_10"
                 android:gravity="center"
                 android:background="@drawable/bg_red_radius"

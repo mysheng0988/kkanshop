@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,6 +34,7 @@ public class ViewPagerIndicator extends LinearLayout{
     private  final int TRIANGLE_MAX_WIDTH= (int) (getScreenWidth()/3*RADIO_TRIANGLE_WIDTH);
     private  int mInitTranslationX;
     private  int mMoveTranslationX;
+    private int textSize;
     private ViewPager mViewPager;
     private List<String> mTitle;
     private boolean lineStyle=false;
@@ -51,6 +53,7 @@ public class ViewPagerIndicator extends LinearLayout{
         COLOR_TEXT_NORMAL=ta.getInt(R.styleable.ViewPagerIndicator_textColor,COLOR_TEXT_NORMAL);
         COLOR_TEXT_HIGHLIGHT=ta.getInt(R.styleable.ViewPagerIndicator_textCheckedColor,COLOR_TEXT_HIGHLIGHT);
         dividerColor=ta.getInt(R.styleable.ViewPagerIndicator_dividerColor,dividerColor);
+        textSize=ta.getDimensionPixelSize(R.styleable.ViewPagerIndicator_textSize,-1);
         if(tabVisibleCount<0){
             tabVisibleCount=DEFAULT_TAB_COUNT;
         }
@@ -176,6 +179,7 @@ public class ViewPagerIndicator extends LinearLayout{
        lp.width=getScreenWidth()/tabVisibleCount;
         tv.setTextColor(COLOR_TEXT_NORMAL);
         tv.setText(title);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         TextPaint tp = tv.getPaint();
         tp.setFakeBoldText(true);
         tv.setGravity(Gravity.CENTER);
@@ -188,6 +192,7 @@ public class ViewPagerIndicator extends LinearLayout{
         lp.width=getScreenWidth()/tabVisibleCount;
         tv.setTextColor(COLOR_TEXT_NORMAL);
         tv.setText(title);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         TextPaint tp = tv.getPaint();
         tp.setFakeBoldText(true);
         tv.setGravity(Gravity.CENTER);

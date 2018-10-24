@@ -16,7 +16,6 @@ public class BorderTextView extends TextView{
     private Paint mPaint;
     public BorderTextView(Context context, int color) {
         this(context,null,color);
-        setTextSize(12);
     }
 
     public BorderTextView(Context context, @Nullable AttributeSet attrs,int color) {
