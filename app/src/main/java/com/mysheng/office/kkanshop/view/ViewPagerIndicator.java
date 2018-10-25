@@ -21,14 +21,16 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import java.util.List;
 public class ViewPagerIndicator extends LinearLayout{
+    private static final int DEFAULT_TAB_COUNT=4;
+    private static final float RADIO_TRIANGLE_WIDTH=1/5F;
+    private static final int SHAPE_LINE=0;
+    private static final int SHAPE_TRIANGLE=1;
     private Paint mPaint;
     private Path mPath;
     private int triangleWidth;
     private int triangleHeight;
     private int tabVisibleCount;//可见tab得数量
     public  PageOnChangeListener mListener;
-    private static final int DEFAULT_TAB_COUNT=4;
-    private static final float RADIO_TRIANGLE_WIDTH=1/5F;
     private  int COLOR_TEXT_NORMAL=0x77FFFFFF;
     private  int COLOR_TEXT_HIGHLIGHT=0xFFFFFFFF;
     private  final int TRIANGLE_MAX_WIDTH= (int) (getScreenWidth()/3*RADIO_TRIANGLE_WIDTH);
@@ -37,7 +39,7 @@ public class ViewPagerIndicator extends LinearLayout{
     private int textSize;
     private ViewPager mViewPager;
     private List<String> mTitle;
-    private boolean lineStyle=false;
+    private int indicatorShape;
     private int indicatorColor=Color.WHITE;
     private int dividerColor=Color.WHITE;
     public ViewPagerIndicator(Context context) {
@@ -48,7 +50,7 @@ public class ViewPagerIndicator extends LinearLayout{
         //获取可见tab的数量
        TypedArray ta= context.obtainStyledAttributes(attrs, R.styleable.ViewPagerIndicator);
         tabVisibleCount=ta.getInt(R.styleable.ViewPagerIndicator_visible_tab_count,DEFAULT_TAB_COUNT);
-        lineStyle=ta.getBoolean(R.styleable.ViewPagerIndicator_line_style,lineStyle);
+        indicatorShape=ta.getInt(R.styleable.ViewPagerIndicator_shape,SHAPE_TRIANGLE);
         indicatorColor=ta.getInt(R.styleable.ViewPagerIndicator_color,indicatorColor);
         COLOR_TEXT_NORMAL=ta.getInt(R.styleable.ViewPagerIndicator_textColor,COLOR_TEXT_NORMAL);
         COLOR_TEXT_HIGHLIGHT=ta.getInt(R.styleable.ViewPagerIndicator_textCheckedColor,COLOR_TEXT_HIGHLIGHT);
@@ -101,7 +103,7 @@ public class ViewPagerIndicator extends LinearLayout{
         super.onSizeChanged(w, h, oldw, oldh);
         triangleWidth= (int) (w/tabVisibleCount*RADIO_TRIANGLE_WIDTH);
         triangleWidth=Math.min(TRIANGLE_MAX_WIDTH,triangleWidth);
-        if(lineStyle){
+        if(indicatorShape==SHAPE_LINE){
             mInitTranslationX=0;
             initLine();
         }else{

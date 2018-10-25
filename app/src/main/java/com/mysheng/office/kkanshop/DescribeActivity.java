@@ -32,6 +32,7 @@ import com.mysheng.office.kkanshop.adapter.DescribeViewAdapter;
 import com.mysheng.office.kkanshop.entity.DescribeModel;
 import com.mysheng.office.kkanshop.util.TakePhotoSetting;
 import com.mysheng.office.kkanshop.view.CustomProgressBar;
+import com.mysheng.office.kkanshop.view.MarqueeTextView;
 
 
 import java.util.ArrayList;
@@ -44,7 +45,8 @@ import java.util.List;
 
 public class DescribeActivity extends TakePhotoActivity implements View.OnClickListener{
     private ImageView comeBack;
-    private ProgressBar progressBar;
+
+    private MarqueeTextView marqueeTextView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +60,9 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
 
     private void initView() {
         comeBack=findViewById(R.id.comeBack);
-        progressBar=findViewById(R.id.progressBar);
-        progressBar.setMax(100);
-        progressBar.setProgress(60);
+        marqueeTextView=findViewById(R.id.marquee);
+        marqueeTextView.startScroll();
+
 
     }
     private void initEvent() {
@@ -80,6 +82,21 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        marqueeTextView.resumeScroll();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        marqueeTextView.pauseScroll();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        marqueeTextView.stopScroll();
+    }
 }

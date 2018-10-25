@@ -24,17 +24,18 @@
     <dimen name="line_gray_halving_height">6dp</dimen>
 
     <!-- 字体大小 -->
-    <dimen name="txt_8">8sp</dimen>
-    <dimen name="txt_10">10sp</dimen>
-    <dimen name="txt_12">12sp</dimen>
-    <dimen name="txt_14">14sp</dimen>
-    <dimen name="txt_16">16sp</dimen>
-    <dimen name="txt_18">18sp</dimen>
-    <dimen name="txt_20">20sp</dimen>
-    <dimen name="txt_22">22sp</dimen>
-    <dimen name="txt_24">24sp</dimen>
-    <dimen name="txt_26">26sp</dimen>
-    <dimen name="txt_28">28sp</dimen>
+    <dimen name="txt_5">5dp</dimen>
+    <dimen name="txt_8">8dp</dimen>
+    <dimen name="txt_10">10dp</dimen>
+    <dimen name="txt_12">12dp</dimen>
+    <dimen name="txt_14">14dp</dimen>
+    <dimen name="txt_16">16dp</dimen>
+    <dimen name="txt_18">18dp</dimen>
+    <dimen name="txt_20">20dp</dimen>
+    <dimen name="txt_22">22dp</dimen>
+    <dimen name="txt_24">24dp</dimen>
+    <dimen name="txt_26">26dp</dimen>
+    <dimen name="txt_28">28dp</dimen>
     <dimen name="width_">90dp</dimen>
     <dimen name="gap" >100dp</dimen >
 </resources>

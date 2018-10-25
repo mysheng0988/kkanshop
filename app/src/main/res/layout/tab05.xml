@@ -472,7 +472,7 @@
             android:background="@color/colorPrimaryDark"
             app:visible_tab_count="4"
             app:color="@color/red"
-            app:line_style="true"
+            app:shape="line"
             android:layout_height="40dp">
         </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
     </android.support.design.widget.AppBarLayout>

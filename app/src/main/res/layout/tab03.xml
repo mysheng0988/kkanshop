@@ -50,7 +50,6 @@
         android:layout_width="match_parent"
         android:background="@color/colorPrimaryDark"
         app:visible_tab_count="4"
-        app:line_style="false"
         app:color="@color/white"
         android:layout_height="40dp">
     </com.mysheng.office.kkanshop.view.ViewPagerIndicator>

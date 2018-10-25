@@ -91,8 +91,8 @@
                         android:textStyle="bold"/>
                     <ImageView
                         android:id="@+id/shopCart"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/txt_16"
                         android:layout_alignParentRight="true"
@@ -126,7 +126,7 @@
             android:background="@color/colorPrimaryDark"
             hyman:visible_tab_count="4"
             app:color="@color/red"
-            app:line_style="true"
+            app:shape="line"
             android:layout_height="40dp">
         </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
     </android.support.design.widget.AppBarLayout>
