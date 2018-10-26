@@ -187,8 +187,11 @@
         <View style="@style/bg_line"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:focusable="true"
+            android:minHeight="40dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:focusableInTouchMode="true"
             android:orientation="horizontal">
             <TextView
@@ -199,11 +202,13 @@
             <EditText
                 android:id="@+id/remark"
                 android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="@dimen/txt_10"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:layout_margin="2dp"
                 android:layout_weight="1"
+                android:lineSpacingMultiplier="1.2"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_edit"
+                android:background="@color/white"
                 android:hint="请输入留言信息"
                 android:minLines="1"
                 android:textSize="@dimen/txt_14"

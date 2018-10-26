@@ -85,18 +85,17 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
     @Override
     protected void onResume() {
         super.onResume();
-        marqueeTextView.resumeScroll();
+      marqueeTextView.startScroll();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        marqueeTextView.pauseScroll();
+        marqueeTextView.stopScroll();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        marqueeTextView.stopScroll();
     }
 }

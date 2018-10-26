@@ -26,16 +26,31 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
-  <include layout="@layout/item_seckill_layout"/>
-    <com.mysheng.office.kkanshop.view.MarqueeTextView
-        android:id="@+id/marquee"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="上海上港在苏宁身上失了两分，对于恒大来说，苦苦等待的机会终于来了，但在11月3日主场和上港的决战之前，他们必须要跨过贵州恒丰这一关。"
-        android:textColor="#ff0000"
-        android:textSize="18sp"
-        app:scroll_first_delay="1000"
-        app:scroll_speed="5"
-        app:scroll_mode="mode_forever" />
+        android:layout_height="35dp"
+        android:background="@drawable/bg_notice_border">
+        <ImageView
+            android:id="@+id/notice"
+            android:layout_width="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/icon_notice"/>
+        <com.mysheng.office.kkanshop.view.MarqueeTextView
+            android:id="@+id/marquee"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="上海上港在苏宁身上失了两分，对于恒大来说，苦苦等待的机会终于来了，但在11月3日主场和上港的决战之前，他们必须要跨过贵州恒丰这一关。"
+            android:textColor="#986D3B"
+            android:textSize="18sp"
+            app:scroll_first_delay="1000"
+            app:scroll_speed="4"
+            app:scroll_mode="mode_forever" />
+    </LinearLayout>
+  <include layout="@layout/item_seckill_layout"/>
+
+
 </LinearLayout>
