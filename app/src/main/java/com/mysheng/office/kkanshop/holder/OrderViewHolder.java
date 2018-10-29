@@ -15,7 +15,7 @@ import com.mysheng.office.kkanshop.entity.OrderShopModel;
 
 import java.util.List;
 
-public class OrderViewHolder extends IndexAbstractViewHolder<OrderShopModel> {
+public class OrderViewHolder extends CommonAbstractViewHolder<OrderShopModel> {
     private GoodsImageAdapter imageAdapter;
     public TextView shopName;
     public TextView orderStatus;

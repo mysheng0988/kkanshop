@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -100,8 +101,9 @@ public class MessagePicturesLayout extends FrameLayout implements View.OnClickLi
         tOverflowCount.setLayoutParams(lpChildImage);
 
         mVisiblePictureList.clear();
+
         for (int i = 0; i < iPictureList.size(); i++) {
-            final ImageView iPicture = iPictureList.get(i);
+            ImageView iPicture = iPictureList.get(i);
             if (i < urlListSize) {
                 iPicture.setVisibility(View.VISIBLE);
                 mVisiblePictureList.add(iPicture);
@@ -111,6 +113,7 @@ public class MessagePicturesLayout extends FrameLayout implements View.OnClickLi
                 iPicture.setTranslationX((i % column) * (imageSize + mSpace));
                 iPicture.setTranslationY((i / column) * (imageSize + mSpace));
             } else {
+                Log.e("mmm", "notifyDataChanged:"+i+"错误 "+ urlListSize);
                 iPicture.setVisibility(View.GONE);
             }
 

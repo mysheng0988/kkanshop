@@ -218,9 +218,6 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         final int viewType=getItemViewType(position);
 
         final int realPosition=position-mPosition.get(viewType);
-        Log.e("mys", "position: "+ position);
-        Log.e("mys", "mPosition.get(viewType): "+ mPosition.get(viewType));
-        Log.e("mys", "onBindViewHolder: "+ viewType);
         switch (viewType){
             case IndexTools.BANNER:
                 ((BannerViewHolder)holder).bindHolder(bannerModels.get(realPosition));

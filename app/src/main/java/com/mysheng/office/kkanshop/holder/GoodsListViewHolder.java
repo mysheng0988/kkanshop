@@ -8,7 +8,7 @@ import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
 
 
-public class GoodsListViewHolder extends IndexAbstractViewHolder<GoodsModel>{
+public class GoodsListViewHolder extends CommonAbstractViewHolder<GoodsModel> {
     private ImageView goodsImage;
     private TextView goodsName;
     private TextView goodsType;

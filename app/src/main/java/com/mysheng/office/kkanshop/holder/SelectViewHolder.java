@@ -1,13 +1,12 @@
 package com.mysheng.office.kkanshop.holder;
 
 import android.view.View;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.SelectModel;
 import com.mysheng.office.kkanshop.view.LabelsView;
 
-public class SelectViewHolder extends IndexAbstractViewHolder<SelectModel> {
+public class SelectViewHolder extends CommonAbstractViewHolder<SelectModel> {
     public TextView praise;
     public LabelsView labelsView;
 

@@ -5,7 +5,7 @@ import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.GoTitleModel;
 import com.mysheng.office.kkanshop.view.ChangeTextView;
 
-public class GoTitleViewHolder extends IndexAbstractViewHolder<GoTitleModel> {
+public class GoTitleViewHolder extends CommonAbstractViewHolder<GoTitleModel> {
     public ChangeTextView goTitle;
     public GoTitleViewHolder(View itemView) {
         super(itemView);

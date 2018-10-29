@@ -13,7 +13,7 @@ import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.entity.OrderShopModel;
 import java.util.List;
 
-public class OrderContentViewHolder extends IndexAbstractViewHolder<OrderShopModel> {
+public class OrderContentViewHolder extends CommonAbstractViewHolder<OrderShopModel> {
     private LinearLayout onlyOne;
     private LinearLayout moreList;
     private GoodsImageAdapter imageAdapter;

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.NavModel;
 
-public class NavViewHolder extends IndexAbstractViewHolder<NavModel> {
+public class NavViewHolder extends CommonAbstractViewHolder<NavModel> {
     public ImageView navIcon;
     public TextView navTitle;
 

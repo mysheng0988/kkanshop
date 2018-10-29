@@ -5,10 +5,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.entity.TitleShopModel;
 
-public class TitleShopViewHolder extends IndexAbstractViewHolder<TitleShopModel> {
+public class TitleShopViewHolder extends CommonAbstractViewHolder<TitleShopModel> {
     public TextView leftTitle;
     public TextView centerTitle;
     public LinearLayout moreList;

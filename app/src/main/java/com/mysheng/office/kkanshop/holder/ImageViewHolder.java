@@ -7,9 +7,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
-import com.mysheng.office.kkanshop.entity.NavModel;
 
-public class ImageViewHolder extends IndexAbstractViewHolder<GoodsModel> {
+public class ImageViewHolder extends CommonAbstractViewHolder<GoodsModel> {
     public ImageView goodsIcon;
     private TextView goodsAmount;
     public ImageViewHolder(View itemView) {

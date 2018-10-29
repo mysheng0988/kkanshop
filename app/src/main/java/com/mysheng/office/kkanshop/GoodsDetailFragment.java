@@ -21,12 +21,10 @@ import com.mysheng.office.kkanshop.adapter.DescribeViewAdapter;
 import com.mysheng.office.kkanshop.banner.Banner;
 import com.mysheng.office.kkanshop.banner.GlideImageLoader;
 import com.mysheng.office.kkanshop.entity.DescribeModel;
-import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.listenter.ChangePage;
-import com.mysheng.office.kkanshop.page.Page;
-import com.mysheng.office.kkanshop.page.PageBehavior;
-import com.mysheng.office.kkanshop.page.PageContainer;
+
 import com.mysheng.office.kkanshop.dialog.GoodsParamDialog;
+import com.mysheng.office.kkanshop.view.CustomerScrollView;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import com.mysheng.office.kkanshop.view.ShoppingCartAnimationView;
 
@@ -42,13 +40,11 @@ public class GoodsDetailFragment extends Fragment implements View.OnClickListene
 
     private Banner banner;
     private ArrayList<String> list = new ArrayList<>();
-    private Page pageOne;
+
+    private CustomerScrollView customerScrollView;
     private ChangePage mChangePage;
-    private PageContainer container;
-    private Page.OnScrollListener onScrollListener;
     private ImageView goodsFollow;
     private MessagePicturesLayout msgImg;
-    private RecyclerView describeView;
     private DescribeViewAdapter mAdapter;
     private List<DescribeModel> modelslist=new ArrayList<>();
     private TextView infoCart;
@@ -87,17 +83,26 @@ public class GoodsDetailFragment extends Fragment implements View.OnClickListene
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        banner = (Banner) view.findViewById(R.id.banner);
-        pageOne = (Page) view.findViewById(R.id.pageOne);
+        banner = view.findViewById(R.id.banner);
         typeSelect=view.findViewById(R.id.typeSelect);
         typeSelect.setOnClickListener(this);
         goodsFollow =  view.findViewById(R.id.goodsFollow);
-        container = (PageContainer) view.findViewById(R.id.container);
         banner.setImages(list).setImageLoader(new GlideImageLoader()).isAutoPlay(false).start();
-        describeView=view.findViewById(R.id.describe_view);
         infoCart=view.findViewById(R.id.infoCart);
         goodsNum=view.findViewById(R.id.goods_num);
         msgImg=view.findViewById(R.id.msgImg);
+        customerScrollView=view.findViewById(R.id.customerScrollView);
+        customerScrollView.setOnScrollChangeListener(new CustomerScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollToStart() {
+
+            }
+
+            @Override
+            public void onScrollToEnd() {
+                mChangePage.showTabPage(1);
+            }
+        });
         msgImg.set(list,list);
         infoCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,32 +118,10 @@ public class GoodsDetailFragment extends Fragment implements View.OnClickListene
             mAdapter.notifyDataSetChanged();
         }
 
-
-
-        PageContainer pageContainer = (PageContainer) view.findViewById(R.id.container);
-
-        pageContainer.setOnPageChanged(new PageBehavior.OnPageChanged(){
-
-            @Override
-            public void toTop() {
-                //位于第一页
-
-                mChangePage.showTabPage(1);
-            }
-
-            @Override
-            public void toBottom() {
-                //位于第二页
-                mChangePage.showTabPage(2);
-                Log.e("mys", "toBottom: "+ modelslist.size());
-                Log.e("mys", "toBottom: "+ mAdapter.getItemCount());
-                initDetailsData();
-            }
-        });
         goodsFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mChangePage.showTabPage(3);
+                mChangePage.showTabPage(2);
             }
         });
     }
@@ -167,20 +150,20 @@ public class GoodsDetailFragment extends Fragment implements View.OnClickListene
      * 初始化详情页面数据
      */
     private void initDetailsData(){
-        modelslist.clear();
-        for(int i = 0; i< IndexTools.Describe.length; i++){
-            DescribeModel describeModel=new DescribeModel();
-            describeModel.setImagePath(IndexTools.Describe[i]);
-            modelslist.add(describeModel);
-        }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        linearLayoutManager.setSmoothScrollbarEnabled(true);
-        describeView.setHasFixedSize(true);
-        describeView.setLayoutManager(linearLayoutManager);
-        describeView.setNestedScrollingEnabled(false);
-        mAdapter.addList(modelslist);
-        describeView.setAdapter(mAdapter);
+//        modelslist.clear();
+//        for(int i = 0; i< IndexTools.Describe.length; i++){
+//            DescribeModel describeModel=new DescribeModel();
+//            describeModel.setImagePath(IndexTools.Describe[i]);
+//            modelslist.add(describeModel);
+//        }
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        linearLayoutManager.setSmoothScrollbarEnabled(true);
+//        describeView.setHasFixedSize(true);
+//        describeView.setLayoutManager(linearLayoutManager);
+//        describeView.setNestedScrollingEnabled(false);
+//        mAdapter.addList(modelslist);
+//        describeView.setAdapter(mAdapter);
     }
 
     @Override

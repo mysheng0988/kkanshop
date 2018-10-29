@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.TitleModel;
 
-public class TitleViewHolder extends IndexAbstractViewHolder<TitleModel> {
+public class TitleViewHolder extends CommonAbstractViewHolder<TitleModel> {
     public TextView leftTitle;
     public TextView centerTitle;
     public LinearLayout moreList;

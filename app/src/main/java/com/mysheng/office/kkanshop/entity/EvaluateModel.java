@@ -1,13 +1,11 @@
 package com.mysheng.office.kkanshop.entity;
-
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by myaheng on 2018/9/19.
  */
 
-public class EvaluateModel implements Serializable {
+public class EvaluateModel extends TypeMode  {
     private String userIcon;
     private String userName;
     private float score;

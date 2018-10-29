@@ -6,7 +6,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/19.
  */
 
-public class SelectModel {
+public class SelectModel extends TypeMode {
     private int selectId;
     private List<String> selectitem;
     private int praise;

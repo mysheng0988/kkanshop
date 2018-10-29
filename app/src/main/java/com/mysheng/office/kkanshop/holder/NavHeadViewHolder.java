@@ -1,16 +1,14 @@
 package com.mysheng.office.kkanshop.holder;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.LabelModel;
 import com.mysheng.office.kkanshop.entity.NavHeadModel;
-import com.mysheng.office.kkanshop.entity.NavModel;
 import com.mysheng.office.kkanshop.view.LabelsView;
 
-public class NavHeadViewHolder extends IndexAbstractViewHolder<NavHeadModel> {
+public class NavHeadViewHolder extends CommonAbstractViewHolder<NavHeadModel> {
     public LabelsView labelsView;
     public TextView navTitle;
 

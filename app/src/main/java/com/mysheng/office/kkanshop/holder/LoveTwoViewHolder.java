@@ -6,11 +6,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.GoTitleModel;
 import com.mysheng.office.kkanshop.entity.LoveModel;
-import com.mysheng.office.kkanshop.view.ChangeTextView;
 
-public class LoveTwoViewHolder extends IndexAbstractViewHolder<LoveModel> {
+public class LoveTwoViewHolder extends CommonAbstractViewHolder<LoveModel> {
     public TextView loveTitle;
     public TextView discountTitle;
     public TextView labelTitle;

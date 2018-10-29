@@ -6,10 +6,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.NavModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 
-public class NearbyViewHolder extends IndexAbstractViewHolder<ShopModel> {
+public class NearbyViewHolder extends CommonAbstractViewHolder<ShopModel> {
     public TextView shopName;
     public TextView telPhone;
     public ImageView mainPath;

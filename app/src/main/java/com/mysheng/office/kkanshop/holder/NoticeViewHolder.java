@@ -12,7 +12,7 @@ import com.mysheng.office.kkanshop.view.NoticeView;
  * Created by myaheng on 2018/9/10.
  */
 
-public class NoticeViewHolder extends IndexAbstractViewHolder<NoticeModel>{
+public class NoticeViewHolder extends CommonAbstractViewHolder<NoticeModel> {
     public NoticeView noticeView;
     public LinearLayout moreList;
 

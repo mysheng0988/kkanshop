@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 
-public class RecommendViewHolder extends IndexAbstractViewHolder<RecommendModel> {
+public class RecommendViewHolder extends CommonAbstractViewHolder<RecommendModel> {
     public TextView goodsTitle;
     public TextView goodsPrice;
     public TextView resemble;

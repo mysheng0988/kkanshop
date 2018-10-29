@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.InfoOrderFooterModel;
 
-public class OrderFooterViewHolder extends IndexAbstractViewHolder<InfoOrderFooterModel> {
+public class OrderFooterViewHolder extends CommonAbstractViewHolder<InfoOrderFooterModel> {
     private TextView payType;
     private ImageView payMore;
     private TextView invoiceType;

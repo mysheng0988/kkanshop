@@ -16,17 +16,13 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.mysheng.office.kkanshop.adapter.EvaluateAdapter;
-import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
-
+import com.mysheng.office.kkanshop.adapter.CommentAdapter;
 import com.mysheng.office.kkanshop.entity.EvaluateModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.SelectModel;
-import com.mysheng.office.kkanshop.entity.ShopModel;
+import com.mysheng.office.kkanshop.entity.TypeMode;
 import com.mysheng.office.kkanshop.imagesWatcher.ImageWatcher;
-import com.mysheng.office.kkanshop.util.Utils;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,10 +49,10 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
     }
 
     private RecyclerView mRecyclerView;
-    private EvaluateAdapter mAdapter;
+    private CommentAdapter mAdapter;
     private ImageWatcher vImageWatcher;
-    private List<SelectModel> selectModels=new ArrayList<>();
-    private List<EvaluateModel> evaluateModels=new ArrayList<>();
+    private List<TypeMode> typeModes=new ArrayList<>();
+
     private List<String>  selectItems= Arrays.asList("全部123","最近25","好评101","中评20","差评2");
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,19 +83,13 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
                     }
                 })
                 .create();
-        if(mAdapter==null){
-            mAdapter=new EvaluateAdapter(KkanApplication.mContext);
-        }else{
-            mAdapter.notifyDataSetChanged();
-        }
-        mAdapter.setPictureClickCallback(this);
-        selectModels.clear();
-        evaluateModels.clear();
+        typeModes.clear();
 
         SelectModel selectModel=new SelectModel();
         selectModel.setPraise(82);
+        selectModel.setTypeParam(IndexTools.SELECT);
         selectModel.setSelectitem(selectItems);
-        selectModels.add(selectModel);
+        typeModes.add(selectModel);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -109,6 +99,7 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
         int len=random.nextInt(50);
         for (int i=0;i<len;i++){
             EvaluateModel model=new EvaluateModel();
+            model.setTypeParam(IndexTools.EVALUATE);
             model.setComment("十分仲意性价比超高好喜欢哦 听说客服小姐姐才华横溢 请小姐姐作一首诗《吾爱莉莉》十分感谢哦爱你哦");
             model.setGoodsType("红色,128G");
             List <String> images=IndexTools.pictureList;
@@ -119,10 +110,14 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
             model.setStrData("2018-10-10");
             float num=random.nextFloat()*5;
             model.setScore(num);
-            evaluateModels.add(model);
+            typeModes.add(model);
         }
-        mAdapter.setSelectModels(selectModels);
-        mAdapter.setEvaluateModels(evaluateModels);
+        if(mAdapter==null){
+            mAdapter=new CommentAdapter(KkanApplication.mContext,typeModes);
+        }else{
+            mAdapter.notifyDataSetChanged();
+        }
+        mAdapter.setPictureClickCallback(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }

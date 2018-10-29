@@ -6,7 +6,7 @@ import com.mysheng.office.kkanshop.entity.EvaluateModel;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import com.mysheng.office.kkanshop.view.RoundImageView;
 import com.mysheng.office.kkanshop.view.Star;
-public class EvaluateViewHolder extends IndexAbstractViewHolder<EvaluateModel> {
+public class EvaluateViewHolder extends CommonAbstractViewHolder<EvaluateModel> {
 
     public RoundImageView userIcon;
     public TextView userName;

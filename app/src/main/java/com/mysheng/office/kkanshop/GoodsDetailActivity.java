@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.adapter.MinePagerAdapter;
 import com.mysheng.office.kkanshop.listenter.ChangePage;
-import com.mysheng.office.kkanshop.page.Page;
-import com.mysheng.office.kkanshop.page.PageBehavior;
 import com.mysheng.office.kkanshop.page.ViewPagerSlide;
 
 /**
@@ -41,15 +39,11 @@ public class GoodsDetailActivity extends AppCompatActivity implements ChangePage
         tabs =findViewById(R.id.tabs);
         toolbar =  findViewById(R.id.toolbar);
         viewpager = findViewById(R.id.viewpager);
-        detailImgText = findViewById(R.id.detailImgText);
-
         setSupportActionBar(toolbar);
-
         toolbar.setNavigationIcon(R.drawable.btn_back);
 
-
         minePagerAdapter = new MinePagerAdapter(getSupportFragmentManager());
-        viewpager.setOffscreenPageLimit(4);
+//        viewpager.setOffscreenPageLimit(4);
         viewpager.setAdapter(minePagerAdapter);
         tabs.setupWithViewPager(viewpager);
 
@@ -71,20 +65,6 @@ public class GoodsDetailActivity extends AppCompatActivity implements ChangePage
 
     @Override
     public void showTabPage(int page) {
-        switch (page){
-            case 1:
-                viewpager.setScanScroll(true);
-                tabs.setVisibility(View.VISIBLE);
-                detailImgText.setVisibility(View.GONE);
-                break;
-            case 2:
-                viewpager.setScanScroll(false);
-                tabs.setVisibility(View.GONE);
-                detailImgText.setVisibility(View.VISIBLE);
-                break;
-            case 3:
-                tabs.getTabAt(1).select();
-                break;
-        }
+        tabs.getTabAt(page).select();
     }
 }

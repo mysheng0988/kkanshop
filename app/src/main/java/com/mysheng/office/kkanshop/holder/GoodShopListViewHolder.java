@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 
-public class GoodShopListViewHolder extends IndexAbstractViewHolder<ShopModel>{
+public class GoodShopListViewHolder extends CommonAbstractViewHolder<ShopModel> {
     private ImageView infoShop;
     private ImageView imagePath1;
     private ImageView imagePath2;

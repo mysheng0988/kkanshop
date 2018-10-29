@@ -15,7 +15,7 @@ import com.mysheng.office.kkanshop.entity.BannerModel;
  * Created by myaheng on 2018/9/10.
  */
 
-public class BannerViewHolder extends IndexAbstractViewHolder<BannerModel>{
+public class BannerViewHolder extends CommonAbstractViewHolder<BannerModel> {
     public Banner banner;
     public BannerViewHolder(View itemView) {
         super(itemView);

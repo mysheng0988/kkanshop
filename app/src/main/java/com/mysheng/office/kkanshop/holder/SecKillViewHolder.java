@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.KillModel;
 
-public class SecKillViewHolder extends IndexAbstractViewHolder<KillModel> {
+public class SecKillViewHolder extends CommonAbstractViewHolder<KillModel> {
     private ImageView killImage;
     private ImageView statusImage;
     private ImageView finished;
