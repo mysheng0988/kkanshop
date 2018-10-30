@@ -27,6 +27,7 @@ import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.entity.TitleShopModel;
+import com.mysheng.office.kkanshop.entity.TypeMode;
 import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
@@ -47,7 +48,7 @@ import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
 
-public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener{
+public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener<TypeMode>{
 	private ImageView scanCode;
 	private ImageView chatMsg;
 	private ImageView backTop;
@@ -60,6 +61,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 	private List<String> list_path=new ArrayList<>();
 	private List<String> list_title=new ArrayList<>();
 	private List<String> listNews=new ArrayList<>();
+	private List<TypeMode> mList=new ArrayList<>();
 
 	private String[] killPath={
 			"https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg",
@@ -128,10 +130,11 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
 			@Override
 			public void onLoadMore( RefreshLayout refreshlayout) {
-				List<RecommendModel> recommendModels=new ArrayList<>();
+				List<TypeMode> recommendModels=new ArrayList<>();
 				for(int i=0;i<IndexTools.list.length;i++){
 					RecommendModel reModel=new RecommendModel();
 					reModel.setGoodsPath(IndexTools.list[i]);
+					reModel.setTypeParam(IndexTools.Recommend);
 					reModel.setGoodsTitle(IndexTools.title);
 					Random random=new Random();
 					int num=random.nextInt(1000);
@@ -139,7 +142,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 					recommendModels.add(reModel);
 				}
 				int start=mIndexAdapter.getItemCount();
-				mIndexAdapter.addRecommendModels(recommendModels);
+				mIndexAdapter.setModelList(recommendModels);
 				int end=mIndexAdapter.getItemCount();
 				mIndexAdapter.notifyItemRangeChanged(start,end);
 				refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
@@ -192,6 +195,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		list_title.add("红米5最高立减200元");
 		list_title.add("华为P20pro");
 		BannerModel bannerModel=new BannerModel();
+		bannerModel.setTypeParam(IndexTools.BANNER);
 		bannerModel.setImgPaths(list_path);
 		bannerModel.setTitles(list_title);
 		GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),8);
@@ -229,64 +233,66 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		}else{
 			mIndexAdapter.notifyDataSetChanged();
 		}
-		List<BannerModel> list=new ArrayList<>();
-		list.add(bannerModel);
+		mList.add(bannerModel);
 		List<NavModel> navModels=new ArrayList<>();
 		for (int i=0;i<IndexTools.navTitle.length;i++){
 			NavModel navModel=new NavModel();
 			navModel.setNavIcon(IndexTools.navIcon[i]);
 			navModel.setNavTitle(IndexTools.navTitle[i]);
+			navModel.setModelParam(IndexTools.NAV);
 			navModels.add(navModel);
 		}
 
-		List<NoticeModel>newsModels=new ArrayList<>();
+		NoticeModel noticeModel=new NoticeModel();
 		listNews.add("大促销下单拆福袋，亿万新年红包随便拿");
 		listNews.add("家电五折团，抢十亿无门槛现金红包");
 		listNews.add("星球大战剃须刀首发送200元代金券");
-		NoticeModel newsModel=new NoticeModel();
-		newsModel.setTextList(listNews);
-		newsModels.add(newsModel);
-		List<TitleModel> titleModels=new ArrayList<>();
+		noticeModel.setTypeParam(IndexTools.NOTICE);
+		noticeModel.setTextList(listNews);
+		mList.add(noticeModel);
 		TitleModel titleModel=new TitleModel();
 		titleModel.setLeftTitle("整点秒杀");
+		titleModel.setTypeParam(IndexTools.KILLTITLE);
 		titleModel.setCenterTitle("22:00场 01:45:59");
-		titleModels.add(titleModel);
-		List<KillModel> killModels=new ArrayList<>();
+		mList.add(titleModel);
+
 		for (int i=0;i<killPath.length;i++){
 			KillModel model=new KillModel();
 			model.setImagePath(killPath[i]);
+			model.setTypeParam(IndexTools.KILL);
 			Random random=new Random();
 			int num=random.nextInt(1000);
 			int num2=random.nextInt(1000);
 			model.setOldPrice("￥"+Math.max(num,num2)+".00");
 			model.setPrice("￥"+Math.min(num,num2)+".00");
-			killModels.add(model);
+			mList.add(model);
 		}
-		List<TitleShopModel> titleShopModels=new ArrayList<>();
-		TitleShopModel titleShopModel=new TitleShopModel();
-		titleShopModel.setLeftTitle("发现好店");
-		titleShopModels.add(titleShopModel);
-		List<ShopModel> shopModels=new ArrayList<>();
+		TitleModel titleModel2=new TitleModel();
+		titleModel2.setTypeParam(IndexTools.SHOPTITLE);
+		titleModel2.setLeftTitle("发现好店");
+		mList.add(titleModel2);
 		ShopModel shopModel=new ShopModel();
+		shopModel.setTypeParam(IndexTools.GOODSSHOP);
 		shopModel.setImagePath1("https://i1.mifile.cn/a1/pms_1509723483.31416776!220x220.jpg");
 		shopModel.setImagePath2("https://i1.mifile.cn/a1/pms_1527684990.93616987!220x220.jpg");
 		shopModel.setImagePath3("https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/86566f01e26104c8c36e1201223385b7.jpg");
 		shopModel.setShopName("小米官方旗舰店");
 		shopModel.setShopNum("1111");
-		shopModels.add(shopModel);
+		mList.add(shopModel);
 		ShopModel shopModel2=new ShopModel();
 		shopModel2.setImagePath1("https://openfile.meizu.com/group1/M00/02/F9/Cgbj0VpcI-6AHsPAAACF-hNGTkg171_180x180.jpg");
 		shopModel2.setImagePath2("https://openfile.meizu.com/group1/M00/04/0E/Cgbj0FrcbsCANuv_AAzufmGf2yU449.png@240x240.jpg");
 		shopModel2.setImagePath3("https://openfile.meizu.com/group1/M00/02/31/Cgbj0VnCIPSAZlXMAA4noi5FGFE697.png@240x240.png");
 		shopModel2.setShopName("魅族官方旗舰店");
 		shopModel2.setShopNum("22222");
-		shopModels.add(shopModel2);
-		List<GoTitleModel> goTitleModels=new ArrayList<>();
+		shopModel2.setTypeParam(IndexTools.GOODSSHOP);
+		mList.add(shopModel2);
+
 		GoTitleModel goTitleModel=new GoTitleModel();
 		goTitleModel.setGoTitle("--爱生活--");
-		goTitleModels.add(goTitleModel);
-		List<LoveModel> loveModelsTwo=new ArrayList<>();
-		List<LoveModel> loveModelsFour=new ArrayList<>();
+		goTitleModel.setTypeParam(IndexTools.GOTitle);
+		mList.add(goTitleModel);
+
 		for(int i=0;i<loveTitle.length;i++){
 			if(i<4){
 				LoveModel loveModel1=new LoveModel();
@@ -294,52 +300,49 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				loveModel1.setDiscountTitle(discountTitle[i]);
 				loveModel1.setLabelTitle(labelTitle[i]);
 				loveModel1.setLovePath(lovePath[i]);
-				loveModelsTwo.add(loveModel1);
+				loveModel1.setTypeParam(IndexTools.LOVE_TWO);
+				mList.add(loveModel1);
 			}else {
 				LoveModel loveModel1=new LoveModel();
 				loveModel1.setLoveTitle(loveTitle[i]);
 				loveModel1.setDiscountTitle(discountTitle[i]);
-				loveModel1.setModelType(IndexTools.LOVE_FOUR);
+				loveModel1.setTypeParam(IndexTools.LOVE_FOUR);
 				loveModel1.setLovePath(lovePath[i]);
-				loveModelsFour.add(loveModel1);
+				mList.add(loveModel1);
 			}
 		}
-		List<GoTitleModel> goTitleModels2=new ArrayList<>();
 		GoTitleModel goTitleModel2=new GoTitleModel();
 		goTitleModel2.setGoTitle("--逛商场--");
-		goTitleModel2.setModelType(IndexTools.GOShopTitle);
-		goTitleModels2.add(goTitleModel2);
-
-		List<LoveModel> loveModelsTwo1=new ArrayList<>();
-		List<LoveModel> loveModelsFour2=new ArrayList<>();
+		goTitleModel2.setTypeParam(IndexTools.GOShopTitle);
+		mList.add(goTitleModel2);
 		for(int i=0;i<shopTitle.length;i++){
 			if(i<4){
 				LoveModel loveModel1=new LoveModel();
 				loveModel1.setLoveTitle(shopTitle[i]);
 				loveModel1.setDiscountTitle(shopDiscountTitle[i]);
-				loveModel1.setModelType(IndexTools.GOSHOPTWO);
+				loveModel1.setTypeParam(IndexTools.GOSHOPTWO);
 				loveModel1.setLabelTitle(shopLabelTitle[i]);
 				loveModel1.setLovePath(shopPath[i]);
-				loveModelsTwo1.add(loveModel1);
+				mList.add(loveModel1);
 			}else {
 				LoveModel loveModel1=new LoveModel();
 				loveModel1.setLoveTitle(shopTitle[i]);
 				loveModel1.setDiscountTitle(shopDiscountTitle[i]);
-				loveModel1.setModelType(IndexTools.GOSHOPFOUR);
+				loveModel1.setTypeParam(IndexTools.GOSHOPFOUR);
 				loveModel1.setLovePath(shopPath[i]);
-				loveModelsFour2.add(loveModel1);
+				mList.add(loveModel1);
 			}
 		}
-		List<GoTitleModel> goTitleModels3=new ArrayList<>();
 		GoTitleModel goTitleModel3=new GoTitleModel();
 		goTitleModel3.setGoTitle("--为*你*推*荐--");
-		goTitleModel3.setModelType(IndexTools.GOReTitle);
-		goTitleModels3.add(goTitleModel3);
-		List<RecommendModel> recommendModels=new ArrayList<>();
+		goTitleModel3.setTypeParam(IndexTools.GOReTitle);
+		mList.add(goTitleModel3);
+
 		for(int i=0;i<IndexTools.list.length;i++){
 			RecommendModel reModel=new RecommendModel();
 			reModel.setGoodsPath(IndexTools.list[i]);
 			reModel.setGoodsTitle(IndexTools.title);
+			reModel.setTypeParam(IndexTools.Recommend);
 			Random random=new Random();
 			int num=random.nextInt(1000);
 			int num2=random.nextInt(2)+1;
@@ -347,23 +350,9 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			reModel.setReduce(num2==1);
 			reModel.setVoucher(num3==2);
 			reModel.setPrice("￥:"+num+".00");
-			recommendModels.add(reModel);
+			mList.add(reModel);
 		}
-		mIndexAdapter.setBanner(list);
-		mIndexAdapter.setNav(navModels);
-		mIndexAdapter.setNotice(newsModels);
-		mIndexAdapter.setTitleModels(titleModels);
-		mIndexAdapter.setKillModels(killModels);
-		mIndexAdapter.setTitleShopModels(titleShopModels);
-		mIndexAdapter.setShopModels(shopModels);
-		mIndexAdapter.setGoTitleModels(goTitleModels);
-		mIndexAdapter.setLoveTwoModels(loveModelsTwo);
-		mIndexAdapter.setLoveFourModels(loveModelsFour);
-		mIndexAdapter.setGoShopTitleModels(goTitleModels2);
-		mIndexAdapter.setShopTwoModels(loveModelsTwo1);
-		mIndexAdapter.setShopFourModels(loveModelsFour2);
-		mIndexAdapter.setGoReTitleModels(goTitleModels3);
-		mIndexAdapter.setRecommendModels(recommendModels);
+		mIndexAdapter.setModelList(mList);
 		mRecyclerView.setAdapter(mIndexAdapter);
 
 	}
@@ -460,13 +449,13 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 
 
 	@Override
-	public void onItemClick(View view, int modeType, List modelList, int position) {
+	public void onItemClick(View view, TypeMode typeMode) {
 		String str="";
 		Intent intent=null;
-		switch (modeType){
+		switch (typeMode.getTypeParam()){
 
 			case IndexTools.NAV:
-				NavModel navModel= (NavModel) modelList.get(position);
+				NavModel navModel= (NavModel)typeMode;
 				str=navModel.getNavTitle();
 				intent=new Intent(getActivity(),SupermarketActivity.class);
 				intent.putExtra("mTitle",str);
@@ -477,7 +466,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				startActivity(intent);
 				break;
 			case IndexTools.KILL:
-				KillModel killModel= (KillModel) modelList.get(position);
+				KillModel killModel= (KillModel)typeMode;
 				str=killModel.getPrice();
 				break;
 			case IndexTools.SHOPTITLE:
@@ -485,29 +474,23 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				startActivity(intent);
 				break;
 			case IndexTools.GOODSSHOP:
-				ShopModel model= (ShopModel) modelList.get(position);
+				ShopModel model= (ShopModel)typeMode;
 				str=model.getShopName();
 				break;
 			case IndexTools.NOTICE:
-				if(view instanceof LinearLayout){
-					str="更多通知";
-				}else {
-					NoticeView noticeView= (NoticeView) view;
-					List<String> list=noticeView.getList();
-					str=list.get(position);
-				}
+				str="更多";
 				break;
 			case IndexTools.LOVE_TWO:
 			case IndexTools.LOVE_FOUR:
 			case IndexTools.GOSHOPTWO:
 			case IndexTools.GOSHOPFOUR:
-				LoveModel loveModel= (LoveModel) modelList.get(position);
+				LoveModel loveModel= (LoveModel) typeMode;
 				str=loveModel.getLoveTitle();
 				 intent=new Intent(getActivity(),DescribeActivity.class);
 				startActivity(intent);
 				break;
 			case IndexTools.Recommend:
-				RecommendModel remodel= (RecommendModel) modelList.get(position);
+				RecommendModel remodel= (RecommendModel) typeMode;
 
 				if(view instanceof TextView){
 					str=remodel.getPrice()+"找相似";
@@ -515,8 +498,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 					intent=new Intent(getActivity(),GoodsDetailActivity.class);
 					startActivity(intent);
 				}
-
-
 
 				break;
 			default:

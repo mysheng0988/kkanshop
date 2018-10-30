@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface OnItemClickListener<T> {
-    void onItemClick(View view, int modeType, List<T> modelList,int position);
+    void onItemClick(View view, T model);
 }

@@ -3,7 +3,6 @@ package com.mysheng.office.kkanshop.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.entity.TitleShopModel;
+import com.mysheng.office.kkanshop.entity.TypeMode;
 import com.mysheng.office.kkanshop.holder.BannerViewHolder;
 import com.mysheng.office.kkanshop.holder.GoShopTitleViewHolder;
 import com.mysheng.office.kkanshop.holder.GoTitleViewHolder;
@@ -38,9 +38,7 @@ import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.view.NoticeView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by myaheng on 2018/9/10.
@@ -51,24 +49,11 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     private LayoutInflater mLayoutInflater;
     private OnItemClickListener mOnItemClickListener;
     private OnBannerClickListener mOnBannerClickListener;
-    private List<Integer> types=new ArrayList<>();
-    private Map<Integer,Integer> mPosition=new HashMap<>();//存储list的初始位置
+    private OnNoticeClickListener mOnNoticeClickListener;
 
-    private List<BannerModel> bannerModels=new ArrayList<>();
-    private List<NoticeModel> noticeModels=new ArrayList<>();
-    private List<NavModel> navModels=new ArrayList<>();
-    private List<TitleModel> titleModels=new ArrayList<>();
-    private List<TitleShopModel> titleShopModels=new ArrayList<>();
-    private List<GoTitleModel> goTitleModels=new ArrayList<>();
-    private List<GoTitleModel> goShopTitleModels=new ArrayList<>();
-    private List<GoTitleModel> goReTitleModels=new ArrayList<>();
-    private List<KillModel> killModels=new ArrayList<>();
-    private List<ShopModel> shopModels=new ArrayList<>();
-    private List<LoveModel> loveTwoModels=new ArrayList<>();
-    private List<LoveModel> loveFourModels=new ArrayList<>();
-    private List<LoveModel> shopTwoModels=new ArrayList<>();
-    private List<LoveModel> shopFourModels=new ArrayList<>();
-    private List<RecommendModel> recommendModels=new ArrayList<>();
+
+    private List<TypeMode> mList=new ArrayList<>();
+
     public IndexAdapter(Context context) {
         this.mLayoutInflater=LayoutInflater.from(context);
     }
@@ -121,106 +106,18 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         return null;
     }
-    public void setBanner(List<BannerModel> bannerModels){
-        addListByType(IndexTools.BANNER,bannerModels);
-        this.bannerModels.addAll(bannerModels);
+    public void setModelList(List<TypeMode> lists){
 
-    }
-    public void setNav(List<NavModel> navModels){
-        addListByType(IndexTools.NAV,navModels);
-        this.navModels.addAll(navModels);
-
-    }
-    public void setNotice(List<NoticeModel> noticeModels){
-        addListByType(IndexTools.NOTICE,noticeModels);
-        this.noticeModels.addAll(noticeModels);
-
-    }
-    public void setTitleModels(List<TitleModel> titleModels){
-        addListByType(IndexTools.KILLTITLE,titleModels);
-        this.titleModels.addAll(titleModels);
-
-    }
-    public void setTitleShopModels(List<TitleShopModel> titleShopModels){
-        addListByType(IndexTools.SHOPTITLE,titleShopModels);
-        this.titleShopModels.addAll(titleShopModels);
-
-    }
-    public void setKillModels(List<KillModel> killModels){
-        addListByType(IndexTools.KILL,killModels);
-        this.killModels.addAll(killModels);
-
-    }
-    public void setShopModels(List<ShopModel> shopModels){
-        addListByType(IndexTools.GOODSSHOP,shopModels);
-        this.shopModels.addAll(shopModels);
-
-    }
-    public void setGoTitleModels(List<GoTitleModel> goTitleModels){
-        addListByType(IndexTools.GOTitle,goTitleModels);
-        this.goTitleModels.addAll(goTitleModels);
-
-    }
-    public void setGoShopTitleModels(List<GoTitleModel> goTitleModels){
-        addListByType(IndexTools.GOShopTitle,goTitleModels);
-        this.goShopTitleModels.addAll(goTitleModels);
-
-    }
-    public void setGoReTitleModels(List<GoTitleModel> goTitleModels){
-        addListByType(IndexTools.GOReTitle,goTitleModels);
-        this.goReTitleModels.addAll(goTitleModels);
-
-    }
-    public void setLoveTwoModels(List<LoveModel> loveModels){
-        addListByType(IndexTools.LOVE_TWO,loveModels);
-        this.loveTwoModels.addAll(loveModels);
-
-    }
-    public void setLoveFourModels(List<LoveModel> loveModels){
-        addListByType(IndexTools.LOVE_FOUR,loveModels);
-        this.loveFourModels.addAll(loveModels);
-
-    }
-    public void setShopTwoModels(List<LoveModel> loveModels){
-        addListByType(IndexTools.GOSHOPTWO,loveModels);
-        this.shopTwoModels.addAll(loveModels);
-
-    }
-    public void setShopFourModels(List<LoveModel> loveModels){
-        addListByType(IndexTools.GOSHOPFOUR,loveModels);
-        this.shopFourModels.addAll(loveModels);
-
-    }
-    public void setRecommendModels(List<RecommendModel> recommendModels){
-        addListByType(IndexTools.Recommend,recommendModels);
-        this.recommendModels.addAll(recommendModels);
-
-    }
-    public void addRecommendModels(List<RecommendModel> recommendModels){
-        reListByType(IndexTools.Recommend,recommendModels);
-        this.recommendModels.addAll(recommendModels);
-
-    }
-
-    private void addListByType(int type,List list){
-        mPosition.put(type,types.size());
-        for(int i=0;i<list.size();i++){
-            types.add(type);
-        }
-    }
-    private void reListByType(int type,List list){
-        for(int i=0;i<list.size();i++){
-            types.add(type);
-        }
+        mList.addAll(lists);
     }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final int viewType=getItemViewType(position);
 
-        final int realPosition=position-mPosition.get(viewType);
         switch (viewType){
             case IndexTools.BANNER:
-                ((BannerViewHolder)holder).bindHolder(bannerModels.get(realPosition));
+                BannerModel bannerModel= (BannerModel) mList.get(position);
+                ((BannerViewHolder)holder).bindHolder(bannerModel);
                 ((BannerViewHolder)holder).banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
@@ -232,26 +129,28 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
                 break;
             case IndexTools.NAV:
-                ((NavViewHolder)holder).bindHolder(navModels.get(realPosition));
+                final NavModel navModel= (NavModel) mList.get(position);
+                ((NavViewHolder)holder).bindHolder(navModel);
                 ((NavViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,navModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,navModel);
                         }
                     }
                 });
 
                 break;
             case IndexTools.NOTICE:
-                ((NoticeViewHolder)holder).bindHolder(noticeModels.get(realPosition));
+                final NoticeModel noticeModel=(NoticeModel) mList.get(position);
+                ((NoticeViewHolder)holder).bindHolder(noticeModel);
                 final NoticeView noticeView= ((NoticeViewHolder)holder).noticeView;
                 final LinearLayout moreList = ((NoticeViewHolder)holder).moreList;
                 noticeView.setOnNoticeClickListener(new NoticeView.OnNoticeClickListener() {
                     @Override
                     public void onNoticeClick(int index, String notice) {
-                        if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(noticeView,viewType,noticeModels,index);
+                        if (mOnNoticeClickListener!=null){
+                            mOnNoticeClickListener.onNoticeListener(noticeView,noticeModel,index);
                         }
                     }
                 });
@@ -260,116 +159,127 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,noticeModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,noticeModel);
                         }
                     }
                 });
                 break;
             case IndexTools.KILLTITLE:
-                ((TitleViewHolder)holder).bindHolder(titleModels.get(realPosition));
-
+                final TitleModel model= (TitleModel) mList.get(position);
+                ((TitleViewHolder)holder).bindHolder(model);
                 ((TitleViewHolder)holder).moreList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,killModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,model);
                         }
                     }
                 });
                 break;
             case IndexTools.SHOPTITLE:
-                ((TitleShopViewHolder)holder).bindHolder(titleShopModels.get(realPosition));
+                final TitleModel model2= (TitleModel) mList.get(position);
+                ((TitleShopViewHolder)holder).bindHolder(model2);
                 ((TitleShopViewHolder)holder).moreList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,titleShopModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,model2);
                         }
                     }
                 });
                 break;
             case IndexTools.KILL:
-                ((KillViewHolder)holder).bindHolder(killModels.get(realPosition));
+                final KillModel killModel= (KillModel) mList.get(position);
+                ((KillViewHolder)holder).bindHolder(killModel);
                 ((KillViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,killModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,killModel);
                         }
                     }
                 });
                 break;
             case IndexTools.GOODSSHOP:
-                ((GoodShopViewHolder)holder).bindHolder(shopModels.get(realPosition));
+                final ShopModel shopModel= (ShopModel) mList.get(position);
+                ((GoodShopViewHolder)holder).bindHolder(shopModel);
                 ((GoodShopViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,shopModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,shopModel);
                         }
                     }
                 });
                 break;
             case IndexTools.GOTitle:
-                ((GoTitleViewHolder)holder).bindHolder(goTitleModels.get(realPosition));
+                GoTitleModel goTitleModel= (GoTitleModel) mList.get(position);
+                ((GoTitleViewHolder)holder).bindHolder(goTitleModel);
                 break;
             case IndexTools.GOShopTitle:
-                ((GoShopTitleViewHolder)holder).bindHolder(goShopTitleModels.get(realPosition));
+                GoTitleModel goTitleModel2= (GoTitleModel) mList.get(position);
+                ((GoShopTitleViewHolder)holder).bindHolder(goTitleModel2);
                 break;
             case IndexTools.GOReTitle:
-                ((GoTitleViewHolder)holder).bindHolder(goReTitleModels.get(realPosition));
+                GoTitleModel goTitleModel3= (GoTitleModel) mList.get(position);
+                ((GoTitleViewHolder)holder).bindHolder(goTitleModel3);
                 break;
             case IndexTools.LOVE_TWO:
-                ((LoveTwoViewHolder)holder).bindHolder(loveTwoModels.get(realPosition));
+                final LoveModel loveModel= (LoveModel) mList.get(position);
+                ((LoveTwoViewHolder)holder).bindHolder(loveModel);
                 ((LoveTwoViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,loveTwoModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,loveModel);
                         }
                     }
                 });
                 break;
             case IndexTools.LOVE_FOUR:
-                ((LoveFourViewHolder)holder).bindHolder(loveFourModels.get(realPosition));
+                final LoveModel loveModel2= (LoveModel) mList.get(position);
+                ((LoveFourViewHolder)holder).bindHolder(loveModel2);
                 ((LoveFourViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,loveFourModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,loveModel2);
                         }
                     }
                 });
                 break;
             case IndexTools.GOSHOPTWO:
-                ((LoveTwoViewHolder)holder).bindHolder(shopTwoModels.get(realPosition));
+                final LoveModel loveModel3= (LoveModel) mList.get(position);
+                ((LoveTwoViewHolder)holder).bindHolder(loveModel3);
                 ((LoveTwoViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,shopTwoModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,loveModel3);
                         }
                     }
                 });
                 break;
             case IndexTools.GOSHOPFOUR:
-                ((LoveFourViewHolder)holder).bindHolder(shopFourModels.get(realPosition));
+                final LoveModel loveModel4= (LoveModel) mList.get(position);
+                ((LoveFourViewHolder)holder).bindHolder(loveModel4);
                 ((LoveFourViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,shopFourModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,loveModel4);
                         }
                     }
                 });
                 break;
             case IndexTools.Recommend:
-                ((RecommendViewHolder)holder).bindHolder(recommendModels.get(realPosition));
+                final RecommendModel recommendModel= (RecommendModel) mList.get(position);
+                ((RecommendViewHolder)holder).bindHolder(recommendModel);
                 ((RecommendViewHolder)holder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,recommendModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,recommendModel);
                         }
                     }
                 });
@@ -377,7 +287,7 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
-                            mOnItemClickListener.onItemClick(v,viewType,recommendModels,realPosition);
+                            mOnItemClickListener.onItemClick(v,recommendModel);
                         }
                     }
                 });
@@ -388,12 +298,12 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        return types.get(position);
+        return mList.get(position).getTypeParam();
     }
 
     @Override
     public int getItemCount() {
-        return types.size();
+        return mList.size();
     }
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mOnItemClickListener = itemClickListener;
@@ -401,7 +311,13 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void setOnBannerClickListener(OnBannerClickListener clickListener) {
         this.mOnBannerClickListener = clickListener;
     }
+    public void setNoticeClickListener(OnNoticeClickListener listener) {
+        this.mOnNoticeClickListener = listener;
+    }
     public interface OnBannerClickListener{
         void onBannerListener(int index);
+    }
+    public interface OnNoticeClickListener{
+        void onNoticeListener(View v,NoticeModel noticeModel,int index);
     }
 }

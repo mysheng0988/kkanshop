@@ -4,12 +4,11 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/11.
  */
 
-public class LoveModel {
+public class LoveModel extends TypeMode{
     private String loveTitle;
     private String discountTitle;
     private String labelTitle;
     private String lovePath;
-    private int modelType= IndexTools.LOVE_TWO;
 
     public String getLoveTitle() {
         return loveTitle;
@@ -43,11 +42,4 @@ public class LoveModel {
         this.lovePath = lovePath;
     }
 
-    public int getModelType() {
-        return modelType;
-    }
-
-    public void setModelType(int modelType) {
-        this.modelType = modelType;
-    }
 }

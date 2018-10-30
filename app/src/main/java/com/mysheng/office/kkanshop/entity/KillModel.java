@@ -1,6 +1,6 @@
 package com.mysheng.office.kkanshop.entity;
 
-public class KillModel {
+public class KillModel   extends TypeMode{
     private  String imagePath;
     private String oldPrice;
     private  String price;
@@ -12,14 +12,6 @@ public class KillModel {
      */
     private int status;
 
-
-    private int modelType= IndexTools.KILL;
-
-
-
-    public int getModelType() {
-        return modelType;
-    }
     public String getImagePath() {
         return imagePath;
     }
@@ -77,7 +69,4 @@ public class KillModel {
         this.status = status;
     }
 
-    public void setModelType(int modelType) {
-        this.modelType = modelType;
-    }
 }

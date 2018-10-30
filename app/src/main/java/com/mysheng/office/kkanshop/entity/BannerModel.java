@@ -6,7 +6,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/10.
  */
 
-public class BannerModel {
+public class BannerModel extends TypeMode {
     private List<String> imgPaths;
     private List<String> titles;
     public List<String> getImgPaths() {

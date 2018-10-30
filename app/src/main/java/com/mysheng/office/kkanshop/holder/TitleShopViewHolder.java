@@ -5,9 +5,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
+import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.entity.TitleShopModel;
 
-public class TitleShopViewHolder extends CommonAbstractViewHolder<TitleShopModel> {
+public class TitleShopViewHolder extends CommonAbstractViewHolder<TitleModel> {
     public TextView leftTitle;
     public TextView centerTitle;
     public LinearLayout moreList;
@@ -18,7 +19,7 @@ public class TitleShopViewHolder extends CommonAbstractViewHolder<TitleShopModel
         moreList=itemView.findViewById(R.id.moreList);
 
     }
-    public void bindHolder(TitleShopModel model){
+    public void bindHolder(TitleModel model){
         leftTitle.setText(model.getLeftTitle());
         if(model.getCenterTitle()==null){
             centerTitle.setVisibility(View.INVISIBLE);

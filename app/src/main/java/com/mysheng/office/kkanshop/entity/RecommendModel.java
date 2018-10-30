@@ -4,10 +4,9 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/12.
  */
 
-public class RecommendModel {
+public class RecommendModel  extends TypeMode {
     private String goodsTitle;
     private String goodsPath;
-    private int modelType=IndexTools.Recommend;
     private String price;
     private boolean isReduce;//是否满减
     private boolean isVoucher;//是否含优惠卷
@@ -43,14 +42,6 @@ public class RecommendModel {
 
     public void setGoodsPath(String goodsPath) {
         this.goodsPath = goodsPath;
-    }
-
-    public int getModelType() {
-        return modelType;
-    }
-
-    public void setModelType(int modelType) {
-        this.modelType = modelType;
     }
 
     public String getPrice() {

@@ -4,13 +4,10 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/11.
  */
 
-public class TitleModel {
+public class TitleModel extends TypeMode {
     private String leftTitle;
     private String centerTitle;
-    private int modelType= IndexTools.KILLTITLE;
-    public int getModelType() {
-        return modelType;
-    }
+
     public String getLeftTitle() {
         return leftTitle;
     }
