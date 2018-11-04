@@ -21,7 +21,7 @@ public class GoodsModel implements Serializable {
     private float goodsOldPrice;
     private boolean isReduce;//是否满减
     private boolean isVoucher;//是否含优惠卷
-    private String CreateDate;
+    private String createDate;
     private int goodsAmount=1;
     private String updateDate;
 
@@ -121,12 +121,13 @@ public class GoodsModel implements Serializable {
         isVoucher = voucher;
     }
 
+
     public String getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(String createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
 
     public int getGoodsAmount() {

@@ -60,6 +60,4 @@
         app:maxSelect="0"
         app:selectType="SINGLE_IRREVOCABLY"
         app:wordMargin="10dp" />
-
-
 </LinearLayout>

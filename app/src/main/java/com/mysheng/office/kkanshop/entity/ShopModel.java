@@ -23,7 +23,8 @@ public class ShopModel  extends TypeMode{
     private  String followNum;
     private  String goodsNum;
     private  String shopScore;
-    private String CreateDate;
+    private String createDate;
+    private String expireDate;
     private String shopState;//商家状态 1营业 0休息 -1欠费
 
 
