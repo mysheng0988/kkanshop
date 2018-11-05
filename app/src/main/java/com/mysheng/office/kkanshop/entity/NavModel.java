@@ -7,7 +7,7 @@ package com.mysheng.office.kkanshop.entity;
 public class NavModel extends TypeMode{
     private int navIcon;
     private String navTitle;
-    private int modelParam;
+
 
     public int getNavIcon() {
         return navIcon;
@@ -25,11 +25,4 @@ public class NavModel extends TypeMode{
         this.navTitle = navTitle;
     }
 
-    public int getModelParam() {
-        return modelParam;
-    }
-
-    public void setModelParam(int modelParam) {
-        this.modelParam = modelParam;
-    }
 }

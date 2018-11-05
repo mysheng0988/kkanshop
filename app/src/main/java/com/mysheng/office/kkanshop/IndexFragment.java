@@ -234,13 +234,12 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			mIndexAdapter.notifyDataSetChanged();
 		}
 		mList.add(bannerModel);
-		List<NavModel> navModels=new ArrayList<>();
 		for (int i=0;i<IndexTools.navTitle.length;i++){
 			NavModel navModel=new NavModel();
 			navModel.setNavIcon(IndexTools.navIcon[i]);
 			navModel.setNavTitle(IndexTools.navTitle[i]);
-			navModel.setModelParam(IndexTools.NAV);
-			navModels.add(navModel);
+			navModel.setTypeParam(IndexTools.NAV);
+			mList.add(navModel);
 		}
 
 		NoticeModel noticeModel=new NoticeModel();
