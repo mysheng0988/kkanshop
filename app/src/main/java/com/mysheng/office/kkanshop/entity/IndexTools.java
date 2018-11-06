@@ -133,4 +133,43 @@ public class IndexTools {
     public static List<String> HUAWEI=Arrays.asList(
             "https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
     );
+    public static List<String> BANNER_IMAGE=Arrays.asList(
+           "http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg",
+		"http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg",
+		"http://i1.mifile.cn/a4/xmad_1529377715473_xVjDr.jpg",
+		"http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg",
+		"http://i1.mifile.cn/a4/xmad_15248221330196_tvCXl.jpg",
+		"http://i1.mifile.cn/a4/xmad_15281678020877_ZAHgw.jpg",
+		"https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png"
+    );
+    public static List<String> BANNER_TITLE=Arrays.asList(
+           "小米mix2s 3299起",
+		"小米8-小米八周年纪念版",
+		"小米6x",
+		"小米游戏本",
+		"小米九号平衡车",
+		"红米5最高立减200元",
+		"华为P20pro"
+    );
+
+
+    public static List<String> listShopId=Arrays.asList(
+            "2015879501",
+            "2015879502",
+            "2015879503",
+            "2015879504",
+            "2015879505",
+            "2015879506",
+            "2015879507"
+    );
+    public static List<String> listGoodsId=Arrays.asList(
+            "201587950101",
+            "201587950202",
+            "201587950303",
+            "201587950404",
+            "201587950505",
+            "201587950606",
+            "201587950707"
+    );
+
 }

@@ -1,5 +1,6 @@
 package com.mysheng.office.kkanshop.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,21 +8,41 @@ import java.util.List;
  */
 
 public class BannerModel extends TypeMode {
-    private List<String> imgPaths;
-    private List<String> titles;
-    public List<String> getImgPaths() {
-        return imgPaths;
+
+    private List<String> listPath=new ArrayList<>();
+    private List<String> listTitle=new ArrayList<>();
+    private List<String> listShopId=new ArrayList<>();
+    private List<String> listGoodsId=new ArrayList<>();
+
+    public List<String> getListPath() {
+        return listPath;
     }
 
-    public void setImgPaths(List<String> imgPaths) {
-        this.imgPaths = imgPaths;
+    public void setListPath(List<String> listPath) {
+        this.listPath = listPath;
     }
 
-    public List<String> getTitles() {
-        return titles;
+    public List<String> getListTitle() {
+        return listTitle;
     }
 
-    public void setTitles(List<String> titles) {
-        this.titles = titles;
+    public void setListTitle(List<String> listTitle) {
+        this.listTitle = listTitle;
+    }
+
+    public List<String> getListShopId() {
+        return listShopId;
+    }
+
+    public void setListShopId(List<String> listShopId) {
+        this.listShopId = listShopId;
+    }
+
+    public List<String> getListGoodsId() {
+        return listGoodsId;
+    }
+
+    public void setListGoodsId(List<String> listGoodsId) {
+        this.listGoodsId = listGoodsId;
     }
 }

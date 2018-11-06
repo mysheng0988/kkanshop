@@ -27,9 +27,9 @@ public class BannerViewHolder extends CommonAbstractViewHolder<BannerModel> {
     public void bindHolder(BannerModel bannerModel) {
         banner.setImageLoader(new GlideImageLoader());
         banner.setDelayTime(4000);
-        banner.setImages(bannerModel.getImgPaths());
+        banner.setImages(bannerModel.getListPath());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
-        banner.setBannerTitles(bannerModel.getTitles());
+        banner.setBannerTitles(bannerModel.getListTitle());
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 

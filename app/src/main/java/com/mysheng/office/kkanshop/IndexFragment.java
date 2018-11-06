@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.mysheng.office.kkanshop.adapter.IndexAdapter;
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
+import com.mysheng.office.kkanshop.entity.BannerImage;
 import com.mysheng.office.kkanshop.entity.BannerModel;
 import com.mysheng.office.kkanshop.entity.GoTitleModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
@@ -32,6 +33,7 @@ import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 
+import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.view.NoticeView;
 import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
@@ -54,8 +56,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 	private ImageView backTop;
 	private RefreshLayout refreshLayout;
 	private LinearLayout line;
-	private int imageHeight=100;
-
 	private IndexAdapter mIndexAdapter;
 	private RecyclerView mRecyclerView;
 	private List<String> list_path=new ArrayList<>();
@@ -180,24 +180,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		});
 	}
 	private void initView(){
-		list_path.add("http://i1.mifile.cn/f/i/2018/mix2s/summary/infor-1.jpg");
-		list_path.add("http://i1.mifile.cn/a4/xmad_152940243093_EgRIT.jpg");
-		list_path.add("http://i1.mifile.cn/a4/xmad_1529377715473_xVjDr.jpg");
-		list_path.add("http://i1.mifile.cn/a4/xmad_15293127351522_gPtTj.jpg");
-		list_path.add("http://i1.mifile.cn/a4/xmad_15248221330196_tvCXl.jpg");
-		list_path.add("http://i1.mifile.cn/a4/xmad_15281678020877_ZAHgw.jpg");
-		list_path.add("https://res1.vmallres.com/shopdc/pic/3737747d-ca26-4070-99eb-c64eb469e101.png");
-		list_title.add("小米mix2s 3299起");
-		list_title.add("小米8-小米八周年纪念版");
-		list_title.add("小米6x");
-		list_title.add("小米游戏本");
-		list_title.add("小米九号平衡车");
-		list_title.add("红米5最高立减200元");
-		list_title.add("华为P20pro");
-		BannerModel bannerModel=new BannerModel();
-		bannerModel.setTypeParam(IndexTools.BANNER);
-		bannerModel.setImgPaths(list_path);
-		bannerModel.setTitles(list_title);
 		GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),8);
 		mRecyclerView.addItemDecoration(new DividerGridItemDecoration());
 		gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -233,6 +215,12 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		}else{
 			mIndexAdapter.notifyDataSetChanged();
 		}
+		BannerModel bannerModel=new BannerModel();
+		bannerModel.setTypeParam(IndexTools.BANNER);
+		bannerModel.setListShopId(IndexTools.listShopId);
+		bannerModel.setListPath(IndexTools.BANNER_IMAGE);
+		bannerModel.setListTitle(IndexTools.BANNER_TITLE);
+		bannerModel.setListGoodsId(IndexTools.listGoodsId);
 		mList.add(bannerModel);
 		for (int i=0;i<IndexTools.navTitle.length;i++){
 			NavModel navModel=new NavModel();
@@ -286,7 +274,6 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		shopModel2.setShopNum("22222");
 		shopModel2.setTypeParam(IndexTools.GOODSSHOP);
 		mList.add(shopModel2);
-
 		GoTitleModel goTitleModel=new GoTitleModel();
 		goTitleModel.setGoTitle("--爱生活--");
 		goTitleModel.setTypeParam(IndexTools.GOTitle);
@@ -442,8 +429,9 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 
 
 	@Override
-	public void onBannerListener(int index) {
-		Toast.makeText(getActivity(),"你点击了"+index,Toast.LENGTH_SHORT).show();
+	public void onBannerListener(BannerModel model,int index) {
+		String str=model.getListShopId().get(index);
+		UtilToast.showLong(getActivity(),   str + "," + index);
 	}
 
 

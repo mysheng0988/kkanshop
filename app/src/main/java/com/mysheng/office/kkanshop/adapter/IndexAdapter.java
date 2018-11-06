@@ -20,7 +20,6 @@ import com.mysheng.office.kkanshop.entity.NoticeModel;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TitleShopModel;
 import com.mysheng.office.kkanshop.entity.TypeMode;
 import com.mysheng.office.kkanshop.holder.BannerViewHolder;
 import com.mysheng.office.kkanshop.holder.GoShopTitleViewHolder;
@@ -116,13 +115,13 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         switch (viewType){
             case IndexTools.BANNER:
-                BannerModel bannerModel= (BannerModel) mList.get(position);
+                final BannerModel bannerModel= (BannerModel) mList.get(position);
                 ((BannerViewHolder)holder).bindHolder(bannerModel);
                 ((BannerViewHolder)holder).banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
                         if(mOnBannerClickListener!=null){
-                            mOnBannerClickListener.onBannerListener(position);
+                            mOnBannerClickListener.onBannerListener(bannerModel,position);
 
                         }
                     }
@@ -315,7 +314,7 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.mOnNoticeClickListener = listener;
     }
     public interface OnBannerClickListener{
-        void onBannerListener(int index);
+        void onBannerListener(BannerModel model,int index);
     }
     public interface OnNoticeClickListener{
         void onNoticeListener(View v,NoticeModel noticeModel,int index);
