@@ -212,4 +212,24 @@ public class UtilsDate {
         }
 
     }
+
+    /**
+     * 获取当前月的第一天
+     */
+    public static String getMonthFirstDate(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, 0);
+        c.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
+       return format.format(c.getTime());
+    }
+    /**
+     * 获取当前月的最后一天
+     */
+    public static String getMonthLastDate(){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar ca = Calendar.getInstance();
+        ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return  format.format(ca.getTime());
+    }
 }
