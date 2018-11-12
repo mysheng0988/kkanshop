@@ -3,19 +3,15 @@ package com.mysheng.office.kkanshop;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mysheng.office.kkanshop.adapter.NavAdapter;
 import com.mysheng.office.kkanshop.adapter.SecKillAdapter;
-import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.KillModel;
-import com.mysheng.office.kkanshop.entity.RecommendModel;
 
 import java.util.ArrayList;
 import java.util.List;

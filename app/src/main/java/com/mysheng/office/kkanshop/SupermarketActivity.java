@@ -38,9 +38,7 @@ public class SupermarketActivity extends FragmentActivity  implements View.OnCli
     private ViewPager contentViewPage;
     private CircleViewIndicator circleIndicator;
     private ViewPagerIndicator indicator;
-    private NavViewAdapter navViewAdapter;
-    private LayoutInflater inflater;
-    private List<View> viewList = new ArrayList<>();
+    private List<NavFragment> viewList = new ArrayList<>();
     private List<String> mTitle= Arrays.asList("精选","休闲零食","生鲜水果","全部1","全部2","全部3","全部4");
     private List<Fragment> listFragment=new ArrayList<>();
     private FragmentPagerAdapter adapter;
@@ -52,10 +50,10 @@ public class SupermarketActivity extends FragmentActivity  implements View.OnCli
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.market_layout);
-        String mTitle=getIntent().getStringExtra("mTitle");
+        String title=getIntent().getStringExtra("mTitle");
         comeBack=findViewById(R.id.comeBack);
         navTitle=findViewById(R.id.navTitle);
-        navTitle.setText(mTitle);
+        navTitle.setText(title);
         shopCart=findViewById(R.id.shopCart);
         goodsNum=findViewById(R.id.goods_num);
         banner=findViewById(R.id.banner);
@@ -68,13 +66,23 @@ public class SupermarketActivity extends FragmentActivity  implements View.OnCli
         contentViewPage =findViewById(R.id.viewpager);
         indicator =findViewById(R.id.id_indicator);
         circleIndicator =findViewById(R.id.navIndicator);
-        inflater = LayoutInflater.from(this);
-        View view1 = inflater.inflate(R.layout.market_nav1_layout, null);
-        View view2 = inflater.inflate(R.layout.market_nav2_layout, null);
-        viewList.add(view1);
-        viewList.add(view2);
-        navViewAdapter = new NavViewAdapter(viewList);
-        navViewPage.setAdapter(navViewAdapter);
+        for (int i=0;i<mTitle.size();i++){
+
+            NavFragment fragment= NavFragment.getInstance(i);
+            viewList.add(fragment);
+        }
+        adapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return viewList.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return viewList.size();
+            }
+        };
+        navViewPage.setAdapter(adapter);
         circleIndicator.setUpWithViewPager(navViewPage);
         circleIndicator.setEnableClickSwitch(true);
         circleIndicator.setOnIndicatorClickListener(new CircleViewIndicator.OnIndicatorClickListener() {
@@ -94,7 +102,7 @@ public class SupermarketActivity extends FragmentActivity  implements View.OnCli
     private void initData() {
         for (int i=0;i<mTitle.size();i++){
 
-            NavItemFragment fragment=NavItemFragment.getInstance(i);
+            ReListFragment fragment= ReListFragment.getInstance(i);
             listFragment.add(fragment);
         }
         //mIndicator.setTabVisibleCount(3);

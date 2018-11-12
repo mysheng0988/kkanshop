@@ -91,7 +91,7 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
     private void initData() {
         for (int i=0;i<mTitle.size();i++){
 
-            NavItemFragment fragment=NavItemFragment.getInstance(i);
+            ReListFragment fragment= ReListFragment.getInstance(i);
             listFragment.add(fragment);
         }
         //mIndicator.setTabVisibleCount(3);

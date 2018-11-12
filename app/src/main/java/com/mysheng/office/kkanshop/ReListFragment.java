@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.mysheng.office.kkanshop.adapter.NavAdapter;
+import com.mysheng.office.kkanshop.adapter.ReListAdapter;
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.LabelModel;
@@ -26,12 +26,12 @@ import java.util.Random;
  * Created by myaheng on 2018/9/27.
  */
 
-public class NavItemFragment extends Fragment{
+public class ReListFragment extends Fragment{
     private int position;
     private ChangeGoodsNum changeGoodsNum;
     private static String PARAM="PARAM";
     private RecyclerView navRecyclerView;
-    private NavAdapter mAdapter;
+    private ReListAdapter mAdapter;
     private List<RecommendModel> modelslist=new ArrayList<>();
     private List<LabelModel> labelModels=new ArrayList<>();
     private List<String> labels= Arrays.asList("坚果炒货","糖果/巧克力","休闲零食","膨化食品","肉干肉铺","饼干蛋糕","低糖食品","蜜饯果干");
@@ -51,7 +51,7 @@ public class NavItemFragment extends Fragment{
 
         navRecyclerView=view.findViewById(R.id.commonRecycler);
         if(mAdapter==null){
-            mAdapter=new NavAdapter(KkanApplication.mContext);
+            mAdapter=new ReListAdapter(KkanApplication.mContext);
         }else{
             mAdapter.notifyDataSetChanged();
         }
@@ -105,7 +105,7 @@ public class NavItemFragment extends Fragment{
         navRecyclerView.setLayoutManager(gridLayoutManager);
         mAdapter.setHeadData(navHeadModel);
         mAdapter.setNormalData(modelslist);
-        mAdapter.setOnItemClickCallback(new NavAdapter.OnItemClickCallback() {
+        mAdapter.setOnItemClickCallback(new ReListAdapter.OnItemClickCallback() {
             @Override
             public void onItemClick(View view, Object mode) {
                 if(mode instanceof RecommendModel){
@@ -119,10 +119,10 @@ public class NavItemFragment extends Fragment{
 
 
 
-    public static NavItemFragment getInstance(int param){
+    public static ReListFragment getInstance(int param){
         Bundle bundle=new Bundle();
         bundle.putInt(PARAM,param);
-        NavItemFragment fragment=new NavItemFragment();
+        ReListFragment fragment=new ReListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
