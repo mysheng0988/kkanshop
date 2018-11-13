@@ -473,7 +473,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			case IndexTools.GOSHOPFOUR:
 				LoveModel loveModel= (LoveModel) typeMode;
 				str=loveModel.getLoveTitle();
-				 intent=new Intent(getActivity(),DescribeActivity.class);
+				// intent=new Intent(getActivity(),DescribeActivity.class);
+				 intent=new Intent(getActivity(),ShopIndexActivity.class);
 				startActivity(intent);
 				break;
 			case IndexTools.Recommend:

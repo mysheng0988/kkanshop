@@ -33,18 +33,12 @@ import java.util.List;
 public class ShopIndexActivity extends FragmentActivity  implements View.OnClickListener,ChangeGoodsNum {
 
     private Banner banner;
-    private ViewPager navViewPage;
     private ViewPager contentViewPage;
-    private CircleViewIndicator circleIndicator;
     private ViewPagerIndicator indicator;
-    private NavViewAdapter navViewAdapter;
-    private LayoutInflater inflater;
-    private List<View> viewList = new ArrayList<>();
     private List<String> mTitle= Arrays.asList("首页","商品","活动","上新","动态");
     private List<Fragment> listFragment=new ArrayList<>();
     private FragmentPagerAdapter adapter;
     private ImageView comeBack;
-    private ImageView search;
     private TextView goodsNum;
     private TextView navTitle;
     @Override
@@ -52,7 +46,7 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_index_layout);
         comeBack=findViewById(R.id.comeBack);
-        search=findViewById(R.id.search);
+
         goodsNum=findViewById(R.id.goods_num);
         banner=findViewById(R.id.banner);
         banner.setImageLoader(new GlideImageLoader());
@@ -60,32 +54,16 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
         banner.setDelayTime(3000);
        // banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         banner.start();
-        navViewPage=findViewById(R.id.nva_viewpager);
+
         contentViewPage =findViewById(R.id.viewpager);
         indicator =findViewById(R.id.id_indicator);
-        circleIndicator =findViewById(R.id.navIndicator);
-        inflater = LayoutInflater.from(this);
-        View view1 = inflater.inflate(R.layout.market_nav1_layout, null);
-        View view2 = inflater.inflate(R.layout.market_nav2_layout, null);
-        viewList.add(view1);
-        viewList.add(view2);
-        navViewAdapter = new NavViewAdapter(viewList);
-        navViewPage.setAdapter(navViewAdapter);
-        circleIndicator.setUpWithViewPager(navViewPage);
-        circleIndicator.setEnableClickSwitch(true);
-        circleIndicator.setOnIndicatorClickListener(new CircleViewIndicator.OnIndicatorClickListener() {
-            @Override
-            public void onSelected(int position) {
-                navViewPage.setCurrentItem(position);
-            }
-        });
+
         initData();
         initEvent();
     }
 
     private void initEvent() {
         comeBack.setOnClickListener(this);
-        search.setOnClickListener(this);
     }
 
     private void initData() {

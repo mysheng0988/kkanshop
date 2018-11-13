@@ -30,32 +30,161 @@
                     android:layout_marginTop="40dp"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"/>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp">
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/nva_viewpager"
+                <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/bg_shape_radius"
+                    android:orientation="vertical">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </android.support.v4.view.ViewPager>
-                    <com.mysheng.office.kkanshop.view.CircleViewIndicator
-                        android:id="@+id/navIndicator"
-                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="80dp"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginVertical="@dimen/txt_5"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/icon"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:text="爱我服饰旗舰店"
+                                android:textColor="@color/text"
+                                android:textSize="@dimen/txt_16"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/dodger_blue"
+                                android:text="电话:15701570988"/>
+                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="@dimen/txt_10"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_service"/>
+                    </LinearLayout>
+                    <View style="@style/view_line"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_centerHorizontal="true"
-                        app:indicatorSelectColor="@color/colorPrimaryDark"
-                        app:fill_mode="letter"
-                        app:indicatorBorderWidth="1dp"
-                        app:indicatorRadius="6dp"
-                        app:indicatorSpace="6dp"
-                        app:indicatorColor="@color/red"
-                        app:indicatorSelectedTextColor="@color/white"
-                        app:indicatorTextColor="@color/black" />
-                </RelativeLayout>
+                        android:padding="@dimen/txt_10"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:text="121"/>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:text="关注人数"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"
+                                android:alpha="0.3"
+                                android:background="#666666"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:text="189"/>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:layout_height="wrap_content"
+                                    android:text="全部商品"/>
+
+                            </LinearLayout>
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="30dp"
+                                android:alpha="0.3"
+                                android:background="#666666"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:text="9.5"/>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/dim_gray"
+                                    android:text="综合评分"/>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <View style="@style/view_line"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/txt_5"
+                        android:gravity="center"
+                        android:layout_height="30dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/txt_10"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:textColor="@color/dim_gray"
+                            android:text="地址:"/>
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/icon_location"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="定边县原创百货大楼5层12-89"
+                            android:textColor="@color/dim_gray"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -66,7 +195,7 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 android:background="@color/colorPrimaryDark">
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center">
@@ -80,23 +209,13 @@
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/btn_back"/>
                     <TextView
-                        android:id="@+id/shopTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:text="新月神定边旗舰店"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/txt_16"
-                        android:textStyle="bold"/>
-                    <ImageView
-                        android:id="@+id/search"
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
-                        android:layout_toLeftOf="@+id/id_classify"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/txt_10"
-                        android:src="@drawable/icon_search"/>
+                        android:layout_weight="1"
+                        android:hint="点击快速搜索"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/search_normal"
+                        android:textColor="@color/white"/>
                     <ImageView
                         android:id="@+id/id_classify"
                         android:layout_width="40dp"
@@ -105,7 +224,7 @@
                         android:layout_marginRight="@dimen/txt_10"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/icon_classify"/>
-                </RelativeLayout>
+                </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
         <View
@@ -116,9 +235,13 @@
             android:id="@+id/id_indicator"
             android:layout_width="match_parent"
             android:background="@drawable/bg_border"
-            hyman:visible_tab_count="4"
-            app:color="@color/red"
+            app:visible_tab_count="5"
             app:shape="line"
+            app:color="@color/red"
+            app:textSize="12dp"
+            app:textColor="#80000000"
+            app:textCheckedColor="@color/red_text_color"
+            app:dividerColor="@color/background"
             android:layout_height="40dp">
         </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
     </android.support.design.widget.AppBarLayout>
