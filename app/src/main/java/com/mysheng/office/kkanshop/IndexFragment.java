@@ -27,15 +27,10 @@ import com.mysheng.office.kkanshop.entity.NoticeModel;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TitleShopModel;
 import com.mysheng.office.kkanshop.entity.TypeMode;
-import com.mysheng.office.kkanshop.holder.GoodShopViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
-
 import com.mysheng.office.kkanshop.util.UtilToast;
-import com.mysheng.office.kkanshop.view.NoticeView;
-import com.mysheng.office.kkanshop.view.ObservableScrollView;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;

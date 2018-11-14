@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+    <View
+        android:id="@+id/titleBorder"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:background="@color/red"/>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/txt_5"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/txt_18"
+        android:text="测试代码"
+        android:textStyle="bold"/>
+</LinearLayout>

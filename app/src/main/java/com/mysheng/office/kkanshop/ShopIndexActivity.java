@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop;
 
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,24 +31,23 @@ import java.util.List;
  * Created by myaheng on 2018/9/26.
  */
 
-public class ShopIndexActivity extends FragmentActivity  implements View.OnClickListener,ChangeGoodsNum {
+public class ShopIndexActivity extends FragmentActivity  implements View.OnClickListener {
 
     private Banner banner;
     private ViewPager contentViewPage;
     private ViewPagerIndicator indicator;
     private List<String> mTitle= Arrays.asList("首页","商品","活动","上新","动态");
-    private List<Fragment> listFragment=new ArrayList<>();
+    private List<Fragment> listFragment=Arrays.asList(ShopIndexFragment.getInstance(0),ReListFragment.getInstance(1),ReListFragment.getInstance(2),ReListFragment.getInstance(3),ReListFragment.getInstance(4));
     private FragmentPagerAdapter adapter;
     private ImageView comeBack;
     private TextView goodsNum;
-    private TextView navTitle;
+    private TextView shopPhone;
+    private TextView shopName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_index_layout);
         comeBack=findViewById(R.id.comeBack);
-
-        goodsNum=findViewById(R.id.goods_num);
         banner=findViewById(R.id.banner);
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(IndexTools.market);
@@ -57,6 +57,14 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
 
         contentViewPage =findViewById(R.id.viewpager);
         indicator =findViewById(R.id.id_indicator);
+        String fontPath="font/cartoon.ttf";
+        Typeface typeface=Typeface.createFromAsset(getAssets(),fontPath);
+        String fontPath2="font/1001.ttf";
+        Typeface typeface2=Typeface.createFromAsset(getAssets(),fontPath2);
+        shopName =findViewById(R.id.shopName);
+        shopPhone =findViewById(R.id.shopPhone);
+        shopPhone.setTypeface(typeface2);
+        shopName.setTypeface(typeface);
 
         initData();
         initEvent();
@@ -67,11 +75,11 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
     }
 
     private void initData() {
-        for (int i=0;i<mTitle.size();i++){
-
-            ReListFragment fragment= ReListFragment.getInstance(i);
-            listFragment.add(fragment);
-        }
+//        for (int i=0;i<mTitle.size();i++){
+//
+//            ReListFragment fragment= ReListFragment.getInstance(i);
+//            listFragment.add(fragment);
+//        }
         //mIndicator.setTabVisibleCount(3);
         indicator.setTabItemTitle(mTitle);
         indicator.setViewPager(contentViewPage,0);
@@ -98,28 +106,6 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
                 break;
         }
     }
-    /**
-     * 添加商品动画
-     * @param view
-     */
-    public void addAction(View view) {
-        ShoppingCartAnimationView shoppingCartAnimationView = new ShoppingCartAnimationView(this);
-        int position[] = new int[2];
-        view.getLocationInWindow(position);
-        int width=view.getWidth()/2;
-        shoppingCartAnimationView.setStartPosition(new Point(position[0]+width, position[1]));
-        ViewGroup rootView = (ViewGroup) getWindow().getDecorView();
-        rootView.addView(shoppingCartAnimationView);
-        int endPosition[] = new int[2];
-        goodsNum.getLocationInWindow(endPosition);
-        shoppingCartAnimationView.setEndPosition(new Point(endPosition[0], endPosition[1]));
-        shoppingCartAnimationView.startBeizerAnimation(goodsNum);
-//
 
 
-    }
-    @Override
-    public void changeNun(View view) {
-        addAction(view);
-    }
 }

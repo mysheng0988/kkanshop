@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:hyman="http://schemas.android.com/tools"
     android:background="@color/white"
     android:fitsSystemWindows="true">
     <android.support.design.widget.AppBarLayout
@@ -53,6 +52,7 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <TextView
+                                android:id="@+id/shopName"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
                                 android:gravity="center_vertical"
@@ -60,6 +60,7 @@
                                 android:textColor="@color/text"
                                 android:textSize="@dimen/txt_16"/>
                             <TextView
+                                android:id="@+id/shopPhone"
                                 android:layout_width="match_parent"
                                 android:layout_height="30dp"
                                 android:gravity="center_vertical"
@@ -205,7 +206,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="-10dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/txt_16"
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/btn_back"/>
                     <TextView

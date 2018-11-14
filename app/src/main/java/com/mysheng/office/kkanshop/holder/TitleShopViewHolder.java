@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TitleShopModel;
 
 public class TitleShopViewHolder extends CommonAbstractViewHolder<TitleModel> {
     public TextView leftTitle;

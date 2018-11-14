@@ -28,7 +28,6 @@ import java.util.Random;
 
 public class ReListFragment extends Fragment{
     private int position;
-    private ChangeGoodsNum changeGoodsNum;
     private static String PARAM="PARAM";
     private RecyclerView navRecyclerView;
     private ReListAdapter mAdapter;
@@ -105,14 +104,6 @@ public class ReListFragment extends Fragment{
         navRecyclerView.setLayoutManager(gridLayoutManager);
         mAdapter.setHeadData(navHeadModel);
         mAdapter.setNormalData(modelslist);
-        mAdapter.setOnItemClickCallback(new ReListAdapter.OnItemClickCallback() {
-            @Override
-            public void onItemClick(View view, Object mode) {
-                if(mode instanceof RecommendModel){
-                    changeGoodsNum.changeNun(view);
-                }
-            }
-        });
         navRecyclerView.setAdapter(mAdapter);
     }
 
@@ -127,9 +118,5 @@ public class ReListFragment extends Fragment{
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        changeGoodsNum= (ChangeGoodsNum) getActivity();
-    }
+
 }
