@@ -13,9 +13,19 @@ import java.util.Random;
 
 public class ShopIndexTitleViewHolder extends CommonAbstractViewHolder<ShopIndexTitleModel> {
     private int color[]={R.color.crimson,R.color.chocolate,R.color.medium_violet_red,R.color.forest_green,R.color.deep_sky_blue,R.color.sandy_brown,R.color.light_coral,R.color.goldenrod,R.color.aquamarine,R.color.turquoise};
-    private String fontPath[]={"font/normal.ttf","font/1001.ttf","font/1025.ttf","font/1026.ttf","font/1027.ttf",
-           "font/1028.ttf","font/1029.ttf","font/1030.ttf","font/1031.ttf","font/1032.ttf","font/1033.ttf",
-            "font/cartoon.ttf","font/Iron_blue.ttf","font/ldy.ttf","font/hollow.ttf"};
+    private String fontPath[]={"font/ana.ttf",
+        "font/banners.ttf", "font/bubbling.ttf",
+            "font/cartoon.ttf","font/chinese.ttf",
+            "font/formal.ttf","font/fz_cartoon.ttf",
+            "font/fzlxt.ttf","font/fzpyt.ttf",
+            "font/hk_snt.ttf","font/hollow.ttf",
+            "font/Iron_blue.ttf","font/ldy.ttf",
+            "font/normal.ttf","font/qlin.ttf",
+            "font/run.ttf","font/running.ttf",
+            "font/running_entry.ttf","font/Spray.ttf",
+            "font/wzybxs.ttf"
+    };
+
     public TextView mTitle;
     public View titleBorder;
     public ShopIndexTitleViewHolder(View itemView) {
@@ -27,12 +37,14 @@ public class ShopIndexTitleViewHolder extends CommonAbstractViewHolder<ShopIndex
     public void bindHolder(ShopIndexTitleModel model){
 
         Random random=new Random();
-        Typeface typeface=Typeface.createFromAsset(mTitle.getContext().getAssets(),fontPath[random.nextInt(fontPath.length)]);
+        String str=fontPath[random.nextInt(20)];
+        Typeface typeface=Typeface.createFromAsset(mTitle.getContext().getAssets(),str);
         mTitle.setTypeface(typeface);
-        mTitle.setText(model.getTitle());
-        mTitle.setTextColor(color[random.nextInt(10)]);
+        mTitle.setText(model.getTitle()+str);
+        int nun=random.nextInt(10);
+        mTitle.setTextColor(color[nun]);
 
-        titleBorder.setBackgroundResource(color[random.nextInt(10)]);
+        titleBorder.setBackgroundResource(color[nun]);
 
     }
 }

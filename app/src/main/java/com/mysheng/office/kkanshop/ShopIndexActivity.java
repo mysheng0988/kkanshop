@@ -40,7 +40,7 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
     private List<Fragment> listFragment=Arrays.asList(ShopIndexFragment.getInstance(0),ReListFragment.getInstance(1),ReListFragment.getInstance(2),ReListFragment.getInstance(3),ReListFragment.getInstance(4));
     private FragmentPagerAdapter adapter;
     private ImageView comeBack;
-    private TextView goodsNum;
+    private TextView shopAddress;
     private TextView shopPhone;
     private TextView shopName;
     @Override
@@ -57,14 +57,17 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
 
         contentViewPage =findViewById(R.id.viewpager);
         indicator =findViewById(R.id.id_indicator);
-        String fontPath="font/cartoon.ttf";
+        String fontPath="font/brush.ttf";
         Typeface typeface=Typeface.createFromAsset(getAssets(),fontPath);
-        String fontPath2="font/1001.ttf";
+        String fontPath2="font/ana.ttf";
         Typeface typeface2=Typeface.createFromAsset(getAssets(),fontPath2);
         shopName =findViewById(R.id.shopName);
+        Typeface typeface3=Typeface.createFromAsset(getAssets(),"font/running.ttf");
         shopPhone =findViewById(R.id.shopPhone);
+        shopAddress =findViewById(R.id.shopAddress);
         shopPhone.setTypeface(typeface2);
         shopName.setTypeface(typeface);
+        shopAddress.setTypeface(typeface3);
 
         initData();
         initEvent();

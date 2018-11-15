@@ -7,6 +7,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ public class ChangeTextView extends TextView{
     private Rect mTextBound = new Rect();
     public ChangeTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Typeface typeface=Typeface.createFromAsset(context.getAssets(),"font/running.ttf");
+        setTypeface(typeface);
     }
 
     @Override
