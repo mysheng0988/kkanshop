@@ -15,6 +15,9 @@ import android.widget.TextView;
  * Created by myaheng on 2018/9/12.
  */
 
+/**
+ * 颜色渐变的TextView
+ */
 @SuppressLint("AppCompatCustomView")
 public class ChangeTextView extends TextView{
     private LinearGradient mLinearGradient;

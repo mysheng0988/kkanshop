@@ -35,6 +35,28 @@
             <enum name="none" value="2"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="ChangeableTextView">
+        <attr name="style_mode">
+            <enum name="all" value="-1"/>
+            <enum name="formal" value="0"/>
+            <enum name="ana" value="1"/>
+            <enum name="bubbling" value="2"/>
+            <enum name="number" value="3"/>
+            <enum name="brush" value="4"/>
+            <enum name="cartoon" value="5"/>
+            <enum name="chinese" value="6"/>
+            <enum name="fzlxt" value="7"/>
+            <enum name="fzpyt" value="8"/>
+            <enum name="hk_snt" value="9"/>
+            <enum name="ldy" value="10"/>
+            <enum name="normal" value="11"/>
+            <enum name="qlin" value="12"/>
+            <enum name="run" value="13"/>
+            <enum name="running" value="14"/>
+            <enum name="Spray" value="15"/>
+            <enum name="wzybxs" value="16"/>
+        </attr>
+    </declare-styleable>
     <declare-styleable name="GridImageView">
         <attr format="boolean" name="showAddItem"></attr>
     </declare-styleable>

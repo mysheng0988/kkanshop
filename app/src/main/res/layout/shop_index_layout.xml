@@ -221,10 +221,6 @@
                 </LinearLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
         <com.mysheng.office.kkanshop.view.ViewPagerIndicator
             android:id="@+id/id_indicator"
             android:layout_width="match_parent"
@@ -232,7 +228,7 @@
             app:visible_tab_count="5"
             app:shape="line"
             app:color="@color/red"
-            app:textSize="12dp"
+            app:textSize="14dp"
             app:textColor="#80000000"
             app:textCheckedColor="@color/red_text_color"
             app:dividerColor="@color/background"

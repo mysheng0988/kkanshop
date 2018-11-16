@@ -68,7 +68,6 @@ public class ShopIndexActivity extends FragmentActivity  implements View.OnClick
         shopPhone.setTypeface(typeface2);
         shopName.setTypeface(typeface);
         shopAddress.setTypeface(typeface3);
-
         initData();
         initEvent();
     }
