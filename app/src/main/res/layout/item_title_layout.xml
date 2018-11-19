@@ -31,7 +31,7 @@
             android:background="@drawable/bg_time_left_radius"
             android:text="14:00场"
             android:textColor="@color/white"
-            android:textSize="14dp"/>
+            android:textSize="12dp"/>
         <TextView
             android:id="@+id/centerTitle"
             android:layout_width="60dp"
@@ -40,7 +40,7 @@
             android:textColor="@color/red_text_color"
             android:layout_height="25dp"
             android:text="14:12:12"
-            android:textSize="14dp"/>
+            android:textSize="12dp"/>
     </LinearLayout>
 
     <View

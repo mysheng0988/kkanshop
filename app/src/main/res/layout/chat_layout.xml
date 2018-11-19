@@ -85,9 +85,7 @@
         android:background="@color/border_clo"/>
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/gray"
+        android:background="@color/white"
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="180dp" />
