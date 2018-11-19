@@ -55,6 +55,7 @@
             <enum name="running" value="14"/>
             <enum name="Spray" value="15"/>
             <enum name="wzybxs" value="16"/>
+            <enum name="led" value="17"/>
         </attr>
     </declare-styleable>
     <declare-styleable name="GridImageView">

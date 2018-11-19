@@ -31,7 +31,7 @@ public class ChangeableTextView extends TextView{
             "font/fzlxt.ttf","font/fzpyt.ttf",
             "font/hk_snt.ttf","font/ldy.ttf",
             "font/normal.ttf","font/qlin.ttf",
-            "font/run.ttf","font/running.ttf","font/Spray.ttf", "font/wzybxs.ttf"
+            "font/run.ttf","font/running.ttf","font/Spray.ttf", "font/wzybxs.ttf","font/led.ttf"
     };
   //  private int[] color=  new int[] {  0xFFFFCC00, 0xFFFF9900 ,0xFFFF6600,0xFFFF3300,0xFFFF6600, 0xFFFF9900,0xFFFFCC00};
     private Paint mPaint;
@@ -46,11 +46,12 @@ public class ChangeableTextView extends TextView{
         super(context, attrs);
         TypedArray typedArray= context.obtainStyledAttributes(attrs, R.styleable.ChangeableTextView);
         textStyle=typedArray.getInt(R.styleable.ChangeableTextView_style_mode,0);
+
         Random random=new Random();
         Typeface typeface;
         String strPath;
         if(textStyle==-1){
-             strPath=fontPath[random.nextInt(17)];
+             strPath=fontPath[random.nextInt(18)];
             Log.e("mys", "ChangeableTextView: "+ strPath);
             typeface=Typeface.createFromAsset(context.getAssets(),strPath);
         }else{
@@ -59,7 +60,7 @@ public class ChangeableTextView extends TextView{
             typeface=Typeface.createFromAsset(context.getAssets(),strPath);
         }
         setTypeface(typeface);
-
+        typedArray.recycle();
     }
 
 //    @Override

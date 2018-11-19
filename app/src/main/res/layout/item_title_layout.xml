@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="35dp"
+    android:layout_height="40dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="5dp"
     android:background="@drawable/bg_title_radius"
     android:padding="5dp"
@@ -10,21 +10,45 @@
     <TextView
         android:id="@+id/leftTitle"
         android:layout_width="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/txt_5"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:text="左标题"/>
-    <TextView
-        android:id="@+id/centerTitle"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:text="中间标题"
-        android:textSize="14sp"/>
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_red_radius"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_time_left_radius"
+            android:text="14:00场"
+            android:textColor="@color/white"
+            android:textSize="14dp"/>
+        <TextView
+            android:id="@+id/centerTitle"
+            android:layout_width="60dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textColor="@color/red_text_color"
+            android:layout_height="25dp"
+            android:text="14:12:12"
+            android:textSize="14dp"/>
+    </LinearLayout>
+
     <View
         android:layout_width="1dp"
         android:layout_height="18dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/moreList"
         android:alpha="0.3"
         android:background="#666666"/>
     <LinearLayout
@@ -32,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_alignParentRight="true"
         android:orientation="horizontal">
         <TextView
             android:layout_width="30dp"
@@ -48,4 +73,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

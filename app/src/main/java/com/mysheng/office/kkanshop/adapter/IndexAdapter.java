@@ -31,7 +31,6 @@ import com.mysheng.office.kkanshop.holder.LoveTwoViewHolder;
 import com.mysheng.office.kkanshop.holder.NavViewHolder;
 import com.mysheng.office.kkanshop.holder.NoticeViewHolder;
 import com.mysheng.office.kkanshop.holder.RecommendViewHolder;
-import com.mysheng.office.kkanshop.holder.TitleShopViewHolder;
 import com.mysheng.office.kkanshop.holder.TitleViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.view.NoticeView;
@@ -74,7 +73,7 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 return new TitleViewHolder(titleView);
             case IndexTools.SHOPTITLE:
                 View titleView2=  mLayoutInflater.inflate(R.layout.item_title_layout,parent,false);
-                return new TitleShopViewHolder(titleView2);
+                return new TitleViewHolder(titleView2);
             case IndexTools.GOTitle:
                 View goTitle=  mLayoutInflater.inflate(R.layout.item_common_title,parent,false);
                 return new GoTitleViewHolder(goTitle);
@@ -177,8 +176,8 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
             case IndexTools.SHOPTITLE:
                 final TitleModel model2= (TitleModel) mList.get(position);
-                ((TitleShopViewHolder)holder).bindHolder(model2);
-                ((TitleShopViewHolder)holder).moreList.setOnClickListener(new View.OnClickListener() {
+                ((TitleViewHolder)holder).bindHolder(model2);
+                ((TitleViewHolder)holder).moreList.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (mOnItemClickListener!=null){
