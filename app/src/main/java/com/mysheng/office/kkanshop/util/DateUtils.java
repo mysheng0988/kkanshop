@@ -13,6 +13,7 @@ public class DateUtils {
     public static String SimpleDateFormatForHouse = "yyyy-MM-dd HH:mm";
     public static String SimpleDateFormatForHHMMSS = "yyyy-MM-dd HH:mm:ss";
     public static String SimpleDateFormatForHM = "HH:mm";
+    public static String SimpleDateFormatForHMS = "HH:mm:ss";
     public static String SimpleDateFormatForEEEENOYYYY = "MM月dd日 EEEE HH:mm";
     public static String SimpleDateFormatForEEEE = "yyyy年MM月dd日 EEEE HH:mm";
     public static String SimpleDateFormatForMMDDHHMM = "MM-dd HH:mm";
@@ -55,7 +56,7 @@ public class DateUtils {
 
     public static String getTime(long time) {
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat(SimpleDateFormatForHHMMSS);
+        SimpleDateFormat format = new SimpleDateFormat(SimpleDateFormatForHMS);
         return format.format(date);
     }
 

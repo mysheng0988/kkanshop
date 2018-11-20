@@ -31,6 +31,8 @@ import com.mysheng.office.kkanshop.entity.TypeMode;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.UtilToast;
+import com.mysheng.office.kkanshop.util.Utils;
+import com.mysheng.office.kkanshop.util.UtilsDate;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
@@ -235,7 +237,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		TitleModel titleModel=new TitleModel();
 		titleModel.setLeftTitle("整点秒杀");
 		titleModel.setTypeParam(IndexTools.KILLTITLE);
-		titleModel.setCenterTitle("22:00场 01:45:59");
+		String hour= UtilsDate.getTodayDate("HH");
+		titleModel.setCenterTitle(hour);
 		mList.add(titleModel);
 
 		for (int i=0;i<killPath.length;i++){

@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by myaheng on 2018/11/2.
@@ -109,7 +111,7 @@ public class UtilsDate {
      * @return
      */
     public static String getDifferDate(String strDate, int day) {
-        SimpleDateFormat sf1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sf1 = new SimpleDateFormat(FORMAT_DATE);
         Date date=null;
         try {
             date=sf1.parse(strDate);
@@ -217,7 +219,7 @@ public class UtilsDate {
      * 获取当前月的第一天
      */
     public static String getMonthFirstDate(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE);
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, 0);
         c.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天
@@ -227,9 +229,49 @@ public class UtilsDate {
      * 获取当前月的最后一天
      */
     public static String getMonthLastDate(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE);
         Calendar ca = Calendar.getInstance();
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
         return  format.format(ca.getTime());
+    }
+
+    /**
+     * 返回当前日期
+     * @return
+     */
+    public static String getTodayDate(){
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE);
+        Calendar ca = Calendar.getInstance();
+        return  format.format(ca.getTime());
+    }
+
+    /**
+     * 返回当前日期
+     * @param pattern 格式参数
+     * @return
+     */
+    public static String getTodayDate(String pattern){
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        Calendar ca = Calendar.getInstance();
+        return  format.format(ca.getTime());
+    }
+    public static long getDifferDate(String strDate,String strDate2){
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE_ALL, Locale.CHINA);
+        Date date1=null;
+        Date date2=null;
+        try {
+            date1=format.parse(strDate);
+            date2=format.parse(strDate2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String dtr=formatDateToYMD(strDate);
+        return  date1.getTime()-date2.getTime();
+    }
+    public static String getStrTime(long time) {
+        Date date = new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_TIME_SECOND);
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(date);
     }
 }

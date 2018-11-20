@@ -19,26 +19,27 @@
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="20dp"
         android:layout_centerInParent="true"
-        android:background="@drawable/bg_red_radius"
+        android:background="@drawable/bg_time_red_radius"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/field"
             android:layout_width="60dp"
-            android:layout_height="25dp"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:background="@drawable/bg_time_left_radius"
             android:text="14:00场"
             android:textColor="@color/white"
             android:textSize="12dp"/>
-        <TextView
+        <com.mysheng.office.kkanshop.view.CountDownTextView
             android:id="@+id/centerTitle"
             android:layout_width="60dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:textColor="@color/red_text_color"
-            android:layout_height="25dp"
+            android:layout_height="20dp"
             android:text="14:12:12"
             android:textSize="12dp"/>
     </LinearLayout>

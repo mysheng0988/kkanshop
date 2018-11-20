@@ -2,13 +2,11 @@ package com.mysheng.office.kkanshop.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.mysheng.office.kkanshop.util.AppCountDownTimer;
-
-import org.apache.commons.lang.time.DurationFormatUtils;
+import com.mysheng.office.kkanshop.util.UtilsDate;
 
 /**
  * Created by myaheng on 2018/11/19.
@@ -16,7 +14,7 @@ import org.apache.commons.lang.time.DurationFormatUtils;
 
 @SuppressLint("AppCompatCustomView")
 public class CountDownTextView extends TextView {
-    private AppCountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer;
     private String mTimeStr;
     private String mTimePattern = "HH:mm:ss";
     private  OnFinish onFinish;
@@ -27,11 +25,10 @@ public class CountDownTextView extends TextView {
     public CountDownTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
-    public void initData(final long millisInFuture){
-        countDownTimer=new AppCountDownTimer(millisInFuture,1000,this){
+    public void initData(long millisInFuture){
+        countDownTimer=new CountDownTimer(millisInFuture,1000){
             @Override
             public void onFinish() {
-                super.onFinish();
                 if(onFinish!=null){
                     onFinish.countDownFinish();
                 }
@@ -39,13 +36,15 @@ public class CountDownTextView extends TextView {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                mTimeStr = DurationFormatUtils.formatDuration(millisUntilFinished, mTimePattern);
+                mTimeStr = UtilsDate.getStrTime(millisUntilFinished);
                 setText(mTimeStr);
             }
         };
+        startTimer();
 
     }
     public void cancelTimer() {
+        if(countDownTimer!=null)
         countDownTimer.cancel();
     }
 

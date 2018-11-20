@@ -303,6 +303,16 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return mList.size();
     }
+
+    @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if(holder instanceof TitleViewHolder){
+            TitleViewHolder titleViewHolder= (TitleViewHolder) holder;
+            titleViewHolder.centerTitle.cancelTimer();
+        }
+    }
+
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
         this.mOnItemClickListener = itemClickListener;
     }

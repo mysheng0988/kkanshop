@@ -55,5 +55,4 @@ dependencies {
     implementation 'com.jph.takephoto:takephoto_library:4.0.3'
     implementation 'com.getui:sdk:2.12.4.0'
     implementation files('libs/AMap2DMap_5.2.0_AMapSearch_6.5.0_AMapLocation_4.3.0_20181016.jar')
-    implementation files('libs/org.apache.commons.lang-2.4.jar')
 }
