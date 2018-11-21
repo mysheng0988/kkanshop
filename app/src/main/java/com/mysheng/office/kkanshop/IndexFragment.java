@@ -453,6 +453,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 			case IndexTools.KILL:
 				KillModel killModel= (KillModel)typeMode;
 				str=killModel.getPrice();
+				intent=new Intent(getActivity(),DescribeActivity.class);
+				startActivity(intent);
 				break;
 			case IndexTools.SHOPTITLE:
 				intent=new Intent(getActivity(),GoodsShopActivity.class);

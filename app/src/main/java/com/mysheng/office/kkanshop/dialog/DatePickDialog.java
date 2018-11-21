@@ -7,19 +7,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.LabelModel;
-import com.mysheng.office.kkanshop.util.DateUtils;
+import com.mysheng.office.kkanshop.util.UtilsDate;
 import com.mysheng.office.kkanshop.view.DatePickView;
-import com.mysheng.office.kkanshop.view.LabelsView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by myaheng on 2018/10/11.
@@ -96,7 +87,7 @@ public class DatePickDialog extends Dialog implements View.OnClickListener,DateP
 
     @Override
     public void returnTime(long time) {
-        dateTime.setText(DateUtils.getDate(time));
+        dateTime.setText(UtilsDate.getTime(time));
     }
 
     public interface OnConfirmListener{

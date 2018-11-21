@@ -9,7 +9,7 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.util.DateUtils;
+import com.mysheng.office.kkanshop.util.UtilsDate;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
@@ -188,7 +188,8 @@ public class DatePickView extends RelativeLayout implements NumberPicker.OnValue
                 month + "-" +
                 day + " " +
                 time;
-        Date date = DateUtils.getDateByFormat(DateUtils.SimpleDateFormatForHouse, stringBuffer);
+        //Date date = DateUtils.getDateByFormat(DateUtils.SimpleDateFormatForHouse, stringBuffer);
+        Date date= UtilsDate.StrToDate(stringBuffer,"yyyy-MM-dd HH:mm");
         assert date != null;
         return date.getTime();
     }

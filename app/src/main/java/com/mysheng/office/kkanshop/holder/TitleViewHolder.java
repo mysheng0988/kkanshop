@@ -8,14 +8,12 @@ import com.mysheng.office.kkanshop.entity.TitleModel;
 import com.mysheng.office.kkanshop.util.UtilsDate;
 import com.mysheng.office.kkanshop.view.CountDownTextView;
 
-
 public class TitleViewHolder extends CommonAbstractViewHolder<TitleModel> {
     public TextView leftTitle;
     public TextView field;
     public CountDownTextView centerTitle;
     public LinearLayout moreList;
     public LinearLayout layout;
-
     public TitleViewHolder(View itemView) {
         super(itemView);
         leftTitle=itemView.findViewById(R.id.leftTitle);
@@ -44,6 +42,7 @@ public class TitleViewHolder extends CommonAbstractViewHolder<TitleModel> {
             String endDate=UtilsDate.getTodayDate()+" "+nextHour+":00:00";
             long date=UtilsDate.getDifferDate(endDate,nowDate);
             centerTitle.initData(date);
+
             layout.setVisibility(View.VISIBLE);
         }
 

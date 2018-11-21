@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 import com.mysheng.office.kkanshop.util.UtilsDate;
 
+import org.apache.commons.lang.time.DurationFormatUtils;
+
 /**
  * Created by myaheng on 2018/11/19.
  */
@@ -36,7 +38,7 @@ public class CountDownTextView extends TextView {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                mTimeStr = UtilsDate.getStrTime(millisUntilFinished);
+                mTimeStr = DurationFormatUtils.formatDuration(millisUntilFinished,mTimePattern);
                 setText(mTimeStr);
             }
         };

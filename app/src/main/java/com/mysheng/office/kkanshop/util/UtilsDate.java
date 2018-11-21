@@ -24,6 +24,12 @@ public class UtilsDate {
     public final static String FORMAT_DATE = "yyyy-MM-dd";
     public final static String FORMAT_MONTH_DAY = "MM-dd";
 
+    public static String getTime(long time) {
+        Date date = new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE_TIME);
+        return format.format(date);
+    }
+
     /**
      * 将日期转字符串
      * @param date      需要格式化的日期
@@ -42,7 +48,7 @@ public class UtilsDate {
      */
     public static Date StrToDate(String str,String format) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format,Locale.CHINA);
         Date date = null;
         try {
             date = dateFormat.parse(str);
@@ -256,7 +262,7 @@ public class UtilsDate {
         return  format.format(ca.getTime());
     }
     public static long getDifferDate(String strDate,String strDate2){
-        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE_ALL, Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_DATE_ALL);
         Date date1=null;
         Date date2=null;
         try {
@@ -270,8 +276,7 @@ public class UtilsDate {
     }
     public static String getStrTime(long time) {
         Date date = new Date(time);
-        SimpleDateFormat format = new SimpleDateFormat(FORMAT_TIME_SECOND);
-        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        SimpleDateFormat format = new SimpleDateFormat(FORMAT_TIME_SECOND,Locale.CHINA);
         return format.format(date);
     }
 }
