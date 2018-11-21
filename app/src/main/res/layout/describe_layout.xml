@@ -51,31 +51,40 @@
             app:scroll_mode="mode_forever" />
     </LinearLayout>
   <include layout="@layout/item_seckill_layout"/>
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
         android:layout_centerInParent="true"
         android:background="@android:color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_voucher_radius"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
         <com.mysheng.office.kkanshop.view.CouponDisplayView
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/txt_10"
-            android:background="@color/light_salmon">
+            android:background="@drawable/bg_change_color">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
 
         </com.mysheng.office.kkanshop.view.CouponDisplayView>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@drawable/bg_voucher_radius"/>
-    </LinearLayout>
+    </FrameLayout>
+    <com.mysheng.office.kkanshop.view.FuckView
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
-
+    </com.mysheng.office.kkanshop.view.FuckView>
 
 </LinearLayout>
