@@ -4,7 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.Xfermode;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -12,13 +18,10 @@ import com.mysheng.office.kkanshop.R;
 
 /**
  * 自定义的一个卡劵效果的view
- * yangqiangyu on 5/16/16 11:15
- * 博客:http://blog.csdn.net/yissan
  *
  */
 public class CouponDisplayView extends LinearLayout {
 
-    private Paint mPaint;
     /**
      * 圆间距
      */
@@ -37,10 +40,16 @@ public class CouponDisplayView extends LinearLayout {
     private int circleNum;
 
     private float remain;
+    private Paint mPaint;
+    private Paint dottedLine;
+    private Path dottedPath;
 
-
+    private Paint topPaint;
+    private Path topPath;
+    private Paint bottomPaint;
+    private Path bottomPath;
     public CouponDisplayView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public CouponDisplayView(Context context, AttributeSet attrs) {
@@ -50,11 +59,19 @@ public class CouponDisplayView extends LinearLayout {
         gap = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_gap, gap);
         radius = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_circleRadius,radius);
         typedArray.recycle();
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setDither(true);
-        mPaint.setColor(radiusColor);
-        mPaint.setStyle(Paint.Style.FILL);
+        init();
+
     }
+
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        int childWidthSize = getMeasuredWidth();
+//
+////        widthMeasureSpec = MeasureSpec.makeMeasureSpec( childWidthSize, MeasureSpec.EXACTLY);
+////        // 高度和宽度一样
+////        heightMeasureSpec = widthMeasureSpec/3;
+//        super.onMeasure(widthMeasureSpec, childWidthSize/3);
+//    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -65,19 +82,64 @@ public class CouponDisplayView extends LinearLayout {
         }
         circleNum = (int) ((h-gap)/(2*radius+gap));
     }
+    private void init(){
+
+        topPaint=new Paint();
+        topPaint.setColor(Color.parseColor("#E89F38"));
+        topPaint.setStyle(Paint.Style.FILL);
+        topPath=new Path();
+
+        bottomPaint=new Paint();
+        bottomPaint.setColor(Color.parseColor("#EBAD45"));
+        bottomPaint.setStyle(Paint.Style.FILL);
+        bottomPath=new Path();
+
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setDither(true);
+        mPaint.setColor(radiusColor);
+        mPaint.setStyle(Paint.Style.FILL);
+
+        dottedLine=new Paint();
+        dottedLine.setColor(Color.WHITE);
+        dottedLine.setStyle(Paint.Style.STROKE);
+        dottedLine.setStrokeWidth(1);
+        dottedPath =new Path();
 
 
-    public CouponDisplayView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+        //draw a translucent in top
+        topPath.reset();
+        topPath.moveTo(0,0);
+        topPath.lineTo(width*4/5,0);
+        topPath.lineTo(width/5,height);
+        topPath.lineTo(0,height);
+        topPath.close();
+        canvas.drawPath(topPath,topPaint);
+        bottomPath.reset();
+        bottomPath.moveTo(width*4/5,0);
+        bottomPath.lineTo(width,0);
+        bottomPath.lineTo(width,height);
+        bottomPath.lineTo(width/5,height);
+        bottomPath.close();
+        canvas.drawPath(bottomPath,bottomPaint);
         for (int i=0;i<circleNum;i++){
             float y = gap+radius+remain/2+((gap+radius*2)*i);
             canvas.drawCircle(0,y,radius,mPaint);
         }
+        canvas.drawCircle(width*3/5,0,radius,mPaint);
+        canvas.drawCircle(width*3/5,height,radius,mPaint);
+        dottedPath.reset();
+        dottedPath.moveTo(width*3/5,0);
+        dottedPath.lineTo(width*3/5,height);
+        dottedLine.setPathEffect(new DashPathEffect(new float[]{20f,10f}, 0));
+        canvas.drawPath(dottedPath, dottedLine);
+
     }
 }

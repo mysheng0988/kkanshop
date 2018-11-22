@@ -19,17 +19,23 @@ public class FuckView extends TextView{
     private String labelText = "default";
     private int labelColor = Color.WHITE;
     private int textColor = Color.BLACK;
-
+    private Paint topPaint;
+    private Path topPath;
+    private Paint bottomPaint;
+    private Path bottomPath;
     public FuckView(Context context) {
         super(context);
+        init();
     }
 
     public FuckView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public FuckView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
 
@@ -38,7 +44,17 @@ public class FuckView extends TextView{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
+    private void init(){
+        topPaint=new Paint();
+        topPaint.setColor(Color.parseColor("#E89F38"));
+        topPaint.setStyle(Paint.Style.FILL);
+        topPath=new Path();
 
+        bottomPaint=new Paint();
+        bottomPaint.setColor(Color.parseColor("#EBAD45"));
+        bottomPaint.setStyle(Paint.Style.FILL);
+        bottomPath=new Path();
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -46,31 +62,21 @@ public class FuckView extends TextView{
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         //draw a translucent in top
-        Paint timPaint = new Paint();
-        timPaint.setColor(Color.parseColor("#E89F38"));
-        timPaint.setStyle(Paint.Style.FILL);
-        timPaint.setStrokeWidth(5);
-        Path path=new Path();
-        path.moveTo(0,0);
-        path.moveTo(width-100,0);
-        path.moveTo(100,height);
-        path.moveTo(0,height);
-        path.close();
-        //canvas.drawPath(path,timPaint);
-        canvas.drawRect(0f, 0f, width, height / 2f, timPaint);
-        Paint timPaint2 = new Paint();
-        timPaint2.setColor(Color.parseColor("#EBAD45"));
-        timPaint2.setStyle(Paint.Style.FILL);
-        Path path2=new Path();
-        path2.moveTo(width-100,0);
-        path2.moveTo(width,0);
-        path2.moveTo(width,height);
-        path2.moveTo(100,height);
-        path2.close();
-
-        //canvas.drawPath(path2,timPaint2);
-        canvas.drawRect(0f, height / 2f, width, height , timPaint2);
-
+        topPath.reset();
+        topPath.moveTo(0,0);
+        topPath.lineTo(width-150,0);
+        topPath.lineTo(150,height);
+        topPath.lineTo(0,height);
+        topPath.close();
+        canvas.drawPath(topPath,topPaint);
+        bottomPath.reset();
+        bottomPath.moveTo(width-150,0);
+        bottomPath.lineTo(width,0);
+        bottomPath.lineTo(width,height);
+        bottomPath.lineTo(150,height);
+        bottomPath.close();
+        canvas.drawPath(bottomPath,bottomPaint);
+        //canvas.drawRect(0f, height / 2f, width, height , timPaint2);
 //        //draw a left mark
 //        Paint discountPaint = new Paint();
 //        discountPaint.setColor(labelColor);

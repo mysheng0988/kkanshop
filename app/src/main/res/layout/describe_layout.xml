@@ -51,40 +51,85 @@
             app:scroll_mode="mode_forever" />
     </LinearLayout>
   <include layout="@layout/item_seckill_layout"/>
-    <FrameLayout
+
+    <com.mysheng.office.kkanshop.view.CouponDisplayView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_margin="5dp"
-        android:layout_centerInParent="true"
-        android:background="@android:color/white">
+        android:layout_margin="@dimen/txt_5"
+       android:background="@color/white">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_voucher_radius"
-            android:orientation="horizontal">
+            android:layout_weight="3"
+            android:orientation="vertical">
             <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent" />
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="@dimen/txt_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="爱我服饰旗舰店"
+                android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginVertical="@dimen/txt_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥50.00"
+                    android:textSize="28dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="@dimen/txt_5"
+                    android:text="代金券"/>
+            </LinearLayout>
+
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3" />
+                android:layout_marginLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="满199减50"
+                android:textColor="@color/white" />
+
         </LinearLayout>
-        <com.mysheng.office.kkanshop.view.CouponDisplayView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:background="@drawable/bg_change_color">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/txt_10"
+                android:text="副券"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginVertical="@dimen/txt_5"
+                android:text="2018-11-11"
+                android:textColor="@color/white" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2018-11-11"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
-        </com.mysheng.office.kkanshop.view.CouponDisplayView>
-    </FrameLayout>
-    <com.mysheng.office.kkanshop.view.FuckView
-        android:layout_width="match_parent"
-        android:layout_height="100dp">
+    </com.mysheng.office.kkanshop.view.CouponDisplayView>
 
-    </com.mysheng.office.kkanshop.view.FuckView>
+
+
 
 </LinearLayout>
