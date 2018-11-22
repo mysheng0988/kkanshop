@@ -12,9 +12,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
+import com.mysheng.office.kkanshop.util.DisplayUtils;
 
 /**
  * 自定义的一个卡劵效果的view
@@ -25,7 +27,7 @@ public class CouponDisplayView extends LinearLayout {
     /**
      * 圆间距
      */
-    private int gap = 10;
+    private int gap =5;
     /**
      * 圆圈颜色
      */
@@ -33,11 +35,24 @@ public class CouponDisplayView extends LinearLayout {
     /**
      * 半径
      */
-    private int radius = 10;
+    private int radius = 5;
     /**
      * 圆数量
      */
     private int circleNum;
+    private int topColor=0xffE89F38;
+    private  int bottomColor=0xffEBAD45;
+    private int bigTextSize=30;
+    private int smallTextSize=16;
+    private int leftWidth=20;
+    private String shopName="新爱我服饰旗舰店";
+    private String reduce="￥50.00";
+    private String name="代金券";
+    private String limit="满299减50";
+    private String subhead="副券";
+    private String startDate="2018-11-01";
+    private String endDate="2018-11-30";
+
 
     private float remain;
     private Paint mPaint;
@@ -48,6 +63,9 @@ public class CouponDisplayView extends LinearLayout {
     private Path topPath;
     private Paint bottomPaint;
     private Path bottomPath;
+
+    private Paint textPaint;
+    private Path pathText;
     public CouponDisplayView(Context context) {
         this(context,null);
     }
@@ -56,22 +74,23 @@ public class CouponDisplayView extends LinearLayout {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CouponDisplayView);
         radiusColor = typedArray.getColor(R.styleable.CouponDisplayView_radiusColor, radiusColor);
+        topColor = typedArray.getColor(R.styleable.CouponDisplayView_topColor, topColor);
+        bottomColor = typedArray.getColor(R.styleable.CouponDisplayView_bottomColor, bottomColor);
         gap = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_gap, gap);
         radius = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_circleRadius,radius);
+        bigTextSize = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_bigTextSize,bigTextSize);
+        smallTextSize = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_smallTextSize,smallTextSize);
+        gap=DisplayUtils.dpToPx(gap);
+        radius=DisplayUtils.dpToPx(radius);
+        bigTextSize=DisplayUtils.dpToPx(bigTextSize);
+        smallTextSize=DisplayUtils.dpToPx(smallTextSize);
+        leftWidth=DisplayUtils.dpToPx(leftWidth);
         typedArray.recycle();
+        inflate(context,R.layout.voucher_layout,this);
         init();
 
     }
 
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        int childWidthSize = getMeasuredWidth();
-//
-////        widthMeasureSpec = MeasureSpec.makeMeasureSpec( childWidthSize, MeasureSpec.EXACTLY);
-////        // 高度和宽度一样
-////        heightMeasureSpec = widthMeasureSpec/3;
-//        super.onMeasure(widthMeasureSpec, childWidthSize/3);
-//    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -85,12 +104,12 @@ public class CouponDisplayView extends LinearLayout {
     private void init(){
 
         topPaint=new Paint();
-        topPaint.setColor(Color.parseColor("#E89F38"));
+        topPaint.setColor(topColor);
         topPaint.setStyle(Paint.Style.FILL);
         topPath=new Path();
 
         bottomPaint=new Paint();
-        bottomPaint.setColor(Color.parseColor("#EBAD45"));
+        bottomPaint.setColor(bottomColor);
         bottomPaint.setStyle(Paint.Style.FILL);
         bottomPath=new Path();
 
@@ -140,6 +159,6 @@ public class CouponDisplayView extends LinearLayout {
         dottedPath.lineTo(width*3/5,height);
         dottedLine.setPathEffect(new DashPathEffect(new float[]{20f,10f}, 0));
         canvas.drawPath(dottedPath, dottedLine);
+      }
 
-    }
 }

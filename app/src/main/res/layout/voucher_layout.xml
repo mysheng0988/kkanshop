@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="100dp"
+    android:orientation="horizontal">
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -11,25 +12,29 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="@dimen/txt_10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="20dp"
             android:text="爱我服饰旗舰店"
             android:textColor="@color/white" />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
                 android:layout_marginLeft="25dp"
-                android:layout_marginVertical="@dimen/txt_5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="￥50.00"
                 android:textSize="28dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/txt_5"
+                android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:layout_marginLeft="@dimen/txt_5"
                 android:text="代金券"/>
@@ -38,7 +43,9 @@
         <TextView
             android:layout_marginLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/txt_10"
             android:text="满199减50"
             android:textColor="@color/white" />
 
@@ -50,7 +57,7 @@
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:layout_marginTop="@dimen/txt_10"
             android:text="副券"
@@ -59,14 +66,13 @@
             android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
-            android:layout_marginVertical="@dimen/txt_5"
             android:text="2018-11-11"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="2018-11-11"
             android:textColor="@color/white" />
