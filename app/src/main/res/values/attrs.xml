@@ -11,6 +11,10 @@
         <attr name="gap" format="dimension"/>
         <attr name="circleRadius" format="dimension"/>
         <attr name="radiusColor" format="color"/>
+        <!--<attr name="topColor" format="color"/>-->
+        <!--<attr name="bottomColor" format="color"/>-->
+        <!--<attr  name="contentTextSize" format="dimension"/>-->
+        <!--<attr  name="titleTextSize" format="dimension"/>-->
     </declare-styleable>
 
     <declare-styleable name="ViewPagerIndicator">
