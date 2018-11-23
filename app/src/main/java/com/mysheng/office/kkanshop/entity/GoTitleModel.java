@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/12.
  */
 
-public class GoTitleModel extends TypeMode {
+public class GoTitleModel extends TypeModel {
     private String goTitle;
 
     public String getGoTitle() {

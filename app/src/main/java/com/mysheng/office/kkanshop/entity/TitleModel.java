@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/11.
  */
 
-public class TitleModel extends TypeMode {
+public class TitleModel extends TypeModel {
     private String leftTitle;
     private String centerTitle;
 

@@ -7,12 +7,8 @@ import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
-import android.graphics.Xfermode;
 import android.util.AttributeSet;
-import android.util.TypedValue;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
@@ -22,12 +18,12 @@ import com.mysheng.office.kkanshop.util.DisplayUtils;
  * 自定义的一个卡劵效果的view
  *
  */
-public class CouponDisplayView extends LinearLayout {
+public class CouponView extends LinearLayout {
 
     /**
      * 圆间距
      */
-    private int gap =5;
+    private int gap =3;
     /**
      * 圆圈颜色
      */
@@ -35,7 +31,7 @@ public class CouponDisplayView extends LinearLayout {
     /**
      * 半径
      */
-    private int radius = 5;
+    private int radius = 3;
     /**
      * 圆数量
      */
@@ -45,15 +41,6 @@ public class CouponDisplayView extends LinearLayout {
     private int bigTextSize=30;
     private int smallTextSize=16;
     private int leftWidth=20;
-    private String shopName="新爱我服饰旗舰店";
-    private String reduce="￥50.00";
-    private String name="代金券";
-    private String limit="满299减50";
-    private String subhead="副券";
-    private String startDate="2018-11-01";
-    private String endDate="2018-11-30";
-
-
     private float remain;
     private Paint mPaint;
     private Paint dottedLine;
@@ -63,30 +50,27 @@ public class CouponDisplayView extends LinearLayout {
     private Path topPath;
     private Paint bottomPaint;
     private Path bottomPath;
-
-    private Paint textPaint;
-    private Path pathText;
-    public CouponDisplayView(Context context) {
+    public CouponView(Context context) {
         this(context,null);
     }
 
-    public CouponDisplayView(Context context, AttributeSet attrs) {
+    public CouponView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CouponDisplayView);
-        radiusColor = typedArray.getColor(R.styleable.CouponDisplayView_radiusColor, radiusColor);
-        topColor = typedArray.getColor(R.styleable.CouponDisplayView_topColor, topColor);
-        bottomColor = typedArray.getColor(R.styleable.CouponDisplayView_bottomColor, bottomColor);
-        gap = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_gap, gap);
-        radius = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_circleRadius,radius);
-        bigTextSize = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_bigTextSize,bigTextSize);
-        smallTextSize = typedArray.getDimensionPixelSize(R.styleable.CouponDisplayView_smallTextSize,smallTextSize);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VoucherView);
+        radiusColor = typedArray.getColor(R.styleable.VoucherView_radiusColor, radiusColor);
+        topColor = typedArray.getColor(R.styleable.VoucherView_topColor, topColor);
+        bottomColor = typedArray.getColor(R.styleable.VoucherView_bottomColor, bottomColor);
+        gap = typedArray.getDimensionPixelSize(R.styleable.VoucherView_gap, gap);
+        radius = typedArray.getDimensionPixelSize(R.styleable.VoucherView_circleRadius,radius);
+        bigTextSize = typedArray.getDimensionPixelSize(R.styleable.VoucherView_bigTextSize,bigTextSize);
+        smallTextSize = typedArray.getDimensionPixelSize(R.styleable.VoucherView_smallTextSize,smallTextSize);
         gap=DisplayUtils.dpToPx(gap);
         radius=DisplayUtils.dpToPx(radius);
         bigTextSize=DisplayUtils.dpToPx(bigTextSize);
         smallTextSize=DisplayUtils.dpToPx(smallTextSize);
         leftWidth=DisplayUtils.dpToPx(leftWidth);
         typedArray.recycle();
-        inflate(context,R.layout.voucher_layout,this);
+        inflate(context,R.layout.coupon_layout,this);
         init();
 
     }
@@ -97,9 +81,12 @@ public class CouponDisplayView extends LinearLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         if (remain==0){
             //计算不整除的剩余部分
-            remain = (int)(h-gap)%(2*radius+gap);
+            remain = (int)((h-gap)%(2*radius+gap));
         }
-        circleNum = (int) ((h-gap)/(2*radius+gap));
+        circleNum = (int) ((h-gap)%(2*radius+gap));
+        Log.e("CouponView", "onSizeChanged: "+ circleNum);
+        Log.e("CouponView", "onSizeChanged: "+h );
+        Log.e("CouponView", "onSizeChanged: "+remain );
     }
     private void init(){
 
@@ -117,14 +104,6 @@ public class CouponDisplayView extends LinearLayout {
         mPaint.setDither(true);
         mPaint.setColor(radiusColor);
         mPaint.setStyle(Paint.Style.FILL);
-
-        dottedLine=new Paint();
-        dottedLine.setColor(Color.WHITE);
-        dottedLine.setStyle(Paint.Style.STROKE);
-        dottedLine.setStrokeWidth(1);
-        dottedPath =new Path();
-
-
 
     }
 
@@ -149,16 +128,12 @@ public class CouponDisplayView extends LinearLayout {
         bottomPath.close();
         canvas.drawPath(bottomPath,bottomPaint);
         for (int i=0;i<circleNum;i++){
-            float y = gap+radius+remain/2+((gap+radius*2)*i);
+            float y =remain/2+gap/2+radius+((gap+radius*2)*i);
+            Log.e("CouponView", "onDraw: "+y);
             canvas.drawCircle(0,y,radius,mPaint);
+            canvas.drawCircle(width,y,radius,mPaint);
+
         }
-        canvas.drawCircle(width*3/5,0,radius,mPaint);
-        canvas.drawCircle(width*3/5,height,radius,mPaint);
-        dottedPath.reset();
-        dottedPath.moveTo(width*3/5,0);
-        dottedPath.lineTo(width*3/5,height);
-        dottedLine.setPathEffect(new DashPathEffect(new float[]{20f,10f}, 0));
-        canvas.drawPath(dottedPath, dottedLine);
       }
 
 }

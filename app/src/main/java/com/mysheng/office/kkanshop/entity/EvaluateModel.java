@@ -5,7 +5,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/19.
  */
 
-public class EvaluateModel extends TypeMode  {
+public class EvaluateModel extends TypeModel {
     private String userIcon;
     private String userName;
     private float score;

@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/7.
  */
 
-public class NavModel extends TypeMode{
+public class NavModel extends TypeModel {
     private int navIcon;
     private String navTitle;
 

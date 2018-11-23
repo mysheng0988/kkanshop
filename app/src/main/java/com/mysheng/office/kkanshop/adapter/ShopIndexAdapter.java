@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopIndexTitleModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 import com.mysheng.office.kkanshop.holder.RecommendViewHolder;
 import com.mysheng.office.kkanshop.holder.ShopIndexTitleViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
@@ -28,9 +28,9 @@ import java.util.List;
 public class ShopIndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private LayoutInflater mLayoutInflater;
-    private OnItemClickListener<TypeMode> mOnItemClickListener;
-    private List<TypeMode> mList=new ArrayList<>();
-    public ShopIndexAdapter(Context context, List<TypeMode> lists) {
+    private OnItemClickListener<TypeModel> mOnItemClickListener;
+    private List<TypeModel> mList=new ArrayList<>();
+    public ShopIndexAdapter(Context context, List<TypeModel> lists) {
         this.mLayoutInflater=LayoutInflater.from(context);
         this.mList=lists;
     }

@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/12.
  */
 
-public class RecommendModel  extends TypeMode {
+public class RecommendModel  extends TypeModel {
     private String goodsTitle;
     private String goodsPath;
     private String price;

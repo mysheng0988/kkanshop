@@ -11,7 +11,7 @@ import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.EvaluateModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.SelectModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 import com.mysheng.office.kkanshop.holder.EvaluateViewHolder;
 import com.mysheng.office.kkanshop.holder.SelectViewHolder;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
@@ -31,8 +31,8 @@ public class CommentAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolde
     private LayoutInflater mLayoutInflater;
     private OnItemClickListener mOnItemClickListener;
     private MessagePicturesLayout.Callback mCallback;
-    private List<TypeMode> mList=new ArrayList<>();
-    public CommentAdapter(Context context,List<TypeMode> lists) {
+    private List<TypeModel> mList=new ArrayList<>();
+    public CommentAdapter(Context context,List<TypeModel> lists) {
         this.mLayoutInflater=LayoutInflater.from(context);
         this.mList=lists;
     }

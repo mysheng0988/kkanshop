@@ -7,7 +7,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/10.
  */
 
-public class BannerModel extends TypeMode {
+public class BannerModel extends TypeModel {
 
     private List<String> listPath=new ArrayList<>();
     private List<String> listTitle=new ArrayList<>();

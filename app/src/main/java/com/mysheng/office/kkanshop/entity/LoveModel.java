@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/11.
  */
 
-public class LoveModel extends TypeMode{
+public class LoveModel extends TypeModel {
     private String loveTitle;
     private String discountTitle;
     private String labelTitle;

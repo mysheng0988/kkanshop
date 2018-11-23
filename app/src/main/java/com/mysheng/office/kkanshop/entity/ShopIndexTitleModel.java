@@ -4,7 +4,7 @@ package com.mysheng.office.kkanshop.entity;
  * Created by myaheng on 2018/9/11.
  */
 
-public class ShopIndexTitleModel extends TypeMode {
+public class ShopIndexTitleModel extends TypeModel {
     private String title;
     private int titleLeftColor;
 

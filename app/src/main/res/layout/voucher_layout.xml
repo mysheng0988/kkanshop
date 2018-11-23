@@ -9,6 +9,7 @@
         android:layout_weight="3"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/shopName"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="@dimen/txt_10"
             android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/reduce"
                 android:layout_marginLeft="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -41,6 +43,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/limit"
             android:layout_marginLeft="25dp"
             android:layout_width="match_parent"
             android:layout_height="20dp"
@@ -56,6 +59,7 @@
         android:layout_weight="2"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/subhead"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
@@ -65,12 +69,14 @@
             android:textSize="20dp"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/startDate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
             android:text="2018-11-11"
             android:textColor="@color/white" />
         <TextView
+            android:id="@+id/endDate"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"

@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.mysheng.office.kkanshop.adapter.IndexAdapter;
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
-import com.mysheng.office.kkanshop.entity.BannerImage;
 import com.mysheng.office.kkanshop.entity.BannerModel;
 import com.mysheng.office.kkanshop.entity.GoTitleModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
@@ -27,11 +26,10 @@ import com.mysheng.office.kkanshop.entity.NoticeModel;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 import com.mysheng.office.kkanshop.listenter.OnItemClickListener;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.UtilToast;
-import com.mysheng.office.kkanshop.util.Utils;
 import com.mysheng.office.kkanshop.util.UtilsDate;
 import com.mysheng.office.kkanshop.zxing.android.CaptureActivity;
 import com.mysheng.office.kkanshop.zxing.bean.ZxingConfig;
@@ -47,7 +45,7 @@ import java.util.Random;
 
 import static android.app.Activity.RESULT_OK;
 
-public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener<TypeMode>{
+public class IndexFragment extends Fragment implements View.OnClickListener,IndexAdapter.OnBannerClickListener,OnItemClickListener<TypeModel>{
 	private ImageView scanCode;
 	private ImageView chatMsg;
 	private ImageView backTop;
@@ -58,7 +56,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 	private List<String> list_path=new ArrayList<>();
 	private List<String> list_title=new ArrayList<>();
 	private List<String> listNews=new ArrayList<>();
-	private List<TypeMode> mList=new ArrayList<>();
+	private List<TypeModel> mList=new ArrayList<>();
 
 	private String[] killPath={
 			"https://i1.mifile.cn/a1/pms_1528719476.67789934!220x220.jpg",
@@ -127,7 +125,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 		refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
 			@Override
 			public void onLoadMore( RefreshLayout refreshlayout) {
-				List<TypeMode> recommendModels=new ArrayList<>();
+				List<TypeModel> recommendModels=new ArrayList<>();
 				for(int i=0;i<IndexTools.list.length;i++){
 					RecommendModel reModel=new RecommendModel();
 					reModel.setGoodsPath(IndexTools.list[i]);
@@ -434,7 +432,7 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 
 
 	@Override
-	public void onItemClick(View view, TypeMode typeMode) {
+	public void onItemClick(View view, TypeModel typeMode) {
 		String str="";
 		Intent intent=null;
 		switch (typeMode.getTypeParam()){

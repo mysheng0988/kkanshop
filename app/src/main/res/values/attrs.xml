@@ -7,7 +7,7 @@
         <attr name="border_alpha" format="integer"/>
         <attr name="shadow_color" format="color"/>
     </declare-styleable>
-    <declare-styleable name="CouponDisplayView">
+    <declare-styleable name="VoucherView">
         <attr name="gap" format="dimension"/>
         <attr name="circleRadius" format="dimension"/>
         <attr name="radiusColor" format="color"/>

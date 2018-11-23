@@ -1,6 +1,5 @@
 package com.mysheng.office.kkanshop;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,19 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mysheng.office.kkanshop.adapter.ReListAdapter;
 import com.mysheng.office.kkanshop.adapter.ShopIndexAdapter;
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
 import com.mysheng.office.kkanshop.entity.IndexTools;
-import com.mysheng.office.kkanshop.entity.LabelModel;
-import com.mysheng.office.kkanshop.entity.NavHeadModel;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopIndexTitleModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
-import com.mysheng.office.kkanshop.listenter.ChangeGoodsNum;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -35,7 +29,7 @@ public class ShopIndexFragment extends Fragment{
     private static String PARAM="PARAM";
     private RecyclerView shopIndexView;
     private ShopIndexAdapter mAdapter;
-    private List<TypeMode> modeList=new ArrayList<>();
+    private List<TypeModel> modeList=new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

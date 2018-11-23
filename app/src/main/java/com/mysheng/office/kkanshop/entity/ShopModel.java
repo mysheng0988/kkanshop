@@ -7,7 +7,7 @@ package com.mysheng.office.kkanshop.entity;
 /**
  * 店铺实体类
  */
-public class ShopModel  extends TypeMode{
+public class ShopModel  extends TypeModel {
     private String shopId;
     private String shopName;
     private String shopNum;

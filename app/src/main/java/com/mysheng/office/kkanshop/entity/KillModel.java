@@ -1,6 +1,6 @@
 package com.mysheng.office.kkanshop.entity;
 
-public class KillModel   extends TypeMode{
+public class KillModel   extends TypeModel {
     private  String imagePath;
     private String oldPrice;
     private  String price;

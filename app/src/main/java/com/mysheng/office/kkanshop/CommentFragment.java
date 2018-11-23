@@ -20,7 +20,7 @@ import com.mysheng.office.kkanshop.adapter.CommentAdapter;
 import com.mysheng.office.kkanshop.entity.EvaluateModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.SelectModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 import com.mysheng.office.kkanshop.imagesWatcher.ImageWatcher;
 import com.mysheng.office.kkanshop.view.MessagePicturesLayout;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class CommentFragment extends Fragment implements MessagePicturesLayout.C
     private RecyclerView mRecyclerView;
     private CommentAdapter mAdapter;
     private ImageWatcher vImageWatcher;
-    private List<TypeMode> typeModes=new ArrayList<>();
+    private List<TypeModel> typeModes=new ArrayList<>();
 
     private List<String>  selectItems= Arrays.asList("全部123","最近25","好评101","中评20","差评2");
     @Override

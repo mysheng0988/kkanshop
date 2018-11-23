@@ -20,7 +20,7 @@ import com.mysheng.office.kkanshop.entity.NoticeModel;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopModel;
 import com.mysheng.office.kkanshop.entity.TitleModel;
-import com.mysheng.office.kkanshop.entity.TypeMode;
+import com.mysheng.office.kkanshop.entity.TypeModel;
 import com.mysheng.office.kkanshop.holder.BannerViewHolder;
 import com.mysheng.office.kkanshop.holder.GoShopTitleViewHolder;
 import com.mysheng.office.kkanshop.holder.GoTitleViewHolder;
@@ -50,7 +50,7 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
     private OnNoticeClickListener mOnNoticeClickListener;
 
 
-    private List<TypeMode> mList=new ArrayList<>();
+    private List<TypeModel> mList=new ArrayList<>();
 
     public IndexAdapter(Context context) {
         this.mLayoutInflater=LayoutInflater.from(context);
@@ -104,7 +104,7 @@ public class IndexAdapter extends  RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         return null;
     }
-    public void setModelList(List<TypeMode> lists){
+    public void setModelList(List<TypeModel> lists){
 
         mList.addAll(lists);
     }

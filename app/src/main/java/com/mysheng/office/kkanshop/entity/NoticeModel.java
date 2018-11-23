@@ -6,7 +6,7 @@ import java.util.List;
  * Created by myaheng on 2018/9/10.
  */
 
-public class NoticeModel extends TypeMode {
+public class NoticeModel extends TypeModel {
 
     private List<String> textList;
 
