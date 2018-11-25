@@ -38,7 +38,7 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
         model.setLimit("满3000减50");
         model.setStartDate("2018-12-01");
         model.setEndDate("2018-12-30");
-        model.setReduce("￥50.00");
+        model.setReduce(50);
         voucherView.setViewDate(model);
         marqueeTextView=findViewById(R.id.marquee);
         marqueeTextView.startScroll();

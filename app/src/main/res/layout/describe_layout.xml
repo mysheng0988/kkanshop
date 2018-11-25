@@ -52,14 +52,33 @@
     </LinearLayout>
   <include layout="@layout/item_seckill_layout"
       android:visibility="gone"/>
-
     <com.mysheng.office.kkanshop.view.VoucherView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="@dimen/txt_5"
-       android:background="@color/white">
+        android:background="@color/white">
 
 
+    </com.mysheng.office.kkanshop.view.VoucherView>
+    <com.mysheng.office.kkanshop.view.VoucherView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/txt_5"
+       android:background="@color/white"
+        app:status="overdue"
+        app:topColor="#c5c5c5"
+        app:bottomColor="#cdcdcd">
+
+
+    </com.mysheng.office.kkanshop.view.VoucherView>
+    <com.mysheng.office.kkanshop.view.VoucherView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/txt_5"
+        android:background="@color/white"
+        app:status="used"
+        app:topColor="#c5c5c5"
+        app:bottomColor="#cdcdcd">
     </com.mysheng.office.kkanshop.view.VoucherView>
     <com.mysheng.office.kkanshop.view.VoucherView
         android:layout_width="match_parent"
@@ -88,27 +107,7 @@
         app:topColor="#67ADD0"
         app:bottomColor="#7DB9D7">
     </com.mysheng.office.kkanshop.view.VoucherView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal">
-        <com.mysheng.office.kkanshop.view.CouponView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/txt_5"
-            android:layout_height="80dp"
-            android:background="@color/white">
 
-        </com.mysheng.office.kkanshop.view.CouponView>
-        <com.mysheng.office.kkanshop.view.CouponView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/txt_5"
-            android:background="@color/white"
-            android:layout_height="80dp">
-
-        </com.mysheng.office.kkanshop.view.CouponView>
-    </LinearLayout>
 
 
 

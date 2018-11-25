@@ -7,9 +7,10 @@ package com.mysheng.office.kkanshop.entity;
 public class VoucherModel extends TypeModel {
     private String voucherId;
     private String shopName;
-    private String reduce;
+    private int reduce;
     private String limit;
     private String subhead;
+    private int status;
     private String startDate;
     private String endDate;
 
@@ -29,11 +30,11 @@ public class VoucherModel extends TypeModel {
         this.shopName = shopName;
     }
 
-    public String getReduce() {
+    public int getReduce() {
         return reduce;
     }
 
-    public void setReduce(String reduce) {
+    public void setReduce(int reduce) {
         this.reduce = reduce;
     }
 
@@ -51,6 +52,14 @@ public class VoucherModel extends TypeModel {
 
     public void setSubhead(String subhead) {
         this.subhead = subhead;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getStartDate() {

@@ -15,6 +15,7 @@ import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.RecommendModel;
 import com.mysheng.office.kkanshop.entity.ShopIndexTitleModel;
 import com.mysheng.office.kkanshop.entity.TypeModel;
+import com.mysheng.office.kkanshop.entity.VoucherModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,17 +47,29 @@ public class ShopIndexFragment extends Fragment{
 
         shopIndexView=view.findViewById(R.id.commonRecycler);
         modeList.clear();
+        for (int i=0;i<6;i++){
+            VoucherModel model=new VoucherModel();
+            model.setTypeParam(0);
+            model.setShopName("小米手机旗舰店");
+            Random random=new Random();
+            int reduce=random.nextInt(20)*10;
+            model.setReduce(reduce);
+            model.setEndDate("2018-11-30");
+            model.setLimit("满"+(reduce*10)+"减"+reduce+"(限部分商品)");
+            model.setStatus(random.nextInt(4));
+            modeList.add(model);
+        }
         for(int i = 0; i< IndexTools.shopIndex.length; i++){
             RecommendModel reModel=new RecommendModel();
             if(i%6==0){
                 ShopIndexTitleModel titleModel=new ShopIndexTitleModel();
                 titleModel.setTitle("新品上市");
-                titleModel.setTypeParam(0);
+                titleModel.setTypeParam(1);
                 modeList.add(titleModel);
             }
             reModel.setGoodsPath(IndexTools.shopIndex[i]);
             reModel.setGoodsTitle(IndexTools.title);
-            reModel.setTypeParam(1);
+            reModel.setTypeParam(2);
             Random random=new Random();
             int num=random.nextInt(1000);
             int num2=random.nextInt(2)+1;
@@ -74,7 +87,7 @@ public class ShopIndexFragment extends Fragment{
         }
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 //        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),2);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getActivity(),6);
         shopIndexView.addItemDecoration(new DividerGridItemDecoration());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -84,9 +97,11 @@ public class ShopIndexFragment extends Fragment{
                     case 0:
                        return 2;
                     case 1:
-                        return 1;
+                        return 6;
+                    case 2:
+                        return 3;
                 }
-                return 1;
+                return 6;
             }
         });
         shopIndexView.setLayoutManager(gridLayoutManager);

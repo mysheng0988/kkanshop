@@ -13,8 +13,12 @@
         <attr name="radiusColor" format="color"/>
         <attr name="topColor" format="color"/>
         <attr name="bottomColor" format="color"/>
-        <attr  name="bigTextSize" format="dimension"/>
-        <attr  name="smallTextSize" format="dimension"/>
+        <attr name="status">
+            <enum name="normal" value="0"/>
+            <enum name="usable" value="1"/>
+            <enum name="overdue" value="2"/>
+            <enum name="used" value="3"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ViewPagerIndicator">

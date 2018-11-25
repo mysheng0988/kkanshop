@@ -2,16 +2,19 @@ package com.mysheng.office.kkanshop.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.R;
+import com.mysheng.office.kkanshop.entity.VoucherModel;
 import com.mysheng.office.kkanshop.util.DisplayUtils;
 
 /**
@@ -36,15 +39,25 @@ public class CouponView extends LinearLayout {
      * 圆数量
      */
     private int circleNum;
-    private int topColor=0xffE89F38;
-    private  int bottomColor=0xffEBAD45;
-    private int bigTextSize=30;
-    private int smallTextSize=16;
+    private int colorIndex;
+    private int[] topColor={0xffE89F38,0xff89AA3A,0xff67ADD0,0xffC34B62,0xffc5c5c5};
+    private  int[] bottomColor={0xffEBAD45,0xff9BB752,0xff7DB9D7,0xffCB657B,0xffcdcdcd};
     private int leftWidth=20;
+
+    private TextView shopName;
+    private TextView reduce;
+    private TextView limit;
+    private TextView endDate;
+    private int status=0;
+    private Bitmap bitmap;
+
+
     private float remain;
     private Paint mPaint;
     private Paint dottedLine;
     private Path dottedPath;
+    private Paint mBitPaint;
+    private Rect mSrcRect, mDestRect;
 
     private Paint topPaint;
     private Path topPath;
@@ -58,24 +71,50 @@ public class CouponView extends LinearLayout {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VoucherView);
         radiusColor = typedArray.getColor(R.styleable.VoucherView_radiusColor, radiusColor);
-        topColor = typedArray.getColor(R.styleable.VoucherView_topColor, topColor);
-        bottomColor = typedArray.getColor(R.styleable.VoucherView_bottomColor, bottomColor);
         gap = typedArray.getDimensionPixelSize(R.styleable.VoucherView_gap, gap);
         radius = typedArray.getDimensionPixelSize(R.styleable.VoucherView_circleRadius,radius);
-        bigTextSize = typedArray.getDimensionPixelSize(R.styleable.VoucherView_bigTextSize,bigTextSize);
-        smallTextSize = typedArray.getDimensionPixelSize(R.styleable.VoucherView_smallTextSize,smallTextSize);
         gap=DisplayUtils.dpToPx(gap);
         radius=DisplayUtils.dpToPx(radius);
-        bigTextSize=DisplayUtils.dpToPx(bigTextSize);
-        smallTextSize=DisplayUtils.dpToPx(smallTextSize);
         leftWidth=DisplayUtils.dpToPx(leftWidth);
         typedArray.recycle();
         inflate(context,R.layout.coupon_layout,this);
-        init();
+        initView();
 
     }
+    private void initView(){
+        shopName=findViewById(R.id.shopName);
+        reduce=findViewById(R.id.reduce);
+        limit=findViewById(R.id.limit);
+        endDate=findViewById(R.id.endDate);
+    }
+    public CouponView setViewDate(VoucherModel model){
+        shopName.setText(model.getShopName());
+        int reducePrice=model.getReduce();
+        reduce.setText(String.format("￥%d.00",reducePrice));
+        limit.setText(model.getLimit());
+        status=model.getStatus();
 
-
+        if(reducePrice<50){
+            colorIndex=0;
+        }else if(reducePrice>=50&&reducePrice<100){
+            colorIndex=1;
+        }else if(reducePrice>=100&&reducePrice<150){
+            colorIndex=2;
+        }else {
+            colorIndex = 3;
+        }
+        if(status==1){
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.usable);
+        }else if(status==2){
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.overdue);
+            colorIndex=4;
+        }else if(status==3){
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.used);
+            colorIndex=4;
+        }
+        initPaint();
+        return this;
+    }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -84,19 +123,16 @@ public class CouponView extends LinearLayout {
             remain = (int)((h-gap)%(2*radius+gap));
         }
         circleNum = (int) ((h-gap)%(2*radius+gap));
-        Log.e("CouponView", "onSizeChanged: "+ circleNum);
-        Log.e("CouponView", "onSizeChanged: "+h );
-        Log.e("CouponView", "onSizeChanged: "+remain );
     }
-    private void init(){
+    private void initPaint(){
 
         topPaint=new Paint();
-        topPaint.setColor(topColor);
+        topPaint.setColor(topColor[colorIndex]);
         topPaint.setStyle(Paint.Style.FILL);
         topPath=new Path();
 
         bottomPaint=new Paint();
-        bottomPaint.setColor(bottomColor);
+        bottomPaint.setColor(bottomColor[colorIndex]);
         bottomPaint.setStyle(Paint.Style.FILL);
         bottomPath=new Path();
 
@@ -104,6 +140,10 @@ public class CouponView extends LinearLayout {
         mPaint.setDither(true);
         mPaint.setColor(radiusColor);
         mPaint.setStyle(Paint.Style.FILL);
+
+        mBitPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mBitPaint.setFilterBitmap(true);
+        mBitPaint.setDither(true);
 
     }
 
@@ -129,11 +169,16 @@ public class CouponView extends LinearLayout {
         canvas.drawPath(bottomPath,bottomPaint);
         for (int i=0;i<circleNum;i++){
             float y =remain/2+gap/2+radius+((gap+radius*2)*i);
-            Log.e("CouponView", "onDraw: "+y);
             canvas.drawCircle(0,y,radius,mPaint);
-            canvas.drawCircle(width,y,radius,mPaint);
-
         }
+         if(bitmap!=null){
+            int bw=bitmap.getWidth();
+            int bh=bitmap.getHeight();
+            mSrcRect = new Rect(0, 0, bw,bh);
+            mDestRect = new Rect(width-bw/2, 0, width, height-bh/2);
+            canvas.drawBitmap(bitmap, mSrcRect, mDestRect, mBitPaint);
+        }
+
       }
 
 }
