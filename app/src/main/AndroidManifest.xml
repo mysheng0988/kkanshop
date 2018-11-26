@@ -60,12 +60,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <activity android:name="com.mysheng.office.kkanshop.MainActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.mysheng.office.kkanshop.MainActivity">
+
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.zxing.android.CaptureActivity">
         </activity>

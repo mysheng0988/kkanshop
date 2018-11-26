@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mysheng.office.kkanshop.view.CouponView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.mysheng.office.kkanshop.voucher.SmallVoucherView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/green"
     android:layout_margin="@dimen/txt_5"
-    app:topColor="#C34B62"
-    app:bottomColor="#CB657B"
     android:id="@+id/couponView">
 
-</com.mysheng.office.kkanshop.view.CouponView>
+</com.mysheng.office.kkanshop.voucher.SmallVoucherView>

@@ -1,13 +1,10 @@
 package com.mysheng.office.kkanshop.holder;
 
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.NoticeModel;
 import com.mysheng.office.kkanshop.entity.VoucherModel;
-import com.mysheng.office.kkanshop.view.CouponView;
-import com.mysheng.office.kkanshop.view.NoticeView;
+import com.mysheng.office.kkanshop.voucher.SmallVoucherView;
 
 
 /**
@@ -15,7 +12,7 @@ import com.mysheng.office.kkanshop.view.NoticeView;
  */
 
 public class CouponViewHolder extends CommonAbstractViewHolder<VoucherModel> {
-    public CouponView couponView;
+    public SmallVoucherView couponView;
 
 
     public CouponViewHolder(View itemView) {

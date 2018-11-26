@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.jph.takephoto.app.TakePhotoActivity;
 import com.mysheng.office.kkanshop.entity.VoucherModel;
 import com.mysheng.office.kkanshop.view.MarqueeTextView;
-import com.mysheng.office.kkanshop.view.VoucherView;
+import com.mysheng.office.kkanshop.voucher.VoucherView;
 
 
 /**
@@ -35,10 +35,12 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
         voucherView=findViewById(R.id.voucherView);
         VoucherModel model=new VoucherModel();
         model.setShopName("新月神电动车");
-        model.setLimit("满3000减50");
+        model.setLimit("满3000减80");
         model.setStartDate("2018-12-01");
         model.setEndDate("2018-12-30");
-        model.setReduce(50);
+        model.setStatus(0);
+        model.setReduce(80);
+
         voucherView.setViewDate(model);
         marqueeTextView=findViewById(R.id.marquee);
         marqueeTextView.startScroll();

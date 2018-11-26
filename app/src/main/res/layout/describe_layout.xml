@@ -52,61 +52,15 @@
     </LinearLayout>
   <include layout="@layout/item_seckill_layout"
       android:visibility="gone"/>
-    <com.mysheng.office.kkanshop.view.VoucherView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/txt_5"
-        android:background="@color/white">
-
-
-    </com.mysheng.office.kkanshop.view.VoucherView>
-    <com.mysheng.office.kkanshop.view.VoucherView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/txt_5"
-       android:background="@color/white"
-        app:status="overdue"
-        app:topColor="#c5c5c5"
-        app:bottomColor="#cdcdcd">
-
-
-    </com.mysheng.office.kkanshop.view.VoucherView>
-    <com.mysheng.office.kkanshop.view.VoucherView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/txt_5"
-        android:background="@color/white"
-        app:status="used"
-        app:topColor="#c5c5c5"
-        app:bottomColor="#cdcdcd">
-    </com.mysheng.office.kkanshop.view.VoucherView>
-    <com.mysheng.office.kkanshop.view.VoucherView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/txt_5"
-        android:background="@color/white"
-        app:topColor="#89AA3A"
-        app:bottomColor="#9BB752">
-
-
-    </com.mysheng.office.kkanshop.view.VoucherView>
-    <com.mysheng.office.kkanshop.view.VoucherView
+    <com.mysheng.office.kkanshop.voucher.VoucherView
         android:id="@+id/voucherView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="@dimen/txt_5"
-        android:background="@color/white"
-        app:topColor="#C34B62"
-        app:bottomColor="#CB657B">
-    </com.mysheng.office.kkanshop.view.VoucherView>
-    <com.mysheng.office.kkanshop.view.VoucherView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="@dimen/txt_5"
-        android:background="@color/white"
-        app:topColor="#67ADD0"
-        app:bottomColor="#7DB9D7">
-    </com.mysheng.office.kkanshop.view.VoucherView>
+        android:background="@color/white"/>
+
+
+
 
 
 
