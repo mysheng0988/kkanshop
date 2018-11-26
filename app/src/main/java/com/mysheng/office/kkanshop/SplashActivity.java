@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.ViewPropertyAnimation;
@@ -30,6 +32,8 @@ public class SplashActivity extends Activity {
 
     private ImageView img;
     private ImageView ImgMark;
+    private CountDownTimer countDownTimer;
+    private TextView num;
 
 
     ViewPropertyAnimation.Animator animator=new ViewPropertyAnimation.Animator(){
@@ -50,7 +54,8 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_layout);
         img= (ImageView) findViewById(R.id.img_id);
-        ImgMark= (ImageView) findViewById(R.id.icon_mark);
+        ImgMark=  findViewById(R.id.icon_mark);
+        num=  findViewById(R.id.num);
         ImgMark.post(new Runnable() {
             @Override
             public void run() {
@@ -106,14 +111,26 @@ public class SplashActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
-                ImgMark.postDelayed(new Runnable() {
+                countDownTimer=new CountDownTimer(3*1000,1000) {
                     @Override
-                    public void run() {
+                    public void onTick(long millisUntilFinished) {
+                        num.setText((millisUntilFinished/1000)+"秒跳过");
+                    }
+
+                    @Override
+                    public void onFinish() {
                         startActivity(new Intent(SplashActivity.this,MainActivity.class));
                         SplashActivity.this.finish();
                     }
-                },3000);
+                };
+                countDownTimer.start();
+//                ImgMark.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(new Intent(SplashActivity.this,MainActivity.class));
+//                        SplashActivity.this.finish();
+//                    }
+//                },3000);
             }
 
             @Override
@@ -128,5 +145,9 @@ public class SplashActivity extends Activity {
         });
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
+    }
 }

@@ -18,4 +18,15 @@
         android:src="@drawable/qq"
         android:layout_centerInParent="true"
         />
+    <TextView
+        android:id="@+id/num"
+        android:layout_width="60dp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/txt_20"
+        android:layout_marginRight="@dimen/txt_10"
+        android:layout_alignParentRight="true"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_layout_shape"
+        android:text="3秒跳过"
+        android:textSize="@dimen/txt_14"/>
 </RelativeLayout>

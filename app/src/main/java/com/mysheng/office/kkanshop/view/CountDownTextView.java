@@ -6,8 +6,6 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.TextView;
-import com.mysheng.office.kkanshop.util.UtilsDate;
-
 import org.apache.commons.lang.time.DurationFormatUtils;
 
 /**

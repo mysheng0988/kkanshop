@@ -60,7 +60,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Theme.Center">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
