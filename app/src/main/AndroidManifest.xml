@@ -117,6 +117,8 @@
         <activity android:windowSoftInputMode="adjustResize"
             android:name="com.mysheng.office.kkanshop.ChatActivity">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.ViewSwitcherMenu">
+        </activity>
 
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"

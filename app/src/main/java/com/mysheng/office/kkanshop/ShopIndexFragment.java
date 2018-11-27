@@ -56,7 +56,7 @@ public class ShopIndexFragment extends Fragment{
             model.setReduce(reduce);
             model.setEndDate("2018-11-30");
             model.setLimit("满"+(reduce*10)+"减"+reduce+"(限部分商品)");
-            model.setStatus(random.nextInt(4));
+            model.setStatus(random.nextInt(3));
             modeList.add(model);
         }
         for(int i = 0; i< IndexTools.shopIndex.length; i++){

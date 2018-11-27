@@ -463,7 +463,8 @@ public class IndexFragment extends Fragment implements View.OnClickListener,Inde
 				str=model.getShopName();
 				break;
 			case IndexTools.NOTICE:
-				str="更多";
+				intent=new Intent(getActivity(),ViewSwitcherMenu.class);
+				startActivity(intent);
 				break;
 			case IndexTools.LOVE_TWO:
 			case IndexTools.LOVE_FOUR:

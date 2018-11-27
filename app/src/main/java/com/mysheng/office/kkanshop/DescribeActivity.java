@@ -23,7 +23,6 @@ public class DescribeActivity extends TakePhotoActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.describe_layout);
-
         initView();
         initEvent();
     }

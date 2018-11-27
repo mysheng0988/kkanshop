@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="horizontal">
@@ -53,34 +54,44 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/subhead"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/txt_10"
-            android:text="副券"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/startDate"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="2018-11-11"
-            android:textColor="@color/white" />
-        <TextView
-            android:id="@+id/endDate"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="2018-11-11"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/subhead"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/txt_10"
+                android:text="副券"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="2018-11-11"
+                android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="2018-11-11"
+                android:textColor="@color/white" />
+        </LinearLayout>
+       <ImageView
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:layout_alignParentRight="true"
+           app:srcCompat="@drawable/icon_closed"/>
+    </RelativeLayout>
 </LinearLayout>

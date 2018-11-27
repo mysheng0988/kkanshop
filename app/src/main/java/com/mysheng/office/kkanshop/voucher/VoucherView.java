@@ -155,12 +155,12 @@ public class VoucherView extends LinearLayout {
             colorIndex = 3;
         }
         if(status==1){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.usable);
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_usable);
         }else if(status==2){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.overdue);
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_overdue);
             colorIndex=4;
         }else if(status==3){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.used);
+            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_used);
             colorIndex=4;
         }
     }

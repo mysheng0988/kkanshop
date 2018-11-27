@@ -36,7 +36,7 @@
             android:layout_gravity="center_vertical"
             android:layout_height="30dp"
             android:layout_margin="5dp"
-            android:src="@drawable/icon_notice"/>
+            app:srcCompat="@drawable/icon_notice"/>
         <com.mysheng.office.kkanshop.view.MarqueeTextView
             android:id="@+id/marquee"
             android:layout_width="0dp"
@@ -57,13 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="@dimen/txt_5"
-        android:background="@color/white"/>
-
-
-
-
-
-
-
+        android:background="@color/white" />
 
 </LinearLayout>

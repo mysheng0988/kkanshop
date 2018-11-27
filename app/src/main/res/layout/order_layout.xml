@@ -33,7 +33,7 @@
         app:visible_tab_count="5"
         app:shape="line"
         app:color="@color/red"
-        app:textSize="12dp"
+        app:textSize="14dp"
         app:textColor="#80000000"
         app:textCheckedColor="@color/red_text_color"
         app:dividerColor="@color/background"
