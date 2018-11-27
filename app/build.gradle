@@ -9,7 +9,6 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
         manifestPlaceholders = [
                 GETUI_APP_ID : "WiWB87CnH19RQ6y5VdZUeA",
                 GETUI_APP_KEY : "UzQVwPvZGc76DAcSX6aFd9",

@@ -216,6 +216,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1">
                         <RelativeLayout
+                            android:id="@+id/voucher"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -469,10 +470,14 @@
         <com.mysheng.office.kkanshop.view.ViewPagerIndicator
             android:id="@+id/id_indicator"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimaryDark"
-            app:visible_tab_count="4"
-            app:color="@color/red"
+            android:background="@drawable/bg_border"
+            app:visible_tab_count="5"
             app:shape="line"
+            app:color="@color/red"
+            app:textSize="14dp"
+            app:textColor="#80000000"
+            app:textCheckedColor="@color/red_text_color"
+            app:dividerColor="@color/background"
             android:layout_height="40dp">
         </com.mysheng.office.kkanshop.view.ViewPagerIndicator>
     </android.support.design.widget.AppBarLayout>

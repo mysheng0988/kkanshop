@@ -89,9 +89,10 @@
                 android:textColor="@color/white" />
         </LinearLayout>
        <ImageView
-           android:layout_width="30dp"
-           android:layout_height="30dp"
+           android:layout_width="15dp"
+           android:layout_height="15dp"
            android:layout_alignParentRight="true"
-           app:srcCompat="@drawable/icon_closed"/>
+           android:layout_alignParentBottom="true"
+           android:src="@drawable/icon_voucher_closed"/>
     </RelativeLayout>
 </LinearLayout>

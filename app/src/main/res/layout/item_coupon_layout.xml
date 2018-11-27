@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/green"
+    android:background="@color/white"
     android:layout_margin="@dimen/txt_5"
     android:id="@+id/couponView">
 

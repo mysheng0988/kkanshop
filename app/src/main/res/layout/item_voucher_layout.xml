@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mysheng.office.kkanshop.voucher.VoucherView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/voucherView"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:layout_margin="@dimen/txt_5" />

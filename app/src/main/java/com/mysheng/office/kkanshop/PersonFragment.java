@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.mysheng.office.kkanshop.util.AppBarStateChangeListener;
 import com.mysheng.office.kkanshop.view.ViewPagerIndicator;
@@ -27,6 +28,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private List<ResembleFragment> listFragment=new ArrayList<>();
 	private FragmentPagerAdapter adapter;
 	private Toolbar toolbar;
+	private RelativeLayout voucher;
 	private AppBarLayout appBarLayout;
 
 	@Override
@@ -34,6 +36,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	{
 		View view=inflater.inflate(R.layout.tab05, container, false);
 		initView(view);
+		initEvent();
 		initData();
 		return view;
 	}
@@ -44,6 +47,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		mViewPager=view.findViewById(R.id.viewpager);
 		appBarLayout=view.findViewById(R.id.appBarLayout);
 		toolbar=view.findViewById(R.id.toolbar);
+		voucher=view.findViewById(R.id.voucher);
 		appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
 			@Override
 			public void onStateChanged(AppBarLayout appBarLayout, State state) {
@@ -65,11 +69,17 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		});
 	}
 	private void initEvent(){
-
+		voucher.setOnClickListener(this);
 	}
 	@Override
 	public void onClick(View v) {
-
+		Intent intent=null;
+		switch (v.getId()){
+			case R.id.voucher:
+				intent=new Intent(getActivity(),VoucherListActivity.class);
+				startActivity(intent);
+				break;
+		}
 	}
 	private void initData() {
 		for (String title:mTitle){

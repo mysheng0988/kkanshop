@@ -63,6 +63,7 @@ public class SmallVoucherView extends LinearLayout {
     private TextView shopName;
     private TextView reduce;
     private TextView limit;
+    private Context mContext;
 
     public SmallVoucherView(Context context) {
         this(context,null);
@@ -75,6 +76,7 @@ public class SmallVoucherView extends LinearLayout {
 
     public SmallVoucherView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext=context;
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VoucherView);
         radiusColor = typedArray.getColor(R.styleable.VoucherView_radiusColor, Color.WHITE);
         gap = typedArray.getDimensionPixelSize(R.styleable.VoucherView_gap, 2);
@@ -143,12 +145,12 @@ public class SmallVoucherView extends LinearLayout {
             colorIndex = 3;
         }
         if(status==1){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.usable);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_usable);
         }else if(status==2){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.overdue);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_overdue);
             colorIndex=4;
         }else if(status==3){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.used);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_used);
             colorIndex=4;
         }
     }

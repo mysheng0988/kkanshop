@@ -119,6 +119,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.ViewSwitcherMenu">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.VoucherListActivity">
+        </activity>
 
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"

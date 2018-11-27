@@ -23,13 +23,13 @@ public class VoucherListActivity extends FragmentActivity implements View.OnClic
     private ImageView comeBack;
     private ViewPagerIndicator mIndicator;
     private ViewPager mViewPager;
-    private List<String> mTitle= Arrays.asList("为使用","已使用","已过期");
-    private List<OrderFragment> listFragment=new ArrayList<>();
+    private List<String> mTitle= Arrays.asList("未使用","已使用","已过期");
+    private List<VoucherFragment> listFragment=Arrays.asList(VoucherFragment.newInstance(0),VoucherFragment.newInstance(3),VoucherFragment.newInstance(2));
     private FragmentPagerAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order_layout);
+        setContentView(R.layout.voucher_list_layout);
         initView();
         initEvent();
     }
@@ -41,13 +41,7 @@ public class VoucherListActivity extends FragmentActivity implements View.OnClic
         comeBack=findViewById(R.id.comeBack);
         mIndicator=findViewById(R.id.id_indicator);
         mViewPager=findViewById(R.id.viewPager);
-        for (int i=0;i<mTitle.size();i++){
-
-            OrderFragment fragment=OrderFragment.newInstance(i);
-            listFragment.add(fragment);
-        }
         mIndicator.setTabItemTitle(mTitle);
-        mIndicator.setTabVisibleCount(3);
         mIndicator.setViewPager(mViewPager,0);
         adapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -67,7 +67,7 @@ public class VoucherView extends LinearLayout {
     private TextView limit;
     private TextView startDate;
     private TextView endDate;
-
+    private Context mContext;
 
     public VoucherView(Context context) {
         this(context,null);
@@ -79,6 +79,7 @@ public class VoucherView extends LinearLayout {
 
     public VoucherView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext=context;
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.VoucherView);
         radiusColor = typedArray.getColor(R.styleable.VoucherView_radiusColor, Color.WHITE);
         gap = typedArray.getDimensionPixelSize(R.styleable.VoucherView_gap, 4);
@@ -155,12 +156,12 @@ public class VoucherView extends LinearLayout {
             colorIndex = 3;
         }
         if(status==1){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_usable);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_usable);
         }else if(status==2){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_overdue);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_overdue);
             colorIndex=4;
         }else if(status==3){
-            bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.icon_used);
+            bitmap = BitmapUtils.getBitmapFromDrawable(mContext,R.drawable.icon_used);
             colorIndex=4;
         }
     }
