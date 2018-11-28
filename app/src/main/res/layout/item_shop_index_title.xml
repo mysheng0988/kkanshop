@@ -18,6 +18,5 @@
         android:gravity="center_vertical"
         android:textSize="@dimen/txt_18"
         android:text="测试代码"
-        android:textColor="@color/green"
         android:textStyle="bold"/>
 </LinearLayout>

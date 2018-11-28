@@ -46,12 +46,13 @@
         android:layout_height="0dp"
         android:layout_weight="1">
     </android.support.v4.view.ViewPager>
-    <com.mysheng.office.kkanshop.view.ChangeableTextView
+    <TextView
+        android:id="@+id/voucherText"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/bg_border"
+        android:background="@color/beige"
         android:gravity="center"
-        app:style_mode="cartoon"
-        android:textSize="16dp"
-        android:text="去领劵中心"/>
+        android:textSize="@dimen/txt_18"
+        android:textColor="@color/salmon"
+        android:text="领券中心"/>
 </LinearLayout>

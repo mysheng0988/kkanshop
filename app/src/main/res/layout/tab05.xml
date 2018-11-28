@@ -123,6 +123,7 @@
                         android:layout_weight="1">
 
                         <RelativeLayout
+                            android:id="@+id/waitPayment"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -145,6 +146,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/waitReceived"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -167,6 +169,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/waitEvaluate"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -189,6 +192,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/myOrder"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -239,6 +243,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/giftCart"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -261,6 +266,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/myIntegral"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"
@@ -283,6 +289,7 @@
                                 android:textColor="@color/black_black_text_color"/>
                         </RelativeLayout>
                         <RelativeLayout
+                            android:id="@+id/myWallet"
                             android:layout_width="0dp"
                             android:layout_height="80dp"
                             android:layout_margin="2dp"

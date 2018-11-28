@@ -5,9 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.adapter.ShopIndexAdapter;
 import com.mysheng.office.kkanshop.decoration.DividerGridItemDecoration;
@@ -63,7 +67,7 @@ public class ShopIndexFragment extends Fragment{
             RecommendModel reModel=new RecommendModel();
             if(i%6==0){
                 ShopIndexTitleModel titleModel=new ShopIndexTitleModel();
-                titleModel.setTitle("新品上市");
+                titleModel.setTitle("新品券上市");
                 titleModel.setTypeParam(1);
                 modeList.add(titleModel);
             }

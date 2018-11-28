@@ -16,6 +16,7 @@ import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.entity.IndexTools;
 import com.mysheng.office.kkanshop.entity.OrderShopModel;
 import com.mysheng.office.kkanshop.entity.VoucherModel;
+import com.mysheng.office.kkanshop.view.EmptyRecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +30,9 @@ import java.util.Random;
 public class VoucherFragment extends Fragment {
     private int position;
     private static String PARAM="PARAM";
-    private RecyclerView orderView;
+    private EmptyRecyclerView emptyRecyclerView;
     private VoucherAdapter mAdapter;
+    private View emptyView;
     private List<VoucherModel> voucherModels=new ArrayList<>();
     public static VoucherFragment newInstance(int param) {
         Bundle bundle=new Bundle();
@@ -47,14 +49,15 @@ public class VoucherFragment extends Fragment {
         if(bundle!=null){
             position=bundle.getInt(PARAM);
         }
-        return inflater.inflate(R.layout.common_recycler_view, container, false);
+        //emptyView=inflater.inflate(R.layout.empty_layout, container, false);
+        return inflater.inflate(R.layout.empty_recycler_view, container, false);
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        orderView=view.findViewById(R.id.commonRecycler);
-
-
+        emptyRecyclerView=view.findViewById(R.id.emptyRecycler);
+        emptyView=view.findViewById(R.id.empty_view);
+        emptyRecyclerView.setEmptyView(emptyView);
         voucherModels.clear();
 
 
@@ -70,7 +73,7 @@ public class VoucherFragment extends Fragment {
             model.setStatus(position);
             voucherModels.add(model);
         }
-
+        if(position==2) voucherModels.clear();
         if(mAdapter==null){
             mAdapter=new VoucherAdapter(getActivity(),voucherModels);
         }else{
@@ -78,7 +81,7 @@ public class VoucherFragment extends Fragment {
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        orderView.setLayoutManager(linearLayoutManager);
-        orderView.setAdapter(mAdapter);
+        emptyRecyclerView.setLayoutManager(linearLayoutManager);
+        emptyRecyclerView.setAdapter(mAdapter);
     }
 }

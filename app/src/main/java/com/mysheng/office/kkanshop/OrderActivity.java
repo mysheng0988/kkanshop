@@ -1,5 +1,7 @@
 package com.mysheng.office.kkanshop;
 
+import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,10 +28,13 @@ public class OrderActivity  extends FragmentActivity implements View.OnClickList
     private List<String> mTitle= Arrays.asList("全部","待支付","待收货","已完成","已取消");
     private List<OrderFragment> listFragment=new ArrayList<>();
     private FragmentPagerAdapter adapter;
+    private int indexNum;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_layout);
+        Intent intent=getIntent();
+        indexNum=intent.getIntExtra("indexNum",0);
         initView();
         initEvent();
     }
@@ -47,7 +52,8 @@ public class OrderActivity  extends FragmentActivity implements View.OnClickList
             listFragment.add(fragment);
         }
         mIndicator.setTabItemTitle(mTitle);
-        mIndicator.setViewPager(mViewPager,0);
+        mIndicator.setViewPager(mViewPager,indexNum);
+
         adapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -60,6 +66,7 @@ public class OrderActivity  extends FragmentActivity implements View.OnClickList
             }
         };
         mViewPager.setAdapter(adapter);
+        mViewPager.setCurrentItem(indexNum);
     }
 
     /**
