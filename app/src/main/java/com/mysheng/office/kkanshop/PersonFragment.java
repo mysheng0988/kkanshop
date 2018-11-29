@@ -8,15 +8,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.mysheng.office.kkanshop.util.AppBarStateChangeListener;
+import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.view.ViewPagerIndicator;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,12 +31,17 @@ import java.util.List;
 
 public class PersonFragment extends Fragment implements View.OnClickListener {
 	private ViewPagerIndicator mIndicator;
+	private SharedPreferencesUtils shareData;
 	private ViewPager mViewPager;
-	private List<String> mTitle= Arrays.asList("副食","餐饮","超市","全部1","全部2","全部3","全部4");
+	private List<String> mTitle= Arrays.asList("为你推荐","副食","餐饮","超市","全部1","全部2","全部3","全部4");
 	private List<ResembleFragment> listFragment=new ArrayList<>();
 	private FragmentPagerAdapter adapter;
 	private Toolbar toolbar;
 	private AppBarLayout appBarLayout;
+	/**
+	 * 是否已登录
+	 */
+	private boolean isLogined=false;
 	/**
 	 * 八个功能按钮
 	 */
@@ -41,11 +53,21 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private RelativeLayout giftCart;
 	private RelativeLayout myIntegral;
 	private RelativeLayout myWallet;
+	/**
+	 * 登录信息
+	 */
+	private LinearLayout login;
+	private LinearLayout textContent;
+	private TextView userName;
+	private TextView phone;
+	private ImageView setting;
+	private ImageView msg;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		View view=inflater.inflate(R.layout.tab05, container, false);
+		shareData=new SharedPreferencesUtils(getActivity());
 		initView(view);
 		initEvent();
 		initData();
@@ -53,6 +75,15 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void initView(View view){
+
+		login=view.findViewById(R.id.login);
+		textContent=view.findViewById(R.id.textContent);
+		userName=view.findViewById(R.id.userName);
+		phone=view.findViewById(R.id.phone);
+
+		setting=view.findViewById(R.id.setting);
+		msg=view.findViewById(R.id.msg);
+
 
 		mIndicator=view.findViewById(R.id.id_indicator);
 		mViewPager=view.findViewById(R.id.viewpager);
@@ -88,6 +119,11 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	}
 	private void initEvent(){
 
+		login.setOnClickListener(this);
+
+		setting.setOnClickListener(this);
+		msg.setOnClickListener(this);
+
 		waitPayment.setOnClickListener(this);
 		waitReceived.setOnClickListener(this);
 		waitEvaluate.setOnClickListener(this);
@@ -101,6 +137,18 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	public void onClick(View v) {
 		Intent intent=null;
 		switch (v.getId()){
+			case R.id.setting:
+				intent=new Intent(getActivity(),SettingActivity.class);
+				startActivity(intent);
+				break;
+			case R.id.msg:
+				intent=new Intent(getActivity(),ChatListViewActivity.class);
+				startActivity(intent);
+				break;
+			case R.id.login:
+				intent=new Intent(getActivity(),LoginActivity.class);
+				startActivity(intent);
+				break;
 			case R.id.waitPayment:
 				intent=new Intent(getActivity(),OrderActivity.class);
 				intent.putExtra("indexNum",1);
@@ -164,6 +212,21 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 		startActivity(intent);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		String userNameStr= (String) shareData.getParam("userName","");
+		String phoneStr= (String) shareData.getParam("phone","");
+		if(TextUtils.isEmpty(userNameStr)&&TextUtils.isEmpty(phoneStr)){
+			textContent.setVisibility(View.GONE);
+			login.setVisibility(View.VISIBLE);
+		}else {
+			login.setVisibility(View.GONE);
+			textContent.setVisibility(View.VISIBLE);
+			userName.setText(userNameStr);
+			phone.setText(phoneStr);
+		}
+	}
 
 
 }

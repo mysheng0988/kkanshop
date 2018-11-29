@@ -53,7 +53,7 @@ public class ShopAdapter extends BaseAdapter {
         if (position == ClassifyFragment.mPosition) {
            convertView.setBackgroundResource(R.drawable.bg_textview_borders);
         } else {
-            convertView.setBackgroundColor(Color.parseColor("#f4f4f4"));
+            convertView.setBackgroundColor(Color.parseColor("#ffffff"));
         }
         return convertView;
     }

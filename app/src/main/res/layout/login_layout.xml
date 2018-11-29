@@ -120,7 +120,6 @@
                 android:gravity="center"
                 android:text="注册" />
         </LinearLayout>
-
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,13 +131,13 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="5dp"
-            android:text="触点物联科技有限公司"/>
+            android:text="北京触点互联信息技术有限公司"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="5dp"
-            android:textColor="#0000CC"
+            android:textColor="@color/dodger_blue"
             android:text="联系电话：15701570988"/>
     </LinearLayout>
 </RelativeLayout>

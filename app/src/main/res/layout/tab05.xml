@@ -56,7 +56,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
                         <LinearLayout
-                            android:id="@+id/login_btn"
+                            android:id="@+id/login"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical">
@@ -77,15 +77,16 @@
                             android:orientation="vertical"
                             android:visibility="gone">
                             <TextView
-                                android:id="@+id/person_name"
+                                android:id="@+id/userName"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
                                 android:layout_margin="5dp"
                                 android:textColor="@color/white"
+                                android:textSize="@dimen/txt_16"
                                 android:text="" />
                             <TextView
-                                android:id="@+id/person_code"
+                                android:id="@+id/phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"
@@ -95,15 +96,15 @@
                         </LinearLayout>
                     </LinearLayout>
                     <ImageView
-                        android:id="@+id/new_setting"
+                        android:id="@+id/setting"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="10dp"
-                        android:layout_toLeftOf="@id/new_msg"
+                        android:layout_toLeftOf="@id/msg"
                         android:layout_marginRight="15dp"
                         android:src="@drawable/icon_setting" />
                     <ImageView
-                        android:id="@+id/new_msg"
+                        android:id="@+id/msg"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="10dp"

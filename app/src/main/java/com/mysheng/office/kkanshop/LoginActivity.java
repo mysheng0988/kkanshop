@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mysheng.office.kkanshop.util.CodeUtils;
+import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
+import com.mysheng.office.kkanshop.util.UtilToast;
 
 
 /**
@@ -18,6 +20,7 @@ import com.mysheng.office.kkanshop.util.CodeUtils;
  */
 
 public class LoginActivity extends BaseActivity {
+    private SharedPreferencesUtils shareData;
     private EditText userId;
     private EditText password;
     private Button login;
@@ -32,6 +35,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+        shareData=new SharedPreferencesUtils(this);
         initView();
         initEvent();
     }
@@ -92,13 +96,16 @@ public class LoginActivity extends BaseActivity {
         String id=userId.getText().toString().trim();
         String pwd=password.getText().toString().trim();
         if("".equals(id)||"".equals(pwd)){
-            Toast.makeText(this,"用户名和密码不能为空",Toast.LENGTH_SHORT).show();
+            UtilToast.showShort(this,"用户名和密码不能为空");
             return;
         }
         if(!codeNum.getText().toString().toUpperCase().equals(codeUtils.getCode())){
-            Toast.makeText(this,"验证码不正确",Toast.LENGTH_SHORT).show();
+            UtilToast.showShort(this,"验证码不正确");
             return;
         }
+        shareData.setParam("userName","雾里看花");
+        shareData.setParam("phone",id);
+        finish();
 
     }
 }
