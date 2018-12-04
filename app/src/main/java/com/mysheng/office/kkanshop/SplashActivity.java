@@ -120,6 +120,7 @@ public class SplashActivity extends Activity {
                     @Override
                     public void onFinish() {
                         startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                        overridePendingTransition(R.anim.splash_fade_out, R.anim.splash_fade_in);// 淡出淡入动画效果
                         SplashActivity.this.finish();
                     }
                 };
