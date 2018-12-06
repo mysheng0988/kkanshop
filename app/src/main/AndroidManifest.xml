@@ -16,8 +16,7 @@
     <uses-feature android:name="android.hardware.camera"/>
     <!-- 许可调用相机自动对焦 -->
     <uses-feature android:name="android.hardware.camera.autofocus"/>
-
-    <!--用于进行网络定位-->
+   <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!--用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -121,7 +120,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.VoucherListActivity">
         </activity>
-
+        <activity android:name="com.mysheng.office.kkanshop.PDFViewActivity">
+        </activity>
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"
             android:exported="true"
