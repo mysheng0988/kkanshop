@@ -6,7 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+
+import com.bumptech.glide.util.Util;
 import com.joanzapata.pdfview.PDFView;
+import com.joanzapata.pdfview.listener.OnPageChangeListener;
+import com.mysheng.office.kkanshop.util.UtilToast;
+import com.mysheng.office.kkanshop.util.Utils;
 
 
 public class PDFViewActivity extends BaseActivity{
@@ -24,7 +29,12 @@ public class PDFViewActivity extends BaseActivity{
     protected void initView() {
         pdfView=findViewById(R.id.pdfView);
         comeback=findViewById(R.id.comeBack);
-        pdfView.fromAsset("app.pdf").load();
+        pdfView.fromAsset("app.pdf").onPageChange(new OnPageChangeListener() {
+            @Override
+            public void onPageChanged(int page, int pageCount) {
+                UtilToast.showShort(PDFViewActivity.this,page+"/"+pageCount);
+            }
+        }).load();
     }
 
     @Override

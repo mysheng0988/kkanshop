@@ -31,7 +31,7 @@ public class IndexTools {
     public static final  int EVALUATE=0X101;
 
     public static int[] navIcon={R.drawable.supermarket,R.drawable.trappings,R.drawable.travel,R.drawable.catering,R.drawable.fresh,R.drawable.delicatessen,R.drawable.grain_and_oil,R.drawable.icon_msg_service};
-    public static String[] navTitle={"看看超市","看看服饰","看看出行","看看餐饮","生鲜水果","卤味熟食","粮油副食","信息服务"};
+    public static String[] navTitle={"触点超市","触点服饰","触点出行","触点餐饮","生鲜水果","卤味熟食","粮油副食","信息服务"};
     public static String title="月莲2017新品大码女装风衣外套5876 3xl 新春上新品，优惠孔雀";
 
     public static  String[] list={
