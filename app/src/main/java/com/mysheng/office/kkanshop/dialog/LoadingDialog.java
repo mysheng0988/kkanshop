@@ -9,6 +9,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mysheng.office.kkanshop.R;
 
 
@@ -41,10 +43,9 @@ public class LoadingDialog extends Dialog {
         setCanceledOnTouchOutside(false);
         tipsMsg =  findViewById(R.id.tipsMsg);
         loadDialog =findViewById(R.id.loadDialog);
-        Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.anim_round_rotate);
-        LinearInterpolator interpolator = new LinearInterpolator();
-        anim.setInterpolator(interpolator);
-        loadDialog.startAnimation(anim);
+//        Glide.with(mContext).load(url).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).
+//                into(loadDialog);
+
         if(message==null){
             tipsMsg.setText("加载中...");
 
