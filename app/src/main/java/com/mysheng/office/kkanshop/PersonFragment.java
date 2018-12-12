@@ -33,7 +33,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 	private ViewPagerIndicator mIndicator;
 	private SharedPreferencesUtils shareData;
 	private ViewPager mViewPager;
-	private List<String> mTitle= Arrays.asList("为你推荐","副食","餐饮","超市","全部1","全部2","全部3","全部4");
+	private List<String> mTitle= Arrays.asList("精选","副食","餐饮","超市","全部1","全部2","全部3","全部4");
 	private List<ResembleFragment> listFragment=new ArrayList<>();
 	private FragmentPagerAdapter adapter;
 	private Toolbar toolbar;

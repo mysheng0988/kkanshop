@@ -1,17 +1,17 @@
 package com.mysheng.office.kkanshop;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-
-import com.bumptech.glide.util.Util;
 import com.joanzapata.pdfview.PDFView;
 import com.joanzapata.pdfview.listener.OnPageChangeListener;
 import com.mysheng.office.kkanshop.util.UtilToast;
-import com.mysheng.office.kkanshop.util.Utils;
+
+
 
 
 public class PDFViewActivity extends BaseActivity{
@@ -50,4 +50,5 @@ public class PDFViewActivity extends BaseActivity{
                 break;
         }
     }
+
 }

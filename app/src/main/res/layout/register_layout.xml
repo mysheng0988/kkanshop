@@ -114,6 +114,7 @@
             android:id="@+id/agree"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginRight="@dimen/txt_5"
             android:layout_gravity="center"
             android:button="@drawable/check_box_agree"
             android:gravity="center" />

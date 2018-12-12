@@ -1,18 +1,35 @@
 package com.mysheng.office.kkanshop;
+
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Process;
 import android.util.DisplayMetrics;
+import android.util.Log;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.igexin.sdk.PushManager;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.Logger;
+import com.xiaomi.mipush.sdk.MiPushClient;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -21,13 +38,14 @@ import java.util.concurrent.Executors;
  */
 
 public class KkanApplication extends Application {
-
+    public static final String APP_ID ="2882303761517808316";
+    public static final String APP_KEY ="5491780810316";
+    public static final String TAG = "com.mysheng.office.kkanshop";
     private static final String HASH_ALGORITHM = "MD5";
     private static final int RADIX = 10 + 26; // 10 digits + 26 letters
     public static DisplayMetrics mDisplayMetrics;
     public static ExecutorService cThreadPool;
     private static String IMAGE_CACHE_PATH;
-
     public static RequestQueue queues;
     public static Context mContext;
     @Override
@@ -42,6 +60,65 @@ public class KkanApplication extends Application {
         IMAGE_CACHE_PATH = getExternalCacheDir().getPath();
         queues = Volley.newRequestQueue(getApplicationContext());
         queues = Volley.newRequestQueue(getApplicationContext());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "message";
+            String channelName = "聊天消息";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            createNotificationChannel(channelId, channelName, importance);
+
+            channelId = "subscribe";
+            channelName = "订阅消息";
+            importance = NotificationManager.IMPORTANCE_DEFAULT;
+            createNotificationChannel(channelId, channelName, importance);
+        }
+        if(shouldInit()) {
+            MiPushClient.registerPush(this, APP_ID, APP_KEY);
+        }
+        //打开Log
+        LoggerInterface newLogger = new LoggerInterface() {
+
+            @Override
+            public void setTag(String tag) {
+                // ignore
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void log(String content, Throwable t) {
+                Log.d(TAG, content, t);
+            }
+            @SuppressLint("LongLogTag")
+            @Override
+            public void log(String content) {
+                Log.d(TAG, content);
+            }
+        };
+        Logger.setLogger(this, newLogger);
+    }
+
+    private boolean shouldInit() {
+        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        String mainProcessName = getPackageName();
+        int myPid = Process.myPid();
+        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    @TargetApi(Build.VERSION_CODES.O)
+    private void createNotificationChannel(String channelId, String channelName, int importance) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        channel.canBypassDnd();//绕过打扰模式
+        channel.enableLights(true);
+
+        channel.setLightColor(Color.GRAY);
+        channel.shouldShowLights();
+        notificationManager.createNotificationChannel(channel);
     }
     public static RequestQueue getHttpQueues()
     {

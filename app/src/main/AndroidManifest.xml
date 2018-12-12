@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 许可调用相机硬件 -->
     <uses-feature android:name="android.hardware.camera"/>
     <!-- 许可调用相机自动对焦 -->
@@ -35,6 +36,19 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <permission android:name="com.mysheng.office.kkanshop.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.mysheng.office.kkanshop.permission.MIPUSH_RECEIVE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -122,6 +136,50 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.PDFViewActivity">
         </activity>
+
+        <service android:enabled="true" android:process=":pushservice"
+            android:name="com.xiaomi.push.service.XMPushService"/>
+
+        <service android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true" android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice" /> <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入-->
+
+        <service android:enabled="true"
+            android:exported="true"
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler" />
+
+        <service android:enabled="true"
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService" /> <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入-->
+        <receiver android:exported="true"
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:exported="false" android:process=":pushservice"
+            android:name="com.xiaomi.push.service.receivers.PingReceiver" >
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+
+        </receiver>
+        <receiver
+            android:exported="true"
+            android:name="com.mysheng.office.kkanshop.service.NoticeMessageReceive">
+            <!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名-->
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"
             android:exported="true"
