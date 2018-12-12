@@ -1,5 +1,7 @@
 package com.mysheng.office.kkanshop;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,8 +15,13 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.util.CommonUtil;
+import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
+
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends FragmentActivity implements OnClickListener
 {
@@ -37,6 +44,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private Fragment mTab05;
 	FragmentManager manager;
 	private TextView textView;
+	private RxPermissions rxPermissions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +54,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		rxPermissions=new RxPermissions(this);
+		rxPermissions.request(Manifest.permission.READ_PHONE_STATE)
+				.subscribe(new Consumer<Boolean>() {
+					@Override
+					public void accept(Boolean aBoolean) throws Exception {
+						if (aBoolean) {
+
+						} else {
+							finish();
+						}
+					}
+				});
 		initView();
 		initEvent();
 		//String regId=MiPushClient.getRegId(MainActivity.this);

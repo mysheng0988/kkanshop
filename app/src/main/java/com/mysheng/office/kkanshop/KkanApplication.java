@@ -19,6 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.igexin.sdk.PushManager;
+import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -48,12 +49,13 @@ public class KkanApplication extends Application {
     private static String IMAGE_CACHE_PATH;
     public static RequestQueue queues;
     public static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
         mContext=getApplicationContext();
-        PushManager.getInstance().initialize(this.getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
-        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
+        PushManager.getInstance().initialize(getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
+        PushManager.getInstance().registerPushIntentService(getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
         //CrashHandler.getInstance().init(this);//异常信息记录
         mDisplayMetrics = getResources().getDisplayMetrics();
         cThreadPool = Executors.newFixedThreadPool(5);
@@ -71,6 +73,8 @@ public class KkanApplication extends Application {
             importance = NotificationManager.IMPORTANCE_DEFAULT;
             createNotificationChannel(channelId, channelName, importance);
         }
+
+
         if(shouldInit()) {
             MiPushClient.registerPush(this, APP_ID, APP_KEY);
         }
