@@ -222,7 +222,7 @@ public class RoundPageIndicator extends LinearLayout {
     }
 
     /**
-     * @deprecated User ViewPager addOnPageChangeListener
+     * @deprecated UserModel ViewPager addOnPageChangeListener
      */
     @Deprecated
     public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {

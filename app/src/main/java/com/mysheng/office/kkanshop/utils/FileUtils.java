@@ -1,5 +1,8 @@
 package com.mysheng.office.kkanshop.utils;
 
+import android.content.Context;
+import android.os.Environment;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -1288,4 +1291,19 @@ public class FileUtils {
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
     }
+    /**
+     * 获取cache路径
+     *
+     * @param context
+     * @return
+     */
+    public static String getDiskCachePath(Context context) {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            return context.getExternalCacheDir().getPath();
+        } else {
+            return context.getCacheDir().getPath();
+        }
+    }
+
 }

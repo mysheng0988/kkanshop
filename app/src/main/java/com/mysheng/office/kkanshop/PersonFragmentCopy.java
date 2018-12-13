@@ -26,7 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mysheng.office.kkanshop.adapter.RecommendAdapter;
 import com.mysheng.office.kkanshop.entity.RecommendBean;
-import com.mysheng.office.kkanshop.entity.User;
+import com.mysheng.office.kkanshop.entity.UserModel;
 import com.mysheng.office.kkanshop.util.CommonUtil;
 import com.mysheng.office.kkanshop.util.LoginAsyncTask;
 import com.mysheng.office.kkanshop.util.MikyouCommonDialog;
@@ -247,7 +247,7 @@ public class PersonFragmentCopy extends Fragment implements View.OnClickListener
 							LoginAsyncTask loginAsyncTask=new LoginAsyncTask(context);
 							loginAsyncTask.setCallBackAsyncTask(new LoginAsyncTask.CallBackAsyncTask() {
 								@Override
-								public void onCallBack(User user) {
+								public void onCallBack(UserModel user) {
 //									personName.setText(user.getTrueName());
 //									personCode.setText(user.getUserName());
 //									textContent.setVisibility(View.VISIBLE);

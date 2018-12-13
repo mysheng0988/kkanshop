@@ -6,30 +6,20 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.jph.takephoto.app.TakePhotoActivity;
 import com.mysheng.office.kkanshop.adapter.UserAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
-import com.mysheng.office.kkanshop.customCamera.config.PictureConfig;
-import com.mysheng.office.kkanshop.customCamera.config.PictureSelector;
-import com.mysheng.office.kkanshop.entity.User;
-import com.mysheng.office.kkanshop.entity.VoucherModel;
-import com.mysheng.office.kkanshop.permissions.RxPermissions;
+import com.mysheng.office.kkanshop.entity.UserModel;
 import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.utils.PhoneUtils;
 import com.mysheng.office.kkanshop.utils.Utils;
 import com.mysheng.office.kkanshop.view.MarqueeTextView;
-import com.mysheng.office.kkanshop.view.SlideLayout;
-import com.mysheng.office.kkanshop.voucher.VoucherView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -44,7 +34,7 @@ public class DescribeActivity extends BaseActivity{
     private MarqueeTextView marqueeTextView;
      private RecyclerView mRecyclerView;
 
-    private List<User> users=new ArrayList<>();
+    private List<UserModel> users=new ArrayList<>();
 
     private UserAdapter adapter;
 
@@ -143,7 +133,7 @@ public class DescribeActivity extends BaseActivity{
                 String name=list.get(i).get("name");
                 String phone=list.get(i).get("phone");
                 if(phone!=null){
-                    User user=new User();
+                    UserModel user=new UserModel();
                     user.setUserName(name);
                     user.setPhone(phone);
                     users.add(user);

@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.mysheng.office.kkanshop.util.CodeUtils;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.util.UtilToast;
+import com.mysheng.office.kkanshop.utils.FileUtils;
+import com.xiaomi.mimc.MIMCTokenFetcher;
+import com.xiaomi.mimc.MIMCUser;
 
 
 /**
@@ -103,6 +106,7 @@ public class LoginActivity extends BaseActivity {
             UtilToast.showShort(this,"验证码不正确");
             return;
         }
+        MIMCUser.newInstance(id, FileUtils.getDiskCachePath(this));
         shareData.setParam("userName","雾里看花");
         shareData.setParam("phone",id);
         finish();

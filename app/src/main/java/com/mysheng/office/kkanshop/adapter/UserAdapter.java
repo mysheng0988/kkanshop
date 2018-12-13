@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.User;
+import com.mysheng.office.kkanshop.entity.UserModel;
 import com.mysheng.office.kkanshop.holder.UserViewHolder;
 
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private LayoutInflater mLayoutInflater;
-    private List<User> mList=new ArrayList<>();
+    private List<UserModel> mList=new ArrayList<>();
     private OnItemClickCallback mCallback;
 
-    public UserAdapter(Context context, List<User> list) {
+    public UserAdapter(Context context, List<UserModel> list) {
        this. mList=list;
         this.mLayoutInflater=LayoutInflater.from(context);
     }
@@ -57,6 +57,6 @@ public class UserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
     }
 
     public interface OnItemClickCallback {
-        void onItemClick(View view, User mode);
+        void onItemClick(View view, UserModel mode);
     }
 }

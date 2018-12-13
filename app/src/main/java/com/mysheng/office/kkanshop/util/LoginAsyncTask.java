@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 
-import com.mysheng.office.kkanshop.entity.User;
+import com.mysheng.office.kkanshop.entity.UserModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +22,7 @@ import java.net.URL;
  * Created by myaheng on 2018/4/28.
  */
 
-public class LoginAsyncTask extends AsyncTask<String,Void,User> {
+public class LoginAsyncTask extends AsyncTask<String,Void,UserModel> {
     private ReadLoginData readLoginData=new ReadLoginData();
     private Context context;
     //LoadTask的参数callBack
@@ -31,11 +31,11 @@ public class LoginAsyncTask extends AsyncTask<String,Void,User> {
         this.context=context;
     }
     @Override
-    protected User doInBackground(String... strings) {
+    protected UserModel doInBackground(String... strings) {
         return getJsonData(strings[0]);
     }
     @Override
-    protected void onPostExecute(User user) {
+    protected void onPostExecute(UserModel user) {
         super.onPostExecute(user);
         if(user!=null){
             readLoginData.setLoginData(context,"SessionKey",user.getSessionKey());
@@ -59,10 +59,10 @@ public class LoginAsyncTask extends AsyncTask<String,Void,User> {
 
     //设置回调借口
     public interface CallBackAsyncTask{
-        void onCallBack(User user);
+        void onCallBack(UserModel user);
     }
-    private User getJsonData(String urlStr){
-        User user = null;
+    private UserModel getJsonData(String urlStr){
+        UserModel user = null;
         try {
             URL url=new URL(urlStr);//实例化url：将获取网络数据的路径放到URL中。
             HttpURLConnection httpURLConnection= (HttpURLConnection) url.openConnection();//获取连接的对象
@@ -81,7 +81,7 @@ public class LoginAsyncTask extends AsyncTask<String,Void,User> {
             jo=jo.getJSONObject("LogonUser");
 
             String nn=jo.getString("Phone");
-            user=new User();
+            user=new UserModel();
             user.setSessionKey(SessionKey);
             user.setPhone(jo.getString("Phone"));
             user.setSex(jo.getString("Sex"));

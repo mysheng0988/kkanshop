@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.v4.app.Fragment;
@@ -20,15 +21,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.util.CommonUtil;
+import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.util.UtilToast;
+import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
+import com.mysheng.office.kkanshop.util.VolleyRequest;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -58,6 +68,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private FragmentManager manager;
 	private TextView textView;
 	private RxPermissions rxPermissions;
+	private SharedPreferencesUtils shareData;
+	private String userId;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -68,6 +80,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		setContentView(R.layout.activity_main);
 		initView();
 		initEvent();
+		shareData=new SharedPreferencesUtils(this);
+		userId=(String) shareData.getParam("phone","");
 		rxPermissions=new RxPermissions(this);
 		rxPermissions.request(Manifest.permission.READ_PHONE_STATE,
 				android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -107,7 +121,39 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		Logger.setLogger(this, newLogger);
 		setSelect(0);
 	}
+	private void getIMICToken(){
+		String strURL="https://mimc.chat.xiaomi.net/api/account/token";
+		Map<String, String> hashMap = new HashMap<>();
+		hashMap.put("appId", "2882303761517808316");
+		hashMap.put("appKey", "5491780810316");
+		hashMap.put("appSecret", "3OOIj5pjUvyGmU0Nowctzw==");
+		hashMap.put("appAccount", userId);
+		JSONObject jsonParams = new JSONObject(hashMap);
+		VolleyRequest.JsonRequestPost(strURL,"json",jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
+			@Override
+			public void onSuccess(JSONObject result) {
+				String code="",message="",  token="";
+				try {
+					code=result.getString("code");
+					message=result.getString("message");
+					if("200".equals(code)){
+						JSONObject data= (JSONObject) result.get("data");
+						token=data.getString("token");
+						shareData.setParam("token",token);
+					}
 
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void onError(VolleyError error) {
+
+			}
+		});
+	}
 	private boolean shouldInit() {
 		ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
 		List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();

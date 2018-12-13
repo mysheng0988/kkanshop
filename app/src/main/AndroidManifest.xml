@@ -36,7 +36,7 @@
     <!--用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -49,6 +49,11 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.mysheng.office.kkanshop.permission.MIPUSH_RECEIVE" />
+
+    <permission
+        android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -136,7 +141,7 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.PDFViewActivity">
         </activity>
-
+        <!--小米推送-->
         <service android:enabled="true" android:process=":pushservice"
             android:name="com.xiaomi.push.service.XMPushService"/>
 
@@ -180,6 +185,7 @@
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
+        <!--个推消息服务-->
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"
             android:exported="true"

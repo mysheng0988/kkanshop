@@ -9,26 +9,26 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
+
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Process;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.igexin.sdk.PushManager;
-import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.util.UtilToast;
-import com.xiaomi.channel.commonutils.logger.LoggerInterface;
-import com.xiaomi.mipush.sdk.Logger;
-import com.xiaomi.mipush.sdk.MiPushClient;
+import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
+import com.mysheng.office.kkanshop.util.VolleyRequest;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -36,11 +36,13 @@ import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import io.reactivex.functions.Consumer;
+
 
 /**
  * Created by myaheng on 2018/5/14.
@@ -54,6 +56,9 @@ public class KkanApplication extends Application {
     private static String IMAGE_CACHE_PATH;
     public static RequestQueue queues;
     public static Context mContext;
+
+    private int mCount = 0;
+    private static final String TAG = "com.xiaomi.mimcdemo";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -67,18 +72,19 @@ public class KkanApplication extends Application {
         queues = Volley.newRequestQueue(getApplicationContext());
         queues = Volley.newRequestQueue(getApplicationContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "message";
+            String channelId = "100";
             String channelName = "聊天消息";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             createNotificationChannel(channelId, channelName, importance);
 
-            channelId = "subscribe";
+            channelId = "101";
             channelName = "订阅消息";
             importance = NotificationManager.IMPORTANCE_DEFAULT;
             createNotificationChannel(channelId, channelName, importance);
         }
 
     }
+
     @TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel(String channelId, String channelName, int importance) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(

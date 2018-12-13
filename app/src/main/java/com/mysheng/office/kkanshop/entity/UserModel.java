@@ -12,7 +12,7 @@ package com.mysheng.office.kkanshop.entity;
  "Sex": "string",
  "Phone": "string",
  */
-public class User {
+public class UserModel {
 
     private String UserId;
     private String UserName;
@@ -22,7 +22,7 @@ public class User {
     private String Phone;
     private String SessionKey;
 
-//    public User(String userId, String userName, String password, String trueName, String sex, String phone) {
+//    public UserModel(String userId, String userName, String password, String trueName, String sex, String phone) {
 //        UserId = userId;
 //        UserName = userName;
 //        Password = password;
