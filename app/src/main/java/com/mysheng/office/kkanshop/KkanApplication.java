@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
@@ -8,10 +9,14 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Process;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -20,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.igexin.sdk.PushManager;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
+import com.mysheng.office.kkanshop.util.UtilToast;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -34,14 +40,13 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by myaheng on 2018/5/14.
  */
 
 public class KkanApplication extends Application {
-    public static final String APP_ID ="2882303761517808316";
-    public static final String APP_KEY ="5491780810316";
-    public static final String TAG = "com.mysheng.office.kkanshop";
     private static final String HASH_ALGORITHM = "MD5";
     private static final int RADIX = 10 + 26; // 10 digits + 26 letters
     public static DisplayMetrics mDisplayMetrics;
@@ -49,13 +54,12 @@ public class KkanApplication extends Application {
     private static String IMAGE_CACHE_PATH;
     public static RequestQueue queues;
     public static Context mContext;
-
     @Override
     public void onCreate() {
         super.onCreate();
         mContext=getApplicationContext();
-        PushManager.getInstance().initialize(getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
-        PushManager.getInstance().registerPushIntentService(getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
+        PushManager.getInstance().initialize(this.getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
         //CrashHandler.getInstance().init(this);//异常信息记录
         mDisplayMetrics = getResources().getDisplayMetrics();
         cThreadPool = Executors.newFixedThreadPool(5);
@@ -74,43 +78,6 @@ public class KkanApplication extends Application {
             createNotificationChannel(channelId, channelName, importance);
         }
 
-
-        if(shouldInit()) {
-            MiPushClient.registerPush(this, APP_ID, APP_KEY);
-        }
-        //打开Log
-        LoggerInterface newLogger = new LoggerInterface() {
-
-            @Override
-            public void setTag(String tag) {
-                // ignore
-            }
-
-            @SuppressLint("LongLogTag")
-            @Override
-            public void log(String content, Throwable t) {
-                Log.d(TAG, content, t);
-            }
-            @SuppressLint("LongLogTag")
-            @Override
-            public void log(String content) {
-                Log.d(TAG, content);
-            }
-        };
-        Logger.setLogger(this, newLogger);
-    }
-
-    private boolean shouldInit() {
-        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
-        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
-        String mainProcessName = getPackageName();
-        int myPid = Process.myPid();
-        for (ActivityManager.RunningAppProcessInfo info : processInfos) {
-            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
-                return true;
-            }
-        }
-        return false;
     }
     @TargetApi(Build.VERSION_CODES.O)
     private void createNotificationChannel(String channelId, String channelName, int importance) {
