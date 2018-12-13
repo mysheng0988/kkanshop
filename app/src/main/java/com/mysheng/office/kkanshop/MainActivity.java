@@ -1,11 +1,17 @@
 package com.mysheng.office.kkanshop;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -13,8 +19,18 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.util.CommonUtil;
+import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.zxing.common.Constant;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.Logger;
+import com.xiaomi.mipush.sdk.MiPushClient;
+
+import java.util.List;
+
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends FragmentActivity implements OnClickListener
 {
@@ -23,6 +39,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private LinearLayout mNearby;
 	private LinearLayout mFlow;
 	private LinearLayout mPerson;
+
+	public static final String APP_ID ="2882303761517808316";
+	public static final String APP_KEY ="5491780810316";
+	public static final String TAG = "com.mysheng.office.kkanshop";
 
 	private ImageButton mImgIndex;
 	private ImageButton mImgNearby;
@@ -35,9 +55,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 	private Fragment mTab03;
 	private Fragment mTab04;
 	private Fragment mTab05;
-	FragmentManager manager;
+	private FragmentManager manager;
 	private TextView textView;
-
+	private RxPermissions rxPermissions;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -48,9 +68,58 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		setContentView(R.layout.activity_main);
 		initView();
 		initEvent();
-		//String regId=MiPushClient.getRegId(MainActivity.this);
+		rxPermissions=new RxPermissions(this);
+		rxPermissions.request(Manifest.permission.READ_PHONE_STATE,
+				android.Manifest.permission.ACCESS_FINE_LOCATION)
+				.subscribe(new Consumer<Boolean>() {
+					@Override
+					public void accept(Boolean aBoolean) throws Exception {
+						if (aBoolean) {
+							if(shouldInit()) {
+								MiPushClient.registerPush(getApplicationContext(), APP_ID, APP_KEY);
+							}
+						} else {
+							UtilToast.showShort(MainActivity.this,"你已拒绝改权限");
+						}
+					}
+				});
+		String regId= MiPushClient.getRegId(MainActivity.this);
+		Log.e("mainActivity", "onCreate: "+regId );
+		//打开Log
+		LoggerInterface newLogger = new LoggerInterface() {
 
+			@Override
+			public void setTag(String tag) {
+				// ignore
+			}
+
+			@SuppressLint("LongLogTag")
+			@Override
+			public void log(String content, Throwable t) {
+				Log.d(TAG, content, t);
+			}
+			@SuppressLint("LongLogTag")
+			@Override
+			public void log(String content) {
+				Log.d(TAG, content);
+			}
+		};
+		Logger.setLogger(this, newLogger);
 		setSelect(0);
+	}
+
+	private boolean shouldInit() {
+		ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+		List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+		String mainProcessName = getPackageName();
+		int myPid = Process.myPid();
+		for (ActivityManager.RunningAppProcessInfo info : processInfos) {
+			if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	private void initEvent()
