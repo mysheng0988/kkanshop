@@ -6,13 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.GoodsModel;
-import com.mysheng.office.kkanshop.entity.GoodsModel;
 import com.mysheng.office.kkanshop.holder.GoodsListViewHolder;
-import com.mysheng.office.kkanshop.holder.SecKillViewHolder;
-
 import java.util.ArrayList;
 import java.util.List;
 

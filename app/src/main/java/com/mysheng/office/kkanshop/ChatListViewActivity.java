@@ -3,38 +3,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mysheng.office.kkanshop.adapter.ChatListViewAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
-
-import com.xiaomi.mimc.MIMCTokenFetcher;
-
-import org.json.JSONObject;
-
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-
-public class ChatListViewActivity extends BaseActivity  implements MIMCTokenFetcher {
+public class ChatListViewActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView strTitle;
     private ChatListViewAdapter adapter;
@@ -98,6 +78,7 @@ public class ChatListViewActivity extends BaseActivity  implements MIMCTokenFetc
                         Intent intent = new Intent(ChatListViewActivity.this, ChatActivity.class);
                         Bundle bundle=new Bundle();
                         //传递name参数为tinyphp
+                        bundle.putString("sendUserId", list.get(position).getUserId());
                         bundle.putString("sendUserName", list.get(position).getUserName());
                         intent.putExtras(bundle);
                         startActivity(intent);
@@ -176,36 +157,5 @@ public class ChatListViewActivity extends BaseActivity  implements MIMCTokenFetc
     }
 
 
-    @Override
-    public String fetchToken() throws Exception {
-        String token="";
-        String urlPath="https://mimc.chat.xiaomi.net/api/account/token";
-        Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("appId", "2882303761517808316");
-        hashMap.put("appKey", "5491780810316");
-        hashMap.put("appSecret", "3OOIj5pjUvyGmU0Nowctzw==");
-        hashMap.put("appAccount", userId);
-        JSONObject jsonParams = new JSONObject(hashMap);
-        final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-            OkHttpClient client = new OkHttpClient();
-            RequestBody body = RequestBody.create(JSON, String.valueOf(jsonParams));
-            Request request = new Request.Builder()
-                    .url(urlPath)
-                    .post(body)
-                    .build();
-            Response response = client.newCall(request).execute();
-            String strJson=response.body().string();
-            JSONObject jsonStr = new JSONObject(strJson);
-            String code=jsonStr.getString("code");
-            if ("200".equals(code)){
-                JSONObject data= (JSONObject) jsonStr.get("data");
-                token=data.getString("token");
-            }
-
-
-
-        return token;
-
-    }
 }

@@ -28,6 +28,7 @@ import com.mysheng.office.kkanshop.ImageViewer.imageload.MyImageLoad;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyImageTransAdapter;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyProgressBarGet;
 import com.mysheng.office.kkanshop.ImageViewer.listener.SourceImageViewGet;
+import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.RxTool.SaveBitmapToImage;
 import com.mysheng.office.kkanshop.adapter.ChatAdapter;
 import com.mysheng.office.kkanshop.adapter.ChatGenreViewAdapter;
@@ -40,8 +41,11 @@ import com.mysheng.office.kkanshop.customCamera.util.StringUtils;
 import com.mysheng.office.kkanshop.entity.ChatGenreBean;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
+import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.view.AudioRecorderButton;
 import com.mysheng.office.kkanshop.view.MediaManager;
+import com.xiaomi.mimc.MIMCUser;
+import com.xiaomi.mimc.common.MIMCConstant;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,8 +79,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private View animView;
     private Date frontMseDate;
 
-    private int[] imageId={R.drawable.icon_images,R.drawable.icon_camera,R.drawable.icon_video,R.drawable.icon_location,R.drawable.icon_goods,R.drawable.icon_order};
-    private String[] genreName={"相册","相机","摄像","定位","商品","订单"};
+    private int[] imageId={R.drawable.icon_images,R.drawable.icon_camera,R.drawable.icon_video,R.drawable.icon_location,R.drawable.icon_phone,R.drawable.icon_goods,R.drawable.icon_order};
+    private String[] genreName={"相册","相机","摄像","定位","语音","商品","订单"};
 
     public static String[] netImages = {
             "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
@@ -110,14 +114,20 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
             "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996959&di=13c094ba73675a24df2ad1d2c730c02c&imgtype=jpg&er=1&src=http%3A%2F%2Fdasouji.com%2Fwp-content%2Fuploads%2F2015%2F07%2F%25E9%2595%25BF%25E8%258A%25B1%25E5%259B%25BE-6.jpg"
     };
 
-
+    private String userId;
+    private SharedPreferencesUtils shareData;
+    private String sendUserName;
+    private String sendUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_layout);
         initView();
         initEvent();
-
+        shareData=new SharedPreferencesUtils(this);
+        userId= (String) shareData.getParam("phone","");
+        MIMCUser user = UserManager.getInstance().newUser(userId);
+        user.login();
         LinearLayoutManager layoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         //layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -235,6 +245,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                     onTakePhoto(PictureMimeType.ofVideo());
                 }else if(model.getPosition()==3){
                     startLocation();
+                }else if(model.getPosition()==4){
+                    if (UserManager.getInstance().getStatus() == MIMCConstant.OnlineStatus.ONLINE) {
+                        VoiceCallActivity.actionStartActivity(ChatActivity.this, sendUserId);
+                    } else {
+                        Toast.makeText(ChatActivity.this, getResources().getString(R.string.not_login), Toast.LENGTH_SHORT).show();
+                    }
                 }
                 genreView.setVisibility(View.GONE);
             }
@@ -265,8 +281,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     protected void initView(){
         titleText=findViewById(R.id.common_title);
         keyboard=findViewById(R.id.keyboard);
-        Bundle bundle = this.getIntent().getExtras();
-        String sendUserName = bundle.getString("sendUserName");
+        Bundle bundle = getIntent().getExtras();
+        sendUserName = bundle.getString("sendUserName");
+        sendUserId = bundle.getString("sendUserId");
         titleText.setText(sendUserName);
         rxPermissions = new RxPermissions(this);
         recyclerView=findViewById(R.id.recyclerView);

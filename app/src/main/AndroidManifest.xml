@@ -141,6 +141,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.PDFViewActivity">
         </activity>
+        <activity android:name="com.mysheng.office.kkanshop.VoiceCallActivity">
+        </activity>
         <!--小米推送-->
         <service android:enabled="true" android:process=":pushservice"
             android:name="com.xiaomi.push.service.XMPushService"/>

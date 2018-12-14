@@ -91,14 +91,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 						if (aBoolean) {
 							if(shouldInit()) {
 								MiPushClient.registerPush(getApplicationContext(), APP_ID, APP_KEY);
+								String regId= MiPushClient.getRegId(MainActivity.this);
+								Log.e("mainActivity", "onCreate: "+regId );
 							}
 						} else {
 							UtilToast.showShort(MainActivity.this,"你已拒绝改权限");
 						}
 					}
 				});
-		String regId= MiPushClient.getRegId(MainActivity.this);
-		Log.e("mainActivity", "onCreate: "+regId );
+
 		//打开Log
 		LoggerInterface newLogger = new LoggerInterface() {
 
@@ -120,39 +121,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener
 		};
 		Logger.setLogger(this, newLogger);
 		setSelect(0);
-	}
-	private void getIMICToken(){
-		String strURL="https://mimc.chat.xiaomi.net/api/account/token";
-		Map<String, String> hashMap = new HashMap<>();
-		hashMap.put("appId", "2882303761517808316");
-		hashMap.put("appKey", "5491780810316");
-		hashMap.put("appSecret", "3OOIj5pjUvyGmU0Nowctzw==");
-		hashMap.put("appAccount", userId);
-		JSONObject jsonParams = new JSONObject(hashMap);
-		VolleyRequest.JsonRequestPost(strURL,"json",jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
-			@Override
-			public void onSuccess(JSONObject result) {
-				String code="",message="",  token="";
-				try {
-					code=result.getString("code");
-					message=result.getString("message");
-					if("200".equals(code)){
-						JSONObject data= (JSONObject) result.get("data");
-						token=data.getString("token");
-						shareData.setParam("token",token);
-					}
-
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onError(VolleyError error) {
-
-			}
-		});
 	}
 	private boolean shouldInit() {
 		ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
