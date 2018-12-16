@@ -189,32 +189,32 @@ public class UtilsDate {
 
     /**
      * 显示数据的创建的时间
-     * @param strDate
+     * @param longTime
      * @return
      */
-    public static String showDateBeforeTime(String strDate){
+    public static String showDateBeforeTime(long longTime){
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
         int month=now.get(Calendar.MONTH);
         int day=now.get(Calendar.DAY_OF_MONTH);
         Calendar strCal = Calendar.getInstance();
-        Date date=StrToDate(strDate,FORMAT_DATE_ALL);
+        Date date=new Date(longTime);
         strCal.setTime(date);
         int yearStr = strCal.get(Calendar.YEAR);
         int monthStr=strCal.get(Calendar.MONTH);
         int dayStr=strCal.get(Calendar.DAY_OF_MONTH);
         if((year-yearStr!=0)&&(month-monthStr!=0)){
-            return   StrToCustomStrDate(strDate,FORMAT_DATE_TIME);
+            return   DateToStr(date,FORMAT_DATE_TIME);
         }else{
             switch (day-dayStr){
                 case 0:
-                    return "今天"+StrToCustomStrDate(strDate,FORMAT_TIME);
+                    return "今天"+DateToStr(date,FORMAT_TIME);
                 case 1:
-                    return "昨天"+StrToCustomStrDate(strDate,FORMAT_TIME);
+                    return "昨天"+DateToStr(date,FORMAT_TIME);
                 case 2:
-                    return "昨天"+StrToCustomStrDate(strDate,FORMAT_TIME);
+                    return "昨天"+DateToStr(date,FORMAT_TIME);
                 default:
-                    return   StrToCustomStrDate(strDate,FORMAT_DATE_TIME);
+                    return   DateToStr(date,FORMAT_DATE_TIME);
 
             }
         }

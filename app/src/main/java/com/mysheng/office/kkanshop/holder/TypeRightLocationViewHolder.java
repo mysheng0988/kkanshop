@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 
@@ -29,15 +30,12 @@ public class TypeRightLocationViewHolder extends TypeAbstractViewHolder{
     }
 
     @Override
-    public void bindHolder(Object model,boolean isScrolling){
-        if(model instanceof ChatModel) {
-            ChatModel chatModel = (ChatModel) model;
-            mTitle.setText(chatModel.getTabTitle());
+    public void bindHolder(ChatMsg model){
+            String content=new String(model.getMsg().getContent().toString());
+            mTitle.setText(model.getMsg().getTabTitle());
             mImageView.setImageResource(R.drawable.ynn);
-            mAddress.setText(chatModel.getAddress());
-            Glide.with(mAddress.getContext()).load("file://"+((ChatModel) model).getLocationPath()).into(locationMap);
-           // locationMap.setImageBitmap(chatModel.getLocationBitmap());
-        }
+            mAddress.setText(model.getMsg().getAddress());
+            Glide.with(mAddress.getContext()).load("file://"+content).into(locationMap);
     }
 
 }

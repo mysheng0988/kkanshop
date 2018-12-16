@@ -44,8 +44,8 @@ dependencies {
     implementation 'com.android.support:support-vector-drawable:27.1.1'
     implementation files('libs/library-1.0.19.jar')
     implementation 'com.google.zxing:core:3.3.0'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-7'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-7'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'

@@ -13,6 +13,7 @@ import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeOneViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeThreeViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTwoViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
       //  int viewType=getItemViewType(position);
-        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position),isScrolling);
+        ((TypeViewHolder)holder).bindHolder(mList.get(position));
         //TypeTwoViewHolder viewHolder=((TypeTwoViewHolder) holder).bindHolder(mList.get(position));
         holder.itemView.setTag(position);
 

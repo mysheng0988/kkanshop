@@ -1,12 +1,11 @@
 package com.mysheng.office.kkanshop;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +22,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.android.volley.VolleyError;
 import com.mysheng.office.kkanshop.ImageViewer.ImageTrans;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyImageLoad;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyImageTransAdapter;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyProgressBarGet;
 import com.mysheng.office.kkanshop.ImageViewer.listener.SourceImageViewGet;
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
+import com.mysheng.office.kkanshop.MIMC.bean.Msg;
+import com.mysheng.office.kkanshop.MIMC.common.Base64Utils;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
+import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.RxTool.SaveBitmapToImage;
 import com.mysheng.office.kkanshop.adapter.ChatAdapter;
 import com.mysheng.office.kkanshop.adapter.ChatGenreViewAdapter;
@@ -40,16 +45,34 @@ import com.mysheng.office.kkanshop.customCamera.util.LogUtils;
 import com.mysheng.office.kkanshop.customCamera.util.StringUtils;
 import com.mysheng.office.kkanshop.entity.ChatGenreBean;
 import com.mysheng.office.kkanshop.entity.ChatModel;
+import com.mysheng.office.kkanshop.entity.ChatTools;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
+import com.mysheng.office.kkanshop.util.UtilToast;
+import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
+import com.mysheng.office.kkanshop.util.VolleyRequest;
 import com.mysheng.office.kkanshop.view.AudioRecorderButton;
 import com.mysheng.office.kkanshop.view.MediaManager;
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCServerAck;
 import com.xiaomi.mimc.MIMCUser;
 import com.xiaomi.mimc.common.MIMCConstant;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.functions.Consumer;
 
@@ -58,7 +81,7 @@ import io.reactivex.functions.Consumer;
  * Created by myaheng on 2017/12/15.
  */
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener{
+public class ChatActivity extends BaseActivity implements View.OnClickListener,UserManager.OnHandleMIMCMsgListener{
     private RecyclerView recyclerView;
     private RecyclerView genreView;
     private static boolean isKeyboard=false;//默认显示切换语音
@@ -71,63 +94,41 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private ChatAdapter chatAdapter;
     private ChatGenreViewAdapter genreViewAdapter;
     private EditText audioText;
-    private List<ChatModel> mDatas = new ArrayList<>();
-    private List<String> listImage = new ArrayList<>();
+    private List<ChatMsg> mDatas = new ArrayList<>();
     private List<ChatGenreBean> genreDatas = new ArrayList<>();
     private AudioRecorderButton mAudioRecorderButton;
     public  static  int SEND_LOCATION=0x110;
     private View animView;
-    private Date frontMseDate;
+    private long frontMseDate;
+    private long endTime;
+    private RefreshLayout refreshLayout;
 
     private int[] imageId={R.drawable.icon_images,R.drawable.icon_camera,R.drawable.icon_video,R.drawable.icon_location,R.drawable.icon_phone,R.drawable.icon_goods,R.drawable.icon_order};
     private String[] genreName={"相册","相机","摄像","定位","语音","商品","订单"};
 
-    public static String[] netImages = {
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkqm7b0j20dw0kut9h.jpg",
-            "http://wx4.sinaimg.cn/woriginal/daaf97d2gy1fgsxks2l4ij20dw0kldhb.jpg",
-            "http://wx2.sinaimg.cn/woriginal/daaf97d2gy1fgsxksskbkj20dw0kut9b.jpg",
-            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2966021298,3341101515&fm=23&gp=0.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496402134202&di=6c7f4a6afa5bdf02000c788f7a51e9c0&imgtype=0&src=http%3A%2F%2Fcdnq.duitang.com%2Fuploads%2Fitem%2F201506%2F23%2F20150623183946_iZtFs.jpeg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996892&di=ea1e213c8ddd4427c55f073db9bf91b7&imgtype=jpg&er=1&src=http%3A%2F%2Fpic27.nipic.com%2F20130323%2F9483785_182530048000_2.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkqm7b0j20dw0kut9h.jpg",
-            "http://wx4.sinaimg.cn/woriginal/daaf97d2gy1fgsxks2l4ij20dw0kldhb.jpg",
-            "http://wx2.sinaimg.cn/woriginal/daaf97d2gy1fgsxksskbkj20dw0kut9b.jpg",
-            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2966021298,3341101515&fm=23&gp=0.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496402134202&di=6c7f4a6afa5bdf02000c788f7a51e9c0&imgtype=0&src=http%3A%2F%2Fcdnq.duitang.com%2Fuploads%2Fitem%2F201506%2F23%2F20150623183946_iZtFs.jpeg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996892&di=ea1e213c8ddd4427c55f073db9bf91b7&imgtype=jpg&er=1&src=http%3A%2F%2Fpic27.nipic.com%2F20130323%2F9483785_182530048000_2.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkqm7b0j20dw0kut9h.jpg",
-            "http://wx4.sinaimg.cn/woriginal/daaf97d2gy1fgsxks2l4ij20dw0kldhb.jpg",
-            "http://wx2.sinaimg.cn/woriginal/daaf97d2gy1fgsxksskbkj20dw0kut9b.jpg",
-            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2966021298,3341101515&fm=23&gp=0.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496402134202&di=6c7f4a6afa5bdf02000c788f7a51e9c0&imgtype=0&src=http%3A%2F%2Fcdnq.duitang.com%2Fuploads%2Fitem%2F201506%2F23%2F20150623183946_iZtFs.jpeg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996892&di=ea1e213c8ddd4427c55f073db9bf91b7&imgtype=jpg&er=1&src=http%3A%2F%2Fpic27.nipic.com%2F20130323%2F9483785_182530048000_2.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
-            "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkqm7b0j20dw0kut9h.jpg",
-            "http://wx4.sinaimg.cn/woriginal/daaf97d2gy1fgsxks2l4ij20dw0kldhb.jpg",
-            "http://wx2.sinaimg.cn/woriginal/daaf97d2gy1fgsxksskbkj20dw0kut9b.jpg",
-            "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2966021298,3341101515&fm=23&gp=0.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496402134202&di=6c7f4a6afa5bdf02000c788f7a51e9c0&imgtype=0&src=http%3A%2F%2Fcdnq.duitang.com%2Fuploads%2Fitem%2F201506%2F23%2F20150623183946_iZtFs.jpeg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996892&di=ea1e213c8ddd4427c55f073db9bf91b7&imgtype=jpg&er=1&src=http%3A%2F%2Fpic27.nipic.com%2F20130323%2F9483785_182530048000_2.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1496996959&di=13c094ba73675a24df2ad1d2c730c02c&imgtype=jpg&er=1&src=http%3A%2F%2Fdasouji.com%2Fwp-content%2Fuploads%2F2015%2F07%2F%25E9%2595%25BF%25E8%258A%25B1%25E5%259B%25BE-6.jpg"
-    };
+
 
     private String userId;
     private SharedPreferencesUtils shareData;
     private String sendUserName;
     private String sendUserId;
+    private String token;
+    private  MIMCUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        shareData=new SharedPreferencesUtils(this);
+        userId= (String) shareData.getParam("phone","");
+        user = UserManager.getInstance().newUser(userId);
+        user.login();
+        mDatas.clear();
         setContentView(R.layout.chat_layout);
         initView();
         initEvent();
-        shareData=new SharedPreferencesUtils(this);
-        userId= (String) shareData.getParam("phone","");
-        MIMCUser user = UserManager.getInstance().newUser(userId);
-        user.login();
+        endTime=System.currentTimeMillis();
+        getHistoryChatList();
+
+
         LinearLayoutManager layoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         //layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -145,14 +146,14 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
             }
         });
 
-        chatAdapter=new ChatAdapter(this);
+        chatAdapter=new ChatAdapter(this,mDatas);
         chatAdapter.setItemClickListener(new ChatAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(final View view,ChatModel chatModel,List<String> list) {
+            public void onItemClick(final View view,ChatMsg chatMsg,List<String> list) {
                 isKeyboard=true;
                 audioText.clearFocus();
                 genreView.setVisibility(View.GONE);
-                if(chatModel.mesType==6){
+                if(chatMsg.getMsg().getMsgType()==Constant.AUDIO_FILE){
                     //播放动画
                     if(animView != null) {
                         animView.setBackgroundResource(R.drawable.adj);
@@ -163,7 +164,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                     AnimationDrawable anim = (AnimationDrawable) animView.getBackground();
                     anim.start();
                     //播放音频
-                    MediaManager.playSound(chatModel.contentPath, new MediaPlayer.OnCompletionListener() {
+                    MediaManager.playSound(chatMsg.getMsg().getContent().toString(), new MediaPlayer.OnCompletionListener() {
 
                         @Override
                         public void onCompletion(MediaPlayer mp) {
@@ -177,10 +178,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                             return false;
                         }
                     });
-                }else if(chatModel.getMesType()==4){
+                }else if(chatMsg.getMsg().getMsgType()== Constant.PIC_FILE){
                     switch (view.getId()){
                         case R.id.id_content_img:
-                            int pos=list.indexOf(chatModel.getContentPath());
+                            int pos=list.indexOf(chatMsg.getMsg().getContent().toString());
                             ImageTrans.with(ChatActivity.this)
                                     .setImageList(list)
                                     .setSourceImageView(new SourceImageViewGet() {
@@ -201,32 +202,11 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
             }
 
         });
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                // 查看源码可知State有三种状态：SCROLL_STATE_IDLE（静止）、SCROLL_STATE_DRAGGING（上升）、SCROLL_STATE_SETTLING（下落）
-//                if (newState == SCROLL_STATE_IDLE) { // 滚动静止时才加载图片资源，极大提升流畅度
-//                    chatAdapter.setScrolling(false);
-//                    chatAdapter.notifyDataSetChanged(); // notify调用后onBindViewHolder会响应调用
-//                } else{
-//                    chatAdapter.setScrolling(true);
-//                }
-//
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//        });
         recyclerView.setAdapter(chatAdapter);
 
         mAudioRecorderButton.setAudioFinishRecorderListener(new AudioRecorderButton.AudioFinishRecorderListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
-                ChatModel chatModel=new ChatModel();
-                chatModel.mesType=6;
-                chatModel.contentPath=filePath;
-                chatModel.mesTime= (int) Math.ceil(seconds);
-                Log.d("mys", "onFinish: "+ chatModel.mesType);
-                chatAdapter.addModel(chatModel);
-                mDatas.add(chatModel);
                 chatAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
 
@@ -257,7 +237,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         });
 
         initData();
-
     }
 
     private void startLocation() {
@@ -265,7 +244,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void accept(Boolean aBoolean) throws Exception {
+                    public void accept(Boolean aBoolean) {
                         if (aBoolean) {
                             Intent intent=new Intent(ChatActivity.this,ShareLocationActivity.class);
                             startActivityForResult(intent,SEND_LOCATION);
@@ -294,12 +273,24 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         sendOut=findViewById(R.id.send_out);
         addItem=findViewById(R.id.add_item);
         mAudioRecorderButton =  findViewById(R.id.id_recorder_button);
+        refreshLayout = findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new MaterialHeader(this).setShowBezierWave(true));
+        refreshLayout.setPrimaryColorsId(R.color.light_salmon);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getHistoryChatListMore();
+            }
+        });
+
     }
     @Override
     protected void initEvent(){
         keyboard.setOnClickListener(this);
         sendOut.setOnClickListener(this);
         addItem.setOnClickListener(this);
+        // 设置处理MIMC消息监听器
+        UserManager.getInstance().setHandleMIMCMsgListener(this);
         audioText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -337,69 +328,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         backButton.setOnClickListener(this);
     }
     private void initData(){
-//        int num=0;
-//        String str="测试123";
-//        String connect="";
-        long timeDate= new Date().getTime()-12*60*60*1000;
-//        for(int i=0;i<10;i++){
-//            int type=i%2+1;
-//            connect+=str+i;
-//            ChatModel chatModel=new ChatModel();
-//            chatModel.mesType=type;
-//            chatModel.content=connect;
-//            timeDate+=Math.random()*1000000f;
-//            chatModel.setMesDate(new Date(timeDate));
-//            if(isShowDate(chatModel.getMesDate())){
-//                ChatModel chatModel2=new ChatModel();
-//                chatModel2.mesType=7;
-//                chatModel2.setMesDate(new Date(timeDate));
-//                Log.d("mysheng", "initData: "+num);
-//                num++;
-//                mDatas.add(chatModel2);
-//            }
-//            frontMseDate=new Date(timeDate);
-//            mDatas.add(chatModel);
-//        }
-//        for(int i=0;i<10;i++){
-//            int type=i%2+3;
-//            connect+=str+i;
-//            ChatModel chatModel=new ChatModel();
-//            chatModel.mesType=type;
-//            timeDate+=Math.random()*1000000f;
-//            chatModel.setMesDate(new Date(timeDate));
-//
-//            if(isShowDate(chatModel.getMesDate())){
-//                ChatModel chatModel2=new ChatModel();
-//                chatModel2.mesType=7;
-//                chatModel2.setMesDate(new Date(timeDate));
-//                Log.d("mysheng", "initData: "+num);
-//                num++;
-//                mDatas.add(chatModel2);
-//            }
-//            frontMseDate=new Date(timeDate);
-//            mDatas.add(chatModel);
-//        }
-        for (int i=0;i<netImages.length;i++){
-            ChatModel chatModel=new ChatModel();
-            chatModel.mesType=4;
-            timeDate+=Math.random()*100000f;
-            chatModel.setMesDate(new Date(timeDate));
-            chatModel.setContentPath(netImages[i]);
-            listImage.add(netImages[i]);
-            if(isShowDate(chatModel.getMesDate())){
-                ChatModel chatModel2=new ChatModel();
-                chatModel2.mesType=7;
-                chatModel2.setMesDate(new Date(timeDate));
-                mDatas.add(chatModel2);
-            }
-            frontMseDate=new Date(timeDate);
-            mDatas.add(chatModel);
-        }
-        chatAdapter.addImages(listImage);
-        chatAdapter.addList(mDatas);
 
-        chatAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
         for(int i=0;i<genreName.length;i++){
             ChatGenreBean genreBean=new ChatGenreBean();
             genreBean.setPosition(i);
@@ -409,16 +338,158 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         }
         genreViewAdapter.addList(genreDatas);
     }
-    private boolean isShowDate(Date strDate){
-        long nowDate=strDate.getTime();//System.currentTimeMillis();
-        if(frontMseDate==null){
-            return true;
+    private void getHistoryChatList(){
+        Log.e("history", "onSuccess: "+mDatas.size() );
+        long statTime=endTime-24*60*60*1000;
+        token=user.getToken();
+        String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnCount";
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("toAccount", sendUserId);
+        hashMap.put("fromAccount", userId);
+        hashMap.put("utcFromTime",statTime+"");
+        hashMap.put("utcToTime",endTime+"");
+        hashMap.put("count","20");
+        JSONObject jsonParams = new JSONObject(hashMap);
+        VolleyRequest.JsonRequestPost(strURL,"json",token,jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
+            @Override
+            public void onSuccess(JSONObject result) {
+                String code="",message="";
+
+                try {
+                    code=result.getString("code");
+                    message=result.getString("message");
+                    if(code.equals("200")){
+                        JSONObject jsonObject=result.getJSONObject("data");
+                        endTime=jsonObject.getLong("timestamp");
+                        JSONArray jsonArray=jsonObject.getJSONArray("messages");
+                        String payload="";
+                        for(int i=0;i<jsonArray.length();i++){
+                            payload=jsonArray.getJSONObject(i).getString("payload");
+                            payload=Base64Utils.getFromBase64(payload);
+                            String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
+                            JSONObject obj=new JSONObject(payload);
+                            ChatMsg chatMsg=new ChatMsg();
+                            chatMsg.setFromAccount(fromAccount);
+                            chatMsg.setSingle(true);
+                            Msg msg=new Msg();
+                            String content=obj.getString("content");
+                            content=Base64Utils.getFromBase64(content);
+                            msg.setContent(content.getBytes());
+                            long timestamp=obj.getLong("timestamp");
+                            showDateNum(timestamp,-1);
+                            msg.setTimestamp(timestamp);
+                            msg.setMsgType(Integer.parseInt(obj.getString("msgType")));
+                            chatMsg.setMsg(msg);
+                            mDatas.add(chatMsg);
+                        }
+                        Log.e("history", "onSuccess: "+mDatas.size() );
+                        chatAdapter.notifyDataSetChanged();
+                        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+    private void getHistoryChatListMore(){
+        long statTime=endTime-24*60*60*1000;
+        token=user.getToken();
+        String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnCount";
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("toAccount", sendUserId);
+        hashMap.put("fromAccount", userId);
+        hashMap.put("utcFromTime",statTime+"");
+        hashMap.put("utcToTime",endTime+"");
+        hashMap.put("count","20");
+        JSONObject jsonParams = new JSONObject(hashMap);
+        VolleyRequest.JsonRequestPost(strURL,"json",token,jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
+            @Override
+            public void onSuccess(JSONObject result) {
+                String code="",message="";
+                int dataSize=0;
+                int num=0;
+                try {
+                    code=result.getString("code");
+                    message=result.getString("message");
+                    if(code.equals("200")){
+                        JSONObject jsonObject=result.getJSONObject("data");
+                        if(jsonObject.isNull("timestamp")){
+                            refreshLayout.resetNoMoreData();
+                            refreshLayout.finishRefresh(true);
+                            return;
+                        }
+                        endTime=jsonObject.getLong("timestamp");
+                        JSONArray jsonArray=jsonObject.getJSONArray("messages");
+                        String payload="";
+                         dataSize=jsonArray.length();
+                        for(int i=0;i<jsonArray.length();i++){
+                            payload=jsonArray.getJSONObject(i).getString("payload");
+                            payload=Base64Utils.getFromBase64(payload);
+                            String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
+                            JSONObject obj=new JSONObject(payload);
+                            ChatMsg chatMsg=new ChatMsg();
+                            chatMsg.setFromAccount(fromAccount);
+                            chatMsg.setSingle(true);
+                            Msg msg=new Msg();
+                            String content=obj.getString("content");
+                            content=Base64Utils.getFromBase64(content);
+                            msg.setContent(content.getBytes());
+                            long timestamp=obj.getLong("timestamp");
+                            msg.setTimestamp(timestamp);
+                            msg.setMsgType(Integer.parseInt(obj.getString("msgType")));
+                            chatMsg.setMsg(msg);
+                             num=num+showDateNum(timestamp,i+num);
+                            mDatas.add(i+num,chatMsg);
+                        }
+                        dataSize=dataSize+num;
+                        chatAdapter.notifyDataSetChanged();
+                        recyclerView.scrollToPosition(dataSize+5);
+                        refreshLayout.resetNoMoreData();
+                        refreshLayout.finishRefresh(true);
+                    }else{
+                        refreshLayout.finishRefresh(false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
+
+    private int showDateNum(long time,int position){
+        if(time-frontMseDate>10*60*1000){
+            ChatMsg chatMsg=new ChatMsg();
+            Msg msg=new Msg();
+            msg.setMsgType(ChatTools.SEND_TIME);
+            msg.setTimestamp(time);
+            chatMsg.setFromAccount(userId);
+            chatMsg.setSingle(true);
+            chatMsg.setMsg(msg);
+            if(position>-1){
+                mDatas.add(position,chatMsg);
+            }else {
+                mDatas.add(chatMsg);
+            }
+            frontMseDate=time;
+            return 1;
         }
-        long frontDate=frontMseDate.getTime();
-        if(nowDate-frontDate>10*60*1000){
-            return true;
-        }
-        return false;
+        frontMseDate=time;
+        return 0;
     }
 
     @Override
@@ -510,9 +581,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                         + ", height = " + media.getHeight()
                         + ", width = " + media.getWidth());
                 //showToast(media.getPath());
-                ChatModel model=new ChatModel();
-                model.setContentPath(media.getCompressPath());
-                sendCameraImage(model);
+//                ChatModel model=new ChatModel();
+//                model.setContentPath(media.getCompressPath());
+//                sendCameraImage(model);
                 break;
             case PictureConfig.TYPE_VIDEO:
                 if (TextUtils.isEmpty(media.getPath())) return;
@@ -544,24 +615,14 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private void sendOutText(){
         String strText=audioText.getText().toString().trim();
         if("".equals(strText)){
-            Toast.makeText(ChatActivity.this,"发送内容不能为空",Toast.LENGTH_SHORT).show();
+           UtilToast.showShort(ChatActivity.this,"发送内容不能为空");
             return;
         }
-        ChatModel chatModel=new ChatModel();
-        chatModel.mesType=2;
-        chatModel.content=audioText.getText().toString().trim();
-        chatModel.setMesDate(new Date());
-        if(isShowDate(chatModel.getMesDate())){
-            ChatModel chatModel2=new ChatModel();
-            chatModel2.mesType=7;
-            chatModel2.setMesDate(new Date());
-            chatAdapter.addModel(chatModel2);
+        UserManager userManager = UserManager.getInstance();
+
+        if (user != null){
+            userManager.sendMsg(sendUserId, strText.getBytes(), Constant.TEXT);
         }
-        frontMseDate=new Date();
-        mDatas.add(chatModel);
-        chatAdapter.addModel(chatModel);
-        chatAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
         audioText.setText("");
     }
 
@@ -569,18 +630,18 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
      * 发送拍照图片
      */
     private void sendCameraImage(ChatModel chatModel){
-        chatModel.mesType=4;
-        chatModel.setMesDate(new Date());
-        if(isShowDate(chatModel.getMesDate())){
-            ChatModel chatModel2=new ChatModel();
-            chatModel2.mesType=7;
-            chatModel2.setMesDate(new Date());
-            chatAdapter.addModel(chatModel2);
-        }
-        frontMseDate=new Date();
-        chatAdapter.addModel(chatModel);
-        chatAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+//        chatModel.mesType=4;
+//        chatModel.setMesDate(new Date());
+//        if(isShowDate(chatModel.getMesDate())){
+//            ChatModel chatModel2=new ChatModel();
+//            chatModel2.mesType=7;
+//            chatModel2.setMesDate(new Date());
+//            chatAdapter.addModel(chatModel2);
+//        }
+//        frontMseDate=new Date();
+//        chatAdapter.addModel(chatModel);
+//        chatAdapter.notifyDataSetChanged();
+//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
 
     /**
@@ -594,21 +655,21 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
      * 发送短视频
      */
     private void sendCameraVideo(String videoPath,String imagePath){
-        ChatModel chatModel=new ChatModel();
-        chatModel.mesType=11;
-        chatModel.setContentPath(imagePath);
-        chatModel.setVideoPath(videoPath);
-        chatModel.setMesDate(new Date());
-        if(isShowDate(chatModel.getMesDate())){
-            ChatModel chatModel2=new ChatModel();
-            chatModel2.mesType=7;
-            chatModel2.setMesDate(new Date());
-            chatAdapter.addModel(chatModel2);
-        }
-        frontMseDate=new Date();
-        chatAdapter.addModel(chatModel);
-        chatAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+//        ChatModel chatModel=new ChatModel();
+//        chatModel.mesType=11;
+//        chatModel.setContentPath(imagePath);
+//        chatModel.setVideoPath(videoPath);
+//        chatModel.setMesDate(new Date());
+//        if(isShowDate(chatModel.getMesDate())){
+//            ChatModel chatModel2=new ChatModel();
+//            chatModel2.mesType=7;
+//            chatModel2.setMesDate(new Date());
+//            chatAdapter.addModel(chatModel2);
+//        }
+//        frontMseDate=new Date();
+//        chatAdapter.addModel(chatModel);
+//        chatAdapter.notifyDataSetChanged();
+//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
 
     /**
@@ -616,18 +677,18 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
      * @param chatModel
      */
     private void sendLocation( ChatModel chatModel){
-        chatModel.mesType=8;
-        chatModel.setMesDate(new Date());
-        if(isShowDate(chatModel.getMesDate())){
-            ChatModel chatModel2=new ChatModel();
-            chatModel2.mesType=7;
-            chatModel2.setMesDate(new Date());
-            chatAdapter.addModel(chatModel2);
-        }
-        frontMseDate=new Date();
-        chatAdapter.addModel(chatModel);
-        chatAdapter.notifyDataSetChanged();
-        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+//        chatModel.mesType=8;
+//        chatModel.setMesDate(new Date());
+//        if(isShowDate(chatModel.getMesDate())){
+//            ChatModel chatModel2=new ChatModel();
+//            chatModel2.mesType=7;
+//            chatModel2.setMesDate(new Date());
+//            chatAdapter.addModel(chatModel2);
+//        }
+//        frontMseDate=new Date();
+//        chatAdapter.addModel(chatModel);
+//        chatAdapter.notifyDataSetChanged();
+//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
     }
     private void switchToTextAndAudio(){
         if(isKeyboard){
@@ -662,4 +723,121 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    @Override
+    public void onHandleMessage(final ChatMsg chatMsg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showDateNum(chatMsg.getMsg().getTimestamp(),-1);
+                mDatas.add(chatMsg);
+                chatAdapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+            }
+        });
+    }
+
+    @Override
+    public void onHandleGroupMessage(ChatMsg chatMsg) {
+
+    }
+
+    @Override
+    public void onHandleStatusChanged(MIMCConstant.OnlineStatus status) {
+
+    }
+
+    @Override
+    public void onHandleServerAck(MIMCServerAck serverAck) {
+
+    }
+
+    @Override
+    public void onHandleCreateGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQueryGroupInfo(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQueryGroupsOfAccount(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleJoinGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQuitGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleKickGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleUpdateGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleDismissGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandlePullP2PHistory(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandlePullP2THistory(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleSendMessageTimeout(MIMCMessage message) {
+
+    }
+
+    @Override
+    public void onHandleSendGroupMessageTimeout(MIMCGroupMessage groupMessage) {
+
+    }
+
+    @Override
+    public void onHandleJoinUnlimitedGroup(long topicId, int code, String errMsg) {
+
+    }
+
+    @Override
+    public void onHandleQuitUnlimitedGroup(long topicId, int code, String errMsg) {
+
+    }
+
+    @Override
+    public void onHandleDismissUnlimitedGroup(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQueryUnlimitedGroupMembers(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQueryUnlimitedGroups(String json, boolean isSuccess) {
+
+    }
+
+    @Override
+    public void onHandleQueryUnlimitedGroupOnlineUsers(String json, boolean isSuccess) {
+
+    }
 }

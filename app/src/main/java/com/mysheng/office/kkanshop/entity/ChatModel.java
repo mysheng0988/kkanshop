@@ -13,17 +13,6 @@ import java.util.Date;
  */
 
 public class ChatModel implements Serializable {
-    public static final  int TYPE_ONE=1;//右边文字
-    public static final int TYPE_TWO=2;//左边文字
-    public static final int TYPE_THREE=3;//左边图片
-    public static final int TYPE_FOUR=4;//右边图片
-    public static final int TYPE_FIVE=5;//左边语音
-    public static final int TYPE_SIX=6;//右边语音
-    public static final int TYPE_TIME=7;//发送时间
-    public static final int TYPE_LOCATION=8;//右边位置
-    public static final int TYPE_LOCATION2=9;//左边位置
-    public static final int Rec_VIDEO=10;//左边视频
-    public static final int SEND_VIDEO=11;//右边视频
 
     public int mesId;//消息Id
     public  int mesType;//消息类型

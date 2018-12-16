@@ -59,7 +59,7 @@ public class VolleyRequest
         // 不写也能执行
 //        MyApplication.getHttpQueues().start();
     }
-    public static void JsonRequestPost( String url, String tag,  JSONObject params,VolleyJsonInterface vif)
+    public static void JsonRequestPost(String url, String tag, final String token, JSONObject params, VolleyJsonInterface vif)
     {
         KkanApplication.getHttpQueues().cancelAll(tag);
         jsonRequest = new JsonObjectRequest(POST,url,params,vif.loadingJsonListener(),vif.errorListener()){
@@ -68,6 +68,9 @@ public class VolleyRequest
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Accept", "application/json");
                 headers.put("Content-Type", "application/json; charset=UTF-8");
+                if(token!=null){
+                    headers.put("token",token);
+                }
                 return headers;
             }
         };

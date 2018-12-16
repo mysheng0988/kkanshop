@@ -173,7 +173,7 @@ public class PersonFragmentCopy extends Fragment implements View.OnClickListener
 		hashMap.put("oldPrice", "2");
 		JSONObject jsonParams = new JSONObject(hashMap);
 		String url = "http://192.168.1.22:9090/office/goods/addGoods";
-		VolleyRequest.JsonRequestPost(url,"json",jsonParams,new VolleyJsonInterface(getActivity(), VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
+		VolleyRequest.JsonRequestPost(url,"json",null,jsonParams,new VolleyJsonInterface(getActivity(), VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
 			@Override
 			public void onSuccess(JSONObject result) {
 				Toast.makeText(getActivity(),result.toString(),Toast.LENGTH_LONG).show();
@@ -185,51 +185,7 @@ public class PersonFragmentCopy extends Fragment implements View.OnClickListener
 			}
 		});
 	}
-	private void getJsonPost(){
-		Map<String, String> hashMap = new HashMap<>();
-		hashMap.put("goodsType", "1");
-		hashMap.put("sellerNum", "20180327666");
-		hashMap.put("goodsName", "绿箭口香糖2");
-		hashMap.put("price", "1.5");
-		hashMap.put("oldPrice", "2");
-		JSONObject jsonParams = new JSONObject(hashMap);
-		String url = "http://192.168.1.22:9090/office/goods/addGoods";
-		JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,  jsonParams,
-				new Response.Listener<JSONObject>()
-				{
-					@Override
-					public void onResponse(JSONObject response) {
 
-                        Toast.makeText(getActivity(),response.toString(), Toast.LENGTH_SHORT).show();
-					}
-				},
-				new Response.ErrorListener()
-				{
-					@Override
-					public void onErrorResponse(VolleyError error)
-					{
-                        Toast.makeText(getActivity(),error.toString(), Toast.LENGTH_SHORT).show();
-
-					}
-
-
-				}
-		){
-
-			@Override
-			public Map<String, String> getHeaders() {
-				HashMap<String, String> headers = new HashMap<String, String>();
-				headers.put("Accept", "application/json");
-				headers.put("Content-Type", "application/json; charset=UTF-8");
-
-				return headers;
-			}
-		};
-
-
-		request.setTag("jsonPost");
-		KkanApplication.getHttpQueues().add(request);
-	}
 	public  void dialog(final Context context, final String title){//弹出登录框
 		new MikyouCommonDialog(context, R.layout.login_edit_layout,title,"确定","取消")
 				.setOnDiaLogListener(new MikyouCommonDialog.OnDialogListener() {

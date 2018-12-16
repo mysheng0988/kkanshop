@@ -9,23 +9,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
+import com.mysheng.office.kkanshop.MIMC.common.UserManager;
+import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
+import com.mysheng.office.kkanshop.entity.ChatTools;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeLeftRecorderViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeLeftAudioViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightLocationViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightRecorderViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeRightAudioViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightVideoViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTimeViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,15 +37,13 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private List<ChatModel> mList=new ArrayList<>();
-    private List<String> mImages=new ArrayList<>();
-    private List<ImageView> imageViews=new ArrayList<>();
+    private List<ChatMsg> mList;
     private int mMinItemWidth;
     private int mMaxItemWidth;
-    protected boolean isScrolling = true;
 
-    public ChatAdapter(Context context) {
+    public ChatAdapter(Context context,List<ChatMsg> chatMsgs) {
         this.mContext=context;
+        this.mList=chatMsgs;
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
@@ -57,33 +57,32 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
-            case ChatModel.TYPE_ONE:
+            case ChatTools.LEFT_TEXT:
             return new TypeLeftTextViewHolder(mLayoutInflater.inflate(R.layout.items_left_text,parent,false));
-            case ChatModel.TYPE_TWO:
+            case ChatTools.RIGHT_TEXT:
                 View view1=mLayoutInflater.inflate(R.layout.items_right_text,parent,false);
                 RecyclerView.ViewHolder viewHolder=new TypeRightTextViewHolder(view1);
                 return viewHolder;
-            case ChatModel.TYPE_THREE:
+            case ChatTools.LEFT_IMAGE:
                 return new TypeLeftImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
-            case ChatModel.TYPE_FOUR:
+            case ChatTools.RIGHT_IMAGE:
                 View view4=mLayoutInflater.inflate(R.layout.items_right_image,parent,false);
-
                 return new TypeRightImageViewHolder(view4);
-            case ChatModel.TYPE_FIVE:
-                return new TypeLeftRecorderViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
-            case ChatModel.TYPE_SIX:
+            case ChatTools.LIFT_AUDIO:
+                return new TypeLeftAudioViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
+            case ChatTools.RIGHT_AUDION:
                 View view6=mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false);
-                RecyclerView.ViewHolder viewHolder6=new TypeRightRecorderViewHolder(view6);
+                RecyclerView.ViewHolder viewHolder6=new TypeRightAudioViewHolder(view6);
                 return viewHolder6;
-            case ChatModel.TYPE_TIME:
+            case ChatTools.SEND_TIME:
                 View view7=mLayoutInflater.inflate(R.layout.item_time_layout,parent,false);
                 RecyclerView.ViewHolder viewHolder7=new TypeTimeViewHolder(view7);
                 return viewHolder7;
-            case ChatModel.TYPE_LOCATION:
+            case ChatTools.RIGHT_LOCATION:
                 View view8=mLayoutInflater.inflate(R.layout.items_right_location,parent,false);
                 RecyclerView.ViewHolder viewHolder8=new TypeRightLocationViewHolder(view8);
                 return viewHolder8;
-            case ChatModel.SEND_VIDEO:
+            case ChatTools.LEFT_LOCATION:
                 View view11=mLayoutInflater.inflate(R.layout.items_right_video,parent,false);
                 RecyclerView.ViewHolder viewHolder11=new TypeRightVideoViewHolder(view11);
                 return viewHolder11;
@@ -91,48 +90,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         return null;
     }
-
-    public void addList(List<ChatModel> list){
-        mList.addAll(list);
-    }
-    public void addImages(List<String> list){
-        mImages.addAll(list);
-    }
-    public void setScrolling(boolean scrolling) {
-        isScrolling = scrolling;
-    }
-    public void addModel(ChatModel model){
-        mList.add(model);
-    }
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        if(holder instanceof TypeLeftRecorderViewHolder ||holder instanceof TypeRightRecorderViewHolder){
+        if(holder instanceof TypeLeftAudioViewHolder ||holder instanceof TypeRightAudioViewHolder){
             RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
-            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).mesTime);
+            lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).getMsg().getMsgLongTime());
             Log.d("mys", "onBindViewHolder: "+lp.width);
             holder.itemView.findViewById(R.id.id_recorder_length).setLayoutParams(lp);
         }else if (holder instanceof TypeLeftImageViewHolder ||holder instanceof TypeRightImageViewHolder){
-            ImageView imageView=holder.itemView.findViewById(R.id.id_content_img);
-
         }
 
-       ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position),isScrolling);
-
-         //holder.itemView.findViewById(R.id.id_recorder_length);
+       ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
         holder.itemView.setTag(position);
-        setRecursionClick(holder.itemView,mList.get(position),mImages);
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mItemClickListener!=null){
-//                    setRecursionClick(v,mList.get(position),mImages);
-//                   // mItemClickListener.onItemClick(v,mList.get(position),mImages);
-//                }
-//
-//            }
-//        });
     }
-
+    public void addList(List<ChatMsg> chatMsgs){
+        mList.addAll(chatMsgs);
+    }
     @Override
     public int getItemCount() {
         return mList.size();
@@ -140,17 +113,45 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return mList.get(position).mesType;
+
+        if (mList.get(position).getFromAccount().equals(UserManager.getInstance().getAccount())) {
+            switch (mList.get(position).getMsg().getMsgType()){
+                case Constant.TEXT:
+                    return ChatTools.LEFT_TEXT;
+                case Constant.PIC_FILE:
+                    return ChatTools.LEFT_IMAGE;
+                case Constant.AUDIO_FILE:
+                    return ChatTools.LIFT_AUDIO;
+                case Constant.VODIO_FILE:
+                    return ChatTools.LEFT_VIDEO;
+                case Constant.LOCATION_FILE:
+                    return ChatTools.LEFT_LOCATION;
+            }
+        }else {
+            switch (mList.get(position).getMsg().getMsgType()){
+                case Constant.TEXT:
+                    return ChatTools.RIGHT_TEXT;
+                case Constant.PIC_FILE:
+                    return ChatTools.RIGHT_IMAGE;
+                case Constant.AUDIO_FILE:
+                    return ChatTools.LIFT_AUDIO;
+                case Constant.VODIO_FILE:
+                    return ChatTools.RIAGHT_VIDEO;
+                case Constant.LOCATION_FILE:
+                    return ChatTools.RIGHT_LOCATION;
+            }
+        }
+        return  ChatTools.SEND_TIME;
     }
 
     public void setItemClickListener(OnItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
     public interface OnItemClickListener{
-        void onItemClick(View view, ChatModel model, List<String> lists);
+        void onItemClick(View view, ChatMsg model, List<String> lists);
     }
     //递归设置点击事件
-    private void setRecursionClick(final View view, final ChatModel model, final List<String> lists) {
+    private void setRecursionClick(final View view, final ChatMsg model, final List<String> lists) {
         if (view instanceof ViewGroup) {
             ViewGroup group = (ViewGroup) view;
             group.setOnClickListener(new View.OnClickListener() {

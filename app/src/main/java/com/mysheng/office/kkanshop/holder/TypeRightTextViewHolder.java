@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 
@@ -22,12 +23,10 @@ public class TypeRightTextViewHolder extends TypeAbstractViewHolder{
     }
 
     @Override
-    public void bindHolder(Object model,boolean isScrolling){
-        if(model instanceof ChatModel){
-            ChatModel chatModel= (ChatModel) model;
-            mTextView.setText(chatModel.content);
+    public void bindHolder(ChatMsg model){
+            String content=new String(model.getMsg().getContent());
+            mTextView.setText(content);
             mImageView.setImageResource(R.drawable.ynn);
-        }
     }
 
 }

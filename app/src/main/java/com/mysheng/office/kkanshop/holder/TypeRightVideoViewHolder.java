@@ -8,11 +8,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.RxTool.RxImageTool;
 import com.mysheng.office.kkanshop.RxTool.RxTool;
 import com.mysheng.office.kkanshop.entity.ChatModel;
-import com.mysheng.office.kkanshop.util.ChatTool;
+import com.mysheng.office.kkanshop.entity.ChatTools;
 
 
 /**
@@ -29,13 +30,11 @@ public class TypeRightVideoViewHolder extends TypeAbstractViewHolder{
         mImageView=itemView.findViewById(R.id.id_useIcon);
     }
     @Override
-    public void bindHolder(Object model,boolean isScrolling){
-        if(model instanceof ChatModel){
-            ChatModel chatModel= (ChatModel) model;
+    public void bindHolder(ChatMsg chatModel){
             RxTool.init(mContentVideo.getContext());
             para = mContentVideo.getLayoutParams();
             Glide.with(mContentVideo.getContext())
-                    .load("file://"+chatModel.getContentPath())
+                    .load("file://"+chatModel.getMsg().getContent().toString())
                     .asBitmap()//强制Glide返回一个Bitmap对象
                     .into(new SimpleTarget<Bitmap>() {
                         @Override
@@ -43,13 +42,13 @@ public class TypeRightVideoViewHolder extends TypeAbstractViewHolder{
                             int width = bitmap.getWidth();
                             int height = bitmap.getHeight();
                             if (width<height){
-                                para.height = RxImageTool.dp2px(ChatTool.VIEW_HEIGHT);
-                                para.width = RxImageTool.dp2px(ChatTool.VIEW_WIDTH);
+                                para.height = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
+                                para.width = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
                                 mContentVideo.setLayoutParams(para);
 
                             }else{
-                                para.height = RxImageTool.dp2px(ChatTool.VIEW_WIDTH);
-                                para.width = RxImageTool.dp2px(ChatTool.VIEW_HEIGHT);
+                                para.height = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
+                                para.width = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
                                 mContentVideo.setLayoutParams(para);
                             }
                             mContentVideo.setImageBitmap(bitmap);
@@ -57,6 +56,5 @@ public class TypeRightVideoViewHolder extends TypeAbstractViewHolder{
                     });
 
             mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
-        }
     }
 }

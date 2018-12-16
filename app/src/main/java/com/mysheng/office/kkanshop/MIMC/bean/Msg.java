@@ -23,7 +23,18 @@ public class Msg {
 
     @JSONField(ordinal = 5)
     private byte[] content;
-
+    @JSONField(ordinal = 6)
+    private  String IconPath;//  头像地址
+    @JSONField(ordinal = 7)
+    private String address;
+    @JSONField(ordinal = 8)
+    private String tabTitle;
+    @JSONField(ordinal = 9)
+    private double longitude;//经度
+    @JSONField(ordinal = 10)
+    private double latitude;//纬度
+    @JSONField(ordinal = 10)
+    private  int msgLongTime;
     public Msg() {}
 
     public Msg(int version, String msgId, int msgType, long timestamp, byte[] content) {
@@ -32,6 +43,14 @@ public class Msg {
         this.msgType = msgType;
         this.timestamp = timestamp;
         this.content = content;
+    }
+
+    public int getMsgLongTime() {
+        return msgLongTime;
+    }
+
+    public void setMsgLongTime(int msgLongTime) {
+        this.msgLongTime = msgLongTime;
     }
 
     public int getVersion() {
@@ -75,5 +94,45 @@ public class Msg {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public String getIconPath() {
+        return IconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        IconPath = iconPath;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTabTitle() {
+        return tabTitle;
+    }
+
+    public void setTabTitle(String tabTitle) {
+        this.tabTitle = tabTitle;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }
