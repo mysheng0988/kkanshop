@@ -1,5 +1,6 @@
 package com.mysheng.office.kkanshop.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,10 +22,14 @@ import java.util.ArrayList;
 public class ChatListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<ChatListModel> lists = new ArrayList<>();
     public SlideLayout slideLayout;
+    private Context mContext;
+    private LayoutInflater mLayoutInflater;
     private OnChatListViewClickListener listener;
-    public ChatListViewAdapter(ArrayList<ChatListModel> lists) {
-        this.lists.clear();
-        this.lists.addAll(lists);
+    public ChatListViewAdapter(Context context,ArrayList<ChatListModel> lists) {
+        this.mContext=context;
+        mLayoutInflater=LayoutInflater.from(context);
+        this.lists=lists;
+
     }
 
     @Override
@@ -32,7 +37,7 @@ public class ChatListViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         /**
          * 加载滑动布局item_root，其中已经包含了content和optinos布局
          */
-        return new ChatListViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item_root, parent, false));
+        return new ChatListViewHolder(mLayoutInflater.inflate(R.layout.chat_item_root, parent, false));
     }
 
     public void removeData(int position) {

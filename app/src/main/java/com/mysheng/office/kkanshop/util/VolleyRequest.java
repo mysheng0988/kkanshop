@@ -49,13 +49,24 @@ public class VolleyRequest
         // 不写也能执行
 //        MyApplication.getHttpQueues().start();
     }
-    public static void JsonRequestGet(String url, String tag, VolleyJsonInterface vif)
+    public static void JsonRequestGet(String url,final String token, String tag, VolleyJsonInterface vif)
     {
 
         KkanApplication.getHttpQueues().cancelAll(tag);
-        jsonRequest = new JsonObjectRequest(Request.Method.GET,url,vif.loadingJsonListener(),vif.errorListener());
-        stringRequest.setTag(tag);
-        KkanApplication.getHttpQueues().add(stringRequest);
+        jsonRequest = new JsonObjectRequest(Request.Method.GET,url,vif.loadingJsonListener(),vif.errorListener()){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                headers.put("Content-Type", "application/json; charset=UTF-8");
+                if(token!=null){
+                    headers.put("token",token);
+                }
+                return headers;
+            }
+        };
+        jsonRequest.setTag(tag);
+        KkanApplication.getHttpQueues().add(jsonRequest);
         // 不写也能执行
 //        MyApplication.getHttpQueues().start();
     }

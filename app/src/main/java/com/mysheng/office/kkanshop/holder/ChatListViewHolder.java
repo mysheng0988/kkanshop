@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
 import com.mysheng.office.kkanshop.util.UtilDate;
+import com.mysheng.office.kkanshop.util.UtilsDate;
 
 /**
  * Created by myaheng on 2018/7/17.
@@ -43,6 +44,6 @@ public class ChatListViewHolder extends  RecyclerView.ViewHolder{
             unReadNum.setVisibility(View.VISIBLE);
         }
         lastMsg.setText(model.getLastMsg());
-        lastMsgData.setText(UtilDate.showDateTime(model.getLastMsgData(),"yyyy-MM-dd HH:mm:ss"));
+        lastMsgData.setText(UtilsDate.longToStr(model.getLastMsgData(),"yyyy-MM-dd HH:mm"));
     }
 }

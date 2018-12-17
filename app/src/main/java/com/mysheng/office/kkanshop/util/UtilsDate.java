@@ -40,6 +40,11 @@ public class UtilsDate {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
+    public static String longToStr(long longTime, String format){
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date date=new Date(longTime);
+        return sdf.format(date);
+    }
     /**
      * 字符串转换成日期
      * @param str
@@ -203,7 +208,7 @@ public class UtilsDate {
         int yearStr = strCal.get(Calendar.YEAR);
         int monthStr=strCal.get(Calendar.MONTH);
         int dayStr=strCal.get(Calendar.DAY_OF_MONTH);
-        if((year-yearStr!=0)&&(month-monthStr!=0)){
+        if((year-yearStr!=0)||(month-monthStr!=0)){
             return   DateToStr(date,FORMAT_DATE_TIME);
         }else{
             switch (day-dayStr){
@@ -212,7 +217,7 @@ public class UtilsDate {
                 case 1:
                     return "昨天"+DateToStr(date,FORMAT_TIME);
                 case 2:
-                    return "昨天"+DateToStr(date,FORMAT_TIME);
+                    return "前天"+DateToStr(date,FORMAT_TIME);
                 default:
                     return   DateToStr(date,FORMAT_DATE_TIME);
 

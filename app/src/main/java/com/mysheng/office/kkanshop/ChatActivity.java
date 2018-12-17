@@ -452,7 +452,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
                         dataSize=dataSize+num;
                         chatAdapter.notifyDataSetChanged();
                         recyclerView.scrollToPosition(dataSize+5);
-                        refreshLayout.resetNoMoreData();
                         refreshLayout.finishRefresh(true);
                     }else{
                         refreshLayout.finishRefresh(false);

@@ -3,16 +3,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
+import com.mysheng.office.kkanshop.MIMC.bean.Msg;
+import com.mysheng.office.kkanshop.MIMC.common.Base64Utils;
+import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.adapter.ChatListViewAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
+import com.mysheng.office.kkanshop.util.VolleyInterface;
+import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
+import com.mysheng.office.kkanshop.util.VolleyRequest;
+import com.xiaomi.mimc.MIMCUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 public class ChatListViewActivity extends BaseActivity {
     private RecyclerView recyclerView;
@@ -22,16 +42,20 @@ public class ChatListViewActivity extends BaseActivity {
     private ImageButton btnBack;
     private SharedPreferencesUtils shareData;
     private String userId;
-
+    private String token;
+    private MIMCUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat_list_view);
         shareData=new SharedPreferencesUtils(this);
         userId= (String) shareData.getParam("phone","");
-        initData();
+        user = UserManager.getInstance().newUser(userId);
+        user.login();
+        setContentView(R.layout.chat_list_view);
+        getUserChatList();
         initView();
         initEvent();
+        initData();
 
 
     }
@@ -43,7 +67,7 @@ public class ChatListViewActivity extends BaseActivity {
         recyclerView =  findViewById(R.id.recycler_view);
         strTitle=findViewById(R.id.common_title);
         strTitle.setText("聊天聊表");
-        adapter = new ChatListViewAdapter(list);
+        adapter = new ChatListViewAdapter(ChatListViewActivity.this,list);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -112,25 +136,94 @@ public class ChatListViewActivity extends BaseActivity {
                 break;
         }
     }
+    private void getUserChatList(){
+
+            token=user.getToken();
+            String strUrl="https://mimc.chat.xiaomi.net/api/contact/";
+            VolleyRequest.JsonRequestGet(strUrl,token,"userList",new VolleyJsonInterface(ChatListViewActivity.this,VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener){
+                @Override
+                public void onSuccess(JSONObject result) {
+                    String code="",message="";
+                    try {
+                        code=result.getString("code");
+                        message=result.getString("message");
+                        JSONArray array=result.getJSONArray("data");
+
+                        for (int i=0;i<array.length();i++){
+                            JSONObject object=array.getJSONObject(i);
+                           String userType=object.getString("userType");
+                           String id=object.getString("id");
+                           String name=object.getString("name");
+                           long timestamp=object.getLong("timestamp");
+                           String extra=object.getString("extra");
+                            JSONObject lastMessage=object.getJSONObject("lastMessage");
+                            String fromUuid=lastMessage.getString("fromUuid");
+                            String fromAccount=lastMessage.getString("fromAccount");
+                            String payload=lastMessage.getString("payload");
+                            payload= Base64Utils.getFromBase64(payload);
+                            String sequence=lastMessage.getString("sequence");
+                            String bizType=lastMessage.getString("bizType");
+                            JSONObject obj=new JSONObject(payload);
+                            String content=obj.getString("content");
+                            content=Base64Utils.getFromBase64(content);
+                            ChatListModel model=new ChatListModel();
+                            model.setUnReadNum(4);
+                            model.setUserId(name);
+                            model.setUserName(name);
+                            model.setLastMsgData(timestamp);
+                            model.setLastMsg(content);
+                            list.add(model);
+
+                        }
+                        adapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                @Override
+                public void onError(VolleyError error) {
+
+                }
+
+
+            });
+    }
+    private void getChataUserList(){
+        token=user.getToken();
+        String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnSequence/";
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("toAccount", "dm01");
+        hashMap.put("fromAccount", userId);
+        hashMap.put("startSeq","154503794553568001");
+        hashMap.put("stopSeq","154503955225968001");
+        JSONObject jsonParams = new JSONObject(hashMap);
+        VolleyRequest.JsonRequestPost(strURL,"Sequence",token,jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
+            @Override
+            public void onSuccess(JSONObject result) {
+                String code="",message="";
+
+                try {
+                    code=result.getString("code");
+                    message=result.getString("message");
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onError(VolleyError error) {
+
+            }
+        });
+    }
     private void initData() {
-        Random random=new Random();
-        ChatListModel model=new ChatListModel();
-        if(userId.equals("dm01")){
-            model.setUserId("dm02");
-            model.setUserName("张三");
-            model.setLastMsgData(new Date());
-            model.setLastMsg("你在干嘛？");
-            int num=random.nextInt(10);
-            model.setUnReadNum(Math.round(num));
-        }else{
-            model.setUserId("dm01");
-            model.setUserName("张三");
-            model.setLastMsgData(new Date());
-            model.setLastMsg("你说呢？");
-            int num=random.nextInt(10);
-            model.setUnReadNum(Math.round(num));
-        }
-        list.add(model);
+        getUserChatList();
+        getChataUserList();
     }
 
 

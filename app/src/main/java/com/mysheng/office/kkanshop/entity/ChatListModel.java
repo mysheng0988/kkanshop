@@ -12,7 +12,7 @@ public class ChatListModel {
     private String userIcon;
     private String lastMsg;
     private int unReadNum=0;
-    private Date lastMsgData;
+    private long lastMsgData;
 
     public String getUserId() {
         return userId;
@@ -54,11 +54,11 @@ public class ChatListModel {
         this.unReadNum = unReadNum;
     }
 
-    public Date getLastMsgData() {
+    public long getLastMsgData() {
         return lastMsgData;
     }
 
-    public void setLastMsgData(Date lastMsgData) {
+    public void setLastMsgData(long lastMsgData) {
         this.lastMsgData = lastMsgData;
     }
 }
