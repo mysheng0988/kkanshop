@@ -99,6 +99,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private ImageView addItem;
     private ChatAdapter chatAdapter;
     private ChatGenreViewAdapter genreViewAdapter;
+    private LinearLayoutManager layoutManager;
     private EditText audioText;
     private List<ChatMsg> mDatas = new ArrayList<>();
     private List<ChatGenreBean> genreDatas = new ArrayList<>();
@@ -133,7 +134,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
 
 
 
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        layoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         //layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
@@ -500,7 +501,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                         }
                         dataSize=dataSize+num;
                         chatAdapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(dataSize+5);
+                        layoutManager.scrollToPositionWithOffset(dataSize,0);
                         refreshLayout.finishRefresh(true);
                     }else{
                         refreshLayout.finishRefresh(false);
@@ -520,7 +521,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private int showDateNum(long time,int position){
-        if(time-frontMseDate>10*60*1000){
+        if(time-frontMseDate>5*60*1000){
             ChatMsg chatMsg=new ChatMsg();
             Msg msg=new Msg();
             msg.setMsgType(ChatTools.SEND_TIME);
@@ -770,6 +771,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         unbindService(conn);
         MediaManager.release();
     }
+
 
 
 
