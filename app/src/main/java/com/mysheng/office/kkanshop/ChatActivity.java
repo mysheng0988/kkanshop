@@ -1,10 +1,14 @@
 package com.mysheng.office.kkanshop;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,7 +50,9 @@ import com.mysheng.office.kkanshop.customCamera.util.StringUtils;
 import com.mysheng.office.kkanshop.entity.ChatGenreBean;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.entity.ChatTools;
+import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
+import com.mysheng.office.kkanshop.service.MIMCService;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
@@ -81,7 +87,7 @@ import io.reactivex.functions.Consumer;
  * Created by myaheng on 2017/12/15.
  */
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener,UserManager.OnHandleMIMCMsgListener{
+public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private RecyclerView recyclerView;
     private RecyclerView genreView;
     private static boolean isKeyboard=false;//默认显示切换语音
@@ -106,27 +112,25 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
     private int[] imageId={R.drawable.icon_images,R.drawable.icon_camera,R.drawable.icon_video,R.drawable.icon_location,R.drawable.icon_phone,R.drawable.icon_goods,R.drawable.icon_order};
     private String[] genreName={"相册","相机","摄像","定位","语音","商品","订单"};
 
-
-
-    private String userId;
     private SharedPreferencesUtils shareData;
     private String sendUserName;
     private String sendUserId;
+    private MIMCService mimcService;
+    private String userId;
     private String token;
-    private  MIMCUser user;
+    private MIMCUser mimcUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shareData=new SharedPreferencesUtils(this);
         userId= (String) shareData.getParam("phone","");
-        user = UserManager.getInstance().newUser(userId);
-        user.login();
         mDatas.clear();
+        startMIMCService();
         setContentView(R.layout.chat_layout);
         initView();
         initEvent();
         endTime=System.currentTimeMillis();
-        getHistoryChatList();
+
 
 
         LinearLayoutManager layoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
@@ -289,8 +293,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
         keyboard.setOnClickListener(this);
         sendOut.setOnClickListener(this);
         addItem.setOnClickListener(this);
-        // 设置处理MIMC消息监听器
-        UserManager.getInstance().setHandleMIMCMsgListener(this);
         audioText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -338,10 +340,57 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
         }
         genreViewAdapter.addList(genreDatas);
     }
+    /**
+     * 开启MIMC聊天
+     */
+    private void startMIMCService() {
+        Intent intent = new Intent(this, MIMCService.class);
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        startService(intent);
+    }
+    /**
+     * 用于查询应用服务（application Service）的状态的一种interface，
+     * 更详细的信息可以参考Service 和 context.bindService()中的描述，
+     * 和许多来自系统的回调方式一样，ServiceConnection的方法都是进程的主线程中调用的。
+     */
+    ServiceConnection conn = new ServiceConnection() {
+        /**
+         * 在建立起于Service的连接时会调用该方法，目前Android是通过IBind机制实现与服务的连接。
+         * @param name 实际所连接到的Service组件名称
+         * @param service 服务的通信信道的IBind，可以通过Service访问对应服务
+         */
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mimcService = ((MIMCService.MIMCBinder) service).getService();
+            mimcUser=mimcService.getMimcUser();
+            mimcUser.login();
+            getHistoryChatList();
+            mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
+                @Override
+                public void noticeNewMsg(ChatMsg chatMsg) {
+                    showDateNum(chatMsg.getMsg().getTimestamp(),-1);
+                    mDatas.add(chatMsg);
+                    chatAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+                }
+            });
+        }
+
+        /**
+         * 当与Service之间的连接丢失的时候会调用该方法，
+         * 这种情况经常发生在Service所在的进程崩溃或者被Kill的时候调用，
+         * 此方法不会移除与Service的连接，当服务重新启动的时候仍然会调用 onServiceConnected()。
+         * @param name 丢失连接的组件名称
+         */
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
     private void getHistoryChatList(){
         Log.e("history", "onSuccess: "+mDatas.size() );
         long statTime=endTime-24*60*60*1000;
-        token=user.getToken();
+        token=mimcUser.getToken();
         String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnCount";
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("toAccount", sendUserId);
@@ -401,7 +450,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
     }
     private void getHistoryChatListMore(){
         long statTime=endTime-24*60*60*1000;
-        token=user.getToken();
+        token=mimcUser.getToken();
         String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnCount";
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("toAccount", sendUserId);
@@ -619,7 +668,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
         }
         UserManager userManager = UserManager.getInstance();
 
-        if (user != null){
+        if (mimcUser != null){
             userManager.sendMsg(sendUserId, strText.getBytes(), Constant.TEXT);
         }
         audioText.setText("");
@@ -718,125 +767,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,U
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(conn);
         MediaManager.release();
     }
 
 
-    @Override
-    public void onHandleMessage(final ChatMsg chatMsg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                showDateNum(chatMsg.getMsg().getTimestamp(),-1);
-                mDatas.add(chatMsg);
-                chatAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
-            }
-        });
-    }
 
-    @Override
-    public void onHandleGroupMessage(ChatMsg chatMsg) {
-
-    }
-
-    @Override
-    public void onHandleStatusChanged(MIMCConstant.OnlineStatus status) {
-
-    }
-
-    @Override
-    public void onHandleServerAck(MIMCServerAck serverAck) {
-
-    }
-
-    @Override
-    public void onHandleCreateGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQueryGroupInfo(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQueryGroupsOfAccount(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleJoinGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQuitGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleKickGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleUpdateGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleDismissGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandlePullP2PHistory(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandlePullP2THistory(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleSendMessageTimeout(MIMCMessage message) {
-
-    }
-
-    @Override
-    public void onHandleSendGroupMessageTimeout(MIMCGroupMessage groupMessage) {
-
-    }
-
-    @Override
-    public void onHandleJoinUnlimitedGroup(long topicId, int code, String errMsg) {
-
-    }
-
-    @Override
-    public void onHandleQuitUnlimitedGroup(long topicId, int code, String errMsg) {
-
-    }
-
-    @Override
-    public void onHandleDismissUnlimitedGroup(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQueryUnlimitedGroupMembers(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQueryUnlimitedGroups(String json, boolean isSuccess) {
-
-    }
-
-    @Override
-    public void onHandleQueryUnlimitedGroupOnlineUsers(String json, boolean isSuccess) {
-
-    }
 }

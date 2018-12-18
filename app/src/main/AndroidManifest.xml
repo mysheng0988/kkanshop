@@ -143,6 +143,21 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.VoiceCallActivity">
         </activity>
+        <service
+            android:name="com.mysheng.office.kkanshop.service.MIMCService"
+            android:enabled="true">
+            <intent-filter>
+                <!-- 系统启动完成后会调用-->
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
         <!--小米推送-->
         <service android:enabled="true" android:process=":pushservice"
             android:name="com.xiaomi.push.service.XMPushService"/>
@@ -187,6 +202,7 @@
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
+
         <!--个推消息服务-->
         <service
             android:name="com.mysheng.office.kkanshop.service.AppPushService"

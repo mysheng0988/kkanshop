@@ -1,6 +1,10 @@
 package com.mysheng.office.kkanshop;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +23,10 @@ import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.adapter.ChatListViewAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
+import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
+import com.mysheng.office.kkanshop.service.MIMCService;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
+import com.mysheng.office.kkanshop.util.UtilToast;
 import com.mysheng.office.kkanshop.util.VolleyInterface;
 import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
 import com.mysheng.office.kkanshop.util.VolleyRequest;
@@ -30,10 +37,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 public class ChatListViewActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private TextView strTitle;
@@ -41,21 +46,23 @@ public class ChatListViewActivity extends BaseActivity {
     private ArrayList<ChatListModel> list = new ArrayList<>();
     private ImageButton btnBack;
     private SharedPreferencesUtils shareData;
+
+    private MIMCService mimcService;
     private String userId;
     private String token;
-    private MIMCUser user;
+    private MIMCUser mimcUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shareData=new SharedPreferencesUtils(this);
         userId= (String) shareData.getParam("phone","");
-        user = UserManager.getInstance().newUser(userId);
-        user.login();
+        startMIMCService();
         setContentView(R.layout.chat_list_view);
-        getUserChatList();
+        Log.e("mys", "onCreate: "+222);
+
         initView();
         initEvent();
-        initData();
+        //initData();
 
 
     }
@@ -136,9 +143,57 @@ public class ChatListViewActivity extends BaseActivity {
                 break;
         }
     }
-    private void getUserChatList(){
+    private boolean isBind = false;
+    /**
+     * 开启MIMC聊天
+     */
+    private void startMIMCService() {
+        Intent intent = new Intent(this, MIMCService.class);
+        isBind=bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        startService(intent);
+    }
+    /**
+     * 用于查询应用服务（application Service）的状态的一种interface，
+     * 更详细的信息可以参考Service 和 context.bindService()中的描述，
+     * 和许多来自系统的回调方式一样，ServiceConnection的方法都是进程的主线程中调用的。
+     */
+    ServiceConnection conn = new ServiceConnection() {
+        /**
+         * 在建立起于Service的连接时会调用该方法，目前Android是通过IBind机制实现与服务的连接。
+         * @param name 实际所连接到的Service组件名称
+         * @param service 服务的通信信道的IBind，可以通过Service访问对应服务
+         */
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e("mys", "onServiceConnected: "+111);
+            mimcService = ((MIMCService.MIMCBinder) service).getService();
+            mimcUser=mimcService.getMimcUser();
+            mimcUser.login();
+            getUserChatList();
+            mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
+                @Override
+                public void noticeNewMsg(ChatMsg chatMsg) {
+                    nuReadNum++;
+                    getUserChatList();
+                }
+            });
+        }
 
-            token=user.getToken();
+        /**
+         * 当与Service之间的连接丢失的时候会调用该方法，
+         * 这种情况经常发生在Service所在的进程崩溃或者被Kill的时候调用，
+         * 此方法不会移除与Service的连接，当服务重新启动的时候仍然会调用 onServiceConnected()。
+         * @param name 丢失连接的组件名称
+         */
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+    private int nuReadNum=0;
+    private void getUserChatList(){
+            list.clear();
+            token=mimcUser.getToken();
             String strUrl="https://mimc.chat.xiaomi.net/api/contact/";
             VolleyRequest.JsonRequestGet(strUrl,token,"userList",new VolleyJsonInterface(ChatListViewActivity.this,VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener){
                 @Override
@@ -167,12 +222,13 @@ public class ChatListViewActivity extends BaseActivity {
                             String content=obj.getString("content");
                             content=Base64Utils.getFromBase64(content);
                             ChatListModel model=new ChatListModel();
-                            model.setUnReadNum(4);
+                            model.setUnReadNum(nuReadNum);
                             model.setUserId(name);
                             model.setUserName(name);
                             model.setLastMsgData(timestamp);
                             model.setLastMsg(content);
                             list.add(model);
+
 
                         }
                         adapter.notifyDataSetChanged();
@@ -190,7 +246,7 @@ public class ChatListViewActivity extends BaseActivity {
             });
     }
     private void getChataUserList(){
-        token=user.getToken();
+        token=mimcUser.getToken();
         String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnSequence/";
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("toAccount", "dm01");
@@ -221,11 +277,32 @@ public class ChatListViewActivity extends BaseActivity {
             }
         });
     }
-    private void initData() {
-        getUserChatList();
-        getChataUserList();
+//    private void initData() {
+//        getUserChatList();
+//      //  getChataUserList();
+//    }
+
+
+    @Override
+    protected void onResume() {
+        Log.e("mys", "onPause: "+isBind );
+        if(!isBind){
+            startMIMCService();
+        }
+        super.onResume();
     }
 
+    @Override
+    protected void onPause() {
+        nuReadNum=0;
+        unbindService(conn);
+       isBind=false;
+        super.onPause();
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+    }
 }
