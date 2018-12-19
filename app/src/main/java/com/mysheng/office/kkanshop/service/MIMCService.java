@@ -17,6 +17,7 @@ import android.util.Log;
 
 import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
+import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.utils.NotificationUtil;
@@ -58,8 +59,24 @@ public class MIMCService extends Service implements UserManager.OnHandleMIMCMsgL
                         updateChatMsg.noticeNewMsg(chatMsg);
                     }
                 }else{
+                    String content="";
+                    int msgType=chatMsg.getMsg().getMsgType();
+                    switch (msgType){
+                        case Constant.TEXT:
+                            content=new String(chatMsg.getMsg().getContent());
+                            break;
+                        case Constant.PIC_FILE:
+                            content="[图片]";
+                            break;
+                        case Constant.AUDIO_FILE:
+                            content="[语音]";
+                            break;
+                        case Constant.VODIO_FILE:
+                            content="[视频]";
+                            break;
+                    }
                     NotificationUtil.getInstance().sendMsg(MIMCService.this,chatMsg.getFromAccount(),
-                            chatMsg.getFromAccount(), chatMsg.getFromAccount()  ,new String(chatMsg.getMsg().getContent()));
+                            chatMsg.getFromAccount(), chatMsg.getFromAccount()  ,content);
                 }
             }
         }
@@ -98,7 +115,7 @@ public class MIMCService extends Service implements UserManager.OnHandleMIMCMsgL
                 String action = intent.getAction();
                 if (Intent.ACTION_SCREEN_ON.equals(action)) {
                     Log.d(TAG, "屏幕亮屏");
-                    isNotice=true;
+                    isNotice=false;
                 } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
                     Log.d(TAG, "屏幕灭屏");
                     isNotice=false;

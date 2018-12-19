@@ -79,6 +79,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import io.reactivex.functions.Consumer;
 
@@ -87,7 +88,7 @@ import io.reactivex.functions.Consumer;
  * Created by myaheng on 2017/12/15.
  */
 
-public class ChatActivity extends BaseActivity implements View.OnClickListener{
+public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.OnItemClickListener,ChatAdapter.OnItemClickListener{
     private RecyclerView recyclerView;
     private RecyclerView genreView;
     private static boolean isKeyboard=false;//默认显示切换语音
@@ -102,6 +103,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private LinearLayoutManager layoutManager;
     private EditText audioText;
     private List<ChatMsg> mDatas = new ArrayList<>();
+    private List<String> imagePath = new ArrayList<>();
     private List<ChatGenreBean> genreDatas = new ArrayList<>();
     private AudioRecorderButton mAudioRecorderButton;
     public  static  int SEND_LOCATION=0x110;
@@ -120,6 +122,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     private String userId;
     private String token;
     private MIMCUser mimcUser;
+    private UserManager userManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +130,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         userId= (String) shareData.getParam("phone","");
         mDatas.clear();
         startMIMCService();
+        userManager=UserManager.getInstance();
         setContentView(R.layout.chat_layout);
         initView();
         initEvent();
@@ -144,76 +148,22 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                         recyclerView.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                                layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
                             }
                         },100);
                     }
             }
         });
 
-        chatAdapter=new ChatAdapter(this,mDatas);
-        chatAdapter.setItemClickListener(new ChatAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(final View view,ChatMsg chatMsg,List<String> list) {
-                isKeyboard=true;
-                audioText.clearFocus();
-                genreView.setVisibility(View.GONE);
-                if(chatMsg.getMsg().getMsgType()==Constant.AUDIO_FILE){
-                    //播放动画
-                    if(animView != null) {
-                        animView.setBackgroundResource(R.drawable.adj);
-                        animView = null;
-                    }
-                    animView = view.findViewById(R.id.id_recorder_anim);
-                    animView.setBackgroundResource(R.drawable.play_anim);
-                    AnimationDrawable anim = (AnimationDrawable) animView.getBackground();
-                    anim.start();
-                    //播放音频
-                    MediaManager.playSound(chatMsg.getMsg().getContent().toString(), new MediaPlayer.OnCompletionListener() {
-
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            animView.setBackgroundResource(R.drawable.adj);
-                        }
-                    }, new MediaPlayer.OnErrorListener() {
-                        @Override
-                        public boolean onError(MediaPlayer mp, int what, int extra) {
-                            MediaManager.release();
-                            animView.setBackgroundResource(R.drawable.adj);
-                            return false;
-                        }
-                    });
-                }else if(chatMsg.getMsg().getMsgType()== Constant.PIC_FILE){
-                    switch (view.getId()){
-                        case R.id.id_content_img:
-                            int pos=list.indexOf(chatMsg.getMsg().getContent().toString());
-                            ImageTrans.with(ChatActivity.this)
-                                    .setImageList(list)
-                                    .setSourceImageView(new SourceImageViewGet() {
-                                        @Override
-                                        public ImageView getImageView(int pos) {
-                                            return (ImageView)view.findViewById(R.id.id_content_img);
-                                        }
-                                    })
-                                    .setImageLoad(new MyImageLoad())
-                                    .setNowIndex(pos)
-                                    .setProgressBar(new MyProgressBarGet())
-                                    .setAdapter(new MyImageTransAdapter())
-                                    .show();
-                            break;
-                    }
-
-                }
-            }
-
-        });
+        chatAdapter=new ChatAdapter(this,mDatas,imagePath);
+        chatAdapter.setItemClickListener(this);
         recyclerView.setAdapter(chatAdapter);
 
         mAudioRecorderButton.setAudioFinishRecorderListener(new AudioRecorderButton.AudioFinishRecorderListener() {
             @Override
             public void onFinish(float seconds, String filePath) {
                 chatAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
 
             }
         });
@@ -221,25 +171,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         genreView.setLayoutManager(gridLayoutManager);
         genreViewAdapter=new ChatGenreViewAdapter(this);
         genreView.setAdapter(genreViewAdapter);
-        genreViewAdapter.setItemClickListener(new ChatGenreViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, ChatGenreBean model) {
-                if(model.getPosition()==1){
-                    onTakePhoto(PictureMimeType.ofImage());
-                }else if(model.getPosition()==2){
-                    onTakePhoto(PictureMimeType.ofVideo());
-                }else if(model.getPosition()==3){
-                    startLocation();
-                }else if(model.getPosition()==4){
-                    if (UserManager.getInstance().getStatus() == MIMCConstant.OnlineStatus.ONLINE) {
-                        VoiceCallActivity.actionStartActivity(ChatActivity.this, sendUserId);
-                    } else {
-                        Toast.makeText(ChatActivity.this, getResources().getString(R.string.not_login), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                genreView.setVisibility(View.GONE);
-            }
-        });
+        genreViewAdapter.setItemClickListener(this);
 
         initData();
     }
@@ -372,7 +304,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                     showDateNum(chatMsg.getMsg().getTimestamp(),-1);
                     mDatas.add(chatMsg);
                     chatAdapter.notifyDataSetChanged();
-                    recyclerView.scrollToPosition(chatAdapter.getItemCount() - 1);
+                    layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
                 }
             });
         }
@@ -423,7 +355,11 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                             chatMsg.setSingle(true);
                             Msg msg=new Msg();
                             String content=obj.getString("content");
+                            int msgType=obj.getInt("msgType");
                             content=Base64Utils.getFromBase64(content);
+                            if(Constant.PIC_FILE==msgType){
+                                imagePath.add(content);
+                            }
                             msg.setContent(content.getBytes());
                             long timestamp=obj.getLong("timestamp");
                             showDateNum(timestamp,-1);
@@ -434,7 +370,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                         }
                         Log.e("history", "onSuccess: "+mDatas.size() );
                         chatAdapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+                        layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -449,6 +385,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
             }
         });
     }
+
+    /**
+     * 获取更多历史记录
+     */
     private void getHistoryChatListMore(){
         long statTime=endTime-24*60*60*1000;
         token=mimcUser.getToken();
@@ -491,6 +431,10 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
                             Msg msg=new Msg();
                             String content=obj.getString("content");
                             content=Base64Utils.getFromBase64(content);
+                            int msgType=obj.getInt("msgType");
+                            if(Constant.PIC_FILE==msgType){
+                                imagePath.add(content);
+                            }
                             msg.setContent(content.getBytes());
                             long timestamp=obj.getLong("timestamp");
                             msg.setTimestamp(timestamp);
@@ -520,6 +464,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
         });
     }
 
+    /**
+     *  显示聊天时间
+     * @param time
+     * @param position
+     * @return
+     */
     private int showDateNum(long time,int position){
         if(time-frontMseDate>5*60*1000){
             ChatMsg chatMsg=new ChatMsg();
@@ -667,7 +617,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
            UtilToast.showShort(ChatActivity.this,"发送内容不能为空");
             return;
         }
-        UserManager userManager = UserManager.getInstance();
+       userManager = UserManager.getInstance();
 
         if (mimcUser != null){
             userManager.sendMsg(sendUserId, strText.getBytes(), Constant.TEXT);
@@ -678,19 +628,12 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     /**
      * 发送拍照图片
      */
-    private void sendCameraImage(ChatModel chatModel){
-//        chatModel.mesType=4;
-//        chatModel.setMesDate(new Date());
-//        if(isShowDate(chatModel.getMesDate())){
-//            ChatModel chatModel2=new ChatModel();
-//            chatModel2.mesType=7;
-//            chatModel2.setMesDate(new Date());
-//            chatAdapter.addModel(chatModel2);
-//        }
-//        frontMseDate=new Date();
-//        chatAdapter.addModel(chatModel);
-//        chatAdapter.notifyDataSetChanged();
-//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+    private void sendCameraImage(){
+        Random random=new Random();
+        int index=random.nextInt(ChatTools.netImages.length);
+        //ChatTools.netImages[index];
+        String imagePath="http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg";
+        userManager.sendMsg(sendUserId, imagePath.getBytes(), Constant.PIC_FILE);
     }
 
     /**
@@ -718,7 +661,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
 //        frontMseDate=new Date();
 //        chatAdapter.addModel(chatModel);
 //        chatAdapter.notifyDataSetChanged();
-//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+//        layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
     }
 
     /**
@@ -737,7 +680,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
 //        frontMseDate=new Date();
 //        chatAdapter.addModel(chatModel);
 //        chatAdapter.notifyDataSetChanged();
-//        recyclerView.scrollToPosition(chatAdapter.getItemCount()-1);
+//        layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
     }
     private void switchToTextAndAudio(){
         if(isKeyboard){
@@ -773,6 +716,77 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    @Override
+    public void onItemClick(View view, ChatGenreBean model) {
+        if(model.getPosition()==0){
+            sendCameraImage();
+        }else if(model.getPosition()==1){
+            onTakePhoto(PictureMimeType.ofImage());
+        }else if(model.getPosition()==2){
+            onTakePhoto(PictureMimeType.ofVideo());
+        }else if(model.getPosition()==3){
+            startLocation();
+        }else if(model.getPosition()==4){
+            if (UserManager.getInstance().getStatus() == MIMCConstant.OnlineStatus.ONLINE) {
+                VoiceCallActivity.actionStartActivity(ChatActivity.this, sendUserId);
+            } else {
+                Toast.makeText(ChatActivity.this, getResources().getString(R.string.not_login), Toast.LENGTH_SHORT).show();
+            }
+        }
+        genreView.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void onItemClick(final View view, ChatMsg model, List<String> lists) {
+        isKeyboard=true;
+        audioText.clearFocus();
+        genreView.setVisibility(View.GONE);
+        if(model.getMsg().getMsgType()==Constant.AUDIO_FILE){
+            //播放动画
+            if(animView != null) {
+                animView.setBackgroundResource(R.drawable.adj);
+                animView = null;
+            }
+            animView = view.findViewById(R.id.id_recorder_anim);
+            animView.setBackgroundResource(R.drawable.play_anim);
+            AnimationDrawable anim = (AnimationDrawable) animView.getBackground();
+            anim.start();
+            //播放音频
+            MediaManager.playSound(model.getMsg().getContent().toString(), new MediaPlayer.OnCompletionListener() {
 
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    animView.setBackgroundResource(R.drawable.adj);
+                }
+            }, new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    MediaManager.release();
+                    animView.setBackgroundResource(R.drawable.adj);
+                    return false;
+                }
+            });
+        }else if(model.getMsg().getMsgType()== Constant.PIC_FILE){
+            switch (view.getId()){
+                case R.id.id_content_img:
+                    String content=new String(model.getMsg().getContent());
+                    int pos=lists.indexOf(content);
+                    ImageTrans.with(ChatActivity.this)
+                            .setImageList(lists)
+                            .setSourceImageView(new SourceImageViewGet() {
+                                @Override
+                                public ImageView getImageView(int pos) {
+                                    return (ImageView)view.findViewById(R.id.id_content_img);
+                                }
+                            })
+                            .setImageLoad(new MyImageLoad())
+                            .setNowIndex(pos)
+                            .setProgressBar(new MyProgressBarGet())
+                            .setAdapter(new MyImageTransAdapter())
+                            .show();
+                    break;
+            }
+
+        }
+    }
 }

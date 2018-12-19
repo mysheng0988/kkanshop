@@ -20,6 +20,7 @@ import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.bean.Msg;
 import com.mysheng.office.kkanshop.MIMC.common.Base64Utils;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
+import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.adapter.ChatListViewAdapter;
 import com.mysheng.office.kkanshop.adapter.ViewLineDivider;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
@@ -221,6 +222,21 @@ public class ChatListViewActivity extends BaseActivity {
                             JSONObject obj=new JSONObject(payload);
                             String content=obj.getString("content");
                             content=Base64Utils.getFromBase64(content);
+                            int msgType=obj.getInt("msgType");
+                            switch (msgType){
+                                case Constant.TEXT:
+                                    content=new String(content);
+                                    break;
+                                case Constant.PIC_FILE:
+                                    content="[图片]";
+                                    break;
+                                case Constant.AUDIO_FILE:
+                                    content="[语音]";
+                                    break;
+                                case Constant.VODIO_FILE:
+                                    content="[视频]";
+                                    break;
+                            }
                             ChatListModel model=new ChatListModel();
                             model.setUnReadNum(nuReadNum);
                             model.setUserId(name);

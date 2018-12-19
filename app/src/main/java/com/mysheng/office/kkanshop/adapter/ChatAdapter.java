@@ -28,6 +28,7 @@ import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightVideoViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTimeViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,12 +39,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private List<ChatMsg> mList;
+    private List<String> imagePath;
     private int mMinItemWidth;
     private int mMaxItemWidth;
-
-    public ChatAdapter(Context context,List<ChatMsg> chatMsgs) {
+    private OnItemClickListener mItemClickListener;
+    public ChatAdapter(Context context,List<ChatMsg> chatMsgs,List<String> imagePath) {
         this.mContext=context;
         this.mList=chatMsgs;
+        this.imagePath=imagePath;
+
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
@@ -52,7 +56,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         mMinItemWidth = (int) (outMetrics.widthPixels * 0.15f);
         mLayoutInflater=LayoutInflater.from(context);
     }
-    private OnItemClickListener mItemClickListener;
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -101,10 +105,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
+        setRecursionClick(holder.itemView,mList.get(position),imagePath);
         holder.itemView.setTag(position);
-    }
-    public void addList(List<ChatMsg> chatMsgs){
-        mList.addAll(chatMsgs);
     }
     @Override
     public int getItemCount() {
