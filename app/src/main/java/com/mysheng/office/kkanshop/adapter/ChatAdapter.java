@@ -117,29 +117,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
 
         if (mList.get(position).getFromAccount().equals(UserManager.getInstance().getAccount())) {
-            switch (mList.get(position).getMsg().getMsgType()){
-                case Constant.TEXT:
+            switch (mList.get(position).getMsg().getChatMsgType()){
+                case Constant.MSG_TEXT:
                     return ChatTools.RIGHT_TEXT;
-                case Constant.PIC_FILE:
+                case Constant.MSG_IMAGE:
                     return ChatTools.RIGHT_IMAGE;
-                case Constant.AUDIO_FILE:
+                case Constant.MSG_AUDIO:
                     return ChatTools.LIFT_AUDIO;
-                case Constant.VODIO_FILE:
+                case Constant.MSG_VIDEO:
                     return ChatTools.RIAGHT_VIDEO;
-                case Constant.LOCATION_FILE:
+                case Constant.MSG_LOCATION:
                     return ChatTools.RIGHT_LOCATION;
             }
         }else {
-            switch (mList.get(position).getMsg().getMsgType()){
-                case Constant.TEXT:
+            switch (mList.get(position).getMsg().getChatMsgType()){
+                case Constant.MSG_TEXT:
                     return ChatTools.LEFT_TEXT;
-                case Constant.PIC_FILE:
+                case Constant.MSG_IMAGE:
                     return ChatTools.LEFT_IMAGE;
-                case Constant.AUDIO_FILE:
+                case Constant.MSG_AUDIO:
                     return ChatTools.LIFT_AUDIO;
-                case Constant.VODIO_FILE:
+                case Constant.MSG_VIDEO:
                     return ChatTools.LEFT_VIDEO;
-                case Constant.LOCATION_FILE:
+                case Constant.MSG_LOCATION:
                     return ChatTools.LEFT_LOCATION;
             }
 

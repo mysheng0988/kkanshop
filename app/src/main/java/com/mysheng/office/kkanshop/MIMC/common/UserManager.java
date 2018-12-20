@@ -57,6 +57,8 @@ public class UserManager {
     private String regionKey = "REGION_CN";
     private String domain = "https://mimc.chat.xiaomi.net/";
 
+
+
     // 用户登录APP的帐号
     private String appAccount = "";
     private String url;
@@ -177,19 +179,18 @@ public class UserManager {
             msg.setTimestamp(System.currentTimeMillis());
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
-        }
-        else if (msgType == Constant.PONG) {
+        } else if (msgType == Constant.PONG) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.PONG);
             msg.setTimestamp(System.currentTimeMillis());
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
-        }
-        else if (msgType == Constant.TEXT) {
+        } else if (msgType ==Constant.MSG_TEXT ) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT);
+            msg.setChatMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -199,12 +200,12 @@ public class UserManager {
             chatMsg.setMsg(msg);
             chatMsg.setSingle(true);
             addMsg(chatMsg);
-        }
-        else if (msgType == Constant.PIC_FILE) {
+        } else if (msgType == Constant.MSG_IMAGE) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.PIC_FILE);
+            msg.setMsgType(Constant.TEXT);
             msg.setTimestamp(System.currentTimeMillis());
+            msg.setChatMsgType(msgType);
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
@@ -212,6 +213,7 @@ public class UserManager {
             chatMsg.setFromAccount(appAccount);
             chatMsg.setMsg(msg);
             chatMsg.setSingle(true);
+            chatMsg.setBizType("PIC_FILE");
             addMsg(chatMsg);
         }
         else if (msgType == Constant.TEXT_READ) {
@@ -219,6 +221,7 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT_READ);
             msg.setTimestamp(System.currentTimeMillis());
+            msg.setChatMsgType(msgType);
             //content为已读消息的msgId
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -229,6 +232,7 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT_RECALL);
             msg.setTimestamp(System.currentTimeMillis());
+            msg.setChatMsgType(msgType);
             //content为需要撤回消息的msgId
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -239,6 +243,7 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.ADD_FRIEND_REQUEST);
             msg.setTimestamp(System.currentTimeMillis());
+            msg.setChatMsgType(msgType);
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
         }
@@ -247,6 +252,7 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.ADD_FRIEND_RESPONSE);
             msg.setTimestamp(System.currentTimeMillis());
+            msg.setChatMsgType(msgType);
             //content为true or false,表示同意或拒绝
             msg.setContent(content);
             String json = JSON.toJSONString(msg);

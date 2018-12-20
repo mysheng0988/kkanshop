@@ -23,18 +23,29 @@ public class Msg {
 
     @JSONField(ordinal = 5)
     private byte[] content;
+
     @JSONField(ordinal = 6)
     private  String IconPath;//  头像地址
+
     @JSONField(ordinal = 7)
     private String address;
+
     @JSONField(ordinal = 8)
     private String tabTitle;
+
     @JSONField(ordinal = 9)
     private double longitude;//经度
+
     @JSONField(ordinal = 10)
     private double latitude;//纬度
-    @JSONField(ordinal = 10)
+
+    @JSONField(ordinal = 11)
     private  int msgLongTime;
+
+    @JSONField(ordinal = 12)
+    private  int chatMsgType;
+
+
     public Msg() {}
 
     public Msg(int version, String msgId, int msgType, long timestamp, byte[] content) {
@@ -134,5 +145,13 @@ public class Msg {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public int getChatMsgType() {
+        return chatMsgType;
+    }
+
+    public void setChatMsgType(int chatMsgType) {
+        this.chatMsgType = chatMsgType;
     }
 }

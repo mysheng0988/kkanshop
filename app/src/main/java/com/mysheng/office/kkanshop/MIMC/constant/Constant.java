@@ -6,6 +6,18 @@ import android.media.AudioTrack;
 import android.media.MediaRecorder;
 
 public final class Constant {
+
+
+    /**
+     * 自定义消息类型
+     *
+     */
+    public static final int MSG_TEXT=10001;
+    public static final int MSG_IMAGE=10002;
+    public static final int MSG_AUDIO=10003;
+    public static final int MSG_VIDEO=10004;
+    public static final int MSG_LOCATION=10005;
+    public static final int MSG_TIME=10006;
     /**
      * 检查用户在线
      * 用户A通过MIMC发送ping给用户B
@@ -22,7 +34,7 @@ public final class Constant {
      */
     public static final int PIC_FILE = 1040;
     public static final int AUDIO_FILE = 1041;
-    public static final int VODIO_FILE = 1042;
+    public static final int VIDEO_FILE = 1042;
     public static final int LOCATION_FILE = 1043;
 
     //已读消息，content为已读消息msgId

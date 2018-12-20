@@ -48,30 +48,30 @@ public class MIMCService extends Service implements UserManager.OnHandleMIMCMsgL
             super.handleMessage(msg);
             if(msg.what==100){
                 ChatMsg chatMsg= (ChatMsg) msg.obj;
-                if(isNotice&&"ChatListViewActivity".equals(getRunningActivityName())){
+                if("ChatListViewActivity".equals(getRunningActivityName())){
                     Vibrator mVibrator=(Vibrator)getApplication().getSystemService(Service.VIBRATOR_SERVICE);
                     mVibrator.vibrate(new long[]{200,100,500,300},-1);
                     if(updateChatMsg!=null){
                         updateChatMsg.noticeNewMsg(chatMsg);
                     }
-                }else if(isNotice&&"ChatActivity".equals(getRunningActivityName())){
+                }else if("ChatActivity".equals(getRunningActivityName())){
                     if(updateChatMsg!=null){
                         updateChatMsg.noticeNewMsg(chatMsg);
                     }
                 }else{
                     String content="";
-                    int msgType=chatMsg.getMsg().getMsgType();
+                    int msgType=chatMsg.getMsg().getChatMsgType();
                     switch (msgType){
-                        case Constant.TEXT:
+                        case Constant.MSG_TEXT:
                             content=new String(chatMsg.getMsg().getContent());
                             break;
-                        case Constant.PIC_FILE:
+                        case Constant.MSG_IMAGE:
                             content="[图片]";
                             break;
-                        case Constant.AUDIO_FILE:
+                        case Constant.MSG_AUDIO:
                             content="[语音]";
                             break;
-                        case Constant.VODIO_FILE:
+                        case Constant.MSG_VIDEO:
                             content="[视频]";
                             break;
                     }

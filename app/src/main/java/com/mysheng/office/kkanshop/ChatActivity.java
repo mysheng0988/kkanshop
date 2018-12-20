@@ -48,6 +48,7 @@ import com.mysheng.office.kkanshop.customCamera.entity.LocalMedia;
 import com.mysheng.office.kkanshop.customCamera.util.LogUtils;
 import com.mysheng.office.kkanshop.customCamera.util.StringUtils;
 import com.mysheng.office.kkanshop.entity.ChatGenreBean;
+import com.mysheng.office.kkanshop.entity.ChatListModel;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.entity.ChatTools;
 import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
@@ -122,7 +123,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     private String userId;
     private String token;
     private MIMCUser mimcUser;
-    private UserManager userManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,11 +131,12 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         userId= (String) shareData.getParam("phone","");
         mDatas.clear();
         startMIMCService();
-        userManager=UserManager.getInstance();
+
         setContentView(R.layout.chat_layout);
         initView();
         initEvent();
         endTime=System.currentTimeMillis();
+
 
 
 
@@ -349,22 +351,24 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             payload=jsonArray.getJSONObject(i).getString("payload");
                             payload=Base64Utils.getFromBase64(payload);
                             String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
+                            String bizType=jsonArray.getJSONObject(i).getString("bizType");
                             JSONObject obj=new JSONObject(payload);
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
+                            chatMsg.setBizType(bizType);
                             chatMsg.setSingle(true);
                             Msg msg=new Msg();
                             String content=obj.getString("content");
-                            int msgType=obj.getInt("msgType");
+                            int msgType=obj.getInt("chatMsgType");
                             content=Base64Utils.getFromBase64(content);
-                            if(Constant.PIC_FILE==msgType){
+                            if(Constant.MSG_IMAGE==msgType){
                                 imagePath.add(content);
                             }
                             msg.setContent(content.getBytes());
                             long timestamp=obj.getLong("timestamp");
                             showDateNum(timestamp,-1);
                             msg.setTimestamp(timestamp);
-                            msg.setMsgType(Integer.parseInt(obj.getString("msgType")));
+                            msg.setChatMsgType(msgType);
                             chatMsg.setMsg(msg);
                             mDatas.add(chatMsg);
                         }
@@ -424,21 +428,24 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             payload=jsonArray.getJSONObject(i).getString("payload");
                             payload=Base64Utils.getFromBase64(payload);
                             String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
+                            String bizType=jsonArray.getJSONObject(i).getString("bizType");
                             JSONObject obj=new JSONObject(payload);
                             ChatMsg chatMsg=new ChatMsg();
+                            chatMsg.setFromAccount(fromAccount);
+                            chatMsg.setBizType(bizType);
                             chatMsg.setFromAccount(fromAccount);
                             chatMsg.setSingle(true);
                             Msg msg=new Msg();
                             String content=obj.getString("content");
                             content=Base64Utils.getFromBase64(content);
-                            int msgType=obj.getInt("msgType");
-                            if(Constant.PIC_FILE==msgType){
+                            int msgType=obj.getInt("chatMsgType");
+                            if(Constant.MSG_IMAGE==msgType){
                                 imagePath.add(content);
                             }
                             msg.setContent(content.getBytes());
                             long timestamp=obj.getLong("timestamp");
                             msg.setTimestamp(timestamp);
-                            msg.setMsgType(Integer.parseInt(obj.getString("msgType")));
+                            msg.setChatMsgType(msgType);
                             chatMsg.setMsg(msg);
                              num=num+showDateNum(timestamp,i+num);
                             mDatas.add(i+num,chatMsg);
@@ -474,7 +481,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         if(time-frontMseDate>5*60*1000){
             ChatMsg chatMsg=new ChatMsg();
             Msg msg=new Msg();
-            msg.setMsgType(ChatTools.SEND_TIME);
+            msg.setMsgType(Constant.MSG_TIME);
             msg.setTimestamp(time);
             chatMsg.setFromAccount(userId);
             chatMsg.setSingle(true);
@@ -617,10 +624,10 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
            UtilToast.showShort(ChatActivity.this,"发送内容不能为空");
             return;
         }
-       userManager = UserManager.getInstance();
+        UserManager userManager=UserManager.getInstance();
 
         if (mimcUser != null){
-            userManager.sendMsg(sendUserId, strText.getBytes(), Constant.TEXT);
+            userManager.sendMsg(sendUserId, strText.getBytes(), Constant.MSG_TEXT);
         }
         audioText.setText("");
     }
@@ -632,8 +639,9 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         Random random=new Random();
         int index=random.nextInt(ChatTools.netImages.length);
         //ChatTools.netImages[index];
+        UserManager userManager=UserManager.getInstance();
         String imagePath="http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg";
-        userManager.sendMsg(sendUserId, imagePath.getBytes(), Constant.PIC_FILE);
+        userManager.sendMsg(sendUserId, imagePath.getBytes(), Constant.MSG_IMAGE);
     }
 
     /**

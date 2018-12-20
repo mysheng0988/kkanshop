@@ -222,18 +222,18 @@ public class ChatListViewActivity extends BaseActivity {
                         JSONObject obj=new JSONObject(payload);
                         String content=obj.getString("content");
                         content=Base64Utils.getFromBase64(content);
-                        int msgType=obj.getInt("msgType");
+                        int msgType=obj.getInt("chatMsgType");
                         switch (msgType){
-                            case Constant.TEXT:
+                            case Constant.MSG_TEXT:
                                 content=new String(content);
                                 break;
-                            case Constant.PIC_FILE:
+                            case Constant.MSG_IMAGE:
                                 content="[图片]";
                                 break;
-                            case Constant.AUDIO_FILE:
+                            case Constant.MSG_AUDIO:
                                 content="[语音]";
                                 break;
-                            case Constant.VODIO_FILE:
+                            case Constant.MSG_VIDEO:
                                 content="[视频]";
                                 break;
                         }
