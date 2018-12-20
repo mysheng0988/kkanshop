@@ -9,7 +9,7 @@
         android:id="@+id/id_useIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginRight="5dp"
         android:src="@drawable/ynn"/>
     <!--<FrameLayout-->
@@ -21,7 +21,7 @@
     <!--android:background="@drawable/chat_right_bg_focused">-->
     <ImageView
         android:id="@+id/id_content_img"
-        android:layout_toLeftOf="@+id/id_useIcon"
+        android:layout_toRightOf="@+id/id_useIcon"
         android:layout_marginRight="5dp"
         android:scaleType="centerCrop"
         android:layout_width="wrap_content"

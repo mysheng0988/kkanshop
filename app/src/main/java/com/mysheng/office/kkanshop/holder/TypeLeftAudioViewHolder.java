@@ -27,6 +27,6 @@ public class TypeLeftAudioViewHolder extends TypeAbstractViewHolder{
     @Override
     public void bindHolder(ChatMsg model){
             mTextView.setText(model.getMsg().getMsgLongTime()+"\"");
-            mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
+            //mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
     }
 }

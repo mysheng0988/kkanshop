@@ -20,7 +20,7 @@ public final class Constant {
      * 用户A通过MIMC发送多媒体消息(content=URL)给用户B
      * 用户B接收多媒体消息(content=URL)，通过URL下载图片文件/语音文件/视频文件
      */
-    public static final int PIC_FILE = 104;
+    public static final int PIC_FILE = 1040;
     public static final int AUDIO_FILE = 1041;
     public static final int VODIO_FILE = 1042;
     public static final int LOCATION_FILE = 1043;

@@ -30,6 +30,6 @@ public class TypeRightAudioViewHolder extends TypeAbstractViewHolder{
             //mContentImage.setImageResource(R.drawable.ynn);
             Log.d("mys", "bindHolder: "+ model.getMsg().getMsgLongTime());
             mTextView.setText( model.getMsg().getMsgLongTime()+"\"");
-            mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
+            //mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
     }
 }

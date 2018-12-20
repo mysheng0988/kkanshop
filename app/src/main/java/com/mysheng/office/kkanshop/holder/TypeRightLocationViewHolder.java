@@ -33,7 +33,7 @@ public class TypeRightLocationViewHolder extends TypeAbstractViewHolder{
     public void bindHolder(ChatMsg model){
             String content=new String(model.getMsg().getContent().toString());
             mTitle.setText(model.getMsg().getTabTitle());
-            mImageView.setImageResource(R.drawable.ynn);
+            //mImageView.setImageResource(R.drawable.ynn);
             mAddress.setText(model.getMsg().getAddress());
             Glide.with(mAddress.getContext()).load("file://"+content).into(locationMap);
     }

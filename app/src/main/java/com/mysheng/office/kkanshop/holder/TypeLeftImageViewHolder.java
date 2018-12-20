@@ -33,41 +33,35 @@ public class TypeLeftImageViewHolder extends TypeAbstractViewHolder{
     public void bindHolder(ChatMsg model){
         RxTool.init(mContentImage.getContext());
         para = mContentImage.getLayoutParams();
-        if(model.getMsg().getContent()==null){
-            para.height = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
-            para.width = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
-            mContentImage.setLayoutParams(para);
-            mContentImage.setImageResource(R.drawable.bg);
-        }else {
-            // 这里可以用Glide等网络图片加载库
-            String content=new String(model.getMsg().getContent());
-            String imagePath=content;
-            if(!ChatTools.isNetUri(imagePath)){
-                imagePath="file://"+imagePath;
-            }
-            Glide.with(mContentImage.getContext())
-                    .load(imagePath)
-                    .asBitmap()//强制Glide返回一个Bitmap对象
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                            int width = bitmap.getWidth();
-                            int height = bitmap.getHeight();
-                            if (width<height){
-                                para.height = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
-                                para.width = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
-                                mContentImage.setLayoutParams(para);
-
-                            }else{
-                                para.height = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
-                                para.width = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
-                                mContentImage.setLayoutParams(para);
-                            }
-                            mContentImage.setImageBitmap(bitmap);
-                        }
-                    });
+        // 这里可以用Glide等网络图片加载库
+        String content=new String(model.getMsg().getContent());
+        String imagePath=content;
+        if(!ChatTools.isNetUri(imagePath)){
+            imagePath="file://"+imagePath;
         }
+        Glide.with(mContentImage.getContext())
+                .load(imagePath)
+                .asBitmap()//强制Glide返回一个Bitmap对象
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                        int width = bitmap.getWidth();
+                        int height = bitmap.getHeight();
+                        if (width<height){
+                            para.height = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
+                            para.width = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
+                            mContentImage.setLayoutParams(para);
 
-        mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
+                        }else{
+                            para.height = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
+                            para.width = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
+                            mContentImage.setLayoutParams(para);
+                        }
+                        mContentImage.setImageBitmap(bitmap);
+                    }
+                });
     }
+
+        //mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
+
 }

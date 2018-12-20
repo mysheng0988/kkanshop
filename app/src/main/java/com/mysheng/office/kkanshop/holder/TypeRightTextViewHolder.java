@@ -26,7 +26,7 @@ public class TypeRightTextViewHolder extends TypeAbstractViewHolder{
     public void bindHolder(ChatMsg model){
             String content=new String(model.getMsg().getContent());
             mTextView.setText(content);
-            mImageView.setImageResource(R.drawable.ynn);
+           // mImageView.setImageResource(R.drawable.ynn);
     }
 
 }

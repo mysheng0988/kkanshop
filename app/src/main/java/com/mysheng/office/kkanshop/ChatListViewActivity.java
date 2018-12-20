@@ -193,73 +193,73 @@ public class ChatListViewActivity extends BaseActivity {
     };
     private int nuReadNum=0;
     private void getUserChatList(){
-            list.clear();
-            token=mimcUser.getToken();
-            String strUrl="https://mimc.chat.xiaomi.net/api/contact/";
-            VolleyRequest.JsonRequestGet(strUrl,token,"userList",new VolleyJsonInterface(ChatListViewActivity.this,VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener){
-                @Override
-                public void onSuccess(JSONObject result) {
-                    String code="",message="";
-                    try {
-                        code=result.getString("code");
-                        message=result.getString("message");
-                        JSONArray array=result.getJSONArray("data");
+        list.clear();
+        token=mimcUser.getToken();
+        String strUrl="https://mimc.chat.xiaomi.net/api/contact/";
+        VolleyRequest.JsonRequestGet(strUrl,token,"userList",new VolleyJsonInterface(ChatListViewActivity.this,VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener){
+            @Override
+            public void onSuccess(JSONObject result) {
+                String code="",message="";
+                try {
+                    code=result.getString("code");
+                    message=result.getString("message");
+                    JSONArray array=result.getJSONArray("data");
 
-                        for (int i=0;i<array.length();i++){
-                            JSONObject object=array.getJSONObject(i);
-                           String userType=object.getString("userType");
-                           String id=object.getString("id");
-                           String name=object.getString("name");
-                           long timestamp=object.getLong("timestamp");
-                           String extra=object.getString("extra");
-                            JSONObject lastMessage=object.getJSONObject("lastMessage");
-                            String fromUuid=lastMessage.getString("fromUuid");
-                            String fromAccount=lastMessage.getString("fromAccount");
-                            String payload=lastMessage.getString("payload");
-                            payload= Base64Utils.getFromBase64(payload);
-                            String sequence=lastMessage.getString("sequence");
-                            String bizType=lastMessage.getString("bizType");
-                            JSONObject obj=new JSONObject(payload);
-                            String content=obj.getString("content");
-                            content=Base64Utils.getFromBase64(content);
-                            int msgType=obj.getInt("msgType");
-                            switch (msgType){
-                                case Constant.TEXT:
-                                    content=new String(content);
-                                    break;
-                                case Constant.PIC_FILE:
-                                    content="[图片]";
-                                    break;
-                                case Constant.AUDIO_FILE:
-                                    content="[语音]";
-                                    break;
-                                case Constant.VODIO_FILE:
-                                    content="[视频]";
-                                    break;
-                            }
-                            ChatListModel model=new ChatListModel();
-                            model.setUnReadNum(nuReadNum);
-                            model.setUserId(name);
-                            model.setUserName(name);
-                            model.setLastMsgData(timestamp);
-                            model.setLastMsg(content);
-                            list.add(model);
-
-
+                    for (int i=0;i<array.length();i++){
+                        JSONObject object=array.getJSONObject(i);
+                        String userType=object.getString("userType");
+                        String id=object.getString("id");
+                        String name=object.getString("name");
+                        long timestamp=object.getLong("timestamp");
+                        String extra=object.getString("extra");
+                        JSONObject lastMessage=object.getJSONObject("lastMessage");
+                        String fromUuid=lastMessage.getString("fromUuid");
+                        String fromAccount=lastMessage.getString("fromAccount");
+                        String payload=lastMessage.getString("payload");
+                        payload= Base64Utils.getFromBase64(payload);
+                        String sequence=lastMessage.getString("sequence");
+                        String bizType=lastMessage.getString("bizType");
+                        JSONObject obj=new JSONObject(payload);
+                        String content=obj.getString("content");
+                        content=Base64Utils.getFromBase64(content);
+                        int msgType=obj.getInt("msgType");
+                        switch (msgType){
+                            case Constant.TEXT:
+                                content=new String(content);
+                                break;
+                            case Constant.PIC_FILE:
+                                content="[图片]";
+                                break;
+                            case Constant.AUDIO_FILE:
+                                content="[语音]";
+                                break;
+                            case Constant.VODIO_FILE:
+                                content="[视频]";
+                                break;
                         }
-                        adapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        ChatListModel model=new ChatListModel();
+                        model.setUnReadNum(nuReadNum);
+                        model.setUserId(name);
+                        model.setUserName(name);
+                        model.setLastMsgData(timestamp);
+                        model.setLastMsg(content);
+                        list.add(model);
+
+
                     }
-
-                }
-                @Override
-                public void onError(VolleyError error) {
-
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
+            }
+            @Override
+            public void onError(VolleyError error) {
 
-            });
+            }
+
+
+        });
     }
     private void getChataUserList(){
         token=mimcUser.getToken();
@@ -312,7 +312,7 @@ public class ChatListViewActivity extends BaseActivity {
     protected void onPause() {
         nuReadNum=0;
         unbindService(conn);
-       isBind=false;
+        isBind=false;
         super.onPause();
     }
 

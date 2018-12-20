@@ -55,6 +55,6 @@ public class TypeRightVideoViewHolder extends TypeAbstractViewHolder{
                         }
                     });
 
-            mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
+            //mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址
     }
 }

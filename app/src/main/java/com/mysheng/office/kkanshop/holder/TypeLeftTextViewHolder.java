@@ -26,6 +26,6 @@ public class TypeLeftTextViewHolder extends TypeAbstractViewHolder{
 
             String content=new String(model.getMsg().getContent());
             mTextView.setText(content);
-            mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
+            //mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
     }
 }

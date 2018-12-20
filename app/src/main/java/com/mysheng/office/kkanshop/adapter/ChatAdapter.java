@@ -119,19 +119,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (mList.get(position).getFromAccount().equals(UserManager.getInstance().getAccount())) {
             switch (mList.get(position).getMsg().getMsgType()){
                 case Constant.TEXT:
-                    return ChatTools.LEFT_TEXT;
-                case Constant.PIC_FILE:
-                    return ChatTools.LEFT_IMAGE;
-                case Constant.AUDIO_FILE:
-                    return ChatTools.LIFT_AUDIO;
-                case Constant.VODIO_FILE:
-                    return ChatTools.LEFT_VIDEO;
-                case Constant.LOCATION_FILE:
-                    return ChatTools.LEFT_LOCATION;
-            }
-        }else {
-            switch (mList.get(position).getMsg().getMsgType()){
-                case Constant.TEXT:
                     return ChatTools.RIGHT_TEXT;
                 case Constant.PIC_FILE:
                     return ChatTools.RIGHT_IMAGE;
@@ -142,6 +129,20 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 case Constant.LOCATION_FILE:
                     return ChatTools.RIGHT_LOCATION;
             }
+        }else {
+            switch (mList.get(position).getMsg().getMsgType()){
+                case Constant.TEXT:
+                    return ChatTools.LEFT_TEXT;
+                case Constant.PIC_FILE:
+                    return ChatTools.LEFT_IMAGE;
+                case Constant.AUDIO_FILE:
+                    return ChatTools.LIFT_AUDIO;
+                case Constant.VODIO_FILE:
+                    return ChatTools.LEFT_VIDEO;
+                case Constant.LOCATION_FILE:
+                    return ChatTools.LEFT_LOCATION;
+            }
+
         }
         return  ChatTools.SEND_TIME;
     }

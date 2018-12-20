@@ -9,17 +9,16 @@
         android:id="@+id/id_useIcon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
-        android:src="@drawable/ynn"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/icon"/>
     <FrameLayout
         android:id="@+id/id_recorder_length"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/id_useIcon"
-        android:background="@drawable/chat_left_bg_focused">
-
+        android:layout_toLeftOf="@+id/id_useIcon"
+        android:background="@drawable/chat_right_bg_focused">
         <TextView
             android:id="@+id/id_content_text"
             android:layout_width="wrap_content"
@@ -33,4 +32,5 @@
     </FrameLayout>
 
 </RelativeLayout>
+
 
