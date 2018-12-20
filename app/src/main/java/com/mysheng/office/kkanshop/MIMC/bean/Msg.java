@@ -45,6 +45,15 @@ public class Msg {
     @JSONField(ordinal = 12)
     private  int chatMsgType;
 
+    @JSONField(ordinal = 13)
+    private  String smallImagePath;
+
+    @JSONField(ordinal = 14)
+    private  String extra;
+
+    @JSONField(ordinal = 15)
+    private  int readStatus;
+
 
     public Msg() {}
 
@@ -153,5 +162,29 @@ public class Msg {
 
     public void setChatMsgType(int chatMsgType) {
         this.chatMsgType = chatMsgType;
+    }
+
+    public String getSmallImagePath() {
+        return smallImagePath;
+    }
+
+    public void setSmallImagePath(String smallImagePath) {
+        this.smallImagePath = smallImagePath;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    public int getReadStatus() {
+        return readStatus;
+    }
+
+    public void setReadStatus(int readStatus) {
+        this.readStatus = readStatus;
     }
 }

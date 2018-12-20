@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
@@ -203,6 +204,7 @@ public class ChatListViewActivity extends BaseActivity {
                 try {
                     code=result.getString("code");
                     message=result.getString("message");
+                    if(result.isNull("data")) return;
                     JSONArray array=result.getJSONArray("data");
 
                     for (int i=0;i<array.length();i++){
@@ -217,15 +219,12 @@ public class ChatListViewActivity extends BaseActivity {
                         String fromAccount=lastMessage.getString("fromAccount");
                         String payload=lastMessage.getString("payload");
                         payload= Base64Utils.getFromBase64(payload);
-                        String sequence=lastMessage.getString("sequence");
-                        String bizType=lastMessage.getString("bizType");
-                        JSONObject obj=new JSONObject(payload);
-                        String content=obj.getString("content");
-                        content=Base64Utils.getFromBase64(content);
-                        int msgType=obj.getInt("chatMsgType");
+                        Msg msg= JSON.parseObject(payload,Msg.class);
+                        int msgType=msg.getChatMsgType();
+                        String content="";
                         switch (msgType){
                             case Constant.MSG_TEXT:
-                                content=new String(content);
+                                content=new String(msg.getContent());
                                 break;
                             case Constant.MSG_IMAGE:
                                 content="[图片]";
@@ -261,42 +260,8 @@ public class ChatListViewActivity extends BaseActivity {
 
         });
     }
-    private void getChataUserList(){
-        token=mimcUser.getToken();
-        String strURL="https://mimc.chat.xiaomi.net/api/msg/p2p/queryOnSequence/";
-        Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("toAccount", "dm01");
-        hashMap.put("fromAccount", userId);
-        hashMap.put("startSeq","154503794553568001");
-        hashMap.put("stopSeq","154503955225968001");
-        JSONObject jsonParams = new JSONObject(hashMap);
-        VolleyRequest.JsonRequestPost(strURL,"Sequence",token,jsonParams,new VolleyJsonInterface(this, VolleyJsonInterface.mListener, VolleyJsonInterface.errorListener) {
-            @Override
-            public void onSuccess(JSONObject result) {
-                String code="",message="";
-
-                try {
-                    code=result.getString("code");
-                    message=result.getString("message");
 
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void onError(VolleyError error) {
-
-            }
-        });
-    }
-//    private void initData() {
-//        getUserChatList();
-//      //  getChataUserList();
-//    }
 
 
     @Override

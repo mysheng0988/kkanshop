@@ -351,24 +351,16 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             payload=jsonArray.getJSONObject(i).getString("payload");
                             payload=Base64Utils.getFromBase64(payload);
                             String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
-                            String bizType=jsonArray.getJSONObject(i).getString("bizType");
-                            JSONObject obj=new JSONObject(payload);
+                            Msg msg=JSON.parseObject(payload,Msg.class);
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
-                            chatMsg.setBizType(bizType);
                             chatMsg.setSingle(true);
-                            Msg msg=new Msg();
-                            String content=obj.getString("content");
-                            int msgType=obj.getInt("chatMsgType");
-                            content=Base64Utils.getFromBase64(content);
+                            int msgType=msg.getChatMsgType();
                             if(Constant.MSG_IMAGE==msgType){
-                                imagePath.add(content);
+                                imagePath.add(new String(msg.getContent()));
                             }
-                            msg.setContent(content.getBytes());
-                            long timestamp=obj.getLong("timestamp");
+                            long timestamp=msg.getTimestamp();
                             showDateNum(timestamp,-1);
-                            msg.setTimestamp(timestamp);
-                            msg.setChatMsgType(msgType);
                             chatMsg.setMsg(msg);
                             mDatas.add(chatMsg);
                         }
@@ -416,7 +408,6 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                     if(code.equals("200")){
                         JSONObject jsonObject=result.getJSONObject("data");
                         if(jsonObject.isNull("timestamp")){
-                            refreshLayout.resetNoMoreData();
                             refreshLayout.finishRefresh(true);
                             return;
                         }
@@ -427,25 +418,17 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                         for(int i=0;i<jsonArray.length();i++){
                             payload=jsonArray.getJSONObject(i).getString("payload");
                             payload=Base64Utils.getFromBase64(payload);
+                            Msg msg=JSON.parseObject(payload,Msg.class);
                             String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
-                            String bizType=jsonArray.getJSONObject(i).getString("bizType");
                             JSONObject obj=new JSONObject(payload);
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
-                            chatMsg.setBizType(bizType);
-                            chatMsg.setFromAccount(fromAccount);
                             chatMsg.setSingle(true);
-                            Msg msg=new Msg();
-                            String content=obj.getString("content");
-                            content=Base64Utils.getFromBase64(content);
-                            int msgType=obj.getInt("chatMsgType");
+                            int msgType=msg.getChatMsgType();
                             if(Constant.MSG_IMAGE==msgType){
-                                imagePath.add(content);
+                                imagePath.add(new String(msg.getContent()));
                             }
-                            msg.setContent(content.getBytes());
-                            long timestamp=obj.getLong("timestamp");
-                            msg.setTimestamp(timestamp);
-                            msg.setChatMsgType(msgType);
+                            long timestamp=msg.getTimestamp();
                             chatMsg.setMsg(msg);
                              num=num+showDateNum(timestamp,i+num);
                             mDatas.add(i+num,chatMsg);
@@ -774,7 +757,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                     return false;
                 }
             });
-        }else if(model.getMsg().getMsgType()== Constant.PIC_FILE){
+        }else if(model.getMsg().getChatMsgType()== Constant.MSG_IMAGE){
             switch (view.getId()){
                 case R.id.id_content_img:
                     String content=new String(model.getMsg().getContent());
