@@ -55,7 +55,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/send"
             android:background="@drawable/img_select"
-            android:src="@drawable/search" />
+            android:src="@drawable/icon_search" />
 
 
     </RelativeLayout>

@@ -9,6 +9,9 @@ import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.bean.Msg;
 import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.MIMC.listener.OnCallStateListener;
+import com.mysheng.office.kkanshop.MIMC.listener.OnHandleMIMCMsgListener;
+import com.mysheng.office.kkanshop.MIMC.receiveChat.MessageHandler;
+import com.mysheng.office.kkanshop.MIMC.receiveChat.TokenFetcher;
 import com.mysheng.office.kkanshop.VoiceCallActivity;
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCMessage;
@@ -52,9 +55,6 @@ public class UserManager {
      **/
     // online
     private long appId = 2882303761517808316L;
-    private String appKey = "5491780810316";
-    private String appSecret = "3OOIj5pjUvyGmU0Nowctzw==";
-    private String regionKey = "REGION_CN";
     private String domain = "https://mimc.chat.xiaomi.net/";
 
 
@@ -116,30 +116,6 @@ public class UserManager {
         this.onCallStateListener = onCallStateListener;
     }
 
-    public interface OnHandleMIMCMsgListener {
-        void onHandleMessage(ChatMsg chatMsg);
-        void onHandleGroupMessage(ChatMsg chatMsg);
-        void onHandleStatusChanged(MIMCConstant.OnlineStatus status);
-        void onHandleServerAck(MIMCServerAck serverAck);
-        void onHandleCreateGroup(String json, boolean isSuccess);
-        void onHandleQueryGroupInfo(String json, boolean isSuccess);
-        void onHandleQueryGroupsOfAccount(String json, boolean isSuccess);
-        void onHandleJoinGroup(String json, boolean isSuccess);
-        void onHandleQuitGroup(String json, boolean isSuccess);
-        void onHandleKickGroup(String json, boolean isSuccess);
-        void onHandleUpdateGroup(String json, boolean isSuccess);
-        void onHandleDismissGroup(String json, boolean isSuccess);
-        void onHandlePullP2PHistory(String json, boolean isSuccess);
-        void onHandlePullP2THistory(String json, boolean isSuccess);
-        void onHandleSendMessageTimeout(MIMCMessage message);
-        void onHandleSendGroupMessageTimeout(MIMCGroupMessage groupMessage);
-        void onHandleJoinUnlimitedGroup(long topicId, int code, String errMsg);
-        void onHandleQuitUnlimitedGroup(long topicId, int code, String errMsg);
-        void onHandleDismissUnlimitedGroup(String json, boolean isSuccess);
-        void onHandleQueryUnlimitedGroupMembers(String json, boolean isSuccess);
-        void onHandleQueryUnlimitedGroups(String json, boolean isSuccess);
-        void onHandleQueryUnlimitedGroupOnlineUsers(String json, boolean isSuccess);
-    }
 
     public static UserManager getInstance() {
         return instance;
@@ -175,22 +151,21 @@ public class UserManager {
         if (msgType == Constant.PING) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.PING);
+            msg.setMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
         } else if (msgType == Constant.PONG) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.PONG);
+            msg.setMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
         } else if (msgType ==Constant.MSG_TEXT ) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.TEXT);
-            msg.setChatMsgType(msgType);
+            msg.setMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -203,9 +178,8 @@ public class UserManager {
         } else if (msgType == Constant.MSG_IMAGE) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.TEXT);
+            msg.setMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
-            msg.setChatMsgType(msgType);
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
@@ -213,7 +187,6 @@ public class UserManager {
             chatMsg.setFromAccount(appAccount);
             chatMsg.setMsg(msg);
             chatMsg.setSingle(true);
-            chatMsg.setBizType("PIC_FILE");
             addMsg(chatMsg);
         }
         else if (msgType == Constant.TEXT_READ) {
@@ -221,7 +194,6 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT_READ);
             msg.setTimestamp(System.currentTimeMillis());
-            msg.setChatMsgType(msgType);
             //content为已读消息的msgId
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -232,7 +204,6 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT_RECALL);
             msg.setTimestamp(System.currentTimeMillis());
-            msg.setChatMsgType(msgType);
             //content为需要撤回消息的msgId
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -243,7 +214,6 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.ADD_FRIEND_REQUEST);
             msg.setTimestamp(System.currentTimeMillis());
-            msg.setChatMsgType(msgType);
             String json = JSON.toJSONString(msg);
             mUser.sendMessage(toAppAccount, json.getBytes());
         }
@@ -252,7 +222,7 @@ public class UserManager {
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.ADD_FRIEND_RESPONSE);
             msg.setTimestamp(System.currentTimeMillis());
-            msg.setChatMsgType(msgType);
+
             //content为true or false,表示同意或拒绝
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -343,8 +313,10 @@ public class UserManager {
         // staging
 //        mUser = MIMCUser.newInstance(appAccount, MimcApplication.getContext().getExternalFilesDir(null).getAbsolutePath(), "http://10.38.162.117:6000/gslb/", "http://10.38.162.149/");
         // 注册相关监听，必须
-        mUser.registerTokenFetcher(new TokenFetcher());
-        mUser.registerMessageHandler(new MessageHandler());
+        mUser.registerTokenFetcher(new TokenFetcher(appAccount));
+        MessageHandler messageHandler=new MessageHandler();
+        messageHandler.setOnHandleMIMCMsgListener(onHandleMIMCMsgListener);
+        mUser.registerMessageHandler(messageHandler);
         mUser.registerOnlineStatusListener(new OnlineStatusListener());
         mUser.registerRtsCallHandler(new RTSHandler());
         mUser.registerUnlimitedGroupHandler(new UnlimitedGroupHandler());
@@ -357,7 +329,7 @@ public class UserManager {
         @Override
         public void handleCreateUnlimitedGroup(long topicId, String topicName, boolean success, String errMsg, Object obj) {
             Log.i(TAG, String.format("handleCreateUnlimitedGroup topicId:%d topicName:%s success:%b errMsg:%s"
-                , topicId, topicName, success, errMsg));
+                    , topicId, topicName, success, errMsg));
         }
 
         @Override
@@ -471,186 +443,8 @@ public class UserManager {
         }
     }
 
-    class MessageHandler implements MIMCMessageHandler {
-        /**
-         * 接收单聊消息
-         * MIMCMessage类
-         * String packetId 消息ID
-         * long sequence 序列号
-         * String fromAccount 发送方帐号
-         * String toAccount 接收方帐号
-         * byte[] payload 消息体
-         * long timestamp 时间戳
-         */
-        @Override
-        public void handleMessage(List<MIMCMessage> packets) {
-            for (int i = 0; i < packets.size(); ++i) {
-                MIMCMessage mimcMessage = packets.get(i);
-                try {
-                    Msg msg = JSON.parseObject(new String(mimcMessage.getPayload()), Msg.class);
-                    if (msg.getMsgType() == Constant.TEXT) {
-                        ChatMsg chatMsg = new ChatMsg();
-                        chatMsg.setFromAccount(mimcMessage.getFromAccount());
-                        chatMsg.setMsg(msg);
-                        chatMsg.setSingle(true);
-                        addMsg(chatMsg);
-                    }
-                } catch (Exception e) {
-                    Msg msg = new Msg();
-                    msg.setVersion(Constant.VERSION);
-                    msg.setMsgId(msg.getMsgId());
-                    msg.setMsgType(Constant.TEXT);
-                    msg.setTimestamp(System.currentTimeMillis());
-                    msg.setContent(mimcMessage.getPayload());
-                    ChatMsg chatMsg = new ChatMsg();
-                    chatMsg.setFromAccount(mimcMessage.getFromAccount());
-                    chatMsg.setMsg(msg);
-                    chatMsg.setSingle(true);
-                    addMsg(chatMsg);
-                }
-            }
-        }
 
-        /**
-         * 接收群聊消息
-         * MIMCGroupMessage类
-         * String packetId 消息ID
-         * long groupId 群ID
-         * long sequence 序列号
-         * String fromAccount 发送方帐号
-         * byte[] payload 消息体
-         * long timestamp 时间戳
-         */
-        @Override
-        public void handleGroupMessage(List<MIMCGroupMessage> packets) {
-            for (int i = 0; i < packets.size(); i++) {
-                MIMCGroupMessage mimcGroupMessage = packets.get(i);
-                try {
-                    Msg msg = JSON.parseObject(new String(packets.get(i).getPayload()), Msg.class);
-                    if (msg.getMsgType() == Constant.TEXT) {
-                        ChatMsg chatMsg = new ChatMsg();
-                        chatMsg.setFromAccount(mimcGroupMessage.getFromAccount());
-                        chatMsg.setMsg(msg);
-                        chatMsg.setSingle(false);
-                        addGroupMsg(chatMsg);
-                    }
-                } catch (Exception e) {
-                    Msg msg = new Msg();
-                    msg.setVersion(Constant.VERSION);
-                    msg.setMsgId(msg.getMsgId());
-                    msg.setMsgType(Constant.TEXT);
-                    msg.setTimestamp(System.currentTimeMillis());
-                    msg.setContent(packets.get(i).getPayload());
-                    ChatMsg chatMsg = new ChatMsg();
-                    chatMsg.setFromAccount(mimcGroupMessage.getFromAccount());
-                    chatMsg.setMsg(msg);
-                    chatMsg.setSingle(false);
-                    addGroupMsg(chatMsg);
-                }
-            }
-        }
 
-        /**
-         * 接收服务端已收到发送消息确认
-         * MIMCServerAck类
-         * String packetId 消息ID
-         * long sequence 序列号
-         * long timestamp 时间戳
-         */
-        @Override
-        public void handleServerAck(MIMCServerAck serverAck) {
-            onHandleMIMCMsgListener.onHandleServerAck(serverAck);
-        }
-
-        /**
-         * 接收单聊超时消息
-         * @param message 单聊消息类
-         */
-        @Override
-        public void handleSendMessageTimeout(MIMCMessage message) {
-            onHandleMIMCMsgListener.onHandleSendMessageTimeout(message);
-        }
-
-        /**
-         *接收发送群聊超时消息
-         * @param groupMessage 群聊消息类
-         */
-        @Override
-        public void handleSendGroupMessageTimeout(MIMCGroupMessage groupMessage) {
-            onHandleMIMCMsgListener.onHandleSendGroupMessageTimeout(groupMessage);
-        }
-
-        @Override
-        public void handleSendUnlimitedGroupMessageTimeout(MIMCGroupMessage mimcGroupMessage) {
-
-        }
-
-        @Override
-        public void handleUnlimitedGroupMessage(List<MIMCGroupMessage> packets) {
-            for (int i = 0; i < packets.size(); i++) {
-                MIMCGroupMessage mimcGroupMessage = packets.get(i);
-                try {
-                    Msg msg = JSON.parseObject(new String(packets.get(i).getPayload()), Msg.class);
-                    if (msg.getMsgType() == Constant.TEXT) {
-                        ChatMsg chatMsg = new ChatMsg();
-                        chatMsg.setFromAccount(mimcGroupMessage.getFromAccount());
-                        chatMsg.setMsg(msg);
-                        chatMsg.setSingle(false);
-                        addGroupMsg(chatMsg);
-                    }
-                } catch (Exception e) {
-                    Msg msg = new Msg();
-                    msg.setVersion(Constant.VERSION);
-                    msg.setMsgId(msg.getMsgId());
-                    msg.setMsgType(Constant.TEXT);
-                    msg.setTimestamp(System.currentTimeMillis());
-                    msg.setContent(packets.get(i).getPayload());
-                    ChatMsg chatMsg = new ChatMsg();
-                    chatMsg.setFromAccount(mimcGroupMessage.getFromAccount());
-                    chatMsg.setMsg(msg);
-                    chatMsg.setSingle(false);
-                    addGroupMsg(chatMsg);
-                }
-            }
-        }
-    }
-
-    class TokenFetcher implements MIMCTokenFetcher {
-        @Override
-        public String fetchToken() {
-            /**
-             * fetchToken()由SDK内部线程调用，获取小米Token服务器返回的JSON字符串
-             * 本MimcDemo直接从小米Token服务器获取JSON串，只解析出键data对应的值返回即可，切记！！！
-             * 强烈建议，APP从自己服务器获取data对应的JSON串，APP自己的服务器再从小米Token服务器获取，以防appKey和appSecret泄漏
-             */
-
-            url = domain + "api/account/token";
-            String json = "{\"appId\":" + appId + ",\"appKey\":\"" + appKey + "\",\"appSecret\":\"" +
-                appSecret + "\",\"appAccount\":\"" + appAccount + "\",\"regionKey\":\"" + regionKey + "\"}";
-            MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request
-                .Builder()
-                .url(url)
-                .post(RequestBody.create(JSON, json))
-                .build();
-            Call call = client.newCall(request);
-            JSONObject data = null;
-            try {
-                Response response = call.execute();
-                data = new JSONObject(response.body().string());
-                int code = data.getInt("code");
-                if (code != 200) {
-                    //logger.warn("Error, code = " + code);
-                    return null;
-                }
-            } catch (Exception e) {
-                //logger.warn("Get token exception: " + e);
-            }
-
-            return data != null ? data.toString() : null;
-        }
-    }
 
     public long dialCall(String toAppAccount, String toResource, byte[] data) {
         if (getUser() != null) {
@@ -1049,12 +843,12 @@ public class UserManager {
         url = domain + "/api/uctopic/userlist";
         OkHttpClient client = new OkHttpClient();
         final Request request = new Request
-            .Builder()
-            .url(url)
-            .addHeader("token", mUser.getToken())
-            .addHeader("topicId", String.valueOf(topicId))
-            .get()
-            .build();
+                .Builder()
+                .url(url)
+                .addHeader("token", mUser.getToken())
+                .addHeader("topicId", String.valueOf(topicId))
+                .get()
+                .build();
         try {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
@@ -1085,11 +879,11 @@ public class UserManager {
         String url = domain + "/api/uctopic/topics";
         OkHttpClient client = new OkHttpClient();
         final Request request = new Request
-            .Builder()
-            .url(url)
-            .addHeader("token", mUser.getToken())
-            .get()
-            .build();
+                .Builder()
+                .url(url)
+                .addHeader("token", mUser.getToken())
+                .get()
+                .build();
         try {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {
@@ -1121,12 +915,12 @@ public class UserManager {
         url = domain + "/api/uctopic/onlineinfo";
         OkHttpClient client = new OkHttpClient();
         final Request request = new Request
-            .Builder()
-            .url(url)
-            .addHeader("token", mUser.getToken())
-            .addHeader("topicId", String.valueOf(topicId))
-            .get()
-            .build();
+                .Builder()
+                .url(url)
+                .addHeader("token", mUser.getToken())
+                .addHeader("topicId", String.valueOf(topicId))
+                .get()
+                .build();
         try {
             Call call = client.newCall(request);
             call.enqueue(new Callback() {

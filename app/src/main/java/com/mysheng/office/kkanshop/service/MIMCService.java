@@ -18,6 +18,7 @@ import android.util.Log;
 import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.MIMC.constant.Constant;
+import com.mysheng.office.kkanshop.MIMC.listener.OnHandleMIMCMsgListener;
 import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
 import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.mysheng.office.kkanshop.utils.NotificationUtil;
@@ -31,7 +32,7 @@ import com.xiaomi.mimc.common.MIMCConstant;
  * Created by myaheng on 2018/12/18.
  */
 
-public class MIMCService extends Service implements UserManager.OnHandleMIMCMsgListener{
+public class MIMCService extends Service implements OnHandleMIMCMsgListener {
 
     private String TAG="MIMCService";
     private BroadcastReceiver mBatInfoReceiver;
@@ -60,7 +61,7 @@ public class MIMCService extends Service implements UserManager.OnHandleMIMCMsgL
                     }
                 }else{
                     String content="";
-                    int msgType=chatMsg.getMsg().getChatMsgType();
+                    int msgType=chatMsg.getMsg().getMsgType();
                     switch (msgType){
                         case Constant.MSG_TEXT:
                             content=new String(chatMsg.getMsg().getContent());

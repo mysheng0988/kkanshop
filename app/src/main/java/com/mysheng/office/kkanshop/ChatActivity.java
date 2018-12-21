@@ -355,7 +355,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
                             chatMsg.setSingle(true);
-                            int msgType=msg.getChatMsgType();
+                            int msgType=msg.getMsgType();
                             if(Constant.MSG_IMAGE==msgType){
                                 imagePath.add(new String(msg.getContent()));
                             }
@@ -424,7 +424,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
                             chatMsg.setSingle(true);
-                            int msgType=msg.getChatMsgType();
+                            int msgType=msg.getMsgType();
                             if(Constant.MSG_IMAGE==msgType){
                                 imagePath.add(new String(msg.getContent()));
                             }
@@ -757,7 +757,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                     return false;
                 }
             });
-        }else if(model.getMsg().getChatMsgType()== Constant.MSG_IMAGE){
+        }else if(model.getMsg().getMsgType()== Constant.MSG_IMAGE){
             switch (view.getId()){
                 case R.id.id_content_img:
                     String content=new String(model.getMsg().getContent());

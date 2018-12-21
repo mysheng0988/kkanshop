@@ -28,30 +28,33 @@ public class Msg {
     private  String IconPath;//  头像地址
 
     @JSONField(ordinal = 7)
-    private String address;
+    private  String fromName;
 
     @JSONField(ordinal = 8)
-    private String tabTitle;
+    private String address;
 
     @JSONField(ordinal = 9)
-    private double longitude;//经度
+    private String tabTitle;
 
     @JSONField(ordinal = 10)
-    private double latitude;//纬度
+    private double longitude;//经度
 
     @JSONField(ordinal = 11)
-    private  int msgLongTime;
+    private double latitude;//纬度
 
     @JSONField(ordinal = 12)
-    private  int chatMsgType;
+    private  int msgLongTime;
 
     @JSONField(ordinal = 13)
-    private  String smallImagePath;
+    private  String codeNum;
 
     @JSONField(ordinal = 14)
-    private  String extra;
+    private  boolean isTure;
 
     @JSONField(ordinal = 15)
+    private  String extra;
+
+    @JSONField(ordinal = 16)
     private  int readStatus;
 
 
@@ -156,35 +159,5 @@ public class Msg {
         this.latitude = latitude;
     }
 
-    public int getChatMsgType() {
-        return chatMsgType;
-    }
 
-    public void setChatMsgType(int chatMsgType) {
-        this.chatMsgType = chatMsgType;
-    }
-
-    public String getSmallImagePath() {
-        return smallImagePath;
-    }
-
-    public void setSmallImagePath(String smallImagePath) {
-        this.smallImagePath = smallImagePath;
-    }
-
-    public String getExtra() {
-        return extra;
-    }
-
-    public void setExtra(String extra) {
-        this.extra = extra;
-    }
-
-    public int getReadStatus() {
-        return readStatus;
-    }
-
-    public void setReadStatus(int readStatus) {
-        this.readStatus = readStatus;
-    }
 }

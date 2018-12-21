@@ -9,15 +9,15 @@ public class ChatMsg {
     private String fromAccount;
     private Msg msg;
     private Boolean isSingle;
-    private String bizType;
+
 
     public ChatMsg() {}
 
-    public ChatMsg(String fromAccount, Msg msg, Boolean isSingle,String bizType) {
+    public ChatMsg(String fromAccount, Msg msg, Boolean isSingle) {
         this.fromAccount = fromAccount;
         this.msg = msg;
         this.isSingle = isSingle;
-        this.bizType=bizType;
+
     }
 
     public String getFromAccount() {
@@ -44,11 +44,4 @@ public class ChatMsg {
         isSingle = single;
     }
 
-    public String getBizType() {
-        return bizType;
-    }
-
-    public void setBizType(String bizType) {
-        this.bizType = bizType;
-    }
 }
