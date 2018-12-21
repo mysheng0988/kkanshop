@@ -49,7 +49,7 @@ public class Msg {
     private  String codeNum;
 
     @JSONField(ordinal = 14)
-    private  boolean isTure;
+    private  boolean isTrue;
 
     @JSONField(ordinal = 15)
     private  String extra;
@@ -159,5 +159,43 @@ public class Msg {
         this.latitude = latitude;
     }
 
+    public String getFromName() {
+        return fromName;
+    }
 
+    public void setFromName(String fromName) {
+        this.fromName = fromName;
+    }
+
+    public String getCodeNum() {
+        return codeNum;
+    }
+
+    public void setCodeNum(String codeNum) {
+        this.codeNum = codeNum;
+    }
+
+    public boolean isTrue() {
+        return isTrue;
+    }
+
+    public void setTrue(boolean aTrue) {
+        isTrue = aTrue;
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
+    }
+
+    public int getReadStatus() {
+        return readStatus;
+    }
+
+    public void setReadStatus(int readStatus) {
+        this.readStatus = readStatus;
+    }
 }
