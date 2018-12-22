@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/background_popup"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/strTitle"
+            android:layout_marginTop="@dimen/txt_10"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="触点互联"
+            android:textColor="@color/grey_color2"/>
+        <TextView
+            android:id="@+id/content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="@dimen/txt_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="北京市海电去农大南路流浪家园北里3号楼一单元501"
+            android:textColor="@color/grey_color3"/>
+
+    </LinearLayout>
+</RelativeLayout>
+

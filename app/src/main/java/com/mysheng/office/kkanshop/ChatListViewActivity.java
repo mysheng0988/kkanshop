@@ -61,7 +61,10 @@ public class ChatListViewActivity extends BaseActivity {
         startMIMCService();
         setContentView(R.layout.chat_list_view);
         Log.e("mys", "onCreate: "+222);
-
+//        ChatListModel model=new ChatListModel();
+//        model.setUserName("雾里看花");
+//        model.setUserId("0988");
+//        list.add(model);
         initView();
         initEvent();
         //initData();
@@ -169,14 +172,14 @@ public class ChatListViewActivity extends BaseActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.e("mys", "onServiceConnected: "+111);
             mimcService = ((MIMCService.MIMCBinder) service).getService();
-            mimcUser=mimcService.getMimcUser();
+            mimcUser=UserManager.getInstance().getUser();
             mimcUser.login();
             getUserChatList();
             mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
                 @Override
                 public void noticeNewMsg(ChatMsg chatMsg) {
                     nuReadNum++;
-                    getUserChatList();
+                   getUserChatList();
                 }
             });
         }
@@ -220,7 +223,7 @@ public class ChatListViewActivity extends BaseActivity {
                         String payload=lastMessage.getString("payload");
                         payload= Base64Utils.getFromBase64(payload);
                         Msg msg= JSON.parseObject(payload,Msg.class);
-                        int msgType=msg.getChatMsgType();
+                        int msgType=msg.getMsgType();
                         String content="";
                         switch (msgType){
                             case Constant.MSG_TEXT:
@@ -239,7 +242,7 @@ public class ChatListViewActivity extends BaseActivity {
                         ChatListModel model=new ChatListModel();
                         model.setUnReadNum(nuReadNum);
                         model.setUserId(name);
-                        model.setUserName(name);
+                        model.setUserName(msg.getFromName());
                         model.setLastMsgData(timestamp);
                         model.setLastMsg(content);
                         list.add(model);

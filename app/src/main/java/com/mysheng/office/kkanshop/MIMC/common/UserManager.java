@@ -13,6 +13,7 @@ import com.mysheng.office.kkanshop.MIMC.listener.OnHandleMIMCMsgListener;
 import com.mysheng.office.kkanshop.MIMC.receiveChat.MessageHandler;
 import com.mysheng.office.kkanshop.MIMC.receiveChat.TokenFetcher;
 import com.mysheng.office.kkanshop.VoiceCallActivity;
+import com.mysheng.office.kkanshop.util.SharedPreferencesUtils;
 import com.xiaomi.mimc.MIMCGroupMessage;
 import com.xiaomi.mimc.MIMCMessage;
 import com.xiaomi.mimc.MIMCMessageHandler;
@@ -61,9 +62,11 @@ public class UserManager {
 
     // 用户登录APP的帐号
     private String appAccount = "";
+    private String fromName="";
     private String url;
     private MIMCUser mUser;
     private MIMCConstant.OnlineStatus mStatus;
+    private SharedPreferencesUtils shareData;
     private final static UserManager instance = new UserManager();
     private OnHandleMIMCMsgListener onHandleMIMCMsgListener;
     private OnCallStateListener onCallStateListener;
@@ -166,6 +169,7 @@ public class UserManager {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(msgType);
+            msg.setFromName(fromName);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -179,6 +183,7 @@ public class UserManager {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(msgType);
+            msg.setFromName(fromName);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -188,8 +193,7 @@ public class UserManager {
             chatMsg.setMsg(msg);
             chatMsg.setSingle(true);
             addMsg(chatMsg);
-        }
-        else if (msgType == Constant.TEXT_READ) {
+        } else if (msgType == Constant.TEXT_READ) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
             msg.setMsgType(Constant.TEXT_READ);
@@ -229,13 +233,31 @@ public class UserManager {
             mUser.sendMessage(toAppAccount, json.getBytes());
         }
     }
-
+    public void sendLocationMsg(String toAppAccount, byte[] content,double v1,double v2,String title){
+        Msg msg=new Msg();
+        msg.setVersion(Constant.VERSION);
+        msg.setMsgId(msg.getMsgId());
+        msg.setMsgType(Constant.MSG_LOCATION);
+        msg.setFromName(fromName);
+        msg.setTimestamp(System.currentTimeMillis());
+        msg.setContent(content);
+        msg.setTabTitle(title);
+        msg.setLatitude(v1);
+        msg.setLongitude(v2);
+        String json = JSON.toJSONString(msg);
+        mUser.sendMessage(toAppAccount, json.getBytes());
+        ChatMsg chatMsg = new ChatMsg();
+        chatMsg.setFromAccount(appAccount);
+        chatMsg.setMsg(msg);
+        chatMsg.setSingle(true);
+        addMsg(chatMsg);
+    }
     public void sendGroupMsg(long groupID, byte[] content, int msgType, boolean isUnlimitedGroup) {
         Msg msg = new Msg();
-        if (msgType == Constant.TEXT) {
+        if (msgType == Constant.MSG_TEXT) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.TEXT);
+            msg.setMsgType(Constant.MSG_TEXT);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -250,10 +272,10 @@ public class UserManager {
             chatMsg.setSingle(false);
             addMsg(chatMsg);
         }
-        else if (msgType == Constant.PIC_FILE) {
+        else if (msgType == Constant.MSG_IMAGE) {
             msg.setVersion(Constant.VERSION);
             msg.setMsgId(msg.getMsgId());
-            msg.setMsgType(Constant.PIC_FILE);
+            msg.setMsgType(msgType);
             msg.setTimestamp(System.currentTimeMillis());
             msg.setContent(content);
             String json = JSON.toJSONString(msg);
@@ -320,8 +342,9 @@ public class UserManager {
         mUser.registerOnlineStatusListener(new OnlineStatusListener());
         mUser.registerRtsCallHandler(new RTSHandler());
         mUser.registerUnlimitedGroupHandler(new UnlimitedGroupHandler());
+        shareData=new SharedPreferencesUtils(KkanApplication.mContext);
         this.appAccount = appAccount;
-
+        this.fromName= (String) shareData.getParam("userName","");
         return mUser;
     }
 

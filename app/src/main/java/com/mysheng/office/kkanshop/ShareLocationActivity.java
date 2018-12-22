@@ -39,6 +39,7 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.mysheng.office.kkanshop.MIMC.bean.Msg;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.location.AddressAdapter;
 import com.mysheng.office.kkanshop.location.MapUtils;
@@ -52,6 +53,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 

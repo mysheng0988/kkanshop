@@ -77,7 +77,7 @@ public class MIMCService extends Service implements OnHandleMIMCMsgListener {
                             break;
                     }
                     NotificationUtil.getInstance().sendMsg(MIMCService.this,chatMsg.getFromAccount(),
-                            chatMsg.getFromAccount(), chatMsg.getFromAccount()  ,content);
+                            chatMsg.getFromAccount(), chatMsg.getMsg().getFromName()  ,content);
                 }
             }
         }
@@ -142,17 +142,8 @@ public class MIMCService extends Service implements OnHandleMIMCMsgListener {
         return mimcBinder;
     }
 
-    /**
-     * 获取MIMC用户对象
-     * @return
-     */
-    public MIMCUser getMimcUser() {
-        return mimcUser;
-    }
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-       mimcUser.login();
         return START_STICKY;
 
     }

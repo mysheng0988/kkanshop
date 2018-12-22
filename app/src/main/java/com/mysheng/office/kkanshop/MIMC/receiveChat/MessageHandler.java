@@ -53,7 +53,7 @@ public class MessageHandler implements MIMCMessageHandler {
                 Msg msg = new Msg();
                 msg.setVersion(Constant.VERSION);
                 msg.setMsgId(msg.getMsgId());
-                msg.setMsgType(Constant.TEXT);
+                msg.setMsgType(Constant.MSG_TEXT);
                 msg.setTimestamp(System.currentTimeMillis());
                 msg.setContent(mimcMessage.getPayload());
                 ChatMsg chatMsg = new ChatMsg();
@@ -154,7 +154,7 @@ public class MessageHandler implements MIMCMessageHandler {
                 Msg msg = new Msg();
                 msg.setVersion(Constant.VERSION);
                 msg.setMsgId(msg.getMsgId());
-                msg.setMsgType(Constant.TEXT);
+                msg.setMsgType(Constant.MSG_TEXT);
                 msg.setTimestamp(System.currentTimeMillis());
                 msg.setContent(packets.get(i).getPayload());
                 ChatMsg chatMsg = new ChatMsg();

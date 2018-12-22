@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/id_useIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ynn"/>
+    <LinearLayout
+        android:id="@+id/id_recorder_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/id_useIcon"
+        android:background="@drawable/chat_right_bg_focused"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/id_location_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="220dp"
+            android:lines="1"
+            android:padding="2dp"
+            android:ellipsize="end"
+            android:layout_gravity="center_vertical"
+            android:text="这是标题"
+            android:textSize="14sp"/>
+        <TextView
+            android:id="@+id/id_location_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:maxWidth="250dp"
+            android:layout_gravity="center_vertical|left"
+            android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
+            android:textSize="12sp"/>
+           <com.amap.api.maps2d.MapView
+               android:id="@+id/mapView"
+               android:layout_width="250dp"
+               android:layout_height="150dp">
+           </com.amap.api.maps2d.MapView>
+    </LinearLayout>
+
+</RelativeLayout>
+

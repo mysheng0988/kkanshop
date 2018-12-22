@@ -114,7 +114,12 @@ public class LoginActivity extends BaseActivity {
             UtilToast.showShort(this,"验证码不正确");
             return;
         }
-        shareData.setParam("userName","雾里看花");
+        if("0988".equals(id)){
+            shareData.setParam("userName","雾里看花");
+        }else {
+            shareData.setParam("userName","水中望月");
+        }
+
         shareData.setParam("phone",id);
         finish();
 

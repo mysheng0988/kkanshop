@@ -25,17 +25,7 @@ public final class Constant {
      */
     public static final int PING = 101;
     public static final int PONG = 102;
-    //文本消息
-    public static final int TEXT = 103;
-    /**
-     * 用户A将图片文件/语音文件/视频文件(非实时语音视频聊天)上传到文件存储服务器，获得一个URL
-     * 用户A通过MIMC发送多媒体消息(content=URL)给用户B
-     * 用户B接收多媒体消息(content=URL)，通过URL下载图片文件/语音文件/视频文件
-     */
-    public static final int PIC_FILE = 1040;
-    public static final int AUDIO_FILE = 1041;
-    public static final int VIDEO_FILE = 1042;
-    public static final int LOCATION_FILE = 1043;
+
 
     //已读消息，content为已读消息msgId
     public static final int TEXT_READ = 105;

@@ -9,6 +9,7 @@ import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.amap.api.maps2d.MapView;
 import com.android.volley.VolleyError;
 import com.mysheng.office.kkanshop.ImageViewer.ImageTrans;
 import com.mysheng.office.kkanshop.ImageViewer.imageload.MyImageLoad;
@@ -51,6 +54,7 @@ import com.mysheng.office.kkanshop.entity.ChatGenreBean;
 import com.mysheng.office.kkanshop.entity.ChatListModel;
 import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.entity.ChatTools;
+import com.mysheng.office.kkanshop.holder.TypeLocationViewHolder;
 import com.mysheng.office.kkanshop.listenter.MIMCUpdateChatMsg;
 import com.mysheng.office.kkanshop.permissions.RxPermissions;
 import com.mysheng.office.kkanshop.service.MIMCService;
@@ -123,6 +127,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     private String userId;
     private String token;
     private MIMCUser mimcUser;
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,8 +161,17 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                     }
             }
         });
-
-        chatAdapter=new ChatAdapter(this,mDatas,imagePath);
+        final Bundle mapViewBundle=savedInstanceState;
+        chatAdapter=new ChatAdapter(this,mDatas,imagePath){
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                super.onBindViewHolder(holder, position);
+                if(holder instanceof TypeLocationViewHolder){
+                    mapView=  ((TypeLocationViewHolder)holder).mapView;
+                    mapView.onCreate(mapViewBundle);
+                }
+            }
+        };
         chatAdapter.setItemClickListener(this);
         recyclerView.setAdapter(chatAdapter);
 
@@ -297,7 +311,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mimcService = ((MIMCService.MIMCBinder) service).getService();
-            mimcUser=mimcService.getMimcUser();
+            mimcUser=UserManager.getInstance().getUser();
             mimcUser.login();
             getHistoryChatList();
             mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
@@ -420,7 +434,6 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                             payload=Base64Utils.getFromBase64(payload);
                             Msg msg=JSON.parseObject(payload,Msg.class);
                             String fromAccount=jsonArray.getJSONObject(i).getString("fromAccount");
-                            JSONObject obj=new JSONObject(payload);
                             ChatMsg chatMsg=new ChatMsg();
                             chatMsg.setFromAccount(fromAccount);
                             chatMsg.setSingle(true);
@@ -660,18 +673,8 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
      * @param chatModel
      */
     private void sendLocation( ChatModel chatModel){
-//        chatModel.mesType=8;
-//        chatModel.setMesDate(new Date());
-//        if(isShowDate(chatModel.getMesDate())){
-//            ChatModel chatModel2=new ChatModel();
-//            chatModel2.mesType=7;
-//            chatModel2.setMesDate(new Date());
-//            chatAdapter.addModel(chatModel2);
-//        }
-//        frontMseDate=new Date();
-//        chatAdapter.addModel(chatModel);
-//        chatAdapter.notifyDataSetChanged();
-//        layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
+        UserManager userManager=UserManager.getInstance();
+        userManager.sendLocationMsg(sendUserId, chatModel.address.getBytes() ,chatModel.getLongitude(),chatModel.getLatitude(),chatModel.getTabTitle());
     }
     private void switchToTextAndAudio(){
         if(isKeyboard){
@@ -690,6 +693,8 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     @Override
     protected void onPause() {
         super.onPause();
+        if (mapView!=null)
+        mapView.onPause();
         MediaManager.pause();
     }
 
@@ -697,6 +702,8 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     protected void onResume() {
         super.onResume();
         MediaManager.resume();
+        if (mapView!=null)
+        mapView.onResume();
     }
 
     @Override
@@ -704,8 +711,14 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         super.onDestroy();
         unbindService(conn);
         MediaManager.release();
+        if (mapView!=null)
+        mapView.onDestroy();
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        mapView.onSaveInstanceState(outState);
+    }
 
     @Override
     public void onItemClick(View view, ChatGenreBean model) {
@@ -732,7 +745,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         isKeyboard=true;
         audioText.clearFocus();
         genreView.setVisibility(View.GONE);
-        if(model.getMsg().getMsgType()==Constant.AUDIO_FILE){
+        if(model.getMsg().getMsgType()==Constant.MSG_AUDIO){
             //播放动画
             if(animView != null) {
                 animView.setBackgroundResource(R.drawable.adj);

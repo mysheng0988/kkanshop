@@ -1,6 +1,7 @@
 package com.mysheng.office.kkanshop.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -15,20 +16,19 @@ import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.R;
-import com.mysheng.office.kkanshop.entity.ChatModel;
 import com.mysheng.office.kkanshop.entity.ChatTools;
+import com.mysheng.office.kkanshop.holder.BannerViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftAudioViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightLocationViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeLocationViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightAudioViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeRightVideoViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTimeViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,12 +83,12 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 RecyclerView.ViewHolder viewHolder7=new TypeTimeViewHolder(view7);
                 return viewHolder7;
             case ChatTools.RIGHT_LOCATION:
-                View view8=mLayoutInflater.inflate(R.layout.items_right_location,parent,false);
-                RecyclerView.ViewHolder viewHolder8=new TypeRightLocationViewHolder(view8);
+                View view8=mLayoutInflater.inflate(R.layout.items_right_location2,parent,false);
+                RecyclerView.ViewHolder viewHolder8=new TypeLocationViewHolder(view8);
                 return viewHolder8;
             case ChatTools.LEFT_LOCATION:
-                View view11=mLayoutInflater.inflate(R.layout.items_right_video,parent,false);
-                RecyclerView.ViewHolder viewHolder11=new TypeRightVideoViewHolder(view11);
+                View view11=mLayoutInflater.inflate(R.layout.items_left_location2,parent,false);
+                RecyclerView.ViewHolder viewHolder11=new TypeLocationViewHolder(view11);
                 return viewHolder11;
 
         }
@@ -101,7 +101,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).getMsg().getMsgLongTime());
             Log.d("mys", "onBindViewHolder: "+lp.width);
             holder.itemView.findViewById(R.id.id_recorder_length).setLayoutParams(lp);
-        }else if (holder instanceof TypeLeftImageViewHolder ||holder instanceof TypeRightImageViewHolder){
         }
 
        ((TypeAbstractViewHolder)holder).bindHolder(mList.get(position));
@@ -117,7 +116,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
 
         if (mList.get(position).getFromAccount().equals(UserManager.getInstance().getAccount())) {
-            switch (mList.get(position).getMsg().getChatMsgType()){
+            switch (mList.get(position).getMsg().getMsgType()){
                 case Constant.MSG_TEXT:
                     return ChatTools.RIGHT_TEXT;
                 case Constant.MSG_IMAGE:
@@ -130,7 +129,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return ChatTools.RIGHT_LOCATION;
             }
         }else {
-            switch (mList.get(position).getMsg().getChatMsgType()){
+            switch (mList.get(position).getMsg().getMsgType()){
                 case Constant.MSG_TEXT:
                     return ChatTools.LEFT_TEXT;
                 case Constant.MSG_IMAGE:
