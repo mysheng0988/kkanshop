@@ -18,6 +18,7 @@ import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatTools;
 import com.mysheng.office.kkanshop.holder.BannerViewHolder;
+import com.mysheng.office.kkanshop.holder.GoodsViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLeftAudioViewHolder;
@@ -70,26 +71,34 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case ChatTools.LEFT_IMAGE:
                 return new TypeLeftImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
             case ChatTools.RIGHT_IMAGE:
-                View view4=mLayoutInflater.inflate(R.layout.items_right_image,parent,false);
-                return new TypeRightImageViewHolder(view4);
+                View view2=mLayoutInflater.inflate(R.layout.items_right_image,parent,false);
+                return new TypeRightImageViewHolder(view2);
             case ChatTools.LIFT_AUDIO:
                 return new TypeLeftAudioViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
             case ChatTools.RIGHT_AUDION:
-                View view6=mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false);
-                RecyclerView.ViewHolder viewHolder6=new TypeRightAudioViewHolder(view6);
-                return viewHolder6;
+                View view3=mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false);
+                RecyclerView.ViewHolder viewHolder3=new TypeRightAudioViewHolder(view3);
+                return viewHolder3;
             case ChatTools.SEND_TIME:
-                View view7=mLayoutInflater.inflate(R.layout.item_time_layout,parent,false);
-                RecyclerView.ViewHolder viewHolder7=new TypeTimeViewHolder(view7);
-                return viewHolder7;
+                View view4=mLayoutInflater.inflate(R.layout.item_time_layout,parent,false);
+                RecyclerView.ViewHolder viewHolder4=new TypeTimeViewHolder(view4);
+                return viewHolder4;
             case ChatTools.RIGHT_LOCATION:
-                View view8=mLayoutInflater.inflate(R.layout.items_right_location2,parent,false);
-                RecyclerView.ViewHolder viewHolder8=new TypeLocationViewHolder(view8);
-                return viewHolder8;
+                View view5=mLayoutInflater.inflate(R.layout.items_right_location2,parent,false);
+                RecyclerView.ViewHolder viewHolder5=new TypeLocationViewHolder(view5);
+                return viewHolder5;
             case ChatTools.LEFT_LOCATION:
-                View view11=mLayoutInflater.inflate(R.layout.items_left_location2,parent,false);
-                RecyclerView.ViewHolder viewHolder11=new TypeLocationViewHolder(view11);
-                return viewHolder11;
+                View view6=mLayoutInflater.inflate(R.layout.items_left_location2,parent,false);
+                RecyclerView.ViewHolder viewHolder6=new TypeLocationViewHolder(view6);
+                return viewHolder6;
+            case ChatTools.RIGHT_GOODS:
+                View view7=mLayoutInflater.inflate(R.layout.items_right_goods,parent,false);
+                RecyclerView.ViewHolder viewHolder7=new GoodsViewHolder(view7);
+                return viewHolder7;
+            case ChatTools.LEFT_GOODS:
+                View view8=mLayoutInflater.inflate(R.layout.items_left_goods,parent,false);
+                RecyclerView.ViewHolder viewHolder8=new GoodsViewHolder(view8);
+                return viewHolder8;
 
         }
         return null;
@@ -124,9 +133,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 case Constant.MSG_AUDIO:
                     return ChatTools.LIFT_AUDIO;
                 case Constant.MSG_VIDEO:
-                    return ChatTools.RIAGHT_VIDEO;
+                    return ChatTools.RIGHT_VIDEO;
                 case Constant.MSG_LOCATION:
                     return ChatTools.RIGHT_LOCATION;
+                case Constant.MSG_GOODS:
+                    return ChatTools.RIGHT_GOODS;
             }
         }else {
             switch (mList.get(position).getMsg().getMsgType()){
@@ -140,6 +151,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     return ChatTools.LEFT_VIDEO;
                 case Constant.MSG_LOCATION:
                     return ChatTools.LEFT_LOCATION;
+                case Constant.MSG_GOODS:
+                    return ChatTools.LEFT_GOODS;
             }
 
         }

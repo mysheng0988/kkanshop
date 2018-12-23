@@ -238,6 +238,12 @@ public class ChatListViewActivity extends BaseActivity {
                             case Constant.MSG_VIDEO:
                                 content="[视频]";
                                 break;
+                            case Constant.MSG_LOCATION:
+                                content="[地图]";
+                                break;
+                            case Constant.MSG_GOODS:
+                                content="[商品]";
+                                break;
                         }
                         ChatListModel model=new ChatListModel();
                         model.setUnReadNum(nuReadNum);

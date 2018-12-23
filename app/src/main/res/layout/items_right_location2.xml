@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:src="@drawable/ynn"/>
+        android:src="@drawable/icon"/>
     <LinearLayout
         android:id="@+id/id_recorder_length"
         android:layout_width="wrap_content"
@@ -40,11 +40,12 @@
             android:layout_gravity="center_vertical|left"
             android:text="测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试"
             android:textSize="12sp"/>
-           <com.amap.api.maps2d.MapView
-               android:id="@+id/mapView"
-               android:layout_width="250dp"
-               android:layout_height="150dp">
-           </com.amap.api.maps2d.MapView>
+          <ImageView
+              android:id="@+id/mapView"
+              android:layout_width="250dp"
+              android:layout_height="150dp"
+              android:scaleType="centerCrop"
+              />
     </LinearLayout>
 
 </RelativeLayout>

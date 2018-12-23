@@ -7,8 +7,9 @@
     <TextView
         android:id="@+id/showTime"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:padding="5dp"
+        android:layout_height="25dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="@dimen/txt_5"
         android:background="@drawable/bg_time_radius"
         android:gravity="center"
         android:text="昨天 12:00:08"

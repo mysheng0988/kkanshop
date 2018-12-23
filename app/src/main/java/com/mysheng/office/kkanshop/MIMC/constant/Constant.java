@@ -18,6 +18,8 @@ public final class Constant {
     public static final int MSG_VIDEO=10004;
     public static final int MSG_LOCATION=10005;
     public static final int MSG_TIME=10006;
+    public static final int MSG_GOODS=10007;
+
     /**
      * 检查用户在线
      * 用户A通过MIMC发送ping给用户B

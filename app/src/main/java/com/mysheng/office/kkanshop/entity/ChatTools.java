@@ -20,10 +20,13 @@ public class ChatTools {
     public static final int SEND_TIME=7;//发送时间
     public static final int RIGHT_LOCATION=8;//右边位置
     public static final int LEFT_LOCATION=9;//左边位置
-    public static final int RIAGHT_VIDEO=10;//右边视频
+    public static final int RIGHT_VIDEO=10;//右边视频
     public static final int LEFT_VIDEO=11;//左边视频
     public static final int RIAGHT_VOICE=12;//右边实时语音
     public static final int LEFT_VOICE=13;//左边实时语音
+    public static final int LEFT_GOODS=14;//左边实时语音
+    public static final int RIGHT_GOODS=15;//左边实时语音
+
     public static String[] netImages = {
             "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg",
             "http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkqm7b0j20dw0kut9h.jpg",

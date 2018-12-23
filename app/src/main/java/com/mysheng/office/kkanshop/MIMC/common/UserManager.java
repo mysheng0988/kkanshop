@@ -252,6 +252,24 @@ public class UserManager {
         chatMsg.setSingle(true);
         addMsg(chatMsg);
     }
+    public void sendGoodsMsg(String toAppAccount, byte[] content,String title,float price){
+        Msg msg=new Msg();
+        msg.setVersion(Constant.VERSION);
+        msg.setMsgId(msg.getMsgId());
+        msg.setMsgType(Constant.MSG_GOODS);
+        msg.setFromName(fromName);
+        msg.setTimestamp(System.currentTimeMillis());
+        msg.setContent(content);
+        msg.setTabTitle(title);
+        msg.setPrice(price);
+        String json = JSON.toJSONString(msg);
+        mUser.sendMessage(toAppAccount, json.getBytes());
+        ChatMsg chatMsg = new ChatMsg();
+        chatMsg.setFromAccount(appAccount);
+        chatMsg.setMsg(msg);
+        chatMsg.setSingle(true);
+        addMsg(chatMsg);
+    }
     public void sendGroupMsg(long groupID, byte[] content, int msgType, boolean isUnlimitedGroup) {
         Msg msg = new Msg();
         if (msgType == Constant.MSG_TEXT) {

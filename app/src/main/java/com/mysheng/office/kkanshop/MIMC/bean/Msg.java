@@ -31,7 +31,7 @@ public class Msg {
     private  String fromName;
 
     @JSONField(ordinal = 8)
-    private String address;
+    private float price;
 
     @JSONField(ordinal = 9)
     private String tabTitle;
@@ -127,12 +127,12 @@ public class Msg {
         IconPath = iconPath;
     }
 
-    public String getAddress() {
-        return address;
+    public float getPrice() {
+        return price;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public String getTabTitle() {

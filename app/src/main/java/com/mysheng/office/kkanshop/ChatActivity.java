@@ -127,7 +127,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     private String userId;
     private String token;
     private MIMCUser mimcUser;
-    private MapView mapView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,16 +162,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
             }
         });
         final Bundle mapViewBundle=savedInstanceState;
-        chatAdapter=new ChatAdapter(this,mDatas,imagePath){
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-                super.onBindViewHolder(holder, position);
-                if(holder instanceof TypeLocationViewHolder){
-                    mapView=  ((TypeLocationViewHolder)holder).mapView;
-                    mapView.onCreate(mapViewBundle);
-                }
-            }
-        };
+        chatAdapter=new ChatAdapter(this,mDatas,imagePath);
         chatAdapter.setItemClickListener(this);
         recyclerView.setAdapter(chatAdapter);
 
@@ -319,6 +310,10 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
                 public void noticeNewMsg(ChatMsg chatMsg) {
                     showDateNum(chatMsg.getMsg().getTimestamp(),-1);
                     mDatas.add(chatMsg);
+                    int msgType=chatMsg.getMsg().getMsgType();
+                    if(Constant.MSG_IMAGE==msgType){
+                        imagePath.add(new String(chatMsg.getMsg().getContent()));
+                    }
                     chatAdapter.notifyDataSetChanged();
                     layoutManager.scrollToPositionWithOffset(mDatas.size()-1,0);
                 }
@@ -639,7 +634,14 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         String imagePath="http://wx1.sinaimg.cn/woriginal/daaf97d2gy1fgsxkq8uc3j20dw0ku74x.jpg";
         userManager.sendMsg(sendUserId, imagePath.getBytes(), Constant.MSG_IMAGE);
     }
-
+   private  void sendGoods(){
+       UserManager userManager=UserManager.getInstance();
+       Random random=new Random();
+       int index=random.nextInt(ChatTools.netImages.length);
+       String imagePath=ChatTools.netImages[index];
+       String mTitle="月莲2017新品大码女装风衣外套5876 3xl 新春上新品，优惠孔雀";
+       userManager.sendGoodsMsg(sendUserId, imagePath.getBytes(),mTitle,1999);
+    }
     /**
      * 发送相册图片
      */
@@ -693,17 +695,14 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     @Override
     protected void onPause() {
         super.onPause();
-        if (mapView!=null)
-        mapView.onPause();
-        MediaManager.pause();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         MediaManager.resume();
-        if (mapView!=null)
-        mapView.onResume();
+
     }
 
     @Override
@@ -711,13 +710,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         super.onDestroy();
         unbindService(conn);
         MediaManager.release();
-        if (mapView!=null)
-        mapView.onDestroy();
-    }
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        mapView.onSaveInstanceState(outState);
+
     }
 
     @Override
@@ -736,6 +729,8 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
             } else {
                 Toast.makeText(ChatActivity.this, getResources().getString(R.string.not_login), Toast.LENGTH_SHORT).show();
             }
+        }else if(model.getPosition()==5){
+            sendGoods();
         }
         genreView.setVisibility(View.GONE);
     }

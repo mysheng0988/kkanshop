@@ -75,6 +75,12 @@ public class MIMCService extends Service implements OnHandleMIMCMsgListener {
                         case Constant.MSG_VIDEO:
                             content="[视频]";
                             break;
+                        case Constant.MSG_LOCATION:
+                            content="[地图]";
+                            break;
+                        case Constant.MSG_GOODS:
+                            content="[商品]";
+                            break;
                     }
                     NotificationUtil.getInstance().sendMsg(MIMCService.this,chatMsg.getFromAccount(),
                             chatMsg.getFromAccount(), chatMsg.getMsg().getFromName()  ,content);
