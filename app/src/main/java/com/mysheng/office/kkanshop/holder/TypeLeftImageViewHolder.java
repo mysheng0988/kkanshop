@@ -42,6 +42,7 @@ public class TypeLeftImageViewHolder extends TypeAbstractViewHolder{
         Glide.with(mContentImage.getContext())
                 .load(imagePath)
                 .asBitmap()//强制Glide返回一个Bitmap对象
+                .thumbnail(0.1f)
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
