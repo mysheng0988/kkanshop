@@ -58,7 +58,7 @@ public class ChatListViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         shareData=new SharedPreferencesUtils(this);
         userId= (String) shareData.getParam("phone","");
-        startMIMCService();
+       // startMIMCService();
         setContentView(R.layout.chat_list_view);
         Log.e("mys", "onCreate: "+222);
 //        ChatListModel model=new ChatListModel();
@@ -114,6 +114,7 @@ public class ChatListViewActivity extends BaseActivity {
                         Intent intent = new Intent(ChatListViewActivity.this, ChatActivity.class);
                         Bundle bundle=new Bundle();
                         //传递name参数为tinyphp
+                        nuReadNum=0;
                         bundle.putString("sendUserId", list.get(position).getUserId());
                         bundle.putString("sendUserName", list.get(position).getUserName());
                         intent.putExtras(bundle);
@@ -172,16 +173,17 @@ public class ChatListViewActivity extends BaseActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.e("mys", "onServiceConnected: "+111);
             mimcService = ((MIMCService.MIMCBinder) service).getService();
-            mimcUser=UserManager.getInstance().getUser();
+            mimcUser=mimcService.getMIMCUser();
             mimcUser.login();
-            getUserChatList();
             mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
                 @Override
                 public void noticeNewMsg(ChatMsg chatMsg) {
                     nuReadNum++;
-                   getUserChatList();
+                    getUserChatList();
+
                 }
             });
+            getUserChatList();
         }
 
         /**
@@ -275,23 +277,27 @@ public class ChatListViewActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        Log.e("mys", "onPause: "+isBind );
+        super.onResume();
         if(!isBind){
             startMIMCService();
         }
-        super.onResume();
+
+
     }
 
     @Override
     protected void onPause() {
-        nuReadNum=0;
-        unbindService(conn);
-        isBind=false;
         super.onPause();
+        if(isBind){
+            unbindService(conn);
+        }
+        isBind=false;
+
     }
 
     @Override
     protected void onDestroy() {
+
         super.onDestroy();
 
     }

@@ -19,11 +19,11 @@ import com.mysheng.office.kkanshop.entity.ChatTools;
  * Created by myaheng on 2018/5/11.
  */
 
-public class TypeLeftImageViewHolder extends TypeAbstractViewHolder{
+public class TypeImageViewHolder extends TypeAbstractViewHolder{
     private ImageView mImageView;
     private ImageView mContentImage;
     ViewGroup.LayoutParams para;
-    public TypeLeftImageViewHolder(View itemView) {
+    public TypeImageViewHolder(View itemView) {
         super(itemView);
         mContentImage=itemView.findViewById(R.id.id_content_img);
         mImageView=itemView.findViewById(R.id.id_useIcon);
@@ -41,26 +41,8 @@ public class TypeLeftImageViewHolder extends TypeAbstractViewHolder{
         }
         Glide.with(mContentImage.getContext())
                 .load(imagePath)
-                .asBitmap()//强制Glide返回一个Bitmap对象
                 .thumbnail(0.1f)
-                .into(new SimpleTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                        int width = bitmap.getWidth();
-                        int height = bitmap.getHeight();
-                        if (width<height){
-                            para.height = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
-                            para.width = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
-                            mContentImage.setLayoutParams(para);
-
-                        }else{
-                            para.height = RxImageTool.dp2px(ChatTools.VIEW_WIDTH);
-                            para.width = RxImageTool.dp2px(ChatTools.VIEW_HEIGHT);
-                            mContentImage.setLayoutParams(para);
-                        }
-                        mContentImage.setImageBitmap(bitmap);
-                    }
-                });
+                .into(mContentImage);
     }
 
         //mImageView.setImageResource(R.drawable.ynn);//图片应该加载当前用户的头像地址

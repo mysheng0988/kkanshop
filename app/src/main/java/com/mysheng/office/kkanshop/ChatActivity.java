@@ -302,7 +302,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mimcService = ((MIMCService.MIMCBinder) service).getService();
-            mimcUser=UserManager.getInstance().getUser();
+            mimcUser=mimcService.getMIMCUser();
             mimcUser.login();
             getHistoryChatList();
             mimcService.setUpdateChatMsg(new MIMCUpdateChatMsg() {
@@ -332,6 +332,7 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
         }
     };
     private void getHistoryChatList(){
+        mDatas.clear();
         Log.e("history", "onSuccess: "+mDatas.size() );
         long statTime=endTime-24*60*60*1000;
         token=mimcUser.getToken();
@@ -702,6 +703,10 @@ public class ChatActivity extends BaseActivity implements ChatGenreViewAdapter.O
     protected void onResume() {
         super.onResume();
         MediaManager.resume();
+        endTime=System.currentTimeMillis();
+        if(mimcUser!=null)
+        getHistoryChatList();
+
 
     }
 

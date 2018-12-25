@@ -20,11 +20,11 @@ import com.mysheng.office.kkanshop.entity.ChatTools;
  * Created by myaheng on 2018/5/11.
  */
 
-public class TypeRightVideoViewHolder extends TypeAbstractViewHolder{
+public class TypeVideoViewHolder extends TypeAbstractViewHolder{
     private ImageView mImageView;
     private ImageView mContentVideo;
     ViewGroup.LayoutParams para;
-    public TypeRightVideoViewHolder(View itemView) {
+    public TypeVideoViewHolder(View itemView) {
         super(itemView);
         mContentVideo=itemView.findViewById(R.id.id_content_video);
         mImageView=itemView.findViewById(R.id.id_useIcon);

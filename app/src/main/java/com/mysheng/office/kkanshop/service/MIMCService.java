@@ -15,6 +15,7 @@ import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.mysheng.office.kkanshop.KkanApplication;
 import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.MIMC.constant.Constant;
@@ -49,13 +50,15 @@ public class MIMCService extends Service implements OnHandleMIMCMsgListener {
             super.handleMessage(msg);
             if(msg.what==100){
                 ChatMsg chatMsg= (ChatMsg) msg.obj;
-                if("ChatListViewActivity".equals(getRunningActivityName())){
+                String runningActivity=getRunningActivityName();
+                int activityCount= KkanApplication.getActivityCount();
+                if(activityCount==1&&"ChatListViewActivity".equals(runningActivity)){
                     Vibrator mVibrator=(Vibrator)getApplication().getSystemService(Service.VIBRATOR_SERVICE);
                     mVibrator.vibrate(new long[]{200,100,500,300},-1);
                     if(updateChatMsg!=null){
                         updateChatMsg.noticeNewMsg(chatMsg);
                     }
-                }else if("ChatActivity".equals(getRunningActivityName())){
+                }else if(activityCount==1&&"ChatActivity".equals(runningActivity)){
                     if(updateChatMsg!=null){
                         updateChatMsg.noticeNewMsg(chatMsg);
                     }
@@ -100,6 +103,10 @@ public class MIMCService extends Service implements OnHandleMIMCMsgListener {
 
     }
 
+
+    public MIMCUser getMIMCUser(){
+       return mimcUser;
+    }
 
     /**
      * 注册广播

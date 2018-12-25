@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/id_recorder_length"
-        android:text=""
+        android:text="7''"
         android:textColor="#FF777777" />
 </RelativeLayout>
 

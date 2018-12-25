@@ -1,34 +1,24 @@
 package com.mysheng.office.kkanshop;
-
-
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActivityManager;
+import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
-
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
-
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.igexin.sdk.PushManager;
-import com.mysheng.office.kkanshop.util.UtilToast;
-import com.mysheng.office.kkanshop.util.VolleyJsonInterface;
-import com.mysheng.office.kkanshop.util.VolleyRequest;
 
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,7 +38,7 @@ import java.util.concurrent.Executors;
  * Created by myaheng on 2018/5/14.
  */
 
-public class KkanApplication extends Application {
+public class KkanApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private static final String HASH_ALGORITHM = "MD5";
     private static final int RADIX = 10 + 26; // 10 digits + 26 letters
     public static DisplayMetrics mDisplayMetrics;
@@ -57,7 +47,7 @@ public class KkanApplication extends Application {
     public static RequestQueue queues;
     public static Context mContext;
 
-    private int mCount = 0;
+    private static int mCount = 0;
     private static final String TAG = "com.xiaomi.mimcdemo";
     @Override
     public void onCreate() {
@@ -66,6 +56,7 @@ public class KkanApplication extends Application {
         PushManager.getInstance().initialize(this.getApplicationContext(), com.mysheng.office.kkanshop.service.AppPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), com.mysheng.office.kkanshop.service.ReceiveIntentService.class);
         //CrashHandler.getInstance().init(this);//异常信息记录
+        registerActivityLifecycleCallbacks(this);
         mDisplayMetrics = getResources().getDisplayMetrics();
         cThreadPool = Executors.newFixedThreadPool(5);
         IMAGE_CACHE_PATH = getExternalCacheDir().getPath();
@@ -82,7 +73,6 @@ public class KkanApplication extends Application {
             importance = NotificationManager.IMPORTANCE_DEFAULT;
             createNotificationChannel(channelId, channelName, importance);
         }
-
     }
 
     @TargetApi(Build.VERSION_CODES.O)
@@ -202,4 +192,49 @@ public class KkanApplication extends Application {
         String destUrl = getImageCachePath() + "/" + key;
         return destUrl;
     }
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Log.d(TAG,"onActivityCreated");
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        Log.d(TAG,"onActivityStarted");
+        mCount++;
+
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        Log.d(TAG,"onActivityResumed");
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+
+        Log.d(TAG,"onActivityPaused");
+
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        Log.d(TAG,"onActivityStopped");
+        mCount--;
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        Log.d(TAG,"onActivitySaveInstanceState");
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        Log.d(TAG,"onActivityDestroyed");
+    }
+
+    public static int getActivityCount(){
+        return  mCount;
+    }
+
 }

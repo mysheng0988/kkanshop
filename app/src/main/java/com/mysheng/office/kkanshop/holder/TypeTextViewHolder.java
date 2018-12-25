@@ -13,20 +13,19 @@ import com.mysheng.office.kkanshop.entity.ChatModel;
  * Created by myaheng on 2018/5/11.
  */
 
-public class TypeLeftAudioViewHolder extends TypeAbstractViewHolder{
+public class TypeTextViewHolder extends TypeAbstractViewHolder{
     private ImageView mImageView;
-    private View mImage;
     private TextView mTextView;
-
-    public TypeLeftAudioViewHolder(View itemView) {
+    public TypeTextViewHolder(View itemView) {
         super(itemView);
-        mImage = itemView.findViewById(R.id.id_anim);
-        mImageView = itemView.findViewById(R.id.id_useIcon);
-        mTextView=itemView.findViewById(R.id.id_recorder_time);
+        mTextView=itemView.findViewById(R.id.id_content_text);
+        mImageView=itemView.findViewById(R.id.id_useIcon);
     }
     @Override
     public void bindHolder(ChatMsg model){
-            mTextView.setText(model.getMsg().getMsgLongTime()+"\"");
+
+            String content=new String(model.getMsg().getContent());
+            mTextView.setText(content);
             //mImageView.setImageResource(R.drawable.icon);//图片应该加载当前用户的头像地址
     }
 }

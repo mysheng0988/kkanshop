@@ -1,7 +1,7 @@
 package com.mysheng.office.kkanshop.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -12,23 +12,22 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.BitmapRequestBuilder;
+import com.bumptech.glide.Glide;
 import com.mysheng.office.kkanshop.MIMC.bean.ChatMsg;
+import com.mysheng.office.kkanshop.utils.ImageUtils;
 import com.mysheng.office.kkanshop.MIMC.common.UserManager;
 import com.mysheng.office.kkanshop.MIMC.constant.Constant;
 import com.mysheng.office.kkanshop.R;
 import com.mysheng.office.kkanshop.entity.ChatTools;
-import com.mysheng.office.kkanshop.holder.BannerViewHolder;
 import com.mysheng.office.kkanshop.holder.GoodsViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeAbstractViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeLeftImageViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeLeftAudioViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeLeftTextViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightImageViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeImageViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeAudioViewHolder;
+import com.mysheng.office.kkanshop.holder.TypeTextViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeLocationViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightAudioViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightTextViewHolder;
-import com.mysheng.office.kkanshop.holder.TypeRightVideoViewHolder;
 import com.mysheng.office.kkanshop.holder.TypeTimeViewHolder;
+import com.mysheng.office.kkanshop.utils.ImageUtils;
 
 import java.util.List;
 
@@ -63,49 +62,43 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType){
             case ChatTools.LEFT_TEXT:
-            return new TypeLeftTextViewHolder(mLayoutInflater.inflate(R.layout.items_left_text,parent,false));
+                View view=mLayoutInflater.inflate(R.layout.items_left_text,parent,false);
+            return new TypeTextViewHolder(view);
             case ChatTools.RIGHT_TEXT:
                 View view1=mLayoutInflater.inflate(R.layout.items_right_text,parent,false);
-                RecyclerView.ViewHolder viewHolder=new TypeRightTextViewHolder(view1);
-                return viewHolder;
+                return new TypeTextViewHolder(view1);
             case ChatTools.LEFT_IMAGE:
-                return new TypeLeftImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
+                return new TypeImageViewHolder(mLayoutInflater.inflate(R.layout.items_left_image,parent,false));
             case ChatTools.RIGHT_IMAGE:
                 View view2=mLayoutInflater.inflate(R.layout.items_right_image,parent,false);
-                return new TypeRightImageViewHolder(view2);
+                return new TypeImageViewHolder(view2);
             case ChatTools.LIFT_AUDIO:
-                return new TypeLeftAudioViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
+                return new TypeAudioViewHolder(mLayoutInflater.inflate(R.layout.items_left_recorder,parent,false));
             case ChatTools.RIGHT_AUDION:
                 View view3=mLayoutInflater.inflate(R.layout.items_right_recorder,parent,false);
-                RecyclerView.ViewHolder viewHolder3=new TypeRightAudioViewHolder(view3);
-                return viewHolder3;
+                return new TypeAudioViewHolder(view3);
             case ChatTools.SEND_TIME:
                 View view4=mLayoutInflater.inflate(R.layout.item_time_layout,parent,false);
-                RecyclerView.ViewHolder viewHolder4=new TypeTimeViewHolder(view4);
-                return viewHolder4;
+                return new TypeTimeViewHolder(view4);
             case ChatTools.RIGHT_LOCATION:
                 View view5=mLayoutInflater.inflate(R.layout.items_right_location2,parent,false);
-                RecyclerView.ViewHolder viewHolder5=new TypeLocationViewHolder(view5);
-                return viewHolder5;
+                return new TypeLocationViewHolder(view5);
             case ChatTools.LEFT_LOCATION:
                 View view6=mLayoutInflater.inflate(R.layout.items_left_location2,parent,false);
-                RecyclerView.ViewHolder viewHolder6=new TypeLocationViewHolder(view6);
-                return viewHolder6;
+                return new TypeLocationViewHolder(view6);
             case ChatTools.RIGHT_GOODS:
                 View view7=mLayoutInflater.inflate(R.layout.items_right_goods,parent,false);
-                RecyclerView.ViewHolder viewHolder7=new GoodsViewHolder(view7);
-                return viewHolder7;
+                return new GoodsViewHolder(view7);
             case ChatTools.LEFT_GOODS:
                 View view8=mLayoutInflater.inflate(R.layout.items_left_goods,parent,false);
-                RecyclerView.ViewHolder viewHolder8=new GoodsViewHolder(view8);
-                return viewHolder8;
+                return new GoodsViewHolder(view8);
 
         }
         return null;
     }
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        if(holder instanceof TypeLeftAudioViewHolder ||holder instanceof TypeRightAudioViewHolder){
+        if(holder instanceof TypeAudioViewHolder){
             RelativeLayout.LayoutParams lp= (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.id_recorder_length).getLayoutParams();
             lp.width= (int) (mMinItemWidth + (mMaxItemWidth / 60f)*mList.get(position).getMsg().getMsgLongTime());
             Log.d("mys", "onBindViewHolder: "+lp.width);
