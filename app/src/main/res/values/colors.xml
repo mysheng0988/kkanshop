@@ -13,6 +13,7 @@
     <color name="text">#3D3D3D</color>
     <color name="blue_text">#0033FF</color>
     <color name="gray_dialog">#bfbfbf</color>
+    <color name="dialog_bg">#bc000000</color>
 
     <!--zxing-->
     <color name="contents_text">#000000</color>

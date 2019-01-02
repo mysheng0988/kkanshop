@@ -61,7 +61,6 @@
         android:name=".KkanApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="false"
         android:theme="@style/AppTheme">
         <meta-data android:name="com.amap.api.v2.apikey" android:value="3042e3daa335142d4f90d61c46a0bc98"/>
         <provider
@@ -123,7 +122,8 @@
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.ShareLocationActivity">
         </activity>
-        <activity android:name="com.mysheng.office.kkanshop.DescribeActivity">
+        <activity android:name="com.mysheng.office.kkanshop.DescribeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
         <activity android:name="com.mysheng.office.kkanshop.SupermarketActivity">
         </activity>

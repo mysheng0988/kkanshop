@@ -50,6 +50,12 @@
             app:scroll_speed="4"
             app:scroll_mode="mode_forever" />
     </LinearLayout>
+    <com.mysheng.office.kkanshop.customVideoPlayer.NiceVideoPlayer
+        android:id="@+id/niceVideoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/commonRecycler"
         android:layout_margin="2dp"
